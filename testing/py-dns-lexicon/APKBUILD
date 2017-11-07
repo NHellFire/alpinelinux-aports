@@ -1,0 +1,52 @@
+# Contributor: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+# Maintainer: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+pkgname=py-dns-lexicon
+_pkgname=dns-lexicon
+pkgver=2.1.11
+pkgrel=0
+pkgdesc="Manipulate DNS records on various DNS providers in a standard way"
+url="https://pypi.python.org/pypi/dns-lexicon"
+arch="noarch"
+license="MIT"
+depends="py-requests py-tldextract py-future"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	python2 setup.py build || return 1
+	python3 setup.py build || return 1
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py() {
+	local python=$1
+	pkgdesc="$pkgdesc - $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+sha512sums="addd324d81335ce146427d8418533d2aaf591123c82418d77ff037c24c8bc61e84690e933debc95b909ba44f4c7091b646133bb1a0a6129b18f7f527b1654330  dns-lexicon-2.1.11.tar.gz"
