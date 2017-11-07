@@ -1,0 +1,52 @@
+# Contributor: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+# Maintainer: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+pkgname=py-tldextract
+_pkgname=tldextract
+pkgver=2.2.0
+pkgrel=0
+pkgdesc="Accurately separate the TLD from the registered domain and subdomains of a URL"
+url="https://pypi.python.org/pypi/tldextract"
+arch="noarch"
+license="BSD"
+depends="py-idna py-requests py-requests-file py-argparse"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	python2 setup.py build || return 1
+	python3 setup.py build || return 1
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py() {
+	local python=$1
+	pkgdesc="$pkgdesc - $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+sha512sums="25a8c3d2ce27bd54dea211fb3999caeb487840172a8b707b43e6c27729f247306cc0596f156e70f3039771f84f92112921c17873128d4597dbc8785e2d4de8d3  tldextract-2.2.0.tar.gz"
