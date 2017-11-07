@@ -2,7 +2,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=certbot
 pkgver=0.19.0
-pkgrel=0
+pkgrel=1
 pkgdesc="An ACME client that can update Apache/Nginx configurations"
 url="https://github.com/certbot/certbot"
 arch="noarch"
@@ -16,9 +16,35 @@ depends="py-setuptools py-mock py-acme py-configargparse py-configobj
 # so they get pulled in when bootstrapping.
 _depends_acme="py-setuptools py-cryptography py-ndg_httpsclient py-asn1 py-openssl
 	py-tz py-rfc3339 py-requests py-six py-werkzeug"
+# Webserver plugins
+_depends_apache="$pkgname py-setuptools py-mock py-acme py-augeas py-zope-interface
+	py-zope-component"
+_depends_nginx="$pkgname py-setuptools py-mock py-acme py-openssl py-zope-interface"
+
+# DNS authenticator plugins
+_depends_cloudflare="$pkgname py-setuptools py-mock py-acme py-cloudflare"
+_depends_cloudxns="$pkgname py-setuptools py-mock py-acme py-dns-lexicon py-zope-interface"
+_depends_digitalocean="$pkgname py-setuptools py-mock py-acme py-digitalocean py-six
+	py-zope-interface"
+_depends_dnsimple="$pkgname py-setuptools py-mock py-acme py-dns-lexicon py-zope-interface"
+_depends_dnsmadeeasy="$pkgname py-setuptools py-mock py-acme py-dns-lexicon
+	py-zope-interface"
+_depends_nsone="$pkgname py-setuptools py-mock py-acme py-google-api py-oauth2client
+	py-zope-interface"
+_depends_luadns="$pkgname py-setuptools py-mock py-acme py-dns-lexicon py-zope-interface"
+_depends_nsone="$pkgname py-setuptools py-mock py-acme py-dns-lexicon py-zope-interface"
+_depends_rfc2136="$pkgname py-setuptools py-mock py-acme py-dnspython py-zope-interface"
+_depends_route53="$pkgname py-setuptools py-mock py-acme py-boto3 py-zope-interface"
+
 replaces="letsencrypt"
-makedepends="$depends_dev $_depends_acme"
-subpackages="py-acme:acme"
+makedepends="$depends_dev $_depends_acme $_depends_apache $_depends_nginx $_depends_cloudflare
+	$_depends_cloudxns $_depends_digitalocean $_depends_dnsimple $_depends_dnsmadeeasy
+	$_depends_nsone $_depends_luadns $_depends_nsone $_depends_rfc2136
+	$_depends_route53"
+subpackages="py-acme:acme $pkgname-apache $pkgname-nginx $pkgname-dns-cloudflare
+	$pkgname-dns-cloudxns $pkgname-dns-digitalocean $pkgname-dnsimple
+	$pkgname-dns-dnsmadeeasy $pkgname-dns-google $pkgname-dns-luadns
+	$pkgname-dns-nsone $pkgname-dns-rfc2136 $pkgname-dns-route53"
 source="certbot-$pkgver.tar.gz::https://github.com/certbot/certbot/archive/v$pkgver.tar.gz"
 builddir="$srcdir"/$pkgname-$pkgver
 
@@ -41,6 +67,102 @@ acme() {
 	pkgdesc="ACME protocol implementation for Python"
 	depends="$_depends_acme"
 	cd "$builddir"/acme
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+apache() {
+	pkgdesc="Apache plugin for certbot"
+	depends="$_depends_apache"
+	cd "$builddir"/certbot-apache
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+nginx() {
+	pkgdesc="Nginx plugin for certbot"
+	depends="$_depends_nginx"
+	cd "$builddir"/certbot-nginx
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+cloudflare() {
+	pkgdesc="Cloudflare DNS authenticator plugin for certbot"
+	depends="$_depends_cloudflare"
+	cd "$builddir"/certbot-dns-cloudflare
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+cloudxns() {
+	pkgdesc="CloudXNS DNS authenticator plugin for certbot"
+	depends="$_depends_cloudxns"
+	cd "$builddir"/certbot-dns-cloudxns
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+digitalocean() {
+	pkgdesc="DigitalOcean DNS authenticator plugin for certbot"
+	depends="$_depends_digitalocean"
+	cd "$builddir"/certbot-dns-digitalocean
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+dnsimple() {
+	pkgdesc="DNSimple DNS authenticator plugin for certbot"
+	depends="$_depends_dnsimple"
+	cd "$builddir"/certbot-dns-dnsimple
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+dnsmadeeasy() {
+	pkgdesc="DNS Made Easy DNS authenticator plugin for certbot"
+	depends="$_depends_dnsmadeeasy"
+	cd "$builddir"/certbot-dns-dnsmadeeasy
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+google() {
+	pkgdesc="Google Cloud DNS authenticator plugin for certbot"
+	depends="$_depends_google"
+	cd "$builddir"/certbot-dns-google
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+luadns() {
+	pkgdesc="LuaDNS DNS authenticator plugin for certbot"
+	depends="$_depends_luadns"
+	cd "$builddir"/certbot-dns-luadns
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+nsone() {
+	pkgdesc="NS1 DNS authenticator plugin for certbot"
+	depends="$_depends_nsone"
+	cd "$builddir"/certbot-dns-nsone
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+rfc2136() {
+	pkgdesc="RFC 2136 DNS authenticator plugin for certbot"
+	depends="$_depends_rfc2136"
+	cd "$builddir"/certbot-dns-rfc2136
+	python2 setup.py build
+	python2 setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+route53() {
+	pkgdesc="Amazon Route 53 DNS authenticator plugin for certbot"
+	depends="$_depends_route53"
+	cd "$builddir"/certbot-dns-route53
 	python2 setup.py build
 	python2 setup.py install --prefix=/usr --root="$subpkgdir"
 }
