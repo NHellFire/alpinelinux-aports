@@ -1,0 +1,52 @@
+# Contributor: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+# Maintainer: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+pkgname=py-cloudflare
+_pkgname=cloudflare
+pkgver=1.8.1
+pkgrel=0
+pkgdesc="Python wrapper for the Cloudflare v4 API"
+url="https://pypi.python.org/pypi/cloudflare"
+arch="noarch"
+license="MIT"
+depends="py-future py-requests py-yaml"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	python2 setup.py build || return 1
+	python3 setup.py build || return 1
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py() {
+	local python=$1
+	pkgdesc="$pkgdesc - $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+sha512sums="8f5ab93e77f83c6f7dc04abfb7468056beded740cdda15af7f4ce9521d6c010956650872db207487e9cd36a8752ee6871e85e54ce7017f425bc5f8167d7f973b  cloudflare-1.8.1.tar.gz"
