@@ -1,0 +1,52 @@
+# Contributor: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+# Maintainer: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+pkgname=py-digitalocean
+_pkgname=python-digitalocean
+pkgver=1.12
+pkgrel=0
+pkgdesc="digitalocean.com API to manage Droplets and Images"
+url="https://pypi.python.org/pypi/python-digitalocean"
+arch="noarch"
+license="LGPL3"
+depends="py-requests"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	python2 setup.py build || return 1
+	python3 setup.py build || return 1
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py() {
+	local python=$1
+	pkgdesc="$pkgdesc - $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+sha512sums="60985bbf8cd5cc29bd287558a44e869e3a7471efe31d0f8795589c9c4e966d1ea281a6a33d4fb1eaf9b39237f6bc556c0ca8ed3b6620fa49f21dad801392d07d  python-digitalocean-1.12.tar.gz"
