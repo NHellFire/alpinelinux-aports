@@ -1,0 +1,52 @@
+# Contributor: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+# Maintainer: Nathan Rennie-Waldock <nathan.renniewaldock@gmail.com>
+pkgname=py-requests-file
+_pkgname=requests-file
+pkgver=1.4.2
+pkgrel=0
+pkgdesc="Transport adapter for fetching file:// URLs with the requests library"
+url="https://pypi.python.org/pypi/requests-file"
+arch="noarch"
+license="ASL 2.0"
+depends="py-requests py-six"
+makedepends="python2-dev python3-dev py-setuptools"
+subpackages="py3-${pkgname/py-/}:_py3 py2-${pkgname/py-/}:_py2"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	cd "$builddir"
+	python2 setup.py build || return 1
+	python3 setup.py build || return 1
+}
+
+check() {
+	cd "$builddir"
+	python2 setup.py check
+	python3 setup.py check
+}
+
+package() {
+	mkdir -p "$pkgdir"
+}
+
+_py() {
+	local python=$1
+	pkgdesc="$pkgdesc - $python"
+	install_if="$pkgname=$pkgver-r$pkgrel $python"
+	cd "$builddir"
+	$python setup.py install --prefix=/usr --root="$subpkgdir"
+}
+
+_py2() {
+	depends="${depends//py-/py2-}"
+	_py python2
+}
+
+_py3() {
+	depends="${depends//py-/py3-}"
+	_py python3
+}
+
+sha512sums="6e92f48e89168f84eb9c5d3690dbc05edfdcf9cf7556355466bccf947815ff8752af972ca737d9af36425f590e8f50ac31a7e8c3c429e3c3d9bea26ce5c9da42  requests-file-1.4.2.tar.gz"
