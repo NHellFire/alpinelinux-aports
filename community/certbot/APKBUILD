@@ -50,7 +50,20 @@ builddir="$srcdir"/$pkgname-$pkgver
 
 check() {
 	cd "$builddir"
-	python2 setup.py check
+
+	msg "Testing $pkgname"
+	python2 setup.py test
+
+
+	for i in acme $pkgname-apache $pkgname-nginx $pkgname-dns-cloudflare \
+		$pkgname-dns-cloudxns $pkgname-dns-digitalocean $pkgname-dns-dnsimple \
+		$pkgname-dns-dnsmadeeasy $pkgname-dns-google $pkgname-dns-luadns \
+		$pkgname-dns-nsone $pkgname-dns-rfc2136 $pkgname-dns-route53; do
+
+		msg "Testing $i"
+		cd "$builddir/$i"
+		python2 setup.py test
+	done
 }
 
 build() {
