@@ -42,7 +42,7 @@ makedepends="$depends_dev $_depends_acme $_depends_apache $_depends_nginx $_depe
 	$_depends_nsone $_depends_luadns $_depends_nsone $_depends_rfc2136
 	$_depends_route53"
 subpackages="py-acme:acme $pkgname-apache $pkgname-nginx $pkgname-dns-cloudflare
-	$pkgname-dns-cloudxns $pkgname-dns-digitalocean $pkgname-dnsimple
+	$pkgname-dns-cloudxns $pkgname-dns-digitalocean $pkgname-dns-dnsimple
 	$pkgname-dns-dnsmadeeasy $pkgname-dns-google $pkgname-dns-luadns
 	$pkgname-dns-nsone $pkgname-dns-rfc2136 $pkgname-dns-route53"
 source="certbot-$pkgver.tar.gz::https://github.com/certbot/certbot/archive/v$pkgver.tar.gz"
