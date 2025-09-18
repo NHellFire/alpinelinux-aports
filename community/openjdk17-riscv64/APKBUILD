@@ -64,6 +64,9 @@ _java_home="usr/lib/jvm/java-17-openjdk"
 ldpath="/$_java_home/lib:/$_java_home/lib/server"
 sonameprefix="$pkgname:"
 
+# Should we archive the boot compiler?
+_create_miniboot=${_create_miniboot:-0}
+
 # enable running the JTReg tests in check?
 # see comment in that function for explanation
 _run_jtreg=${_run_jtreg:-0}
@@ -262,6 +265,10 @@ build() {
 	# in rare cases the build hangs
 	MAKEFLAGS='' timeout 5h make jdk-image
 	MAKEFLAGS='' make static-libs-image
+
+	if [ $_create_miniboot -ne 0 ]; then
+		create_miniboot
+	fi
 }
 
 check() {
@@ -412,6 +419,38 @@ _jdk() {
 	mv "$_fromroot/bin" "$_toroot"
 	mv "$_fromroot/lib" "$_toroot"
 	mv "$_fromroot/include" "$_toroot"
+}
+
+create_miniboot() {
+	(
+		cat <<-'EOF'
+			bin/jar
+			bin/java
+			bin/javac
+			bin/javadoc
+			conf/security/java.security
+			lib/ct.sym
+			lib/jspawnhelper
+			lib/jvm.cfg
+			lib/libawt.so
+			lib/libawt_headless.so
+			lib/libjava.so
+			lib/libjimage.so
+			lib/libjli.so
+			lib/libnet.so
+			lib/libnio.so
+			lib/libverify.so
+			lib/libzip.so
+			lib/modules
+			lib/server/libjvm.so
+			lib/tzdb.dat
+		EOF
+	) | tar -C "$builddir"/build/linux-*-$_jvm_variants-release/images/jdk \
+		-zcf "$startdir/openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz" \
+		--transform 's|^|bootjdk/|' \
+		--numeric-owner --owner=0 --group=0 -T -
+
+	echo "Boot JDK exported to openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz"
 }
 
 sha512sums="
