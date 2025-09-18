@@ -79,8 +79,13 @@ esac
 
 case $CARCH in
 x86|x86_64|aarch64)
-	_configure_jfr="--enable-jfr";;
-*)	_configure_jfr="--disable-jfr";;
+	_configure_jfr="--enable-jfr"
+	_with_jfr=yes
+;;
+*)
+	_configure_jfr="--disable-jfr"
+	_with_jfr=no
+;;
 esac
 
 _java_home="usr/lib/jvm/java-1.8-openjdk"
@@ -506,7 +511,12 @@ jdk() {
 
 create_miniboot() {
 	(
-		cat <<-'EOF'
+		_jfr_jar=jre/lib/jfr.jar
+		if [ "$_with_jfr" = "no" ]; then
+			_jfr_jar=
+		fi
+
+		cat <<-EOF
 			bin/jar
 			bin/java
 			bin/javac
@@ -517,23 +527,23 @@ create_miniboot() {
 			jre/lib/charsets.jar
 			jre/lib/currency.data
 			jre/lib/jce.jar
-			jre/lib/jfr.jar
+			$_jfr_jar
 			jre/lib/jsse.jar
-			jre/lib/*/jvm.cfg
-			jre/lib/*/libawt.so
-			jre/lib/*/libawt_headless.so
-			jre/lib/*/libjava.so
-			jre/lib/*/libnet.so
-			jre/lib/*/libnio.so
-			jre/lib/*/libverify.so
-			jre/lib/*/libzip.so
-			jre/lib/*/server/libjvm.so
+			jre/lib/$CARCH/jvm.cfg
+			jre/lib/$CARCH/libawt.so
+			jre/lib/$CARCH/libawt_headless.so
+			jre/lib/$CARCH/libjava.so
+			jre/lib/$CARCH/libnet.so
+			jre/lib/$CARCH/libnio.so
+			jre/lib/$CARCH/libverify.so
+			jre/lib/$CARCH/libzip.so
+			jre/lib/$CARCH/server/libjvm.so
 			jre/lib/resources.jar
 			jre/lib/rt.jar
 			jre/lib/security/java.security
 			jre/lib/tzdb.dat
 			lib/ct.sym
-			lib/*/jli/libjli.so
+			lib/$CARCH/jli/libjli.so
 			lib/tools.jar
 		EOF
 	) | tar -C "$builddir"/openjdk.build-boot/images/j2sdk-image \
