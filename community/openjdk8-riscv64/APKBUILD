@@ -1,3 +1,5 @@
+_bootver=8.452.09-r0
+_bootarch=riscv64
 # Contributor: Timo Teras <timo.teras@iki.fi>
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Timo Teras <timo.teras@iki.fi>
@@ -62,7 +64,11 @@ loongarch64)
 	makedepends_build="$makedepends_build $pkgname-loongarch"
 	;;
 *)
-	makedepends_build="$makedepends_build openjdk$_majorver-bootstrap"
+	# We're using the miniboot archive for our native build
+	# as we don't yet have a package
+	if [ "$CBUILD" != "$CHOST" ]; then
+		makedepends_build="$makedepends_build openjdk$_majorver-bootstrap"
+	fi
 	;;
 esac
 
@@ -107,6 +113,7 @@ _dropsurl="https://icedtea.classpath.org/download/drops/icedtea8/$_dropsver"
 
 source="https://icedtea.classpath.org/download/source/icedtea-$_icedteaver.tar.xz
 	openjdk-$_dropsver.tar.xz::$_dropsurl/openjdk-git.tar.xz
+	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/latest/openjdk-$_bootver-miniboot-$_bootarch.tgz
 
 	disable-crypto-test-when-cross.patch
 
@@ -364,6 +371,11 @@ build() {
 		;;
 	esac
 
+	_with_jdk_home=
+	if [ "$CBUILD" = "$CHOST" ]; then
+		_with_jdk_home="--with-jdk-home=$srcdir/bootjdk"
+	fi
+
 	bash ./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -384,7 +396,8 @@ build() {
 		--with-pkgversion="Alpine $pkgver-r$pkgrel" \
 		--with-curves="nist+" \
 		--enable-nss \
-		$_configure_jfr
+		$_configure_jfr \
+		$_with_jdk_home
 
 	local _make_target=
 	if [ "$CBUILD" != "$CTARGET" ]; then
@@ -564,6 +577,7 @@ create_miniboot() {
 sha512sums="
 3e997c8d2aa414fab1929c0dd8ff586950bc653a574b929e5c34b6e01bea1af9259b2c9548e9187dc2b2e3e0358ffe991c460cff7a2efc33c7aa66a6812c0804  icedtea-3.35.0.tar.xz
 a57081a2fdfcd7fff2203d82d5c4edd6e3fd7b2fcfd5ef5471173073b93bd75dfdf67b20b2cece6c4b3a249f911ba74fbdf5e08c53ef5501cf1600c54208d7ce  openjdk-3.35.0.tar.xz
+a3de0e28ac0d10f511046ac1560855826520a6869fd101c2ca018655f1fc22c3a57312fcba8db85de18919c6524b8d60153ded38151fc6d23a42485990c469a1  openjdk-8.452.09-r0-miniboot-riscv64.tgz
 b9166b7199278207d09582b7460fb6b453be84cbe9700cf0d49578547b32a1fc1bc0dd8d4d308039ebf4884a6c4f5896aab19ea3b43247f4deb475483f7440d9  disable-crypto-test-when-cross.patch
 28709285390a997adbd56ebda42ef718fbc08daf572b8568f484436d255514f9d25f033e3333dff8aa352fc9846057ac5bb42fa955d3e5e44eddc96dc273c07c  icedtea-hotspot-musl.patch
 e6fff8ab886f42006ad5c210f46e82a3a4c0b654edecc4764a0d20f0e5dc81138c2c5181b034095b93f94b5aa96b7e5068f42bafa283809f6fe9d2c8655d64d7  icedtea-hotspot-musl-ppc.patch
