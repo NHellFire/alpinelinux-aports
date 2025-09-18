@@ -1,3 +1,5 @@
+_bootver=17.0.16_p8-r0
+_bootarch=riscv64
 # Contributor: Simon Frankenberger <simon-alpine@fraho.eu>
 # Maintainer: Simon Frankenberger <simon-alpine@fraho.eu>
 pkgname=openjdk17-riscv64
@@ -11,7 +13,6 @@ url="https://github.com/openjdk/jdk17u"
 arch="riscv64"
 license="GPL-2.0-with-classpath-exception"
 makedepends_build="
-	openjdk$_majorver-bootstrap
 	autoconf
 	bash
 	gawk
@@ -19,6 +20,11 @@ makedepends_build="
 	make
 	zip
 	"
+# We're using the miniboot archive for our native build
+# as we don't yet have a package
+if [ "$CBUILD" != "$CHOST" ]; then
+	makedepends_build="$makedepends_build openjdk$_majorver-bootstrap"
+fi
 makedepends_host="
 	alsa-lib-dev
 	cups-dev
@@ -50,6 +56,7 @@ subpackages="$pkgname-jmods:_jmods:noarch
 	"
 source="jdk-$_pkgver.tar.gz::https://github.com/openjdk/jdk17u/archive/jdk-$_pkgver.tar.gz
 	gtest-1.13.0.tar.gz::https://github.com/google/googletest/archive/v1.13.0.tar.gz
+	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/latest/openjdk-$_bootver-miniboot-$_bootarch.tgz
 	ppc64le.patch
 	riscv64.patch
 "
@@ -219,6 +226,11 @@ build() {
 	export CFLAGS="$CFLAGS -O3"
 	export CXXFLAGS="$CXXFLAGS -O3"
 
+	_with_boot_jdk=
+	if [ "$CBUILD" = "$CHOST" ]; then
+		_with_boot_jdk="--with-boot-jdk=$srcdir/bootjdk --with-build-jdk=$srcdir/bootjdk"
+	fi
+
 	# CFLAGS, CXXFLAGS and LDFLAGS are ignored as shown by a warning
 	# in the output of ./configure unless used like such:
 	#  --with-extra-cflags="$CFLAGS"
@@ -261,7 +273,8 @@ build() {
 		--with-vendor-name="Alpine" \
 		--with-vendor-url="https://alpinelinux.org/" \
 		--with-vendor-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues" \
-		--with-vendor-vm-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues"
+		--with-vendor-vm-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues" \
+		$_with_boot_jdk
 	# in rare cases the build hangs
 	MAKEFLAGS='' timeout 5h make jdk-image
 	MAKEFLAGS='' make static-libs-image
@@ -456,6 +469,7 @@ create_miniboot() {
 sha512sums="
 df6cf32fa5884a004c1edc8de6fac9210efb740dd962860d415e97cfd3d2a232f19210c3d7fc21d1248e3424a160ca9e087db92c509eb79e815aeec0a40f212c  jdk-17.0.16-ga.tar.gz
 70c0cfb1b4147bdecb467ecb22ae5b5529eec0abc085763213a796b7cdbd81d1761d12b342060539b936fa54f345d33f060601544874d6213fdde79111fa813e  gtest-1.13.0.tar.gz
+9f07555d5ab2330bbfc9399c8128947460dac948dea94ef31172512f6b20731126d25febbd7a2aa25af2dffbed7bdd4809e96796e2d39cdf22a60ca57f3a828f  openjdk-17.0.16_p8-r0-miniboot-riscv64.tgz
 007e643039af096e77e491ccba821596c7e96b80d9821a7fbe4a78ca3f013c5e771956461d82505c26b0ca3ab06699877f398833db459e2442c0c51f71fee361  ppc64le.patch
 99030039fda63c945fd8063cce7a29b61c5201f7ddfc6082bc87aceb64288d07d07b4b5a7cf631d942168216b80f9a61f5044dee8bcbb08494a78e0e4db70d8a  riscv64.patch
 "
