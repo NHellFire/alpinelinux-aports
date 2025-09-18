@@ -118,6 +118,7 @@ source="https://icedtea.classpath.org/download/source/icedtea-$_icedteaver.tar.x
 	icedtea-jdk-disable-vfork.patch
 	icedtea-JDK-6515172.patch
 	icedtea-issue13032.patch
+	icedtea-riscv64.patch
 	"
 builddir="$srcdir/icedtea-$_icedteaver"
 
@@ -523,4 +524,5 @@ cd464dcbb01d54c7eb30013631b16612817b1fd63df384c0cff116980ad950a71c54fcc0916ef183
 c70fee8f1a10c155494ab9c6e55e979d8a3e23f12358ffe9de2029ae15feff361957f1aa43af43c90ecf00523f92e3333b40311a8d0c132ebd456486cb85ed8a  icedtea-jdk-disable-vfork.patch
 ac01a54e918e2f335c60968f77ed9b8303ce79c17a5058622d7572e01e7890c7b72215ddc8bb8df200b3fcdea10899061eae3b14472a4d6cd495976cf0c05954  icedtea-JDK-6515172.patch
 e1bca07aa1a25258ee9c8e9870f8d475db788bab1a354c5458196012aaf20fba8b3968b646d18792ab7135e9b75cbebafc53fda176166bc6ddfd13e4a43b1c8d  icedtea-issue13032.patch
+ef6a9951cc2e82c8ed21024ec28d36972bcfd7d6a1635782671f2b5eb64992b5bf1d28b06630fc4e1cb09594552d9bb0ad244947c12b5b7b696ebcd3aa3fdc7f  icedtea-riscv64.patch
 "
