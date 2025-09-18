@@ -6,6 +6,7 @@ _icedteaver=3.35.0
 # pkgver is <JDK version>.<JDK update>.<JDK build>
 # Check https://icedtea.classpath.org/wiki/Main_Page when updating!
 pkgver=8.452.09
+_majorver=${pkgver%%.*}
 pkgrel=0
 pkgdesc="OpenJDK 8 provided by IcedTea"
 url="https://icedtea.classpath.org/"
@@ -57,11 +58,13 @@ loongarch64)
 	makedepends="$makedepends $pkgname-loongarch"
 	;;
 *)
-	makedepends="$makedepends $pkgname-bootstrap"
+	makedepends="$makedepends openjdk$_majorver-bootstrap"
 	;;
 esac
 
-provides="$pkgname-bootstrap=$pkgver-r$pkgrel"
+provides="$pkgname-bootstrap=$pkgver-r$pkgrel
+	openjdk$_majorver-bootstrap=$pkgver-r$pkgrel"
+provider_priority=$((_majorver + 1))
 
 case $CARCH in
 	x86)	_jarch=i386;;
