@@ -63,6 +63,9 @@ _java_home="/usr/lib/jvm/java-11-openjdk"
 ldpath="$_java_home/lib:$_java_home/lib/jli:$_java_home/lib/server"
 sonameprefix="$pkgname:"
 
+# Should we archive the boot compiler?
+_create_miniboot=${_create_miniboot:-0}
+
 # enable running the JTReg tests in check?
 # see comment in that function for explanation
 _run_jtreg=${_run_jtreg:-0}
@@ -351,6 +354,10 @@ build() {
 		--with-vendor-vm-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues"
 	# in rare cases the build hangs
 	MAKEFLAGS='' timeout 7200 make images
+
+	if [ $_create_miniboot -ne 0 ]; then
+		create_miniboot
+	fi
 }
 
 check() {
@@ -496,6 +503,40 @@ _jdk() {
 	mv "$_fromroot/bin" "$_toroot"
 	mv "$_fromroot/lib" "$_toroot"
 	mv "$_fromroot/include" "$_toroot"
+}
+
+create_miniboot() {
+	(
+		cat <<-'EOF'
+			bin/jar
+			bin/java
+			bin/javac
+			bin/javadoc
+			bin/jlink
+			bin/jmod
+			conf/security/java.security
+			lib/ct.sym
+			lib/jli/libjli.so
+			lib/jspawnhelper
+			lib/jvm.cfg
+			lib/libawt.so
+			lib/libawt_headless.so
+			lib/libjava.so
+			lib/libjimage.so
+			lib/libnet.so
+			lib/libnio.so
+			lib/libverify.so
+			lib/libzip.so
+			lib/modules
+			lib/server/libjvm.so
+			lib/tzdb.dat
+		EOF
+	) | tar -C "$builddir"/build/linux-*-$_jvm_variants-release/images/jdk \
+		-zcf "$startdir/openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz" \
+		--transform 's|^|bootjdk/|' \
+		--numeric-owner --owner=0 --group=0 -T -
+
+	echo "Boot JDK exported to openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz"
 }
 
 sha512sums="
