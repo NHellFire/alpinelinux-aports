@@ -12,7 +12,7 @@ url="https://github.com/openjdk/jdk17u"
 # riscv64: unsupported
 arch="all !x86 !armhf !armv7 !riscv64"
 license="GPL-2.0-with-classpath-exception"
-makedepends="
+makedepends_build="
 	openjdk$_majorver-bootstrap
 	autoconf
 	bash
@@ -20,6 +20,8 @@ makedepends="
 	grep
 	make
 	zip
+	"
+makedepends_host="
 	alsa-lib-dev
 	cups-dev
 	elfutils-dev
