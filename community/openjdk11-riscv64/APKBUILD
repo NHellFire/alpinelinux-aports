@@ -1,3 +1,5 @@
+_bootver=11.0.28_p6-r0
+_bootarch=riscv64
 # Contributor: Simon Frankenberger <simon-alpine@fraho.eu>
 # Maintainer: Simon Frankenberger <simon-alpine@fraho.eu>
 pkgname=openjdk11-riscv64
@@ -11,7 +13,6 @@ url="https://github.com/openjdk/jdk11u"
 arch="riscv64"
 license="GPL-2.0-with-classpath-exception"
 makedepends_build="
-	openjdk$_majorver-bootstrap
 	autoconf
 	bash
 	gawk
@@ -20,6 +21,12 @@ makedepends_build="
 	zip
 	zlib-dev
 	"
+# We're using the miniboot archive for our native build
+# as we don't yet have a package
+if [ "$CBUILD" != "$CHOST" ]; then
+	makedepends_build="$makedepends_build openjdk$_majorver-bootstrap"
+fi
+
 makedepends_host="
 	alsa-lib-dev
 	cups-dev
@@ -48,6 +55,7 @@ subpackages="$pkgname-jmods:_jmods:noarch
 	$pkgname-jre-headless:_jre_headless
 	$pkgname-jdk:_jdk"
 source="jdk-$_pkgver.tar.gz::https://github.com/openjdk/jdk11u/archive/jdk-$_pkgver.tar.gz
+	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/latest/openjdk-$_bootver-miniboot-$_bootarch.tgz
 	lfs64.patch
 	ppc64le.patch
 	JDK-8267908.patch
@@ -318,6 +326,11 @@ build() {
 	# cc1plus: warning: command-line option '-std=gnu17' is valid for C/ObjC but not for C++
 	export CFLAGS="$CFLAGS -std=gnu17"
 
+	_with_boot_jdk=
+	if [ "$CBUILD" = "$CHOST" ]; then
+		_with_boot_jdk="--with-boot-jdk=$srcdir/bootjdk --with-build-jdk=$srcdir/bootjdk"
+	fi
+
 	# CFLAGS, CXXFLAGS and LDFLAGS are ignored as shown by a warning
 	# in the output of ./configure unless used like such:
 	#  --with-extra-cflags="$CFLAGS"
@@ -358,7 +371,8 @@ build() {
 		--with-vendor-name="Alpine" \
 		--with-vendor-url="https://alpinelinux.org/" \
 		--with-vendor-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues" \
-		--with-vendor-vm-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues"
+		--with-vendor-vm-bug-url="https://gitlab.alpinelinux.org/alpine/aports/issues" \
+		$_with_boot_jdk
 	# in rare cases the build hangs
 	MAKEFLAGS='' timeout 7200 make images
 
@@ -548,6 +562,7 @@ create_miniboot() {
 
 sha512sums="
 01d166fa8a4914c402a340409096530ab6313f5850d13b866ba354e02343a8b567bccee563b1d8b9b4ac5101f16d31c73a6549e21a96dd306da4b644d4609f89  jdk-11.0.28-ga.tar.gz
+8bf3143138c634d0bbf3e8c87e37b0a19eb4e1bd558a124c3d53c37bb7b65de967fea0a71a25c3f2578001c037eb1421de4a4597ca1d7a5f525d526b8c3df820  openjdk-11.0.28_p6-r0-miniboot-riscv64.tgz
 438c6c4c760b7aece90a8e09d5edce842286071195cffe8d417208f3dfdef0953eb68fb8282d44cbd7ac8eeaee637cdb040c06ffa5381c36f47ffd48b5e6d938  lfs64.patch
 e8d2213b5995bc0811f9a0036a9794150568ff9de4e202674e218ece7996553b1f222cff43dd21222c378f4f95a1471da25859b5a82ee496ed64df85f34ff199  ppc64le.patch
 b0963e5b6dc4d6cec0670827e0a0691d65e44587a8912ac9110aeb36d7f2d07a8afe9e155ea1568fe1534c09ef3277aeca8a66bbf155354b5cdc6e2b9636b5b4  JDK-8267908.patch
