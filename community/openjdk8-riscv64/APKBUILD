@@ -504,6 +504,44 @@ jdk() {
 		$_java_home/include
 }
 
+create_miniboot() {
+	(
+		cat <<-'EOF'
+			bin/jar
+			bin/java
+			bin/javac
+			bin/javah
+			bin/javap
+			bin/native2ascii
+			bin/rmic
+			jre/lib/charsets.jar
+			jre/lib/currency.data
+			jre/lib/jce.jar
+			jre/lib/jfr.jar
+			jre/lib/jsse.jar
+			jre/lib/*/jvm.cfg
+			jre/lib/*/libawt.so
+			jre/lib/*/libawt_headless.so
+			jre/lib/*/libjava.so
+			jre/lib/*/libnet.so
+			jre/lib/*/libnio.so
+			jre/lib/*/libverify.so
+			jre/lib/*/libzip.so
+			jre/lib/*/server/libjvm.so
+			jre/lib/resources.jar
+			jre/lib/rt.jar
+			jre/lib/security/java.security
+			jre/lib/tzdb.dat
+			lib/ct.sym
+			lib/*/jli/libjli.so
+			lib/tools.jar
+		EOF
+	) | tar -C "$builddir"/openjdk.build-boot/images/j2sdk-image \
+		-zcf "openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz" \
+		--transform 's|^|bootjdk/|' \
+		--numeric-owner --owner=0 --group=0 -T -
+}
+
 sha512sums="
 3e997c8d2aa414fab1929c0dd8ff586950bc653a574b929e5c34b6e01bea1af9259b2c9548e9187dc2b2e3e0358ffe991c460cff7a2efc33c7aa66a6812c0804  icedtea-3.35.0.tar.xz
 a57081a2fdfcd7fff2203d82d5c4edd6e3fd7b2fcfd5ef5471173073b93bd75dfdf67b20b2cece6c4b3a249f911ba74fbdf5e08c53ef5501cf1600c54208d7ce  openjdk-3.35.0.tar.xz
