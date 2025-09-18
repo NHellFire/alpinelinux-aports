@@ -3,6 +3,7 @@
 pkgname=openjdk11-riscv64
 pkgver=11.0.28_p6
 _pkgver=${pkgver%_p*}-ga
+_majorver=${pkgver%%.*}
 pkgrel=0
 pkgdesc="Oracle OpenJDK 11"
 provider_priority=11
@@ -12,7 +13,7 @@ url="https://github.com/openjdk/jdk11u"
 arch="all !x86 !armhf !armv7 !riscv64"
 license="GPL-2.0-with-classpath-exception"
 makedepends_build="
-	$pkgname-bootstrap
+	openjdk$_majorver-bootstrap
 	autoconf
 	bash
 	gawk
@@ -55,7 +56,9 @@ source="jdk-$_pkgver.tar.gz::https://github.com/openjdk/jdk11u/archive/jdk-$_pkg
 "
 builddir="$srcdir/jdk11u-jdk-$_pkgver"
 
-provides="$pkgname-bootstrap=$pkgver-r$pkgrel"
+provides="$pkgname-bootstrap=$pkgver-r$pkgrel
+	openjdk$_majorver-bootstrap=$pkgver-r$pkgrel"
+provider_priority=$((_majorver + 1))
 
 _java_home="/usr/lib/jvm/java-11-openjdk"
 
