@@ -311,6 +311,13 @@ build() {
 		;;
 	esac
 
+	# gcc 15 workaround
+	# https://bugs.openjdk.org/browse/JDK-8356144
+	# set to gcc 14 standards
+	# This will give lots of annoying warnings as somewhere it calls CXX with CFLAGS:
+	# cc1plus: warning: command-line option '-std=gnu17' is valid for C/ObjC but not for C++
+	export CFLAGS="$CFLAGS -std=gnu17"
+
 	# CFLAGS, CXXFLAGS and LDFLAGS are ignored as shown by a warning
 	# in the output of ./configure unless used like such:
 	#  --with-extra-cflags="$CFLAGS"
