@@ -210,9 +210,9 @@ build() {
 		local ccache="--enable-ccache"
 	fi
 
-	export CFLAGS="$CFLAGS -Wno-format -Wno-error=format-security"
-	export CXXFLAGS="$CXXFLAGS -Wno-format -Wno-error=format-security"
-	export CPPFLAGS="$CPPFLAGS -Wno-format -Wno-error=format-security"
+	export CFLAGS="$CFLAGS -Wno-format -Wno-format-security"
+	export CXXFLAGS="$CXXFLAGS -Wno-format -Wno-format-security"
+	export CPPFLAGS="$CPPFLAGS -Wno-format -Wno-format-security"
 
 	# we want to build hotspot with better optimisations; it's set to this
 	# (prepended) anyway, and it's huge
