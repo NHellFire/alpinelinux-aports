@@ -79,6 +79,7 @@ esac
 _jvm_variants=server
 case $CTARGET_ARCH in
 loongarch64)   _jvm_variants=zero      ;;
+riscv64)       _jvm_variants=zero      ;;
 *)             _jvm_variants=server    ;;
 esac
 
