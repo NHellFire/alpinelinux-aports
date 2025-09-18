@@ -8,9 +8,7 @@ pkgrel=0
 pkgdesc="Oracle OpenJDK 11"
 provider_priority=11
 url="https://github.com/openjdk/jdk11u"
-# 32-bit: needs patches
-# riscv64: unsupported
-arch="all !x86 !armhf !armv7 !riscv64"
+arch="riscv64"
 license="GPL-2.0-with-classpath-exception"
 makedepends_build="
 	openjdk$_majorver-bootstrap
@@ -82,6 +80,7 @@ esac
 _jvm_variants=server
 case $CTARGET_ARCH in
 loongarch64)   _jvm_variants=zero      ;;
+riscv64)       _jvm_variants=zero      ;;
 *)             _jvm_variants=server    ;;
 esac
 
