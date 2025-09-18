@@ -1,0 +1,24 @@
+diff -ur icedtea-3.35.0.orig/Makefile.am icedtea-3.35.0/Makefile.am
+--- icedtea-3.35.0.orig/Makefile.am	2025-09-03 16:24:41.685000000 +0100
++++ icedtea-3.35.0/Makefile.am	2025-09-03 16:25:14.488000000 +0100
+@@ -1800,7 +1800,7 @@
+ 	rm -f stamps/add-tzdata-support-boot.stamp
+ 
+ stamps/check-crypto-boot.stamp: stamps/cryptocheck.stamp stamps/icedtea-boot.stamp
+-	if [ -e $(BUILD_BOOT_SDK_DIR)/bin/java ] ; then \
++	if [ "$(build_triplet)" = "$(target_triplet)" ] && [ -e $(BUILD_BOOT_SDK_DIR)/bin/java ] ; then \
+ 	  $(BUILD_BOOT_SDK_DIR)/bin/java -cp $(CRYPTO_CHECK_BUILD_DIR) TestCryptoLevel ; \
+ 	fi
+ 	mkdir -p stamps
+diff -ur icedtea-3.35.0.orig/Makefile.in icedtea-3.35.0/Makefile.in
+--- icedtea-3.35.0.orig/Makefile.in	2025-09-03 16:24:20.178000000 +0100
++++ icedtea-3.35.0/Makefile.in	2025-09-03 16:25:47.242000000 +0100
+@@ -2378,7 +2378,7 @@
+ 	rm -f stamps/add-tzdata-support-boot.stamp
+ 
+ stamps/check-crypto-boot.stamp: stamps/cryptocheck.stamp stamps/icedtea-boot.stamp
+-	if [ -e $(BUILD_BOOT_SDK_DIR)/bin/java ] ; then \
++	if [ "$(build_triplet)" = "$(target_triplet)" ] && [ -e $(BUILD_BOOT_SDK_DIR)/bin/java ] ; then \
+ 	  $(BUILD_BOOT_SDK_DIR)/bin/java -cp $(CRYPTO_CHECK_BUILD_DIR) TestCryptoLevel ; \
+ 	fi
+ 	mkdir -p stamps

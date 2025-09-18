@@ -100,6 +100,8 @@ _dropsurl="https://icedtea.classpath.org/download/drops/icedtea8/$_dropsver"
 source="https://icedtea.classpath.org/download/source/icedtea-$_icedteaver.tar.xz
 	openjdk-$_dropsver.tar.xz::$_dropsurl/openjdk-git.tar.xz
 
+	disable-crypto-test-when-cross.patch
+
 	icedtea-hotspot-musl.patch
 	icedtea-hotspot-musl-ppc.patch
 	icedtea-hotspot-noagent-musl.patch
@@ -356,6 +358,7 @@ build() {
 	bash ./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
+		--target=$CTARGET \
 		--prefix="/$_java_home" \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man \
@@ -373,8 +376,16 @@ build() {
 		--with-curves="nist+" \
 		--enable-nss \
 		$_configure_jfr
+
+	local _make_target=
+	if [ "$CBUILD" != "$CTARGET" ]; then
+		# Only need stage1 as stage2 will be built with
+		# stage1 which we can't run
+		_make_target=icedtea-stage1
+	fi
+
 	# in rare cases the build hangs
-	timeout 5h make JOBS="${JOBS:-2}"
+	timeout 5h make JOBS="${JOBS:-2}" $_make_target
 }
 
 # TODO: Run tests or at least try to compile and run hello world.
@@ -389,7 +400,11 @@ package() {
 
 	mkdir -p "$pkgdir"/$_java_home
 
-	cp -a openjdk.build/images/j2sdk-image/* "$pkgdir"/$_java_home/
+	if [ "$CBUILD" != "$CTARGET" ]; then
+		cp -a openjdk.build-boot/images/j2sdk-image/* "$pkgdir"/$_java_home/
+	else
+		cp -a openjdk.build/images/j2sdk-image/* "$pkgdir"/$_java_home/
+	fi
 	rm "$pkgdir"/$_java_home/src.zip
 
 	# This archive contains absolute paths from the build environment,
@@ -491,6 +506,7 @@ jdk() {
 sha512sums="
 3e997c8d2aa414fab1929c0dd8ff586950bc653a574b929e5c34b6e01bea1af9259b2c9548e9187dc2b2e3e0358ffe991c460cff7a2efc33c7aa66a6812c0804  icedtea-3.35.0.tar.xz
 a57081a2fdfcd7fff2203d82d5c4edd6e3fd7b2fcfd5ef5471173073b93bd75dfdf67b20b2cece6c4b3a249f911ba74fbdf5e08c53ef5501cf1600c54208d7ce  openjdk-3.35.0.tar.xz
+b9166b7199278207d09582b7460fb6b453be84cbe9700cf0d49578547b32a1fc1bc0dd8d4d308039ebf4884a6c4f5896aab19ea3b43247f4deb475483f7440d9  disable-crypto-test-when-cross.patch
 28709285390a997adbd56ebda42ef718fbc08daf572b8568f484436d255514f9d25f033e3333dff8aa352fc9846057ac5bb42fa955d3e5e44eddc96dc273c07c  icedtea-hotspot-musl.patch
 e6fff8ab886f42006ad5c210f46e82a3a4c0b654edecc4764a0d20f0e5dc81138c2c5181b034095b93f94b5aa96b7e5068f42bafa283809f6fe9d2c8655d64d7  icedtea-hotspot-musl-ppc.patch
 19459dbb922f5a71cd15b53199481498626a783c24f91d2544d55b7dddd2cdb34a64bbf0226b99548612dd1743af01b3f9ff32c30abbbc90ce727ca2dbbbd1f9  icedtea-hotspot-noagent-musl.patch
