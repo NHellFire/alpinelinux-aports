@@ -88,6 +88,9 @@ x86|x86_64|aarch64)
 ;;
 esac
 
+# Should we archive the boot compiler?
+_create_miniboot=${_create_miniboot:-0}
+
 _java_home="usr/lib/jvm/java-1.8-openjdk"
 _jrelib="/$_java_home/jre/lib/$_jarch"
 
@@ -392,6 +395,10 @@ build() {
 
 	# in rare cases the build hangs
 	timeout 5h make JOBS="${JOBS:-2}" $_make_target
+
+	if [ $_create_miniboot -ne 0 ]; then
+		create_miniboot
+	fi
 }
 
 # TODO: Run tests or at least try to compile and run hello world.
@@ -547,9 +554,11 @@ create_miniboot() {
 			lib/tools.jar
 		EOF
 	) | tar -C "$builddir"/openjdk.build-boot/images/j2sdk-image \
-		-zcf "openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz" \
+		-zcf "$startdir/openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz" \
 		--transform 's|^|bootjdk/|' \
 		--numeric-owner --owner=0 --group=0 -T -
+
+	echo "Boot JDK exported to openjdk-$pkgver-r$pkgrel-miniboot-$CTARGET_ARCH.tgz"
 }
 
 sha512sums="
