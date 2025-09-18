@@ -13,24 +13,32 @@ url="https://icedtea.classpath.org/"
 arch="riscv64"
 license="custom"
 options="sover-namecheck"
-makedepends="
-	alsa-lib-dev
-	attr-dev
+makedepends_build="
 	autoconf
 	automake
 	bash
 	ca-certificates
 	coreutils
-	cups-dev
 	file
 	findutils
-	fontconfig-dev
-	freetype-dev
 	gawk
-	giflib-dev
-	gtk+2.0-dev
 	java-cacerts
 	java-common
+	libxslt
+	sed
+	util-linux
+	xz
+	zip
+	"
+
+makedepends_host="
+	alsa-lib-dev
+	attr-dev
+	cups-dev
+	fontconfig-dev
+	freetype-dev
+	giflib-dev
+	gtk+2.0-dev
 	jpeg-dev
 	krb5-dev
 	lcms2-dev
@@ -38,27 +46,23 @@ makedepends="
 	libxcomposite-dev
 	libxinerama-dev
 	libxrender-dev
-	libxslt
 	libxt-dev
 	libxtst-dev
 	linux-headers
 	lksctp-tools-dev
+	musl-dev
 	nss-dev
 	pcsc-lite-dev
-	sed
-	util-linux
-	xz
-	zip
 	zlib-dev
 	"
 
 # https://gitlab.alpinelinux.org/alpine/aports/-/issues/17327
 case "$CARCH" in
 loongarch64)
-	makedepends="$makedepends $pkgname-loongarch"
+	makedepends_build="$makedepends_build $pkgname-loongarch"
 	;;
 *)
-	makedepends="$makedepends openjdk$_majorver-bootstrap"
+	makedepends_build="$makedepends_build openjdk$_majorver-bootstrap"
 	;;
 esac
 
