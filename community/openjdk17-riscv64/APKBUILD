@@ -56,7 +56,7 @@ subpackages="$pkgname-jmods:_jmods:noarch
 	"
 source="jdk-$_pkgver.tar.gz::https://github.com/openjdk/jdk17u/archive/jdk-$_pkgver.tar.gz
 	gtest-1.13.0.tar.gz::https://github.com/google/googletest/archive/v1.13.0.tar.gz
-	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/latest/openjdk-$_bootver-miniboot-$_bootarch.tgz
+	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/openjdk/openjdk-$_bootver-miniboot-$_bootarch.tgz
 	ppc64le.patch
 	riscv64.patch
 "

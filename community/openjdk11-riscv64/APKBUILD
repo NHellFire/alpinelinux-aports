@@ -55,7 +55,7 @@ subpackages="$pkgname-jmods:_jmods:noarch
 	$pkgname-jre-headless:_jre_headless
 	$pkgname-jdk:_jdk"
 source="jdk-$_pkgver.tar.gz::https://github.com/openjdk/jdk11u/archive/jdk-$_pkgver.tar.gz
-	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/latest/openjdk-$_bootver-miniboot-$_bootarch.tgz
+	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/openjdk/openjdk-$_bootver-miniboot-$_bootarch.tgz
 	lfs64.patch
 	ppc64le.patch
 	JDK-8267908.patch

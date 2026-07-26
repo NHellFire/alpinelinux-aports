@@ -113,7 +113,7 @@ _dropsurl="https://icedtea.classpath.org/download/drops/icedtea8/$_dropsver"
 
 source="https://icedtea.classpath.org/download/source/icedtea-$_icedteaver.tar.xz
 	openjdk-$_dropsver.tar.xz::$_dropsurl/openjdk-git.tar.xz
-	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/latest/openjdk-$_bootver-miniboot-$_bootarch.tgz
+	https://github.com/NHellFire/alpine-bootstrap-riscv64/releases/download/openjdk/openjdk-$_bootver-miniboot-$_bootarch.tgz
 
 	disable-crypto-test-when-cross.patch
 
