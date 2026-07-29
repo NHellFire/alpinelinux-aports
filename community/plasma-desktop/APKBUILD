@@ -2,22 +2,22 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-desktop
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="KDE Plasma Desktop"
 # armhf blocked by qt6-qtdeclarative
-# s390x: tests fail
-arch="all !armhf !s390x"
-url='https://kde.org/plasma-desktop/'
+arch="all !armhf"
+url="https://kde.org/plasma-desktop/"
 license="GPL-2.0-only AND LGPL-2.1-only"
 depends="
 	accountsservice
 	font-noto-emoji
-	ibus-emoji
 	kirigami
 	kirigami-addons
 	plasma-workspace
+	plasma5support
 	qqc2-desktop-style
+	qt6-qtlocation
 	setxkbmap
 	xdg-user-dirs
 	"
@@ -28,6 +28,7 @@ makedepends="
 	extra-cmake-modules
 	fontconfig-dev
 	ibus-dev
+	intltool
 	kauth-dev
 	kcmutils-dev
 	kcodecs-dev
@@ -76,7 +77,7 @@ checkdepends="
 case "$CARCH" in
 	# x86, armv7 temporarily removed from the list due to missing
 	# libQt6WebEngineQuick.so.6 required by signon-ui
-	x86_64|aarch64)
+	x86_64|aarch64|ppc64le)
 		makedepends="$makedepends kaccounts-integration-dev"
 		;;
 esac
@@ -90,13 +91,14 @@ subpackages="
 	$pkgname-dbg
 	$pkgname-doc
 	$pkgname-lang
+	$pkgname-systemd
+	$pkgname-openrc
 	knetattach
 	sddm-breeze:sddm_breeze
 	"
 _repo_url="https://invent.kde.org/plasma/plasma-desktop.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/plasma-desktop-$pkgver.tar.xz
 	sddm.conf
-	org.kde.timezone.rules
 	"
 
 build() {
@@ -111,16 +113,20 @@ check() {
 	local tests="kcm-keyboard-keyboard_memory_persister_test"
 
 	case "$CARCH" in
+		# FolderModelTest::tst_multiScreenDifferenPath:
+		# Compared values are not the same, Actual: 0, Expected: 10
+		loongarch64|riscv64) tests="$tests|foldermodeltest" ;;
+	esac
+	case "$CARCH" in
+		x86) tests="$tests|foldermodeltest" ;;
 		aarch64) tests="$tests|tst_calibration" ;;
-		riscv64|loongarch64|ppc64le) tests="$tests|tst_calibrationtool" ;;
+		riscv64|loongarch64|ppc64le|s390x) tests="$tests|tst_calibrationtool" ;;
 	esac
 	dbus-run-session wlheadless-run -- ctest --test-dir build -E "$tests"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	install -Dm644 "$srcdir"/org.kde.timezone.rules "$pkgdir"/usr/share/polkit-1/rules.d/org.kde.timezone.rules
 }
 
 knetattach() {
@@ -144,8 +150,14 @@ sddm_breeze() {
 	install -Dm644 "$srcdir"/sddm.conf "$subpkgdir"/etc/sddm.conf
 }
 
+openrc() {
+	install_if="$pkgname openrc"
+	depends="openrc-settingsd"
+
+	mkdir -p "$subpkgdir"
+}
+
 sha512sums="
-8bbce62c722886061225463e84b35f2faecc0daea3f89006ec049efc76942abe11397d3f621278bf82934346f2920d4323322482cc20ef323c4ea5a0b4f19099  plasma-desktop-6.4.5.tar.xz
+0ee64b44181951cc19c296e2632da270db27d03b3dc462b53ba3512c066abc5085c0a6e71ac399094bde2daf39d290a7ad22e618b18810de1bd5347261230f03  plasma-desktop-6.7.3.tar.xz
 affbeec6d236bf09ae95b7bf478015ead9b5eabcffa8291107e34463bc3f7563c01d4e444e035b7eb575700e64c4da9f5079950b254b8c24b305845f031eb17f  sddm.conf
-1bada9221c309583111c7bcdbc841b771e682957023eefd8b921a9848e19aee27071316aac9cbb712a26ec657c0b024e459e09001efe654d9e72a6d99fe9ee76  org.kde.timezone.rules
 "

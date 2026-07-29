@@ -1,7 +1,7 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=apt
-pkgver=3.1.5
+pkgver=3.2.0
 pkgrel=0
 pkgdesc="APT package management tool"
 url="https://salsa.debian.org/apt-team/apt"
@@ -18,6 +18,7 @@ makedepends="
 	dpkg-dev
 	eudev-dev
 	gettext-dev
+	linux-headers
 	lz4-dev
 	openssl-dev
 	samurai
@@ -37,9 +38,7 @@ subpackages="
 	$pkgname-lang
 	$pkgname-bash-completion
 	"
-source="https://salsa.debian.org/apt-team/apt/-/archive/$pkgver/apt-$pkgver.tar.bz2
-	fix-basename.patch
-	"
+source="https://salsa.debian.org/apt-team/apt/-/archive/$pkgver/apt-$pkgver.tar.bz2"
 options="!check" # todo
 
 build() {
@@ -79,6 +78,5 @@ package() {
 }
 
 sha512sums="
-d21e13cdfbee5a7ed8abebea429581ad0373c9e64e1b14d56fb6fb1bf464c766735ba3afd43e94ff4707fbd916142cd148b45f04f810bf633da438010d84f7b9  apt-3.1.5.tar.bz2
-27d7e1516915bbae025c4c943c7427421662e7c3bee8f1821565ac3cd823e8a823c4ac99efb9cc9a27e338c73b49e2628f0a88c5c2c1d2e935b1c89b9209d18c  fix-basename.patch
+3c23723f1b50d874e73029159064c3c6af986431fdc394d1f6e0f9c183f99d3f595cc3fb80f77a74a8bfb45f34609a9125b811fac18c5627786f967ea1b247f3  apt-3.2.0.tar.bz2
 "

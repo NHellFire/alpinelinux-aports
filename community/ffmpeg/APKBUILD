@@ -3,8 +3,8 @@
 # Contributor: Jakub Skrzypnik <j.skrzypnik@openmailbox.org>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=ffmpeg
-pkgver=7.1.1
-pkgrel=1
+pkgver=8.1.2
+pkgrel=0
 pkgdesc="Complete and free Internet live audio and video broadcasting solution for Linux/Unix"
 url="https://ffmpeg.org/"
 arch="all"
@@ -19,12 +19,14 @@ makedepends="
 	freetype-dev
 	fribidi-dev
 	harfbuzz-dev
-	imlib2-dev
 	ladspa-dev
 	lame-dev
 	libass-dev
 	libbluray-dev
 	libdrm-dev
+	libdvdnav-dev
+	libdvdread-dev
+	libjxl-dev
 	libopenmpt-dev
 	libplacebo-dev
 	librist-dev
@@ -45,6 +47,7 @@ makedepends="
 	perl-dev
 	pulseaudio-dev
 	rav1e-dev
+	shaderc-dev
 	sdl2-dev
 	soxr-dev
 	v4l-utils-dev
@@ -68,17 +71,38 @@ subpackages="
 	$pkgname-libavfilter
 	$pkgname-libavformat
 	$pkgname-libavutil
-	$pkgname-libpostproc
 	$pkgname-libswresample
 	$pkgname-libswscale
 	$pkgname-libs
 	"
 source="https://ffmpeg.org/releases/ffmpeg-$pkgver.tar.xz
 	add-av_stream_get_first_dts-for-chromium.patch
+	posix-ioctl.patch
 	"
 options="!check" # tests/data/hls-lists.append.m3u8 fails
 
 # secfixes:
+#   8.1.2-r0:
+#     - CVE-2026-8461
+#   8.0-r0:
+#     - CVE-2023-6602
+#     - CVE-2023-6604
+#     - CVE-2023-6605
+#     - CVE-2025-0518
+#     - CVE-2025-1373
+#     - CVE-2025-1594
+#     - CVE-2025-1816
+#     - CVE-2025-22919
+#     - CVE-2025-22920
+#     - CVE-2025-25471
+#     - CVE-2025-59728
+#     - CVE-2025-59729
+#     - CVE-2025-59730
+#     - CVE-2025-59731
+#     - CVE-2025-59732
+#     - CVE-2025-59733
+#     - CVE-2025-59734
+#     - CVE-2025-59734
 #   7.1.1-r0:
 #     - CVE-2023-49501
 #     - CVE-2023-49502
@@ -105,6 +129,7 @@ options="!check" # tests/data/hls-lists.append.m3u8 fails
 #   6.0.1-r0:
 #     - CVE-2023-47342
 #   6.0-r0:
+#     - CVE-2022-3964
 #     - CVE-2022-3965
 #   5.1-r1:
 #     - ALPINE-14094
@@ -203,18 +228,9 @@ x86|armhf|armv7)
 esac
 
 case "$CARCH" in
-s390x)
-	;;
-*)
-	makedepends="$makedepends libjxl-dev"
-	_jxl="--enable-libjxl"
-	;;
-esac
-
-case "$CARCH" in
 x86_64)
-	makedepends="$makedepends onevpl-dev"
-	_onevpl="--enable-libvpl"
+	makedepends="$makedepends libvpl-dev"
+	_libvpl="--enable-libvpl"
 	;;
 esac
 
@@ -237,10 +253,13 @@ build() {
 		--enable-libbluray \
 		--enable-libdav1d \
 		--enable-libdrm \
+		--enable-libdvdnav \
+		--enable-libdvdread \
 		--enable-libfontconfig \
 		--enable-libfreetype \
 		--enable-libfribidi \
 		--enable-libharfbuzz \
+		--enable-libjxl \
 		--enable-libmp3lame \
 		--enable-libopenmpt \
 		--enable-libopus \
@@ -248,6 +267,7 @@ build() {
 		--enable-libpulse \
 		--enable-librav1e \
 		--enable-librist \
+		--enable-libshaderc \
 		--enable-libsoxr \
 		--enable-libsrt \
 		--enable-libssh \
@@ -268,7 +288,6 @@ build() {
 		--enable-lv2 \
 		--enable-openssl \
 		--enable-pic \
-		--enable-postproc \
 		--enable-pthreads \
 		--enable-shared \
 		--enable-vaapi \
@@ -276,10 +295,9 @@ build() {
 		--enable-version3 \
 		--enable-vulkan \
 		--optflags="-O3" \
-		$_jxl \
 		$asm \
 		$_svt_av1 \
-		$_onevpl
+		$_libvpl
 	make
 	${CC:-gcc} -o tools/qt-faststart $CFLAGS $LDFLAGS tools/qt-faststart.c
 }
@@ -334,12 +352,6 @@ libavutil() {
 	amove usr/lib/libavutil.so.*
 }
 
-libpostproc() {
-	pkgdesc="$pkgdesc (libpostproc library)"
-
-	amove usr/lib/libpostproc.so.*
-}
-
 libswresample() {
 	pkgdesc="$pkgdesc (libswresample library)"
 
@@ -362,7 +374,6 @@ libs() {
 		$pkgname-libavfilter=$pkgver-r$pkgrel
 		$pkgname-libavformat=$pkgver-r$pkgrel
 		$pkgname-libavutil=$pkgver-r$pkgrel
-		$pkgname-libpostproc=$pkgver-r$pkgrel
 		$pkgname-libswresample=$pkgver-r$pkgrel
 		$pkgname-libswscale=$pkgver-r$pkgrel
 		"
@@ -374,6 +385,7 @@ ffplay() {
 }
 
 sha512sums="
-42486e485c8fc6f3ec61598a1a7cb40360535762b3fcf28c10d7c6840bc55afe3334434912746e69eef862d3cedf45a02953bde73d38547d2d9a7a38a65e123a  ffmpeg-7.1.1.tar.xz
+b3adc16fe426217bb607da01c4137cee0a9788fc08e077874336db185d2b7287746a7dc94cf0181ea92cd8afcdb06094ee9456e2986112354f84538cb9a5ed0b  ffmpeg-8.1.2.tar.xz
 0c2284bc053c92478ce6e3665e03273cb93926534c6f927eb60e060c7770c68dca12724853adbcac03c4a58df81f2de938d54e82f43c7e789d345bed872ffc69  add-av_stream_get_first_dts-for-chromium.patch
+790b3ea796855f0572531eec8bb436f8ae2b894e29ea7fa2bf7fcddbbc1a58da5c403b366bc116729b92da54ca6d74c82df3bb71c5069e41ae8540a38f7151ae  posix-ioctl.patch
 "

@@ -1,7 +1,7 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=cue-cli
-pkgver=0.14.0
-pkgrel=2
+pkgver=0.16.0
+pkgrel=3
 pkgdesc="CLI for CUE configuration and validation language"
 url="https://cuelang.org/"
 arch="all"
@@ -13,17 +13,12 @@ subpackages="
 	$pkgname-zsh-completion
 	"
 options="net" # download Go modules
-source="$pkgname-$pkgver.tar.gz::https://github.com/cue-lang/cue/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/cue-lang/cue/archive/refs/tags/v$pkgver.tar.gz
+	fix-test-ppc64le.patch"
 builddir="$srcdir/cue-$pkgver"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
-	go build -v -o bin/cue \
-		-ldflags "-X cuelang.org/go/cmd/cue/cmd.version=v$pkgver" \
-		./cmd/cue/
+	go build -v -o bin/cue ./cmd/cue/
 
 	for shell in bash fish zsh; do
 		./bin/cue completion $shell > cue.$shell
@@ -35,7 +30,7 @@ check() {
 	# (the test expects `git VCS not found in any parents of ".+"` message in stderr)
 	unset GOTMPDIR
 
-	go test ./...
+	go test -timeout 30m ./...
 }
 
 package() {
@@ -50,5 +45,6 @@ package() {
 }
 
 sha512sums="
-41afb824555e3996242af5f4f347de636ec870a5c603670c90dd42d0154fcc3ad4aedcefe78f5abfb05376d2e6f8e87c219acb829d2f972778ca42736bbb58ab  cue-cli-0.14.0.tar.gz
+2bb7b5417d5ec8ec32e5905ea01e8eecc481eb0e338591059e01fd1baefcd213a475950e40042694c74fe28369d3dc540f6ce6bf4dd4fc149600657d166284a9  cue-cli-0.16.0.tar.gz
+add64a27eeb446a67a8f8604205e340c6973ab59ece7c9f46af4fd273dc8b8cc63d9ecf1590ab946fdf2de62d0935ad15cd03d269babb8adc7707ae5ccd05350  fix-test-ppc64le.patch
 "

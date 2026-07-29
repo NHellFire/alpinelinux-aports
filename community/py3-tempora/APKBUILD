@@ -1,6 +1,6 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-tempora
-pkgver=5.8.1
+pkgver=5.12.0
 pkgrel=0
 pkgdesc="Objects and routines pertaining to date and time (tempora)"
 url="https://github.com/jaraco/tempora"
@@ -8,10 +8,12 @@ arch="noarch"
 license="MIT"
 depends="
 	py3-dateutil
+	py3-jaraco.collections
 	py3-jaraco.functools
 	py3-tz
 	"
 makedepends="
+	py3-flit
 	py3-gpep517
 	py3-setuptools_scm
 	py3-wheel
@@ -47,5 +49,5 @@ package() {
 
 
 sha512sums="
-d53c44f613c6897b3fee09a4e127e261bfc1b63373b0465fce6d8cc21f9fd38a45c1c32ed33acc23a32f1959ca1b88f9377af4b8267ede2a6504a64e208f9d15  tempora-5.8.1.tar.gz
+3dc04ca741a86aeae6c0b6d465bf95bcfe41b7fc1c328fd1ad00df9af567d93dcf81b1a8f3953f043739e6cbaef7c9660a14c899db16a3ed8c636a69d01dca55  tempora-5.12.0.tar.gz
 "

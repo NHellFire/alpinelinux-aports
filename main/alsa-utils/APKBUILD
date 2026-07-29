@@ -1,26 +1,39 @@
 # Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=alsa-utils
-pkgver=1.2.14
-pkgrel=2
+pkgver=1.2.16
+pkgrel=0
 pkgdesc="Advanced Linux Sound Architecture (ALSA) utilities"
 url="https://alsa-project.org/"
 arch="all"
 options="!check"  # No test suite, applets use ncurses / don't have --version
 license="GPL-2.0-or-later"
-makedepends="alsa-lib-dev fftw-dev ncurses-dev pciutils-dev xmlto"
+makedepends="
+	alsa-lib-dev
+	autoconf
+	automake
+	fftw-dev
+	gettext-dev
+	libtool
+	ncurses-dev
+	pciutils-dev
+	xmlto
+	"
 depends="dialog alsa-ucm-conf"
-subpackages="$pkgname-dbg alsaconf::noarch $pkgname-doc $pkgname-openrc"
+subpackages="$pkgname-dbg alsaconf::noarch $pkgname-doc $pkgname-openrc $pkgname-systemd $pkgname-udev"
 source="https://alsa-project.org/files/pub/utils/alsa-utils-$pkgver.tar.bz2
 	alsaconf.patch
 	alsa.initd
 	alsa.confd
 	musl-locale.patch
 	musl-types.patch
+
+	329.patch
 	"
+
 prepare() {
 	default_prepare
-	update_config_sub
+	autoreconf -vfi
 }
 
 build() {
@@ -30,7 +43,8 @@ build() {
 		--prefix=/usr \
 		--disable-nls \
 		--with-alsactl-lock-dir=/run/lock \
-		--with-udev-rules-dir=/usr/lib/udev/rules.d
+		--with-udev-rules-dir=/usr/lib/udev/rules.d \
+		--with-systemdsystemunitdir=/usr/lib/systemd/system
 	make
 }
 
@@ -47,10 +61,11 @@ alsaconf() {
 }
 
 sha512sums="
-dd470a2f5210822cc4d3ded094b84721a07904df5c32dd329e0cb4c052d39e3e6d7ddb511cde2d23b3f6824c71fba9dbdca369355d5c03b234e989dbbb9b7a95  alsa-utils-1.2.14.tar.bz2
+288c042f5acb8a7cf1b0a0c25327c74e0bce126124253bdb2d0dc2630b8bc80b5e5d694de97738d031377fd82d887db32af1c4b27c6d940357b318d0a3ef02cf  alsa-utils-1.2.16.tar.bz2
 f04155e1e391c7f36d44422c8e769bf9370117f6bbea6c0664e9858f7a676cc958e4260e4b4d226e71d0716f6be4e6fdd60f1d07cb7e9922fff378ceec01c47d  alsaconf.patch
 fc15e01de6b96d7e257d9c19fe8894bf090b6c0366beb9513e11ad6657b6c8d47530d9c1afc545aedf154f16000fd2f637e0104a2ec993e651fd4db419acb9af  alsa.initd
 d7e212e9f624b09168117b46c66289204a23915adf0d1b0c9ae258049430397b8f2d86d3b5f7e3087151948a031c4eab863e8195a6c7b1276704e9cba9c2d2a7  alsa.confd
 4b4b4d6406d57f592ecec9a79b5e401d1e1025e4f0b0d51ba233a5d2fcd1ce27ef336fda0242e7ff7d229d00428b7030d1d5789c9c306f824938366530eff6d9  musl-locale.patch
 ee74137d5bf431090a2603c87c94f19063d9a62921b3c6bc1f19317e006a7ec278b66da9ccfb1b64fa5da46852f6a84ac2511b9ce74969799d0fca4cd9b2bc8d  musl-types.patch
+f66015ef6500b5be7f7dde5900832bc2bab720c24402eb2e8f5ab83bf9eb340c579ef3b78ce71693ac74c18249c806111223c33a3ac55305d567b1bb2095ebb5  329.patch
 "

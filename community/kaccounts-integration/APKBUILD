@@ -2,11 +2,11 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kaccounts-integration
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
-# x86, s390x, ppc64le, riscv64 blocked by qt6-qtwebengine -> signon-ui
-arch="all !armhf !x86 !s390x !ppc64le !riscv64"
+# x86, s390x, riscv64 blocked by qt6-qtwebengine -> signon-ui
+arch="all !armhf !x86 !s390x !riscv64 !armv7"
 url="https://kde.org/applications/internet/"
 pkgdesc="Small system to administer web accounts for the sites and services across the KDE desktop"
 license="GPL-2.0-or-later AND LGPL-2.1-or-later"
@@ -15,6 +15,7 @@ depends="
 	signon-ui
 	"
 depends_dev="
+	intltool
 	kcmutils-dev
 	kcoreaddons-dev
 	kdbusaddons-dev
@@ -49,5 +50,5 @@ package() {
 }
 
 sha512sums="
-a56427b23aafcfb97f65431d76b0b6989bb4c430703443ae839e60b9de0b61baeb5d21659d0976b37e5b7cb3093f8da4c1439eb53b71bcad19b4c652bb23149b  kaccounts-integration-25.08.0.tar.xz
+623cf86736c28a2342a7b99ab63cebee9f619050d0cee6f97d509b5abcbc28136e67233a514995d85bd80429b0c61ef71a742395216be49aa8f6e6aa5903e1c0  kaccounts-integration-26.04.3.tar.xz
 "

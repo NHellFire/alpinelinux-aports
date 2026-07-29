@@ -1,8 +1,8 @@
 # Contributor: Jake Buchholz Göktürk <tomalok@gmail.com>
 # Maintainer: Jake Buchholz Göktürk <tomalok@gmail.com>
 pkgname=docker-cli-compose
-pkgver=2.39.3
-pkgrel=0
+pkgver=5.3.1
+pkgrel=1
 pkgdesc="Docker CLI plugin for extended build capabilities"
 url="https://docs.docker.com/compose/cli-command"
 arch="all"
@@ -25,12 +25,8 @@ _plugin_installdir="/usr/libexec/docker/cli-plugins"
 
 builddir="$srcdir"/compose-"$pkgver"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
-	PKG=github.com/docker/compose/v2
+	PKG=github.com/docker/compose/v5
 	local ldflags="-X '$PKG/internal.Version=v$pkgver'"
 	go build -ldflags="$ldflags" -o docker-compose ./cmd
 }
@@ -50,5 +46,5 @@ package() {
 }
 
 sha512sums="
-c9d4c01411036b21c7773156e10d02fe67dd67dd261d0c7f31b8fe2853d8355a91167a6252b32f6588cd4108e297e79cae070cb5ae0ea377b9733f94170f1ad0  docker-cli-compose-2.39.3.tar.gz
+25bcbddabb3428d9e2e157d2df4c39790b6c300834780e3ae63da90a5564e7c93375f028780eea6607cd5f31ed4c085646b7eea6c0dae95b62ee8cfcf5981150  docker-cli-compose-5.3.1.tar.gz
 "

@@ -1,7 +1,7 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=cava
-pkgver=0.10.6
+pkgver=1.0.0
 pkgrel=0
 pkgdesc="Console-based Audio Visualizer"
 url="https://github.com/karlstav/cava"
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-597bf2d7f5a18d1643ca989c2f0b08bad922d7fe84e33513c6842ac820afa8811c8293f5e796e0b40a59c7e34a0e8b653f15d2253fc424db005c166975c5c50a  cava-0.10.6.tar.gz
+a1a135001987ba3b7e581091d638f8ad17e5aebae9872916421abb1e97bc090fa63dd1ff942630e6b216016c9a0bc6c0be7d46bbaec86cede29480ecfa86b36f  cava-1.0.0.tar.gz
 "

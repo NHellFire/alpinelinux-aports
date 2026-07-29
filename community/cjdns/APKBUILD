@@ -2,8 +2,8 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@alpinelinux.org>
 # Maintainer: kpcyrd <git@rxv.cc>
 pkgname=cjdns
-pkgver=22
-pkgrel=5
+pkgver=22.3
+pkgrel=0
 pkgdesc="A routing engine designed for security, scalability, speed and ease of use"
 url="https://github.com/cjdelisle/cjdns"
 # loongarch64: blocked by ring crate
@@ -17,9 +17,7 @@ makedepends="
 	"
 install="$pkgname.post-install"
 subpackages="$pkgname-doc $pkgname-openrc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/cjdelisle/cjdns/archive/cjdns-v$pkgver.tar.gz
-	getrandom-0.2.10.patch
-	"
+source="$pkgname-$pkgver.tar.gz::https://github.com/cjdelisle/cjdns/archive/cjdns-v$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-$pkgname-v$pkgver"
 options="net"
 
@@ -62,6 +60,5 @@ package() {
 }
 
 sha512sums="
-fd22ae084edf174052b2683fc5591aeb036791b1a710f49d57cab475b1fdc7e7a2d4fcc3482d5fd401e15b8fef49a8985bea93a4b5a192c62b31647c4667b610  cjdns-22.tar.gz
-1a7ae666d8cf251a1db3c51b43f148273441ce66b852b14d51dc843e849e5d52338a53f235604383747933626b873e2ad29fde578765dc924b1fe81ec7a25ff3  getrandom-0.2.10.patch
+16795c7673d8661c20181e370b09034125dfc76de670323688c69f15c6016c6619520635593b0733e60a45ec27b824e661c5675fa4a4a2a8a899e9356af88184  cjdns-22.3.tar.gz
 "

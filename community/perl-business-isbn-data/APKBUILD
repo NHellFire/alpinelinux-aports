@@ -2,7 +2,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=perl-business-isbn-data
-pkgver=20250815.001
+pkgver=20260724.001
 pkgrel=0
 #_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=Business-ISBN-Data
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-0d20d64ed6defb8fb2aa908dcbaca6006ae6c4c8a0cc6be6eaf4e8ae9a2a6d9a1fbe2727105874b742c9a3ce42400b083807e5edc9d320a9ea750d5c00f1ded0  Business-ISBN-Data-20250815.001.tar.gz
+1b0603825928f7c1e19831b74fedb930cac03a5bd1c61ba8d9e65e39f5fc255a9d435be83cd00d2a85d73f3c0328222d86d318e070366201b5f7e8f048651562  Business-ISBN-Data-20260724.001.tar.gz
 "

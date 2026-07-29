@@ -2,13 +2,13 @@
 # Contributor: TBK <alpine@jjtc.eu>
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=py3-virtualenv
-pkgver=20.32.0
+pkgver=21.3.3
 pkgrel=0
 pkgdesc="Virtual Python3 Environment builder"
 url="https://virtualenv.pypa.io/en/latest/"
 arch="noarch"
 license="MIT"
-depends="py3-platformdirs py3-distlib py3-filelock"
+depends="py3-platformdirs py3-distlib py3-filelock py3-python-discovery"
 makedepends="
 	py3-gpep517
 	py3-hatchling
@@ -23,6 +23,7 @@ checkdepends="
 	py3-pytest-xdist
 	py3-time-machine
 	python3-dev
+	bash
 	"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/v/virtualenv/virtualenv-$pkgver.tar.gz"
@@ -51,5 +52,5 @@ package() {
 }
 
 sha512sums="
-fe2fbedb22eb30e52c401de827107e94f66c6f5f0425f42e4d5be59bf26da670a4daa705be23799b25fef0a2031c1f84e35a5376f7de06d4fe0275434645b7c1  virtualenv-20.32.0.tar.gz
+f3e7c71f2fafa0bff05aba89bc0cb2e2eede0c6ed5373fb253a6ac59f103505108671e5c19866562146723ea9630fc472dade53498c4fb97d6ec5c8e1c125d19  virtualenv-21.3.3.tar.gz
 "

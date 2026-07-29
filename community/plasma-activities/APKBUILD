@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-activities
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -20,11 +20,16 @@ makedepends="$depends_dev
 	boost-dev
 	doxygen
 	extra-cmake-modules
+	kde-qdoc-common
 	qt6-qtdeclarative-private-dev
 	qt6-qttools-dev
 	samurai
 	"
-subpackages="$pkgname-dev $pkgname-libs $pkgname-doc"
+subpackages="
+	$pkgname-dev
+	$pkgname-libs
+	$pkgname-doc
+	"
 
 case "$pkgver" in
 	*.*.9*) _rel=unstable;;
@@ -36,12 +41,16 @@ source="https://download.kde.org/$_rel/plasma/$pkgver/plasma-activities-$pkgver.
 options="!check" # No usable tests
 
 build() {
+	export KDE_DOCS=/usr/share/kde/documentation
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_QCH=ON
+		-DCMAKE_INSTALL_LIBDIR=lib
 	cmake --build build
+
+	cmake --build build --target prepare_docs
+	cmake --build build --target generate_docs
+	cmake --build build --target generate_qch
 }
 
 check() {
@@ -50,8 +59,11 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
+
+	DESTDIR="$pkgdir" cmake --build build --target install_html_docs
+	DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 
 sha512sums="
-f3e9d0d29a5639d5306cab9222f467cae4dfaf795a21b4887b78a76d995ca1015938e524efc75b4cdd973ccc3af0b05e51b262d06f0158454440dc7b92deb8fc  plasma-activities-6.4.5.tar.xz
+e8e80892a43ad571c3bd4784c8af99b7a7535e83990722fd39662b11265bb0fbfd6652a6def48b7c67430d0d0fe5b322728aeacb1e26c149aca17b6215ab16c3  plasma-activities-6.7.3.tar.xz
 "

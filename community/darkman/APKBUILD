@@ -1,25 +1,25 @@
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=darkman
-pkgver=2.1.0
-pkgrel=1
+pkgver=2.3.1
+pkgrel=4
 pkgdesc="Daemon for dark-mode and light-mode transitions on Unix-like desktop"
 url="https://darkman.whynothugo.nl/"
 arch="all"
 license="ISC"
 makedepends="go scdoc"
+checkdepends="golangci-lint mandoc"
 subpackages="
 	$pkgname-doc
 	$pkgname-bash-completion
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
+	$pkgname-openrc
+	$pkgname-systemd
 	"
 source="https://gitlab.com/WhyNotHugo/darkman/-/archive/v$pkgver/darkman-v$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-v$pkgver"
-options="!check net"
+options="net"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 # tarballs lack git version metadata required for buildling
 export VERSION="$pkgver"
 
@@ -27,11 +27,14 @@ build() {
 	make build
 }
 
+check() {
+	make check
+}
+
 package() {
 	make DESTDIR="$pkgdir/" PREFIX=/usr/ install
-	rm "$pkgdir/usr/lib/systemd/user/darkman.service"
 }
 
 sha512sums="
-910684ce0bd132b3d9914f5065f8bda14e06556a43d6d9b4013dc09dd4b8fe044ad66bf15b9c5181d5d80dae944054fa508776010cf1c687d2d08bde43f295a3  darkman-v2.1.0.tar.gz
+d23ffeecc3f7f060664b36ee023c65dcd939fa8ac50720b757ddcbc998070666194253c26c46a5f5c36dc9e8bb1865f3e0ee872cd393366f8912767c8a13aaa1  darkman-v2.3.1.tar.gz
 "

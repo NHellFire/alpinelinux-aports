@@ -2,7 +2,7 @@
 # Maintainer: Miles Alan <m@milesalan.com>
 pkgname=mobroute
 pkgver=0.10.0
-pkgrel=3
+pkgrel=11
 pkgdesc="General-Purpose FOSS Public Transportation (GTFS) Router CLI"
 options="net"
 url="https://sr.ht/~mil/mobroute"
@@ -15,10 +15,6 @@ source="
 "
 builddir="$srcdir/mobroute-v$pkgver"
 subpackages="$pkgname-doc"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	./build.sh build

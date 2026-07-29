@@ -2,13 +2,17 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kde-cli-tools
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Tools based on KDE Frameworks 5 to better interact with the system"
 # armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://invent.kde.org/plasma/kde-cli-tools"
 license="(GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.1-only"
+# kinfo binary requires kinfocenter KCM, but it causes a circular dep,
+# kinfocenter -> kde-cli-tools -> plasma-workspace -> systemsettings -> kinfocenter,
+# and it causes the desktop systemsettings to be installed on mobile images.
+# So for now the user has to install it themselves.
 makedepends="
 	extra-cmake-modules
 	kcmutils-dev
@@ -56,5 +60,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-cfaec141851e9602e92cf9bc13f55b36b9b0b97ccf5450c2240f3d6aa84f65fb791eada8f1ef15b02acf1a2e78916accdd10ba00a80fbb56afc65aecf4386d35  kde-cli-tools-6.4.5.tar.xz
+f30510386cac91e1a3b78228dfb988ddef35a623b2a0418294834b9031752e54d5dcfbaafcff3310dee2469089c00e0b70d5dd361cecaa8af92823e1f838c29f  kde-cli-tools-6.7.3.tar.xz
 "

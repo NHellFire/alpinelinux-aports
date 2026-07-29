@@ -3,7 +3,7 @@
 pkgname=py3-modbus-tk
 _pkgname="${pkgname#py3-}"
 pkgver=1.1.1
-pkgrel=4
+pkgrel=6
 pkgdesc="Create Modbus app easily with Python"
 url="https://github.com/ljean/modbus-tk"
 arch="noarch"
@@ -22,7 +22,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m unittest tests/unittest_*
 }
 

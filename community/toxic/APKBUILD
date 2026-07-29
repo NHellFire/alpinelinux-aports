@@ -1,9 +1,9 @@
 # Contributor: Jonathan Sieber <mail@strfry.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Robert Mongold <rtmongold@gmail.com>
 pkgname=toxic
-pkgver=0.16.1
-pkgrel=2
+pkgver=0.16.3
+pkgrel=0
 pkgdesc="ncurses-based Tox client"
 url="https://github.com/JFreegman/toxic"
 arch="all"
@@ -74,6 +74,6 @@ nox() {
 }
 
 sha512sums="
-438f971b962ef4d7bf8e8bc2e44809348feadfcc547f44e879c909d60e18d5a9cd41bba2e4c0a1e7667f3fd92f832a981a7d9e284fcd18b004aac0d05a410713  toxic-0.16.1.tar.gz
+0f71ee6bb1308ad67ede9bd3912bb82deba0929774124094cb37ba71e7c0279c4e277a98f64b4165a62eb9f51a5a85368f25b28c6367d2c0aed2025a9204aebb  toxic-0.16.3.tar.gz
 53e82b9a8cb7b57867fd77a8b4f4a0d7d9e9246479f1bb7b23b9586c68d1712271316e8c17545e9fd1daee3ecd1ac587b2c7dcdb42518d00537c580594c53059  fix-makefile.patch
 "

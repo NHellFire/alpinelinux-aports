@@ -2,7 +2,7 @@
 # Maintainer: lauren n. liberda <lauren@selfisekai.rocks>
 pkgname=sqlcipher
 pkgver=4.6.1
-pkgrel=0
+pkgrel=1
 pkgdesc="SQLCipher is an SQLite extension that provides 256 bit AES encryption of database files."
 url="https://www.zetetic.net/sqlcipher/"
 arch="all"

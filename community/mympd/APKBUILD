@@ -1,6 +1,6 @@
 # Maintainer: Juergen Mang <mail@jcgames.de>
 pkgname=mympd
-pkgver=22.0.4
+pkgver=25.3.0
 pkgrel=0
 pkgdesc="Standalone and mobile friendly web-based MPD client"
 url="https://jcorporation.github.io/myMPD/"
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-675e2ad39f4d369877815c522e6670a03412c9914b9e1d8f5c3a2cfd5d64284b3a2b05201492cf018369a62e21c553d7e4e97b86e93952f3dc8f47e9de957fe2  mympd-22.0.4.tar.gz
+e66320bce2503920a688e460d2ee33209cc94388728d46b4ec605e200f68e58247cf6dba179b0204d4ee8485b71e5238eb87a157ae990ad0a452a2bdc6cb5260  mympd-25.3.0.tar.gz
 "

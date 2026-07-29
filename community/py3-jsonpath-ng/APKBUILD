@@ -2,8 +2,8 @@
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-jsonpath-ng
 _pyname="jsonpath-ng"
-pkgver=1.7.0
-pkgrel=0
+pkgver=1.8.0
+pkgrel=1
 arch="noarch"
 pkgdesc="A final implementation of JSONPath for Python that aims to be standard compliant"
 url="https://pypi.python.org/project/jsonpath-ng"
@@ -16,9 +16,12 @@ makedepends="
 	"
 checkdepends="
 	py3-pytest
+	py3-hypothesis
+	py3-sniffio
 	"
 source="
 	$pkgname-$pkgver.tar.gz::https://github.com/h2non/jsonpath-ng/archive/refs/tags/v$pkgver.tar.gz
+	test-roundtrip-extend-deadline.patch
 	"
 builddir="$srcdir"/$_pyname-$pkgver
 subpackages="$pkgname-pyc"
@@ -40,5 +43,6 @@ package() {
 		.dist/*.whl
 }
 sha512sums="
-5c5cd6b34ea97b17d4cb745c442b40391feb419a066c53469d62d479f13af23f4c6b1dcd1279d2c01a06494eea4e53cdbd617da0e6e48c240eb3565f5f5a4b23  py3-jsonpath-ng-1.7.0.tar.gz
+5243add5ce57041192681c8f09d6362db6123733f2cc55682e1c1f632a73a860c57aeafb18ef93253b4c0942406efe1714d505216a6594affd5d931ad1356ca3  py3-jsonpath-ng-1.8.0.tar.gz
+8e2ad50a5c2749563d60deb74e4c08ef0dbb4029c461165ebaee5123cb95090a38ab9bbc0e4083615bdd35ce05463cc1fbbe5df39b42c40e37aac4722a142c6b  test-roundtrip-extend-deadline.patch
 "

@@ -3,7 +3,7 @@
 pkgname=py3-nptyping
 _pyname=nptyping
 pkgver=2.5.0
-pkgrel=3
+pkgrel=5
 pkgdesc="Type hints for Numpy"
 url="https://github.com/ramonhagenaars/nptyping"
 arch="noarch"
@@ -24,7 +24,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	# disable tests which require network or pyright (python wrapper for the type
 	# checker implemented in js, which just downloads it using npx)
 	#

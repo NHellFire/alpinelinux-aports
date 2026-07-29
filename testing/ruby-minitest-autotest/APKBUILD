@@ -3,7 +3,7 @@
 maintainer="Will Sinatra <wpsinatra@gmail.com>"
 pkgname=ruby-minitest-autotest
 _gemname=${pkgname#ruby-}
-pkgver=1.1.1
+pkgver=1.2.1
 pkgrel=0
 pkgdesc="automatically run minitest suite"
 url="https://rubygems.org/gems/minitest-autotest"
@@ -53,7 +53,7 @@ package() {
 }
 
 sha512sums="
-0f8223b89e02ca158346d86cd5ba30daa59ec081deea49e0ecf516c15360399f8dbfbdcf108027f8254a253b9e689f2b385bba8d2578853117b1bf35e4f8b69e  ruby-minitest-autotest-1.1.1.tar.gz
-347aa92ee21f82606cf6ee4ab3739aeb3c2f9d6d871958f0197c4f482a6d5732ae0711081c8cf2f007af0b91e86427aadfe2fee5fb48ed1913ea5be6a51ef71f  minitest-autotest-1.1.1.gem
+19a63d483065fc5bb1a2d6ba2143f1054c3b5feba6ef4b3c8f8d3fdbf4d89fd024347cfe6eb37a9005117d826c2325b3f8e3a2fc320f4d1a200d4d24fe20b6af  ruby-minitest-autotest-1.2.1.tar.gz
+1b96900a9bb9df98534ae39170a6fa8eff4133ffe5bdc9d9d676dac2d9b791941024e1ebfe84ebae66efa82c0e6c24ea3d289b5bb6618749297ebfccb40e0c39  minitest-autotest-1.2.1.gem
 820acb02d9bf81c5241eb473a2412187ac8202a1f97a22408bc74eb65287f864656af438b4ac1b3db84eae9e41a780cb378bb9c22153156f620cdc5c5d68207e  LICENSE
 "

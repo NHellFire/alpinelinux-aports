@@ -3,21 +3,17 @@
 pkgname=opensmtpd-filter-rspamd
 _pkgname=filter-rspamd
 pkgver=0.1.8
-pkgrel=17
+pkgrel=25
 pkgdesc="OpenSMTPD filter integration for Rspamd"
 url="https://github.com/poolpOrg/filter-rspamd"
 license="ISC"
 arch="all"
-options="!check" # No test suite
+options="!check net" # No test suite, go
 depends="opensmtpd"
 makedepends="go"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/poolpOrg/filter-rspamd/archive/v$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build

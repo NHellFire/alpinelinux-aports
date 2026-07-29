@@ -1,8 +1,7 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-# Maintainer: Bart Ribbers <bribbers@disroot.org>
+maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-jaraco.context
-pkgver=6.0.1
-pkgrel=1
+pkgver=6.1.2
+pkgrel=0
 pkgdesc="Context managers by jaraco"
 url="https://github.com/jaraco/jaraco.context"
 arch="noarch"
@@ -14,12 +13,14 @@ makedepends="
 	py3-wheel
 	"
 checkdepends="
+	git
 	py3-portend
 	py3-pytest
 	"
 subpackages="$pkgname-pyc"
 source="https://pypi.python.org/packages/source/j/jaraco.context/jaraco_context-$pkgver.tar.gz"
 builddir="$srcdir/jaraco_context-$pkgver"
+options="!check" # cyclic build dependency
 
 # backwards compatibility for old name
 replaces="py3-jaraco-context"
@@ -34,7 +35,7 @@ build() {
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
 	.testenv/bin/python3 -m installer .dist/*.whl
-	.testenv/bin/python3 -m pytest
+	.testenv/bin/python3 -m pytest --ignore 'jaraco/context/__init__.py'
 
 }
 
@@ -43,5 +44,5 @@ package() {
 }
 
 sha512sums="
-5711f581a616a18f7b7dbac65550255c7eecfae39df04b675817b16fbc5d61b833617d853c40f0b910c0ba5d144baf4c4b2add155c9b91001209b27da594a801  jaraco_context-6.0.1.tar.gz
+2aac4b3263685e73121b2f4bb2a059a8175544c71fdda0a28e26565090ced8c4e0b3e238e6aed32caa21512f228a06b4b576ec6d8335f71629800be149248d82  jaraco_context-6.1.2.tar.gz
 "

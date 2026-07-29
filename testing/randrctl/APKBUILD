@@ -3,7 +3,7 @@
 maintainer="Patrycja Rosa <alpine@ptrcnull.me>"
 pkgname=randrctl
 pkgver=1.10.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Profile based screen manager for X"
 url="https://github.com/edio/randrctl"
 arch="noarch"
@@ -24,7 +24,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

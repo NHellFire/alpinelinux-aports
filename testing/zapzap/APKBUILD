@@ -1,12 +1,12 @@
-maintainer="Fabricio Silva <hi@fabricio.dev>"
+# Maintainer: Robert Mongold <rtmongold@gmail.com>
 pkgname=zapzap
-pkgver=6.0.1.8
+pkgver=7.0.3
 pkgrel=0
 pkgdesc="Custom WhatsApp desktop client using PyQt"
 url="https://github.com/rafatosta/zapzap"
-# riscv64 s390x ppc64le: blocked by py3-pyqt6-webengine
+# armv7 ppc64le riscv64 s390x x86: blocked by py3-pyqt6-webengine
 # armhf: blocked by qt6-qtmultimedia
-arch="noarch !riscv64 !s390x !ppc64le !armhf"
+arch="noarch !armv7 !ppc64le !riscv64 !s390x !x86 !armhf"
 license="GPL-3.0-only"
 options="!check" # no test suite
 depends="
@@ -14,6 +14,9 @@ depends="
 	py3-pyqt6-webengine
 	py3-dbus
 	py3-gettext
+	qt6-qtwebengine
+	qt6-qtbase-x11
+	mesa-dri-gallium
 	"
 makedepends="
 	py3-gpep517
@@ -43,5 +46,5 @@ package() {
 }
 
 sha512sums="
-bd1f663ea3d6d062c91ca45462b31c3c71d1bfe38965a1d9519afaf8be09004b1be1efc6541a7d22bdc1fb9e7ea40e2b2b8bddc8fa312635d48ac99040301cb6  zapzap-6.0.1.8.tar.gz
+4614de687fb671325485d50bf7b9531954e657096f9c2f09bccef4e20fbdcfbe04abf7846443e3c02b2f237e8a4810fe4d99a870447ec665e895b45cf49c2365  zapzap-7.0.3.tar.gz
 "

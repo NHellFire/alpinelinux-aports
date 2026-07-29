@@ -1,7 +1,7 @@
 # Maintainer: Peter van Dijk <peter.van.dijk@powerdns.com>
 pkgname=dnsdist
-pkgver=2.0.0
-pkgrel=1
+pkgver=2.1.0
+pkgrel=0
 pkgdesc="dnsdist is a highly DNS-, DoS-, and abuse-aware loadbalancer."
 url="https://dnsdist.org/"
 arch="all"
@@ -30,7 +30,10 @@ subpackages="$pkgname-common::noarch $pkgname-doc $pkgname-common-openrc::noarch
 source="
 	https://downloads.powerdns.com/releases/dnsdist-${pkgver//_/-}.tar.xz
 	$pkgname.initd
+	$pkgname.confd
+	otel-size.patch
 	"
+options="net" # cargo
 builddir="$srcdir/$pkgname-${pkgver//_/-}"
 
 [ "$CARCH" = "ppc64le" ] && options="!check" # failing tests
@@ -47,6 +50,39 @@ ppc64le|riscv64|loongarch64)
 esac
 
 # secfixes:
+#   2.0.7-r0:
+#     - CVE-2026-40011
+#     - CVE-2026-40208
+#     - CVE-2026-40209
+#     - CVE-2026-40210
+#     - CVE-2026-40211
+#     - CVE-2026-42004
+#     - CVE-2026-42005
+#   2.0.4-r0:
+#     - CVE-2026-0396
+#     - CVE-2026-0397
+#     - CVE-2026-24028
+#     - CVE-2026-24029
+#     - CVE-2026-24030
+#     - CVE-2026-27853
+#     - CVE-2026-27854
+#     - CVE-2026-33254
+#     - CVE-2026-33257
+#     - CVE-2026-33260
+#     - CVE-2026-33593
+#     - CVE-2026-33594
+#     - CVE-2026-33595
+#     - CVE-2026-33596
+#     - CVE-2026-33597
+#     - CVE-2026-33598
+#     - CVE-2026-33599
+#     - CVE-2026-33602
+#   2.0.1-r0:
+#     - CVE-2025-4820
+#     - CVE-2025-4821
+#     - CVE-2025-7054
+#     - CVE-2025-8671
+#     - CVE-2025-30187
 #   1.9.10-r0:
 #     - CVE-2025-30193
 #   1.9.9-r0:
@@ -134,6 +170,9 @@ openrc() {
 
 	install -m755 -D "$srcdir/$pkgname.initd" \
 		"$subpkgdir/etc/init.d/$pkgname"
+
+	install -m755 -D "$srcdir/$pkgname.confd" \
+		"$subpkgdir/etc/conf.d/$pkgname"
 }
 
 luajit() {
@@ -147,6 +186,8 @@ luajit() {
 }
 
 sha512sums="
-dee84019ae317bc4e0b4d2f94e38a221bfa94460d3bb8d82ad152eed99bef1e2bd2631f5c1e6930fb9957a928ed9cf891ef8165137cd8ec1902fb734d5aab8fb  dnsdist-2.0.0.tar.xz
+862d3bc0b01e2222dea63e48756ef5eff3d7f22a5c5dc38412f11f7937eeb5ae754bb1ae402d581ea72be9d9ef95ae381ed8d2d9d6588631a0aa895067135b45  dnsdist-2.1.0.tar.xz
 9b72450a9887b4e6de9c964b3e5eb1d97ea2391209582d9bec9766739bbcc0ef309d91972144bb2c62d90099712d6a7b466729cd54389419a46e0fa962192c1a  dnsdist.initd
+48534692cfe519b0991118d4d1bf7c2e3754b2a1054cf4bed0c16fd80919164aab260f04ed82a324e4d8b0ac0091a61dd69aef12bf8250dd5c5915e32e89ea0c  dnsdist.confd
+7946083e63e188576ac854b757bd901d50cda25e57e053622d8453db5bdbb641786dca54aee1b9276ea788497a3e44dcda12abb6c7f2db99e96c625cb467749b  otel-size.patch
 "

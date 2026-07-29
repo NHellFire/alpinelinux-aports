@@ -2,7 +2,7 @@
 # Contributor: Fabricio Silva <hi@fabricio.dev>
 # Maintainer: Nicolas Lorin <androw95220@gmail.com>
 pkgname=rio
-pkgver=0.2.26
+pkgver=0.5.2
 pkgrel=0
 pkgdesc="A hardware-accelerated GPU terminal emulator powered by WebGPU, focusing to run in desktops and browsers."
 url="https://raphamorim.io/rio"
@@ -13,7 +13,18 @@ license="MIT"
 # net: required to fetch rust dependencies
 options="net"
 depends="$pkgname-terminfo"
-makedepends="cargo cargo-auditable cmake expat-dev freetype-dev fontconfig-dev libxcb-dev ncurses python3"
+makedepends="
+	cargo
+	cargo-auditable
+	cmake
+	expat-dev
+	fontconfig-dev
+	freetype-dev
+	glslang-dev
+	libxcb-dev
+	ncurses
+	python3
+	"
 subpackages="$pkgname-doc $pkgname-terminfo"
 source="$pkgname-$pkgver.tar.gz::https://github.com/raphamorim/rio/archive/refs/tags/v$pkgver.tar.gz"
 
@@ -54,5 +65,5 @@ terminfo() {
 }
 
 sha512sums="
-bfab4c8dabee27124206264e72e31537bf9aed3d28c4c3c3065fc4409a46325143c15738fb14658bed931f398ab6efce5d81a277878e9baf4fb6c61a1838a8be  rio-0.2.26.tar.gz
+d7b2a356f60b9c6cf72248f41943735212277663bf0feb9e1a66e74bacf8d57b182a3fc1bb10e9cd2bfcdbbca7f5f88b904da0d7c032b07dca97dd114a7a0075  rio-0.5.2.tar.gz
 "

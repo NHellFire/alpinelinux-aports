@@ -2,7 +2,7 @@
 # Contributor: crapStone <crapstone01@gmail.com>
 # Maintainer: Sean McAvoy <seanmcavoy@gmail.com>
 pkgname=topgrade
-pkgver=16.0.4
+pkgver=17.9.0
 pkgrel=0
 pkgdesc="run upgrades of packages in OS and other package managers"
 url="https://github.com/topgrade-rs/topgrade"
@@ -15,6 +15,7 @@ subpackages="
 	$pkgname-zsh-completion
 	$pkgname-doc
 	"
+options="net" # cargo
 source="topgrade-$pkgver.tar.gz::https://github.com/topgrade-rs/topgrade/archive/refs/tags/v$pkgver.tar.gz"
 
 
@@ -50,5 +51,5 @@ package() {
 }
 
 sha512sums="
-b25eaccccceeaca877cb4eb90065c6e02563c1c762ce8ed956ecb3622a343587599c0f5ced22320fd57d990e1fa0a1257466f99cfbb60478be299f8fcc4eb6e1  topgrade-16.0.4.tar.gz
+fb307a6ede3f70c5eaea1c3e851f4463255652fa1080c6b7b8839f6ac232bebf4efd6053aac198051e6aa732dfbec24c8e82f5eeeb2d195d41b0e40610d1b000  topgrade-17.9.0.tar.gz
 "

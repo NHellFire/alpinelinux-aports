@@ -1,7 +1,7 @@
 # Contributor: Jordan Christiansen <xordspar0@gmail.com>
 # Maintainer: Jordan Christiansen <xordspar0@gmail.com>
 pkgname=acme-client
-pkgver=1.3.5
+pkgver=1.3.7
 pkgrel=0
 pkgdesc="Client for issuing certificates from ACME-complaint servers"
 url="https://git.wolfsden.cz/acme-client-portable"
@@ -9,9 +9,8 @@ arch="all"
 license="GPL-2.0-only"
 makedepends="openssl-dev>3 byacc automake autoconf"
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver-1.tar.gz::https://git.wolfsden.cz/acme-client-portable/snapshot/acme-client-portable-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://files.wolfsden.cz/releases/acme-client/acme-client-$pkgver.tar.gz"
 options="!check" # Tests require modifying /etc/hosts
-builddir="$srcdir/acme-client-portable-$pkgver"
 
 prepare() {
 	default_prepare
@@ -34,5 +33,5 @@ package() {
 }
 
 sha512sums="
-38e501528d8a04da935b6295cfa868663cc75bca1b10eec4250cba1bd41896d3560de91d5573ea1e54b770fd687f9b141a7d1ba6d5b490e5be12a2df7d81ff9b  acme-client-1.3.5-1.tar.gz
+b8ed8a31815ed7a12872113a6aba16af39d9086f3883c1bf0402015187ba9f8e957131c871a5b054ba574cf0779b32fb2047602264e81996750fefbf4ed7a9e3  acme-client-1.3.7.tar.gz
 "

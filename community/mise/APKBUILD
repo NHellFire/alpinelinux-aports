@@ -1,25 +1,32 @@
 # Contributor: Jeff Dickey <alpine@mise.jdx.dev>
 # Contributor: Fabricio Silva <hi@fabricio.dev>
-maintainer="Fabricio Silva <hi@fabricio.dev>"
+# Maintainer: Robert Mongold <rtmongold@gmail.com>
 pkgname=mise
-pkgver=2025.8.20
+pkgver=2026.7.12
 pkgrel=0
 pkgdesc="Polyglot runtime and dev tool version manager"
 url="https://mise.jdx.dev/"
-arch="all !riscv64 !loongarch64" # riscv timeout / loongarch fails
+arch="all !s390x !riscv64 !x86 !armhf"
+# s390x: nix 0.30.1: https://github.com/nix-rust/nix/issues/2641
+# riscv64: rustc 1.96.1 SIGSEGV compiling gix-attributes
+# x86: sonic-simd 0.1.4: unresolved import core::arch::x86_64
+# armhf: rustc-LLVM: OOM
 license="MIT"
 makedepends="
 	cargo
 	cargo-auditable
+	clang-libclang
+	cmake
 	direnv
 	openssl-dev
 	lua5.1-dev
 	bzip2-dev
+	samurai
 	zstd-dev
 	"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/jdx/mise/archive/refs/tags/v$pkgver.tar.gz"
-options="net" # cargo fetch
+options="net !check" # cargo fetch; tests are OOM some builders
 provides="rtx=$pkgver-r$pkgrel" # backwards compatibility
 replaces="rtx"
 
@@ -41,6 +48,17 @@ prepare() {
 }
 
 build() {
+	case "$CARCH" in
+	x86)
+		export CARGO_BUILD_JOBS=1
+		;;
+	*)
+		export CARGO_BUILD_JOBS=2
+		;;
+	esac
+
+	export CARGO_PROFILE_RELEASE_LTO="false"
+	export CARGO_PROFILE_RELEASE_CODEGEN_UNITS=16
 	cargo auditable build --release --frozen --no-default-features --features native-tls
 }
 
@@ -55,5 +73,5 @@ package() {
 }
 
 sha512sums="
-089ef50376ab3d71abbc8f9f531bf1ee49ab48b520d515f93d6ed221f1d6b804f035a2df829a4b275e11af6998077c2e8814c9448be271e05d6d43eb534b489d  mise-2025.8.20.tar.gz
+5b1909d72a2f071c34f0b17f190ad7dcc82690d415cc6e6ba9b27f6e7cabe9565bb760dd324f2b0ecd64548fa857366fec4aeea76c33859f34c791a7c695b9ab  mise-2026.7.12.tar.gz
 "

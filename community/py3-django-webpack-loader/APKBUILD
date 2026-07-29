@@ -3,8 +3,8 @@
 pkgname=py3-django-webpack-loader
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=django-webpack-loader
-pkgver=3.2.1
-pkgrel=0
+pkgver=3.2.3
+pkgrel=2
 pkgdesc="Transparently use webpack with django"
 url="https://pypi.python.org/project/django-webpack-loader"
 arch="noarch"
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-928254bda5f2c9408c7d3516e801ab82e78c740ee1e9804d051a7c696752d0f502331b5f62423be4399869d40f511a23361739881b5cc531fdaa6d4e1bba7b36  py3-django-webpack-loader-3.2.1.tar.gz
+12db6ee111b5a89b655059705906234657ca7295c6e262754b21cd391361b7fe6bf96d2e3dd4ca1c7800a8ef2962693424cb5548b351e7ba8ea8b89e728c9bff  py3-django-webpack-loader-3.2.3.tar.gz
 "

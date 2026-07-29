@@ -3,7 +3,7 @@
 pkgname=py3-slack-sdk
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=slack-sdk
-pkgver=3.36.0
+pkgver=3.43.0
 pkgrel=0
 arch="noarch"
 pkgdesc="The Slack API Platform SDK for Python"
@@ -46,5 +46,5 @@ package() {
 }
 
 sha512sums="
-7980c05246d56f847713887333aa976a1a9dce5c49bcff0f687ffb9e3bbb0722d4de874f5ed10dea5adf81dd08a96e96e15fed2e125669227842c38cc74d8369  py3-slack-sdk-3.36.0.tar.gz
+2e4142a3f67a1ecd6b1764fece1538aa13942cb9532e435a44fdff755f9ced0fb47b3993164c795a896a1fd25cc79ba86d38a71e8d208a77f1ab1dbaf3179d58  py3-slack-sdk-3.43.0.tar.gz
 "

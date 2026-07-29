@@ -1,7 +1,7 @@
 # Contributor: Iztok Fister, Jr. <iztok@iztok-jr-fister.eu>
 # Maintainer: Iztok Fister, Jr. <iztok@iztok-jr-fister.eu>
 pkgname=py3-param
-pkgver=2.2.1
+pkgver=2.4.1
 pkgrel=0
 pkgdesc="Make your Python code clearer and more reliable by declaring Parameters"
 url="https://github.com/holoviz/param"
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-0a573a085e4ea0cf3e6642c33d65350a6391ef64d81ae8986e1197ccf1292888d5e504cf84723e719fc218f0e00de0f1c0d885ab8ba84b4ecb84246bae430dc2  py3-param-2.2.1.tar.gz
+b355fabb6d0ebcc180819328cd9f5ab5990d6bac24c1e555e2a2fb75dd161c518a2934399723064bac1bbf6b5681dd76caa8641abf92d1b3711dae1c779e31e0  py3-param-2.4.1.tar.gz
 "

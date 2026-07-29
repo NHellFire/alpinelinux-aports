@@ -1,8 +1,8 @@
 # Contributor: Kaarle Ritvanen <kunkku@alpinelinux.org>
 # Maintainer: Kaarle Ritvanen <kunkku@alpinelinux.org>
 pkgname=py3-django-treebeard
-pkgver=4.7.1
-pkgrel=1
+pkgver=5.3.0
+pkgrel=0
 pkgdesc="Efficient tree implementations for Django"
 url="https://github.com/django-treebeard/django-treebeard"
 arch="noarch"
@@ -11,7 +11,9 @@ depends="py3-django"
 makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="py3-pytest py3-pytest-django"
 subpackages="$pkgname-pyc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/django-treebeard/django-treebeard/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/django-treebeard/django-treebeard/archive/$pkgver.tar.gz
+	test-ltree-utils-increase-time-assertion.patch
+	"
 
 builddir="$srcdir/django-treebeard-$pkgver"
 
@@ -37,5 +39,6 @@ package() {
 }
 
 sha512sums="
-739de1c1a9998662566c385c6a92c02be6dd90f87d0f790aca1f5f820e14cd4536f2276f55acbeb2a692c8d169714321b209a4435d094184d283612c9d2becce  py3-django-treebeard-4.7.1.tar.gz
+ae167f8f7de50e760a30c0a4e546c71036f1d2052044c239556d1010153b27f7d57c50082d647967967379ecceda31aa3d7538894c6bcd2a984ff60b8eac78a9  py3-django-treebeard-5.3.0.tar.gz
+cfcf11347ef8b50ead22c7b52a18a911be41cbfd662ce60efc0a3b6a5153d16c7f538fbf8c790e3d7c95d85719976ba7d7ae2f265ee5c6924e5eea78f222a3e8  test-ltree-utils-increase-time-assertion.patch
 "

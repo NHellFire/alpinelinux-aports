@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kio-extras
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by syntax-highlighting
 arch="all !armhf"
@@ -21,7 +21,7 @@ makedepends="
 	kdbusaddons-dev
 	kdnssd-dev
 	kdoctools-dev
-	kdsoap-qt6-dev
+	kdsoap-dev
 	kdsoap-ws-discovery-client-dev
 	kguiaddons-dev
 	ki18n-dev
@@ -46,7 +46,10 @@ makedepends="
 	syntax-highlighting-dev
 	taglib-dev
 	"
-checkdepends="xvfb-run dbus"
+checkdepends="
+	dbus
+	xwayland-run
+	"
 subpackages="$pkgname-doc $pkgname-lang"
 _repo_url="https://invent.kde.org/network/kio-extras.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/kio-extras-$pkgver.tar.xz"
@@ -62,8 +65,8 @@ build() {
 }
 
 check() {
-	dbus-run-session -- xvfb-run -a ctest --test-dir build \
-		-E "testkioarchive|thumbnailtest|ActivityBasicTest"
+	dbus-run-session wlheadless-run -- ctest --test-dir build \
+		-E "testkioarchive|thumbnailtest|ActivityBasicTest|filenamesearchtest"
 }
 
 package() {
@@ -71,5 +74,5 @@ package() {
 }
 
 sha512sums="
-c1bc32c3b99b64443d707e9843761fe3d79bfc1d0b3dca60f6edfa6ff79d4b27a3a4b83e32af71f1c9e11a5bf5b7bc7f39d162f282a476fbf1ead5c0e6596113  kio-extras-25.08.0.tar.xz
+71036243d9fbdaf133e4d65f0de2c71e538e5abaf3f2bfd83093a6cc15779b60860ec39be2317d086fd558a51eaaf58f99fce628224cb6289f0d17b30bb0d91e  kio-extras-26.04.3.tar.xz
 "

@@ -4,12 +4,12 @@
 # Contributor: Patrycja Rosa <alpine@ptrcnull.me>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=forgejo-lts
-pkgver=11.0.5
-pkgrel=0
+pkgver=15.0.5
+pkgrel=1
 # Please apply changes to `forgejo` as well
 pkgdesc="Self-hosted Git service written in Go (Long-term stable)"
 url="https://forgejo.org"
-arch="all"
+arch="all !armv7 !armhf" # oom
 license="MIT"
 depends="git git-lfs gnupg"
 makedepends="go nodejs npm"
@@ -17,17 +17,13 @@ checkdepends="bash openssh openssh-keygen sqlite tzdata"
 install="$pkgname.pre-install"
 pkgusers="forgejo"
 pkggroups="www-data"
-subpackages="$pkgname-openrc"
+subpackages="$pkgname-openrc $pkgname-systemd"
 source="$pkgname-$pkgver.tar.gz::https://codeberg.org/forgejo/forgejo/archive/v$pkgver.tar.gz
 	forgejo.initd
 	forgejo.ini
 	"
 builddir="$srcdir/forgejo"
 options="!check net chmod-clean" # broken with GIT_CEILING
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 # Skip tests for archs that fail unrelated in CI
 case "$CARCH" in
@@ -92,10 +88,12 @@ package() {
 
 	install -Dm755 "$srcdir"/forgejo.initd \
 		"$pkgdir"/etc/init.d/forgejo
+	install -Dm644 contrib/systemd/forgejo.service \
+		-t "$pkgdir"/usr/lib/systemd/system/
 }
 
 sha512sums="
-ef5bbc92ca82d90b7b87390ccc03358162c3466d4e34165c595f7b985586dd6fdd00694af11868dab093c1413af21738e26bce473a91df377649583a66a6c128  forgejo-lts-11.0.5.tar.gz
-497d8575f2eb5ac43baf82452e76007ef85e22cca2cc769f1cf55ffd03d7ce4d50ac4dc2b013e23086b7a5577fc6de5a4c7e5ec7c287f0e3528e908aaa2982aa  forgejo.initd
+05b2e1ed51fd518a7d1a49aafda6369a85ddff94f6ab721dd6034952c5198868ad2b9867c66fc86341e443764ebe78097552697be773103ebda2026ee3637c66  forgejo-lts-15.0.5.tar.gz
+c88ee45c90c445aec440b80f72f17e249e4efb2c38be40dcb72a2ab27a9d6a06c804aeb0d417cd4209fb9096bdd46d5e1ecd8a8665fae93dc4d960720994afb4  forgejo.initd
 b537b41b6b3a945274a6028800f39787b48c318425a37cf5d40ace0d1b305444fd07f17b4acafcd31a629bedd7d008b0bb3e30f82ffeb3d7e7e947bdbe0ff4f3  forgejo.ini
 "

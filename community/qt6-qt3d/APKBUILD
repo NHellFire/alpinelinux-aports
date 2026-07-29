@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qt3d
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="C++ and QML APIs for easy inclusion of 3D graphics"
 url="https://qt.io/"
@@ -62,5 +62,5 @@ dev() {
 }
 
 sha512sums="
-f0ffceb7185b16ffcf6e757007b6b500e111285dcbb90a85c1a6e9c4400451688f3d631a25d95ab36838dfdea40b4c5557a9c6d67aab11d2f66e7d4dc86ef4b5  qt3d-everywhere-src-6.9.2.tar.xz
+64679efc2e3ea5847cf66f67e8b33d8ddbcc42be4908804e69389edc3118b680af1945977ee884d91d850a110c66db4ae3498ca732285ec75b052da09c58647f  qt3d-everywhere-src-6.11.1.tar.xz
 "

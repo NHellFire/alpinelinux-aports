@@ -1,8 +1,8 @@
 # Contributor: Roger Pau Monne <roger.pau@entel.upc.edu>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=xen
-pkgver=4.20.1
-pkgrel=1
+pkgver=4.21.1
+pkgrel=6
 pkgdesc="Xen hypervisor"
 url="https://www.xenproject.org/"
 arch="x86_64 armv7 aarch64"
@@ -14,6 +14,7 @@ depends_dev="
 	bison
 	curl-dev
 	dev86
+	dtc-dev
 	e2fsprogs-dev
 	flex
 	gnutls-dev
@@ -27,6 +28,7 @@ depends_dev="
 	pciutils-dev
 	perl
 	perl-dev
+	py3-distlib
 	py3-setuptools
 	python3-dev
 	spice-dev
@@ -47,8 +49,18 @@ options="!strip"
 #     - CVE-2020-29568 XSA-349
 #     - CVE-2020-29569 XSA-350
 #     - CVE-2022-21127
+#     - CVE-2023-34319 XSA-432
 #     - CVE-2023-46840 XSA-450
 #     - CVE-2025-58146 XSA-474
+#     - CVE-2025-58151 XSA-478
+#     - CVE-2026-23556 XSA-483
+#     - CVE-2026-23559 XSA-489
+#     - CVE-2026-23560 XSA-489
+#     - CVE-2026-23561 XSA-489
+#     - CVE-2026-23562 XSA-489
+#     - CVE-2026-31786 XSA-485
+#     - CVE-2026-31787 XSA-487
+#     - CVE-2026-42486 XSA-489
 #   4.7.0-r0:
 #     - CVE-2016-6258 XSA-182
 #     - CVE-2016-6259 XSA-183
@@ -394,22 +406,39 @@ options="!strip"
 #     - CVE-2025-58143 XSA-472
 #     - CVE-2025-58144 XSA-473
 #     - CVE-2025-58145 XSA-473
+#   4.20.1-r2:
+#     - CVE-2025-58147 XSA-475
+#     - CVE-2025-58148 XSA-475
+#     - CVE-2025-58149 XSA-476
+#   4.21.0-r2:
+#     - CVE-2025-58150 XSA-477
+#     - CVE-2026-23553 XSA-479
+#   4.21.0-r3:
+#     - CVE-2026-23554 XSA-480
+#     - CVE-2026-23555 XSA-481
+#   4.21.1-r2:
+#     - CVE-2025-54505 XSA-488
+#   4.21.1-r3:
+#     - CVE-2026-23557 XSA-484
+#     - CVE-2026-23558 XSA-486
+#   4.21.1-r4:
+#     - CVE-2025-54518 XSA-490
+#   4.21.1-r6:
+#     - CVE-2025-10263 XSA-493
+#     - CVE-2026-42487 XSA-491
+#     - CVE-2026-42488 XSA-494
+#     - CVE-2026-42489 XSA-492
+#     - CVE-2026-42490 XSA-492
 
 case "$CARCH" in
 x86*)
 	makedepends="$makedepends iasl seabios-bin"
 	;;
-arm*)
-	makedepends="$makedepends dtc-dev"
-	;;
 aarch64)
-	makedepends="$makedepends dtc-dev iasl"
+	makedepends="$makedepends iasl"
 	;;
 esac
 
-#if [ "$CARCH" != "armhf" ]; then
-#	subpackages="$pkgname-dbg"
-#fi
 subpackages="$subpackages $pkgname-doc $pkgname-dev $pkgname-libs
 	$pkgname-hypervisor $pkgname-pyc $pkgname-bridge
 	$pkgname-bridge-openrc:bridge_openrc $pkgname-qemu
@@ -418,19 +447,17 @@ subpackages="$subpackages $pkgname-doc $pkgname-dev $pkgname-libs
 # grep ^IPXE_GIT_TAG tools/firmware/etherboot/Makefile
 _IPXE_GIT_TAG=1d1cf74a5e58811822bee4b3da3cff7282fcdfca
 
+# 10.x still has support for armv7
+_QEMU_VER=10.2.3
+
 source="https://downloads.xenproject.org/release/xen/$pkgver/xen-$pkgver.tar.gz
+	https://download.qemu.org/qemu-$_QEMU_VER.tar.xz
 
 	qemu-xen_paths.patch
 
 	hotplug-vif-vtrill.patch
 
 	hotplug-Linux-iscsi-block-handle-lun-1.patch
-
-	xsa472-1.patch
-	xsa472-2.patch
-	xsa472-3.patch
-	xsa473-1.patch
-	xsa473-2.patch
 
 	xenstored.initd
 	xenstored.confd
@@ -444,6 +471,38 @@ source="https://downloads.xenproject.org/release/xen/$pkgver/xen-$pkgver.tar.gz
 	xendriverdomain.initd
 	xen-pci.initd
 	xen-pci.confd
+
+	xsa484.patch
+	xsa486.patch
+	xsa488.patch
+	xsa490-4.21.patch
+	xsa491-4.21.patch
+	xsa492-4.21-01.patch
+	xsa492-4.21-02.patch
+	xsa492-4.21-03.patch
+	xsa492-4.21-04.patch
+	xsa492-4.21-05.patch
+	xsa492-4.21-06.patch
+	xsa492-4.21-07.patch
+	xsa492-4.21-08.patch
+	xsa492-4.21-09.patch
+	xsa492-4.21-10.patch
+	xsa492-4.21-11.patch
+	xsa492-4.21-12.patch
+	xsa492-4.21-13.patch
+	xsa492-4.21-14.patch
+	xsa492-4.21-15.patch
+	xsa492-4.21-16.patch
+	xsa492-4.21-17.patch
+	xsa492-4.21-18.patch
+	xsa492-4.21-19.patch
+	xsa492-4.21-20.patch
+	xsa493-4.21-01.patch
+	xsa493-4.21-02.patch
+	xsa493-4.21-03.patch
+	xsa493-4.21-04.patch
+	xsa493-4.21-05.patch
+	xsa494-4.21.patch
 	"
 
 _seabios=/usr/share/seabios/bios-256k.bin
@@ -486,6 +545,11 @@ prepare() {
 
 	unset CFLAGS
 	unset LDFLAGS
+
+	msg "Preparing qemu-xen..."
+	mv "$srcdir"/qemu-"$_QEMU_VER" "$builddir"/tools/qemu-xen
+	# make sure this script is never run
+	rm "$builddir"/scripts/git-checkout.sh
 }
 
 # Unset CFLAGS and LDFLAGS because the xen build system
@@ -651,10 +715,6 @@ qemu() {
 		# these files are only in the x86* builds
 		amove usr/lib/xen/libexec/qemu-bridge-helper
 	esac
-
-	# these files contain textrels in the QEMU release tracked by Xen 4.20
-	rm "$subpkgdir"/usr/share/qemu-xen/qemu/s390-netboot.img
-	rm "$subpkgdir"/usr/share/qemu-xen/qemu/s390-ccw.img
 }
 
 qemu_openrc() {
@@ -667,15 +727,11 @@ qemu_openrc() {
 }
 
 sha512sums="
-e4502ddaeb66de4c30d59e90af198586683c28b56bf0eb03ca5508f663fef5e6582c009861ff5b66b7f0df6e5f6bc12337eff0ec775d72e7cb189fd2079dbd9d  xen-4.20.1.tar.gz
-fe3c253d03e1962ca4dd6bccd2e51817075450f51aa66e8ab9673bdd5a530dc08f1ed7817a1271ada028b0c34162f37cd6b24d84334403767caacd8206284cbb  qemu-xen_paths.patch
+88a961f0203374e6f00d04185d7fb4803dbdaa529a46e5dcdeda87743147e1974c717cefc5e8b11e129e7056358c879ea8248293b0913578d16be32aeafb5646  xen-4.21.1.tar.gz
+b91e151d41856c54276e8ab348cbfc322f8c88a140276c77f72dcdbdfea71fc49db1519ca6a2974af7b5a7966cc30d530ee4ad62176503261da351333a8676b1  qemu-10.2.3.tar.xz
+27a39198aa75bb42825f67ed2c76a2baf65ffd95b52259a3d36863d010a4608ac7f39e07887ffdaab35df1982c36a1c7fd5b8c7d974fb5ebab52aff897e1e6b3  qemu-xen_paths.patch
 1c9cb24bf67a2e84466572198315d5501627addf1ccd55d8d83df8d77d269a6696cd45e4a55601495168284e3bff58fb39853f56c46aaddd14f6191821678cf6  hotplug-vif-vtrill.patch
 8c9cfc6afca325df1d8026e21ed03fa8cd2c7e1a21a56cc1968301c5ab634bfe849951899e75d328951d7a41273d1e49a2448edbadec0029ed410c43c0549812  hotplug-Linux-iscsi-block-handle-lun-1.patch
-709d1487e76db80381e45f0b2a8149e8c21fea0b5dac05fb66c8c4ce02c786567148a36d3470f5178d1f0a9440cc5bd37447792a05650d52362856b285ffe8fb  xsa472-1.patch
-20f9732928c750bdfdda5164d8c7c0df9a24098948a188490efeea999fc1fecb2cca66750258d5bfbc60cc4b5de828be2ddaf15ae0eb29e579348dceb68d1e3a  xsa472-2.patch
-ed5102a81725f066f3533c72ff3f109334d451b394a258889644537b1eddec6978252bbc2a5304e3c6e3660c2ba4f9a4bdc8512c8317df41f52803c1bba42456  xsa472-3.patch
-7eb24637a23f64d2e72f9fe5363de132ec08591ebf9a6d99995a30acd56f7cef3ad51e94116f02ef0ce7a56e8f6e2a7bfd5c3969d38f15eb6b0b7bf6627b8ec0  xsa473-1.patch
-87685314030501c460a041d31a779307ad578a0d8023c228689f3f0b80bcecb0f2e094d2b82fd4955da269f481a337a9665028ab15920da8534b957476bfb108  xsa473-2.patch
 9430940692d6bfb58b1438e0f5f84cb703fbca9ce9cc157a1313ab1ceff63222a1ae31c991543b20c8fc84300df2b22f4614b27bbff32f82e17f27fcd953143c  xenstored.initd
 093f7fbd43faf0a16a226486a0776bade5dc1681d281c5946a3191c32d74f9699c6bf5d0ab8de9d1195a2461165d1660788e92a3156c9b3c7054d7b2d52d7ff0  xenstored.confd
 1dd04f4bf1890771aa7eef0b6e46f7139487da0907d28dcdbef9fbe335dcf731ca391cfcb175dd82924f637a308de00a69ae981f67348c34f04489ec5e5dc3b7  xenconsoled.initd
@@ -688,4 +744,35 @@ b833ed7334d912b519f317caefcf278274964838ca5588a0d58d9e91817e6c5519eab42521b78f7f
 bc40f7c0548162ce2181b34ea39064c0e1c529af95e0a282c78879916036cf7ac3c2cb7c433f8702a9fffe6e9257707d25fdccb6f8d045aef78b5e251a476309  xendriverdomain.initd
 a46337bebce24337f00adbe08095b9f5128c1f440e2033329e5ace9fd817a31fb772d75c0ecc7cc06f34b1522ebf8b21874ee4d0881a0f29851b1c1235f29cf3  xen-pci.initd
 2db5fa6edeeb028236460029b976a849f22b3a15d3929acc3911dc41f365b471c2b815eb111639bc230a69528b1571f3c2e9e8e1e81a6679e55387e39355aa99  xen-pci.confd
+626c70320b1ce8c7a2946d0321f86ca6e981556ae0154981dc323ba7e7d71570a2fea5d3aef61a576deab353f2922d155eb58b877581bc26445bfaffb07f752a  xsa484.patch
+921f2722d6d576256c9473fc805eb885709b62dff2fc359adb7077f9df766f08aa2c342453d7e2b033f076874659f7f64da273c4292684871a0aacea2c43f299  xsa486.patch
+b86dcdc6494ac58cc69289e6749a9ed52295cd1e466c41da5785fda912c6126c34ac216dce0e76cd98fecc59ef83c1b11c9371dd1d4a2e5434c1917bee16d536  xsa488.patch
+17a8962269b1eab18a8f4682c5c0e3b47200931b22dce6249df301ec249d42a1f0dcc0c74590aabee9f8727046926f47a9595d48580ffe0b51bf7e203f4b8dbb  xsa490-4.21.patch
+d148458ccaca2583ebf2ae12981331866252f5dd87c1f8e04b55a96c9d3ba2e215c2095c8b6d9ad238c1601d6027bdf2f0c79d58494b4c20b4d15b5c1a30e324  xsa491-4.21.patch
+9f533d35962f80f5fab79c0ec65fba9ce594ea188a9772e6b13067ca0e0bebd2fa57a3d85b1d2c3604fd3acd7e5e2f547b223a027b0df461e09b957517481da1  xsa492-4.21-01.patch
+5b3ac4d81af41b7333638018987409440e742a3bba1cb4dbac3c0bccbdca6e7729dd2f69f800c1a30befab23e804ff5e4926fe1f1c97c09fa42533bb44fa7e5a  xsa492-4.21-02.patch
+74b5e21d5dca232cc4c84bd443e9500167764714115c95ddec287ae19fc950a0274f87caba0eaf4befa925976ae5640375a5ef12f40611a258c650dd5c1f5a9c  xsa492-4.21-03.patch
+35bcffba1fd0d20076c21dc79758f5e0bf472c6577a4801a6197295c0fb241c4414a9ed3715fdc58d5d0c763901e084b310568296c913003f1ac06c6583bc7bf  xsa492-4.21-04.patch
+067c4ba251f001f8c4a95ee09b78ae0f3997cf8755595f51519836351921e23258448d5e187cc6486632e342460af67c6205ea9f3534c0c08fcc7128e632ace1  xsa492-4.21-05.patch
+c8c6aefc1137c8c6eba2178deccfe41e7fd1e22194264270a3b9f214674614bc7aa894a44e6ccb5b9e37eb81dd7f6ddec6c02d1f8acebebf2af6416e55d80304  xsa492-4.21-06.patch
+b1c0f28e2f15a46c802aac6e240887ae3de8f95e35f006d36e1d38eff2dd72639a40fbca8fc76ac8d05c37c853b5e06bb07bf51b364c26539f4718a24906cf33  xsa492-4.21-07.patch
+d69f619e71eb1160504769f3b089d9622545e9503b7a5c505e4449a9e6f09b2783f864b9db6fa31f880caf4dcbdb0b61ee4844b810cd60ae4f5c781fbe0748df  xsa492-4.21-08.patch
+9cab9f80dac3054d45249e97fdfaaa49a1bdf84d2c3e06bc1a664303fe3ef26df1a95146b118034c21beab94d7a8cbcbc1a2a78cc37f5b9ab785118113057522  xsa492-4.21-09.patch
+8da928b2a2dc6194018f97c0387506b388011830f00a8fcb55036c7f83e7e8a0aa3efbf02fbfaedd8b8332c391d3d5211d704a7f6e7a2556f3c6cfa179a78946  xsa492-4.21-10.patch
+38e01aec82411f8150e01def1c0957bd9234ba8d7333aec0e95135d91a789a31a8c27288afca8809f721583b7ca3b75d0e6ca9c07f0c2d1b2e8416af0d8cb594  xsa492-4.21-11.patch
+6122af54575a30899ee4603ff3d934f187a55a11be05bb524834cea5042bcabd9db803b463db749067c9b790332950e9443f7a499b9080ac4b08376d78881109  xsa492-4.21-12.patch
+4fb48a2b99075d95a9b43e0044fed0c30de7359d51a1b70b4eda4c36c65808a141bfafeb988f07cfb59023d0991a6f72605d8c6f55b0d0fa904b728b49625a8f  xsa492-4.21-13.patch
+4d40a348d7097a36e84724bb698a9f61f2ec0efaaf0edf30addb52577429de42694dc046c042cc23c31671891a8f67f89c748ec4d17416942d174e20a0d09708  xsa492-4.21-14.patch
+1c809a41ea8806a7d27000a60833c04c3c829153eef582ec462552db422650889e730c5138efe7433c7d5a9ae53820b810f7d027755284aeea3e257816ee3ec9  xsa492-4.21-15.patch
+ef3ffbd0b0609912686acf2ba514c5e25c33714bab88fb45cf921e388dfc540011899a67f24ef9e54405924fda6bb15f5b97a0e48b67300c3e5ef735789268c5  xsa492-4.21-16.patch
+4ad39d002191b94f2bf1baf0cc0d47715cdb3e050e387cdd24e37350f408b8a25948242680388d0e498b951252c995de89c0f4b601f85bcc9b504c7d4762c652  xsa492-4.21-17.patch
+7e298d6404b5148b546e073304fe0640fffa0c6f6976b6b5ea3c7999c0819ea994d4ffd349eaa25ad165bb7e874e8a61f45486d0190dd8e860d30ef4eabd34d7  xsa492-4.21-18.patch
+1c97e0b7b68cd2328f19aaecec7682646aee7f1e5e78a4e4395c5066b999c4279dff74712f04637dbed7d5615235ee6056bcc29ecff519b28ea621e31b1f9eb7  xsa492-4.21-19.patch
+6e02ce6efd7bd8bb129c68772ecc36bb4400c82e846407604b457d54afde40bd2908665da7497c9476333b5b57a94c00566f715ab8b1a1dbc520aa89b795fa3c  xsa492-4.21-20.patch
+06dce3f21f8b848d97de980ded637aecc2bad5712c390a7f2b5b97c8fa3eb9d1db3aed457aa237196447420dfa749ec6256bb2666cd4d1866437950886bff5b6  xsa493-4.21-01.patch
+ca5927d583658159cd24c027cad9e09273e070db873a95256d332d6fccab50645f9a52d114c469a1f951776746244a10448b22e907494bf4ac36a5a3e12480b4  xsa493-4.21-02.patch
+c3b037732a18a46699f5cc87fa78ef50956c865735e442f95bf05cc8cf392a6a884a41b28439929b6a0f0b6a0317e602b5efe0995ea9cb1a53193e262ead081b  xsa493-4.21-03.patch
+5f326848e7f07641e055ddd9dcffb4ca46b2dda2d4aadd9f2669e77eac59a7f8801374c328fc9949cf2de037d41f4a84581173696856073a29114b4f680e441f  xsa493-4.21-04.patch
+63a436522ccc472d0265a4ea60dd63234e7376ce44da02546fc2b7a0428f23e851855427593f3d1bf2c166d37653d8838716f7775d64fabc92feedf2b0f245ab  xsa493-4.21-05.patch
+dd7b131a02be3ef5e9435e7667b1216501558856b86e4dc63fc538029816150fe65b42f6a424811d7b121c8253cd9a16d543205a3010372c48f315d8cacd6165  xsa494-4.21.patch
 "

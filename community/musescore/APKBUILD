@@ -1,9 +1,12 @@
 # Contributor: Justin Berthault <justin.berthault@zaclys.net>
 # Contributor: Antoni Aloy <aaloytorrens@gmail.com>
-maintainer="Callum Andrew <contact@candrew.net>"
+# Maintainer: Robert Mongold <rtmongold@gmail.com>
 pkgname=musescore
-pkgver=4.5.2
+pkgver=4.7.4
 pkgrel=0
+_mnxdom_commit=e7c947bf768caccf315426dcae0dfac02caf738b
+_mnx_commit=d513cf7a28a84c803ed36e448b416cb49c3a22f9
+_json_schema_validator_commit=40af3ec39670e768fc3f01f935140af311d71024
 pkgdesc="Create, play and print beautiful sheet music"
 url="https://musescore.org/"
 # armhf blocked by qt6-qtdeclarative
@@ -23,6 +26,7 @@ makedepends="
 	lame-dev
 	libopusenc-dev
 	libsndfile-dev
+	nlohmann-json
 	portmidi-dev
 	pulseaudio-dev
 	qt6-qt5compat-dev
@@ -34,15 +38,28 @@ makedepends="
 	qt6-qttools-dev
 	samurai
 	tinyxml2-dev
+	xxd
 	"
 subpackages="$pkgname-doc $pkgname-lang"
 source="$pkgname-$pkgver.tar.gz::https://github.com/musescore/MuseScore/archive/v$pkgver.tar.gz
-	no-update-check.patch
+	mnxdom-$_mnxdom_commit.tar.gz::https://github.com/rpatters1/mnxdom/archive/$_mnxdom_commit.tar.gz
+	mnx-$_mnx_commit.tar.gz::https://github.com/w3c/mnx/archive/$_mnx_commit.tar.gz
+	json-schema-validator-$_json_schema_validator_commit.tar.gz::https://github.com/pboettch/json-schema-validator/archive/$_json_schema_validator_commit.tar.gz
+	no-fetch-mnxdom.patch
+	fix-destdir-symlinks.patch
+	no-fetch-mnxdom-deps.diff
 	"
 builddir="$srcdir"/MuseScore-$pkgver
 options="!check" # todo
 
+prepare() {
+	default_prepare
+	patch -p1 -d "$srcdir/mnxdom-$_mnxdom_commit" -i "$srcdir/no-fetch-mnxdom-deps.diff"
+}
+
 build() {
+	# FIXME https://gitlab.alpinelinux.org/alpine/aports/-/issues/17612
+	CMAKE_PREFIX_PATH="/usr" \
 	PATH="$PATH:/usr/lib/qt6/bin" \
 	CC=clang \
 	CXX=clang++ \
@@ -50,9 +67,14 @@ build() {
 	CXXFLAGS="${CXXFLAGS/-fstack-clash-protection} -O2 -DNDEBUG -D_LARGEFILE64_SOURCE" \
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=None \
+		-DFETCHONTENT_FULLY_DISCONNECTED=ON \
+		-DJSON_SCHEMA_VALIDATOR_SOURCE_DIR="$srcdir/json-schema-validator-$_json_schema_validator_commit" \
 		-DCMAKE_SKIP_RPATH=ON \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DMNXDOM_SOURCE_DIR="$srcdir/mnxdom-$_mnxdom_commit" \
+		-DMNX_W3C_SOURCE="$srcdir/mnx-$_mnx_commit" \
 		-DMUSESCORE_BUILD_CONFIGURATION=app \
+		-DMUSE_MODULE_UPDATE=OFF \
 		-DMUSE_APP_BUILD_MODE=release \
 		-DMUE_BUILD_UNIT_TESTS="$(want_check && echo ON || echo OFF)" \
 		-DMUE_COMPILE_USE_SYSTEM_FLAC=ON \
@@ -61,7 +83,9 @@ build() {
 		-DMUE_COMPILE_USE_SYSTEM_OPUS=ON \
 		-DMUE_COMPILE_USE_SYSTEM_OPUSENC=ON \
 		-DMUE_COMPILE_USE_SYSTEM_TINYXML=ON \
-		-DMUE_DOWNLOAD_SOUNDFONT=OFF
+		-DMUE_DOWNLOAD_SOUNDFONT=OFF \
+		-DNLOHMANN_JSON_MIN_VERSION=3.11.3 \
+		-DUSE_SYSTEM_NLOHMANN_JSON=ON
 	cmake --build build --target all MuseScore_lrelease
 }
 
@@ -81,6 +105,11 @@ lang() {
 }
 
 sha512sums="
-5175626ed78774973548fee5a91de9ec10ed1e8d6ade00cdea21d4a2430c425f3cb1e02af9904270cd65c3fc37625811d17047eea2d13df5cab2d901232454f2  musescore-4.5.2.tar.gz
-13b1ec75ce351a8319085299c5dd78fac21ca82346fcc8465734466f8ee411c774b671c36de75b3a6ee562ed1391291612d9562e147b33d3650a7640ece732bb  no-update-check.patch
+a391bf49b3e1de9e18f20b7752c91b71fcfcff5f4a56c628dd554f7f9dcfa475e8ea5237553565f0896d444935f06ee2341fa6fb82750a360691ce35ca8124d5  musescore-4.7.4.tar.gz
+9e0054ed4434b65417cf54f9082b0218683e99bfb9f23b2ce6a96556593c21e4a75ae9fcefea64d5ceccdbf7cbd04e209a1eb682907efe6083b8ff7c72206d75  mnxdom-e7c947bf768caccf315426dcae0dfac02caf738b.tar.gz
+16630c3377460fe8d4ebf10e7f2cd9014a6f6925a01823215e3d90ed73dd188813bcb31ad01a7de853b7efabe62302d31ec0d3f4e4c4325bf080d9cc5fcda0bb  mnx-d513cf7a28a84c803ed36e448b416cb49c3a22f9.tar.gz
+7baa8b6a0465dad2ce7ea0932bb0033940711bb44f4e239484e7007ef2f542852c828bb6a4aec517c0bdedc6cd217bce47e97c95631b4aadfad93393622258dc  json-schema-validator-40af3ec39670e768fc3f01f935140af311d71024.tar.gz
+d149d11c7cc7c10f0ff938cc505adea9afacaf3d5a6558e468d7ae0fdb05f2ac6a576bf5bb5f3e652299ddbabdd6b89459b3afadc82ec10f17b8ccf2f69fab9c  no-fetch-mnxdom.patch
+33d289d167a7b373625cbb02e44655d3412f555140e65722bb5eb9f5af25f1f3985f99f55f8cfdd55b1627c1f8e69441d11ae4fd29a04cae0bfd905efcda65e6  fix-destdir-symlinks.patch
+d9b91e85748a808a2fc919e0f2783e362b7814bc8837d6be76a78e2254aeb54852913187742cb04f8ad441abca8b105a959741164609de48c8be9b42b35c038a  no-fetch-mnxdom-deps.diff
 "

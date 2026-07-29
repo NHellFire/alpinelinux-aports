@@ -1,7 +1,7 @@
 # Contributor: Simon Frankenberger <simon-alpine@fraho.eu>
 # Maintainer: Simon Frankenberger <simon-alpine@fraho.eu>
 pkgname=openjdk17
-pkgver=17.0.16_p8
+pkgver=17.0.19_p10
 _pkgver=${pkgver%_p*}-ga
 pkgrel=0
 pkgdesc="Oracle OpenJDK 17"
@@ -76,6 +76,23 @@ loongarch64)	_jvm_variants=zero	;;
 esac
 
 # secfixes:
+#   17.0.19_p10-r0:
+#     - CVE-2026-22016
+#     - CVE-2026-34282
+#     - CVE-2026-22021
+#     - CVE-2026-22013
+#     - CVE-2026-23865
+#     - CVE-2026-22018
+#     - CVE-2026-22007
+#     - CVE-2026-34268
+#   17.0.18_p8-r0:
+#     - CVE-2026-21945
+#     - CVE-2026-21932
+#     - CVE-2026-21933
+#     - CVE-2026-21925
+#   17.0.17_p10-r0:
+#     - CVE-2025-53066
+#     - CVE-2025-53057
 #   17.0.16_p8-r0:
 #     - CVE-2025-50059
 #     - CVE-2025-30749
@@ -412,7 +429,7 @@ _jdk() {
 }
 
 sha512sums="
-df6cf32fa5884a004c1edc8de6fac9210efb740dd962860d415e97cfd3d2a232f19210c3d7fc21d1248e3424a160ca9e087db92c509eb79e815aeec0a40f212c  jdk-17.0.16-ga.tar.gz
+fb37c130bccaf1de37640a0cb0f74b8114c7c8756d28767972b57dedd6b2d86b9da71db57903659497a5e2f2a44b3eea634e551c75ba93a5ec896df1c637a463  jdk-17.0.19-ga.tar.gz
 70c0cfb1b4147bdecb467ecb22ae5b5529eec0abc085763213a796b7cdbd81d1761d12b342060539b936fa54f345d33f060601544874d6213fdde79111fa813e  gtest-1.13.0.tar.gz
 007e643039af096e77e491ccba821596c7e96b80d9821a7fbe4a78ca3f013c5e771956461d82505c26b0ca3ab06699877f398833db459e2442c0c51f71fee361  ppc64le.patch
 99030039fda63c945fd8063cce7a29b61c5201f7ddfc6082bc87aceb64288d07d07b4b5a7cf631d942168216b80f9a61f5044dee8bcbb08494a78e0e4db70d8a  riscv64.patch

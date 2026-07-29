@@ -1,9 +1,9 @@
 # Contributor: Guy Taylor <thebigguy.co.uk@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=iodine
 pkgver=0.8.0
-pkgrel=1
+pkgrel=2
 pkgdesc="IP over DNS tunnel"
 url="https://code.kryo.se/iodine/"
 arch="all"

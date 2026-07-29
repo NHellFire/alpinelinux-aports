@@ -1,6 +1,6 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=pdal
-pkgver=2.9.0
+pkgver=2.10.1
 pkgrel=1
 pkgdesc="PDAL is a C++ BSD library for translating and manipulating point cloud data."
 url="https://pdal.io/"
@@ -30,14 +30,14 @@ makedepends="
 	xerces-c-dev
 	zstd-dev
 	"
-checkdepends="gdal-tools gdal-driver-PNG gdal-driver-JPEG gtest"
+checkdepends="gdal-tools gdal-driver-png gdal-driver-jpeg gtest"
 subpackages="
 	$pkgname-dev
 	libpdal-plugins
 	"
 source="https://github.com/PDAL/PDAL/releases/download/$pkgver/PDAL-$pkgver-src.tar.bz2
 	10-zstd.patch
-	arrow21.patch
+	0001-filters-fix-UB-in-DimRange-sort-comparator.patch
 	"
 builddir="$srcdir/PDAL-$pkgver-src"
 
@@ -86,10 +86,12 @@ build() {
 
 check() {
 	# skipped tests are failing
+	# ref: https://github.com/PDAL/PDAL/issues/4983
 	local skipped_tests="pdal_("
 	local tests="
 		filters_assign
 		filters_overlay
+		info
 		io_arrow_reader
 		io_bpf_base
 		io_bpf_zlib
@@ -141,7 +143,7 @@ plugins() {
 }
 
 sha512sums="
-1ff1dcfdca261968a5e20ce9072181a687430e9ef5601d7f15c12cbf1af1696cd84c991bcad67e4c7cdfe279b66d12a0bc06016cee5a4106331b12eb6aa8a7a4  PDAL-2.9.0-src.tar.bz2
+1890079bd3f644b04c872f11e350c43b12d6fa1fba841dca67cd1e19e3d51c8777d47f38403d1cd0a95ac8b66f82f9178dfb9c340a0be5078157589d180984a9  PDAL-2.10.1-src.tar.bz2
 decf41a55e5eafd73c5519b199756b0b47c15d0e8ffa4d0ff77b37be4b4c618e389b64109744ba54f75915b9118f14b23b221de61d483c462e74abaf224ab8ab  10-zstd.patch
-16a626b5359b34327466c38deeba5320f304cc4e937c1192719333c698406c1835cf27c877c8fa13ada8bf097ac7e7d116845ad91cafebabd0f604a7a4c3622f  arrow21.patch
+798f5f545b6e1f8b9fa6928d85e44d42c84d9fd050f3255d68343e151b277f151736450d47c0755447c82e59911ce4b652d72e4fde64a3089d9fdbc0152992dd  0001-filters-fix-UB-in-DimRange-sort-comparator.patch
 "

@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kconfig
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Configuration system"
 # armhf blocked by qt6-qtdeclarative
@@ -20,9 +20,19 @@ makedepends="$depends_dev
 	samurai
 	"
 checkdepends="xwayland-run"
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/frameworks/kconfig.git"
 source="https://download.kde.org/stable/frameworks/${pkgver%.*}/kconfig-$pkgver.tar.xz"
+
+case "$CARCH" in
+	s390x|riscv64)
+		options="!check" # Fails to build due to not finding generated test file
+		;;
+esac
 
 build() {
 	export KDE_DOCS=/usr/share/kde/documentation
@@ -30,8 +40,7 @@ build() {
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_TESTING=ON \
-		-DBUILD_QCH=ON
+		-DBUILD_TESTING="$(want_check && echo ON || echo OFF)"
 	cmake --build build
 
 	cmake --build build --target prepare_docs
@@ -57,5 +66,5 @@ package() {
 }
 
 sha512sums="
-b0355f9726443c29a3e9c36c4c632c03695ddd20f9a9e486730356bfd0936e97afa60e2b3e9e7cb6d65643c006f3fa262814252b022db4584c26a5a553fd95c9  kconfig-6.17.0.tar.xz
+39d146b4ed42e6955331af65e19eb53cc1ba82dcbdb0e903787c146e1b68c8b4084702e8735ef28fcc05246ec02b914a36b64eded263618de601cc4b10a934d0  kconfig-6.28.0.tar.xz
 "

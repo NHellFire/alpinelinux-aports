@@ -5,7 +5,7 @@
 # Contributor: Sodface <sod@sodface.com>
 # Maintainer: lauren n. liberda <lauren@selfisekai.rocks>
 pkgname=yt-dlp
-pkgver=2025.09.05
+pkgver=2026.07.04
 pkgrel=0
 pkgdesc="Command-line program to download videos from YouTube"
 url="https://github.com/yt-dlp/yt-dlp"
@@ -22,10 +22,16 @@ _extradeps="
 	py3-secretstorage
 	py3-websockets
 	"
+case "$CARCH" in
+	s390x)
+		;;
+	*)
+		_extradeps="$_extradeps yt-dlp-ejs"
+		;;
+esac
 makedepends="$_extradeps py3-gpep517 py3-hatchling"
 checkdepends="
 	py3-flake8
-	py3-nose
 	py3-pytest-xdist
 	py3-requests
 	"
@@ -38,6 +44,7 @@ subpackages="
 	$pkgname-fish-completion
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/yt-dlp/yt-dlp/releases/download/$pkgver/yt-dlp.tar.gz
+	allow-nodejs-by-default.patch
 	"
 builddir="$srcdir/$pkgname"
 # Tests are very flakey
@@ -90,5 +97,6 @@ core() {
 }
 
 sha512sums="
-1f5cb05f1514aaebcc62fd75fd420664785d0e7d272c880a4d7a91c9f2ce1fbf381a94404a6312abac23ac2a4f5b75ae6f266381fec67ee972f8d43ed892368f  yt-dlp-2025.09.05.tar.gz
+48eb466715166f76aed4c64d41f76997766c27714cad7bc787f86d874aae05fa73d45153f4603b409683a3a752f90108758ea576785dcc05320e3789a7af610f  yt-dlp-2026.07.04.tar.gz
+a47d666bb0fa81510f82e7cb1e391b590e2b167cb0003a7c278a57f53c930d319020650884227645095df90b4a1f30117e94dcc0583fabe0ccaeb8bedd660dd5  allow-nodejs-by-default.patch
 "

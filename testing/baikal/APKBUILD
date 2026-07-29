@@ -1,12 +1,12 @@
 maintainer="leso-kn <info@lesosoftware.com>"
 pkgname=baikal
-pkgver=0.10.1
+pkgver=0.11.1
 pkgrel=1
 pkgdesc="Baïkal is a Calendar+Contacts server"
 url="https://sabre.io/baikal"
 arch="noarch"
 license="GPL-3.0-only"
-_phpv=84
+_phpv=85
 _php=php$_phpv
 _composer="$_php -d memory_limit=512M /usr/bin/composer.phar"
 _phpstan="$_php -d memory_limit=512M vendor/phpstan/phpstan/phpstan.phar"
@@ -34,9 +34,15 @@ subpackages="
 	$pkgname-sqlite
 	"
 install="$pkgname-sqlite.post-install"
-source="$pkgname-$pkgver.tar.gz::https://github.com/sabre-io/baikal/archive/refs/tags/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/sabre-io/baikal/archive/refs/tags/$pkgver.tar.gz
+	fix-security-advisories.patch"
 builddir="$srcdir"/Baikal-$pkgver
 _grp_www="www-data"
+
+case $CARCH in
+	# checks hang up on ppc64le as of 0.11.1
+	ppc64le) options="$options !check";;
+esac
 
 build() {
 	mkdir -p build/baikal/Specific/db build/baikal/config
@@ -87,5 +93,6 @@ sqlite() {
 }
 
 sha512sums="
-b4cedd3e8f24293fb17cfa5381b902f8fed865d4dea7d457146a84396e1d0641c317ca1f4f537187b40b57d3117e6da552fb6d1c22575bfd06a489a057132454  baikal-0.10.1.tar.gz
+dd4a90794668083a037fdf3c9bb9e6cba7d10f5396add799555277348abfbe02f356f22490563fefb3921bb699c07d8e85b651134065a6f8904c6e83777cea78  baikal-0.11.1.tar.gz
+eb6a87289ed420f7e97dba7f89099bdff1caaede8b146cb693adc543e1402a504df325a51b261cddebc4e3b8447cbf920e65ae15093796a16b8f1dc158617f57  fix-security-advisories.patch
 "

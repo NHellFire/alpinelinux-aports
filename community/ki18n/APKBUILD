@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=ki18n
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Advanced internationalization framework"
 # armhf blocked by qt6-qtdeclarative
@@ -44,7 +44,7 @@ build() {
 
 check() {
 	# kcatalogtest and ktimezonetest are broken
-	wlheadless-run -- ctest --test-dir build -E "(kcatalog|ktimezone)test"
+	wlheadless-run -- ctest --test-dir build -E "(kcatalog|ktimezone|kcountry|kcountrysubdivision)test"
 }
 
 package() {
@@ -55,5 +55,5 @@ package() {
 }
 
 sha512sums="
-f255176ddde978a0df1d5ace3f15cbf55ce1449149c4c9d9aa161f47e6fb164c8c050da5a3a12218ba30b3a828c54c138daee3fef0643ae3a887e5ee01dac9c0  ki18n-6.17.0.tar.xz
+082ce293bb46002c44ae5fafed36efd3b7b8848a5f2c58a86366fa2651bd4e8d429d8686d13b951118cf559c284b02cd50d21a3a529e00c051c253fcf9a2ae89  ki18n-6.28.0.tar.xz
 "

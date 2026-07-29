@@ -1,7 +1,7 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=ipython
-pkgver=9.5.0
+pkgver=9.15.0
 pkgrel=0
 pkgdesc="A rich toolkit to help you make the most of using Python interactively"
 url="https://ipython.org/"
@@ -15,6 +15,7 @@ depends="
 	py3-pexpect
 	py3-pickleshare
 	py3-prompt_toolkit<3.1.0
+	py3-psutil
 	py3-pygments
 	py3-stack_data
 	py3-traitlets
@@ -23,8 +24,6 @@ makedepends="py3-gpep517 py3-setuptools py3-wheel"
 checkdepends="
 	bash
 	py3-matplotlib
-	py3-nose
-	py3-pathlib2
 	py3-pytest<8.0.0
 	py3-testpath
 	"
@@ -55,5 +54,5 @@ package() {
 }
 
 sha512sums="
-6a2aebca6973bc32e1ff7c7c90469be299e7bb2c2fbbc8e6bb8c4ad83ed5f55f29bf305af74475657cefe9d63cd5ee038e3a60ebc1751b6112ba7fe663a67340  ipython-9.5.0.tar.gz
+a144503d07903cbd92543901a8602c5f6cb3c3b266e75b3ded733aff42a9bc358f7d025ea2732adb60232c6a349941bcf9334ae0c24da299c0e4f6269909c89b  ipython-9.15.0.tar.gz
 "

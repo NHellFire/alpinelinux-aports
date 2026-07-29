@@ -2,7 +2,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-testtools
 _pkgname=testtools
-pkgver=2.7.2
+pkgver=2.9.1
 pkgrel=0
 pkgdesc="Extensions to the Python standard library unit testing framework"
 url="https://pypi.org/project/testtools"
@@ -27,5 +27,5 @@ package() {
 }
 
 sha512sums="
-5815519d2b72d6b1e9f453c02793c70eb7d3b6580a211fb3708cd6121aed3c6100ceb1e35321f481a63b1f999ede030e43f1ae91d3621faf461c1908db767551  testtools-2.7.2.tar.gz
+68530c96756d383575602c6e3b6d33ca19fec4fe35ac6dba4ada4954be969a31414f930572cebbcbe4008fbdd1904537be793acdb5cce8458e36cdcbbfe719e0  testtools-2.9.1.tar.gz
 "

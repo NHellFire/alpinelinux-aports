@@ -1,12 +1,13 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=cproto
-pkgver=4.7y
+pkgver=4.8a
 pkgrel=0
 pkgdesc="Generate C function prototypes from C source code"
 url="https://invisible-island.net/cproto/"
 arch="all"
-license="Public-Domain"
+license="LicenseRef-$pkgname-Public-Domain"
 makedepends="bison flex"
 checkdepends="diffutils"
 subpackages="$pkgname-doc"
@@ -32,5 +33,5 @@ package() {
 }
 
 sha512sums="
-850ac74affbe13c81ba2f7a9995a6da74b476948a10568f34c2a52e24ef061144c176bc59762aa22d42011674606039621b982746c5972ef0787918d6630e9aa  cproto-4.7y.tgz
+14a2cc6508e16a064b94f339af3e157188505097e1a3f8eeab5187e2b084ce6131761df36debef6f0f7de7ae7338252bac02e7adb4731f3d0d50827c2c5f9f12  cproto-4.8a.tgz
 "

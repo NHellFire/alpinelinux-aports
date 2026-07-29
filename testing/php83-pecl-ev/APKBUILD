@@ -1,7 +1,7 @@
 # Maintainer: Andy Postnikov <apostnikov@gmail.com>
 pkgname=php83-pecl-ev
 _extname=ev
-pkgver=1.2.1
+pkgver=1.2.3
 pkgrel=0
 pkgdesc="PHP 8.3 extension provides interface to libev library - PECL"
 url="https://pecl.php.net/package/ev"
@@ -36,5 +36,5 @@ package() {
 }
 
 sha512sums="
-3ac8c1928bbb28088593adc89d672a75dee85eb4844fec46320be99e5a3ae514857d99add8d6cd574459a5bdda4f61acf8abe10b09d2888b59db27e75ebfadbd  php-pecl-ev-1.2.1.tar.gz
+71094a7a21c01045938cf578adde5221a0cf22d2008d73e03772ab7aa9e5008ddeb8e5ac71085881bb5a13cf471f0f343959caf587f2e4fbfc1cd55c59508f50  php-pecl-ev-1.2.3.tar.gz
 "

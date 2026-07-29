@@ -1,12 +1,11 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=s2n-tls
-pkgver=1.5.26
+pkgver=1.7.6
 pkgrel=0
 pkgdesc="AWS C99 implementation of the TLS/SSL protocols"
 url="https://github.com/aws/s2n-tls"
-# s390x: fails a bunch of tests
-arch="all !s390x"
+arch="all"
 license="Apache-2.0"
 depends_dev="openssl-dev"
 makedepends="
@@ -38,7 +37,7 @@ build() {
 check() {
 	timeout 600 \
 	ctest --test-dir build \
-		-E "(s2n_mem_usage_test|s2n_random_test|s2n_fork_generation_number_test|s2n_connection_test|s2n_self_talk_nonblocking_test)"
+		-E "(s2n_mem_usage_test|s2n_random_test|s2n_fork_generation_number_test|s2n_connection_test|s2n_self_talk_nonblocking_test|s2n_override_openssl_random_test)"
 }
 
 package() {
@@ -51,5 +50,5 @@ dev() {
 }
 
 sha512sums="
-aa730bb66f40230b7524bc25c1f0a9147e6694c46dea2037f825d9b647c694823342e37d5695ca56cb7d68869ef136ba6e0c911c92461858eae8d316fda93fd5  s2n-tls-1.5.26.tar.gz
+bb9c7d994c3f888641d1e20ce64ee7fc56e435680a48777f5a7c522526faff902b527eb63cca7b01bf1386d7f13154dbc77c449e24a0bcabd1814823c62e934b  s2n-tls-1.7.6.tar.gz
 "

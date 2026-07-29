@@ -1,8 +1,8 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-atpublic
-pkgver=6.0.1
-pkgrel=0
+pkgver=7.0.0
+pkgrel=1
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=atpublic
 pkgdesc="@public decorator for Python"
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-12606e4e4211b966f74e2993d1c412d80f715ec0570092801789d58ce9d6b26966aec774650e2e8974ca04200498b1c9e04662b84e346e36ceaff31a99108545  py3-atpublic-6.0.1.tar.gz
+7f92967243716d493d046048034eac2f1ede8985af8a6752b1b258a252f43ff8c5e6f85cd3fd7cc52f91468547f47c2435f07cba99d7db5f28880156cfbdc4ab  py3-atpublic-7.0.0.tar.gz
 "

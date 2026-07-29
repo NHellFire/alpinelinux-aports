@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-diskcache
 pkgver=5.6.3
-pkgrel=3
+pkgrel=5
 pkgdesc="disk caching implementation"
 url="https://grantjenks.com/docs/diskcache/"
 arch="noarch"
@@ -25,7 +25,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

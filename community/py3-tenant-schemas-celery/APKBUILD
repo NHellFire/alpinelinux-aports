@@ -4,11 +4,10 @@ pkgname=py3-tenant-schemas-celery
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=tenant-schemas-celery
 pkgver=4.0.3
-pkgrel=0
+pkgrel=2
 pkgdesc="Celery integration for django-tenant-schemas and django-tenants"
 url="https://pypi.python.org/project/tenant-schemas-celery"
-# loongarch64|s390x: blocked by py3-celery
-arch="noarch !s390x !loongarch64"
+arch="noarch"
 license="MIT"
 depends="py3-django-tenants py3-celery"
 checkdepends="python3-dev py3-pytest py3-freezegun postgresql17 postgresql17-client rabbitmq-server valkey procps-ng py3-django-celery-beat"
@@ -73,7 +72,7 @@ ssl_options.fail_if_no_peer_cert = false
 	../.testenv/bin/python3 -m coverage run manage.py makemigrations
 	../.testenv/bin/python3 -m celery -A tenant_schemas_celery.test_app:app worker -l INFO >/dev/null 2>&1 &
 	sleep 5 # wait for Celery to start
-	../.testenv/bin/python3 -m pytest -v ../.testenv/lib/python3.12/site-packages/tenant_schemas_celery
+	../.testenv/bin/python3 -m pytest -v ../.testenv/lib/python*/site-packages/tenant_schemas_celery
 
 	pkill -f "python3 -m celery"
 	pkill rabbitmq-server

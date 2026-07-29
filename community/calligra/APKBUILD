@@ -2,13 +2,13 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=calligra
-pkgver=25.08.0
-pkgrel=1
+pkgver=26.04.3
+pkgrel=0
 pkgdesc="Office and graphic art suite by KDE"
 # armhf blocked by extra-cmake-modules
 # armv7 and x86 are broken
-# s390x, ppc64le, riscv64 and loongarch64 blocked by qt6-qtwebengine -> okular
-arch="all !armhf !armv7 !x86 !s390x !ppc64le !riscv64 !loongarch64"
+# s390x and riscv64 blocked by qt6-qtwebengine -> okular
+arch="all !armhf !armv7 !x86 !s390x !riscv64"
 url="https://calligra.org/"
 license="GPL-2.0-or-later AND LGPL-2.0-only"
 makedepends="
@@ -41,7 +41,7 @@ makedepends="
 	kwidgetsaddons-dev
 	kwindowsystem-dev
 	kxmlgui-dev
-	poppler-qt5-dev
+	poppler-qt6-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qtdeclarative-private-dev
@@ -60,6 +60,7 @@ makedepends="$makedepends
 	okular-dev
 	"
 checkdepends="xwayland-run"
+_repo_url="https://invent.kde.org/office/calligra"
 source="https://download.kde.org/stable/release-service/$pkgver/src/calligra-$pkgver.tar.xz"
 subpackages="$pkgname-doc $pkgname-lang"
 options="!check" # Broken tests https://bugs.kde.org/show_bug.cgi?id=423989
@@ -83,5 +84,5 @@ package() {
 }
 
 sha512sums="
-b85403472443679b7b02e195f9ec8d0bc2e721bff8df5da2a2ad9788a54e013ae4548a301f3a0fb60812d0c7460d7574287ad633c63975f5122a6876e4a55d62  calligra-25.08.0.tar.xz
+bd27efcc625a20a2a2996c662cdc145a81e8feed63c20c5c0d4c1edd5eff9f00b08590bb9661f7b1b8bd5e9ef19940322f22b56dd6a127c60188ed119fac7c50  calligra-26.04.3.tar.xz
 "

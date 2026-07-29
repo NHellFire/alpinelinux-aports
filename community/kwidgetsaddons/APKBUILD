@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwidgetsaddons
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Addons to QtWidgets"
 # armhf blocked by qt6-qtdeclarative
@@ -66,5 +66,5 @@ _py3() {
 }
 
 sha512sums="
-220e9fbab08c02b32039789be1819d98dcfe71a4a79e4bc228442590408b188cd760525cca46bfca56a55a425f5a61b214282d178373c32fc0416008ae681fd0  kwidgetsaddons-6.17.0.tar.xz
+c32fd33269ce3d4e55672ea68ac876fdabff8a3c7a0917c329570d8c2bd0950df6fcb0f46866b9d9c088dbc109f828ef2a791b4bfa0299751e322eb84ade7a46  kwidgetsaddons-6.28.0.tar.xz
 "

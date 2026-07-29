@@ -1,7 +1,7 @@
 # Contributor: Carter Li <zhangsongcui@live.cn>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=fastfetch
-pkgver=2.52.0
+pkgver=2.66.0
 pkgrel=0
 pkgdesc="Maintained, feature-rich and performance oriented, neofetch-like system information tool"
 url="https://github.com/fastfetch-cli/fastfetch"
@@ -86,5 +86,5 @@ package() {
 }
 
 sha512sums="
-1a1e8fe0badb72b14c673e950802f7c9cc9c3de39bafc39867a0444953f7b5242d317d4db95d1cdd06e56485a7146876b5c6ee1532713a1f37413edf1d5dc441  fastfetch-2.52.0.tar.gz
+dc067be6742b1193a6f7719333ecd418289c23b2c8ffc7f603eb9dd39b3b279536edcb87bc0e00f1a3a1a6f581e290b89e8cc5acd40a806bef1ba141b45d34c5  fastfetch-2.66.0.tar.gz
 "

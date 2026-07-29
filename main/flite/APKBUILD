@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=flite
 pkgver=2.2
-pkgrel=5
+pkgrel=6
 pkgdesc="Small, fast speech synthesis engine (text-to-speech)"
 url="http://cmuflite.org/"
 arch="all"

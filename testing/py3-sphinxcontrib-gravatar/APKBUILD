@@ -3,7 +3,7 @@
 pkgname=py3-sphinxcontrib-gravatar
 _pkgname=sphinxcontrib-gravatar
 pkgver=0.1.2
-pkgrel=8
+pkgrel=9
 pkgdesc="Sphinx gravatar extension"
 options="!check" # Most tests fail
 url="https://pypi.org/project/sphinxcontrib-gravatar"
@@ -27,7 +27,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

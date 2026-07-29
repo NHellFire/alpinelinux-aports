@@ -1,7 +1,7 @@
 # Contributor: Andy Hawkins <andy@gently.org.uk>
 # Maintainer: Andy Hawkins <andy@gently.org.uk>
 pkgname=py3-quantiphy
-pkgver=2.20
+pkgver=2.22.1
 pkgrel=0
 pkgdesc="Physical Quantities"
 url="https://quantiphy.readthedocs.io/"
@@ -12,7 +12,7 @@ depends="
 	"
 makedepends="
 	py3-gpep517
-	py3-flit-core
+	py3-flit-core>=2
 	"
 checkdepends="
 	py3-pytest
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-53a221ee5e2bcf8276a603fd76c6abe4c9683284e12d64c59f54f852d814c2001e0798551b4a301f5cf4e6aab4cee3734bed158d69a176624da6c4841d988525  quantiphy-v2.20.tar.gz
+da64494d9e4bfa757cfad403515988cb07bc45796a682575a948d738f1827e249666b93bbb5a7a12b287c84772e8ba8e63961fb0da996082527c85a33a567ae6  quantiphy-v2.22.1.tar.gz
 "

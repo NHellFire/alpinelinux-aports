@@ -1,8 +1,8 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=libqtxdg
-pkgver=4.2.0
-pkgrel=2
+pkgver=4.4.0
+pkgrel=1
 pkgdesc="Qt implementation of freedesktop.org xdg specifications"
 url="https://github.com/lxqt/libqtxdg"
 arch="all"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-635dafea97bcb5f6283d82e99be17b1d7af526311d757c48eef8ac58ec18f59597f2b0fa112d31b9e58ed92576112f9357db9f728df705552e42cd4f59392eff  libqtxdg-4.2.0.tar.xz
+22806f5a9a4156ae5f1a0ec3b9818d03a63180c2da9420c919b86b76cb67b8f360b90740afa2d8d8ef58e6f48470960a054e1e71e689be4bead6cf4e21cb2df1  libqtxdg-4.4.0.tar.xz
 "

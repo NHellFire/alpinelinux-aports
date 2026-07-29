@@ -1,7 +1,7 @@
 # Contributor: Alex Yam <alex@alexyam.com>
 maintainer="Sertonix <sertonix@posteo.net>"
 pkgname=sane-airscan
-pkgver=0.99.35
+pkgver=0.99.37
 pkgrel=0
 pkgdesc="SANE backend for AirScan (eSCL) and WSD document scanners"
 url="https://github.com/alexpevzner/sane-airscan"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-b937363770c85500e64fc2159f5f86b74bf73f5bc8f38d6aade4b119f4f9ddabc8966fd836b1cd4eb6f9b8556221ba1f8a039a060523c7e12819851d1d74a086  sane-airscan-0.99.35.tar.gz
+e2936a5b1e603b57e38b36f185de468cc53646c1ededc506a155ee1773c91738af6bc9ea41e2d7d886e2d7db1324231545fe5ccb8ee1055272b6607cf82bb6b2  sane-airscan-0.99.37.tar.gz
 "

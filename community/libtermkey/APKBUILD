@@ -1,9 +1,10 @@
 # Contributor: Marvin Preuss <marvin@xsteadfastx.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=libtermkey
 pkgver=0.22
-pkgrel=2
+pkgrel=4
 pkgdesc="Library for easy processing of keyboard entry from terminal-based programs"
 url="https://www.leonerd.org.uk/code/libtermkey"
 arch="all"

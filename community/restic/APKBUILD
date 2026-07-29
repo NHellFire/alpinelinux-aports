@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=restic
-pkgver=0.18.0
-pkgrel=5
+pkgver=0.19.1
+pkgrel=1
 pkgdesc="Fast, secure, efficient backup program"
 url="https://restic.net/"
 arch="all"
@@ -12,10 +12,6 @@ checkdepends="python3"
 options="net chmod-clean"
 subpackages="$pkgname-doc $pkgname-bash-completion $pkgname-zsh-completion $pkgname-fish-completion"
 source="https://github.com/restic/restic/releases/download/v$pkgver/restic-$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v ./cmd/...
@@ -45,5 +41,5 @@ package() {
 }
 
 sha512sums="
-964422cd52abd68e2a860eb18ce277da7b0093657244deb56849f656e9c7f0f29de5478b0124644a7b5aceb39fa83feab0686f9634a5f48ac38614f1d73d02f4  restic-0.18.0.tar.gz
+f707e085f35026a9c901c851c10190b18804d7c7f161f37933341a89fcc240f199084c8e93b35ce92237c67772d9673da9d78d8ccd0087714b765f9e8b384155  restic-0.19.1.tar.gz
 "

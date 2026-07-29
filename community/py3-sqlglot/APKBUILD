@@ -1,8 +1,10 @@
 # Maintainer: omni <omni+alpine@hack.org>
 maintainer="omni <omni+alpine@hack.org>"
 pkgname=py3-sqlglot
-pkgver=27.6.0
+pkgver=30.0.3
 pkgrel=0
+# as long as mycli is the only consumer of this aport, keep the version in line
+# with what's in the pyproject.toml file of mycli
 pkgdesc="Python SQL Parser and Transpiler"
 url="https://github.com/tobymao/sqlglot"
 arch="noarch"
@@ -28,5 +30,5 @@ package() {
 }
 
 sha512sums="
-8033fbce129ff7f32865bbb6f3121a4c0a74d097e424458ddce494492bd8fa4a905f022275bdca49bd4d62c5f1f8774cdb5be6d57c273fc1fdfe40793f22e66a  sqlglot-27.6.0.tar.gz
+1c4d80c7ae775a55a7826d97ea6ada17380205e10be40ae07b47fb3ba09a90429fadfe65cf736fa378ae0be8b2f8f29c9d1091e84c768aa147b21a98241a73a6  sqlglot-30.0.3.tar.gz
 "

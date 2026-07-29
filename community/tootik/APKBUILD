@@ -1,31 +1,38 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=tootik
-pkgver=0.19.2
-pkgrel=0
+pkgver=0.21.1
+pkgrel=3
 pkgdesc="Federated nanoblogging service with Gemini frontend"
 url="https://github.com/dimkr/tootik"
-# riscv64, ppc64le: tests fail in CI, even with the 3 retries
-arch="all !riscv64 !ppc64le"
+# riscv64: tests fail in CI, even with the 3 retries
+arch="all !riscv64"
 license="Apache-2.0"
 depends_openrc="openssl"
-makedepends="go sqlite-dev"
+makedepends="
+	go
+	sqlite-dev
+	"
 install="$pkgname.pre-install"
 pkgusers="tootik"
 pkggroups="tootik"
 subpackages="$pkgname-openrc"
+options="net" # go
 source="https://github.com/dimkr/tootik/archive/refs/tags/v$pkgver/tootik-$pkgver.tar.gz
 	tootik.cfg
 	tootik.initd
 	tootik.confd
 	"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 export CGO_ENABLED=1
 export _GOTAGS="libsqlite3 fts5"
+
+prepare() {
+	default_prepare
+
+	# go vet fails because it requires bestline.h
+	rm -r cmd/demo
+}
 
 build() {
 	local _goldflags="
@@ -65,8 +72,8 @@ package() {
 }
 
 sha512sums="
-654793471b18b31a6c7b3f1ac20a88225c2b0dff12110cacd17d30ac40d08ca4b1315a8f2e7d20112dbfac13ad8e0bf4ef4bf9aeeaed7eb279fb600073672e6a  tootik-0.19.2.tar.gz
-c40610ac9a92fdba9865f9e9f05e9df1eb1d7b9de30a84df5c96cc1bb2e59747f66d3b8dea53b7b2d1872ce4cbf013ffb7dcbab0a40b49c4e7c4caeaa17c3e1c  tootik.cfg
-27e2900591d93829dbde0775cffe8a6098cabb0f4366ebd059902da991229686145650a842adb2c28ccae7f9180bd80c8fd054af9e58799eeb4844a3b53ff503  tootik.initd
-11fa51d25baaeb295c80cf3e154eb1eab67f9633e23f01cc0a25c427af368746d536bff17de2153b5be925489e3f84ca5ba492a4a43c32aaf33b8c4d00d14fd6  tootik.confd
+01ba8bc2478dfe2ac112dd33da94a2b3e37e9e56022bcb96e3ee82b26954c600b0e387846a99bc71ca214aad9968e0f6330cd2f8d23f272a8058b232d2e467f9  tootik-0.21.1.tar.gz
+796cfe324fb70ed776b3bb1a6eb014bf037dfd61c6aa35a86abcd755d300d3988e1e61b92a8ae00e88f54af0c8516d139685f282763ac1c388d6ba58f5e225bb  tootik.cfg
+b5fef270015b325021c85474cef6132203aa9dacd89ca990b01f5e5fabac13e8fb669d297b5cb07daa4e5ce4826675e6784de6ceaa24ecd88a688d204543d698  tootik.initd
+ba4e25149d343142308c17adc6d6df1424138bd4b8cbb4c9495fb00416e543d2c1c6b8ddccab84aec58fe3cc095ce8283f47bef51faf2982f5c38398c9009dc9  tootik.confd
 "

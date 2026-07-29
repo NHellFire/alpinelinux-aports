@@ -1,9 +1,9 @@
 # Contributor: Grigory Kirillov <txgk@bk.ru>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=litehtml
 pkgver=0.9
-pkgrel=2
+pkgrel=3
 pkgdesc="Fast and lightweight HTML/CSS rendering engine"
 url="http://www.litehtml.com/"
 arch="all"
@@ -14,6 +14,7 @@ subpackages="$pkgname-static $pkgname-dev"
 source="https://github.com/litehtml/litehtml/archive/v$pkgver/litehtml-$pkgver.tar.gz
 	fix-gtest-check.patch
 	"
+options="!check" # newer gtest requires higher CXX standard for tests
 
 build() {
 	cmake -B build -G Ninja \

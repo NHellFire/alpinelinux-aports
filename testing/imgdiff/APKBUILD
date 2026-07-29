@@ -2,7 +2,7 @@
 # Maintainer: Sergiy Stupar <owner@sestolab.pp.ua>
 pkgname=imgdiff
 pkgver=1.0.2
-pkgrel=29
+pkgrel=37
 pkgdesc="Fast pixel-by-pixel image difference tool"
 url="https://github.com/n7olkachev/imgdiff"
 arch="all"
@@ -11,10 +11,6 @@ options="!check" # no test suite
 subpackages="$pkgname-doc"
 makedepends="go"
 source="https://github.com/n7olkachev/imgdiff/archive/v$pkgver/imgdiff-v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -o imgdiff cmd/main.go

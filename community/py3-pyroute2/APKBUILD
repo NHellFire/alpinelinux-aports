@@ -1,7 +1,7 @@
 # Maintainer: Thomas Liske <thomas@fiasko-nw.net>
 pkgname=py3-pyroute2
 _pkgname=pyroute2
-pkgver=0.9.2
+pkgver=0.9.6
 pkgrel=0
 pkgdesc="Python Netlink library: full installation"
 url="https://github.com/svinota/pyroute2"
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-b6012f4ab20bed3630a90bcd1672f9f5a467b0ddb6ea180d8bd11868ac2361898e2fa33fafcda857026384fde5952a03b5b7b9d1f2672b963019fd7b2a83a6c3  pyroute2-0.9.2.tar.gz
+b568b79e1cc38651be8ea020326a147e26ec5fb7b9257ec95d809214b6110483fac7672dd8621d7d4f4108d10be35a9dcc770aaf2eccc801861b12af77ad73d5  pyroute2-0.9.6.tar.gz
 "

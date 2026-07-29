@@ -1,7 +1,7 @@
 # Contributor: Peter Shkenev <santurysim@gmail.com>
 # Maintainer: Peter Shkenev <santurysim@gmail.com>
 pkgname=gajim
-pkgver=2.3.3
+pkgver=2.4.7
 pkgrel=0
 _pkgver_suffix=""
 pkgdesc="A full featured and easy to use XMPP client"
@@ -18,6 +18,8 @@ depends="
 	py3-css-parser
 	py3-emoji
 	py3-gobject3
+	py3-httpx
+	py3-h2
 	py3-keyring
 	py3-nbxmpp
 	py3-omemo-dr
@@ -25,8 +27,11 @@ depends="
 	py3-packaging
 	py3-pillow
 	py3-precis-i18n
+	py3-pysequoia
 	py3-qrcode
+	py3-socksio
 	py3-sqlalchemy
+	py3-truststore
 	sqlite
 	pango
 	"
@@ -38,9 +43,7 @@ makedepends="
 	python3-dev
 	"
 checkdepends="xvfb-run font-dejavu py3-pytest"
-source="
-	https://dev.gajim.org/gajim/gajim/-/archive/$pkgver/gajim-$pkgver.tar.bz2
-	"
+source="https://dev.gajim.org/gajim/gajim/-/archive/$pkgver/gajim-$pkgver.tar.bz2"
 subpackages="$pkgname-doc $pkgname-lang $pkgname-pyc"
 
 build() {
@@ -68,5 +71,5 @@ lang() {
 }
 
 sha512sums="
-87d5f9ff6fbd997408d323274d645d3ad1b24f3259419af704594916a506bd50d6b71d97320f8d74a978a2908f56f6ac69b229f445391f03163b9074e3a4ed83  gajim-2.3.3.tar.bz2
+f5ee3fa48e154c84f632003466bdd44065342c5ba2f926eb806fdb7184c34e5ac7c5ea69e036dfda8a72e1ff8f3545c4b45d725b579dcacd250658229dcbc877  gajim-2.4.7.tar.bz2
 "

@@ -1,9 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=libedit
-pkgver=20250104.3.1
+pkgver=20260508.3.1
 _ver=${pkgver/./-}
-pkgrel=2
+pkgrel=1
 pkgdesc="BSD line editing library"
 url="https://www.thrysoee.dk/editline"
 arch="all"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-4b4a8b4b1f2cb952bbb3d128605eba9bc7cd0ad35c44b2c099f067c8bea69455bd11faae4ff20384bbe0ea901b25a1249d8323dea4ccd6141a17393f62bb8df2  libedit-20250104-3.1.tar.gz
+862d24687eb0dfd30735c34ce56bf8f64302e1c65835cac67656a97535317e1d29eec2c1ef271d7b971bdab872afc6d13d0b055982fd3d958c73e96afc87d10a  libedit-20260508-3.1.tar.gz
 "

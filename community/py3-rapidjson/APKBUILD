@@ -1,8 +1,8 @@
 # Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 # Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 pkgname=py3-rapidjson
-pkgver=1.20
-pkgrel=0
+pkgver=1.23
+pkgrel=1
 pkgdesc="Python3 wrapper around RapidJSON"
 url="https://github.com/python-rapidjson/python-rapidjson"
 arch="all"
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-35cad81463864c4ad34bb0fa9d21cf13968a2b8c700c0698c9d9cd4201dc6762b3c79f21f745a534ab665679780ad121a073c6af9d527a3c7e8c604c4ef32801  py3-rapidjson-1.20.tar.gz
+6ba47fbbd5511f9e982e3e16f12a6282a4555a6af2cb75df5fc9eb0fcaa6855f9322393f08a6bdd3e39aa7f8be7fcdf51b9e2c41619bb7cae0d4f074c946f77d  py3-rapidjson-1.23.tar.gz
 "

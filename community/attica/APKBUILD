@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=attica
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Freedesktop OCS binding for Qt"
 url="https://www.kde.org/"
@@ -29,8 +29,7 @@ build() {
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=MinSizeRel \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_QCH=ON
+		-DCMAKE_INSTALL_LIBDIR=lib
 	cmake --build build
 
 	cmake --build build --target prepare_docs
@@ -52,5 +51,5 @@ package() {
 }
 
 sha512sums="
-a1ea31d3ae518f453fa051f6916bdf0d8803191ff9a3ca30ffe12009ae25bbd7e77b9fb27c51c8ca1931d1ebd73fb450a8e5e61cd3d24d93b91fc018873c1026  attica-6.17.0.tar.xz
+f081585487e6d4c5b6edf1356853c6f4255bbb744430eab5d22be4178a4192a07d92143d14297d86f9f04b30ebcfc5ee14e22996e2c897d496fafabc9e96ce84  attica-6.28.0.tar.xz
 "

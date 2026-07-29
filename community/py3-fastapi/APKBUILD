@@ -2,15 +2,18 @@
 # Contributor: Steven Guikal <void@fluix.one>
 # Maintainer: Steven Guikal <void@fluix.one>
 pkgname=py3-fastapi
-pkgver=0.116.1
+_pkgname=fastapi
+pkgver=0.138.2
 pkgrel=0
 pkgdesc="Modern, high-performance, web framework for building APIs based on standard Python type hints"
-url="https://github.com/tiangolo/fastapi"
+url="https://github.com/fastapi/fastapi"
 arch="noarch"
 license="MIT"
 depends="
+	py3-annotated-doc
 	py3-pydantic
 	py3-starlette
+	uvicorn
 	"
 makedepends="
 	py3-gpep517
@@ -18,6 +21,7 @@ makedepends="
 	py3-pdm-backend
 	"
 checkdepends="
+	py3-a2wsgi
 	py3-aiosqlite
 	py3-anyio
 	py3-databases
@@ -28,19 +32,22 @@ checkdepends="
 	py3-inline-snapshot
 	py3-jwt
 	py3-orjson
-	py3-passlib
+	py3-pwdlib
 	py3-pytest
 	py3-pydantic-settings
+	py3-pytest-timeout
+	py3-pytest-xdist
 	py3-python-jose
 	py3-python-multipart
 	py3-sqlalchemy
 	py3-trio
+	py3-typer
 	py3-ujson
 	py3-yaml
 	"
 subpackages="$pkgname-pyc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/tiangolo/fastapi/archive/refs/tags/$pkgver.tar.gz"
-builddir="$srcdir/fastapi-$pkgver"
+source="$pkgname-$pkgver.tar.gz::https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
 	gpep517 build-wheel \
@@ -52,12 +59,17 @@ check() {
 	python3 -m venv --clear --without-pip --system-site-packages testenv
 	testenv/bin/python3 -m installer .dist/*.whl
 
+	# Set a timeout in the event tests occasionally hang on the builders
+	# e.g. tests/test_tutorial/test_websockets/test_tutorial003.py
 	# The deselected test wants to run fastapi cli from $PATH or depend on sqlmodel which itself checkdepends on fastapi. That would cause a cyclic dependency.
+	timeout 30m \
 	testenv/bin/python3 -m pytest \
 		--deselect tests/test_fastapi_cli.py::test_fastapi_cli \
 		--ignore tests/test_tutorial/test_sql_databases/test_tutorial001.py \
 		--ignore tests/test_tutorial/test_sql_databases/test_tutorial002.py \
-		--ignore tests/test_tutorial/test_custom_request_and_route/test_tutorial002.py
+		--ignore tests/test_tutorial/test_header_param_models/test_tutorial001.py \
+		--ignore tests/test_tutorial/test_header_param_models/test_tutorial003.py \
+		--ignore tests/test_tutorial/test_graphql/test_tutorial001.py
 }
 
 package() {
@@ -66,5 +78,5 @@ package() {
 }
 
 sha512sums="
-9d15b6c19536c0385b1c7422b9997c2f09109d022c23e83eaff89d2cd9493e9184253b067a9b0ee9ad49a01febedd21348bce1da8b3cfab22ec41190536888cc  py3-fastapi-0.116.1.tar.gz
+a7e4a151fb180a2464b1b861ed013204047940f0bbd1ec274d75e096e2f455336de0593b59118f0b7a0c2e93c267899169c973d9fd9328d96b94d5eaf5e6fa09  py3-fastapi-0.138.2.tar.gz
 "

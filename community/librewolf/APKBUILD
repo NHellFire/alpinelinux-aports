@@ -1,27 +1,30 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Contributor: Patrycja Rosa <alpine@ptrcnull.me>
-maintainer="Sertonix <sertonix@posteo.net>"
+# Contributor: Sertonix <sertonix@posteo.net>
+maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=librewolf
-pkgver=142.0.1_p1
+pkgver=152.0.2_p1
 pkgrel=0
-_settings_commit=a642ca7659c070756211a9e78f11c26ed556c6cf
-_l10n_commit=73fcb6ec9a1a8a0f1baa993db5a904e6ebdedecd
+# https://codeberg.org/librewolf/settings/, matching submodule version.
+_settings_commit=38e92f591d526878dab70a4764fa8db3bbb01bed
+# https://github.com/mozilla-l10n/firefox-l10n/, latest main.
+_l10n_commit=2444b4f5c4a2d5887ae3fcf88fd903c309942b60
 pkgdesc="Community-maintained fork of Firefox, focused on privacy, security and freedom."
 url="https://librewolf.net/"
 # s390x blocked by rlbox https://bugzilla.mozilla.org/show_bug.cgi?id=1966554
 # armhf: https://bugzilla.mozilla.org/show_bug.cgi?id=1680495
 # riscv64 use of undeclared identifier '__riscv_vsetvlmax_e64m8'
-arch="all !s390x !armhf !riscv64"
+# x86: rustc SIGSEGV/OOM compiling firefox-on-glean
+arch="all !s390x !armhf !riscv64 !x86"
 license="GPL-3.0-only AND LGPL-2.1-only AND LGPL-3.0-only AND MPL-2.0"
-# ffmpeg 6 -> 112
 depends="
 	ffmpeg-libavcodec
 	so:libEGL.so.1
 	so:libGL.so.1
 	pciutils-libs
 	"
-_llvmver=20
+_llvmver=22
 makedepends="
 	alsa-lib-dev
 	automake
@@ -83,23 +86,27 @@ source="$pkgname-source-$pkgver.tar.gz::https://codeberg.org/librewolf/source/ar
 	firefox-${pkgver%_p*}.tar.xz::https://ftp.mozilla.org/pub/firefox/releases/${pkgver%_p*}/source/firefox-${pkgver%_p*}.source.tar.xz
 	firefox-l10n-$_l10n_commit.tar.gz::https://github.com/mozilla-l10n/firefox-l10n/archive/$_l10n_commit.tar.gz
 	abseil-cpp.patch
-	bmo-1952657-no-execinfo.patch
+	bmo-1988166-no-single_threaded-h.patch
+	bmo-2039878-vulkan-32bit.patch
+	bmo-2048097-inttypes-x86.patch
+	bmo-2048100-xsimd-ppc64le.patch
 	fix-fortify-system-wrappers.patch
-	fix-webrtc-glibcisms.patch
 	lfs64.patch
 	no-ccache-stats.patch
 	rust-lto-thin.patch
 	riscv64-no-lto.patch
 	sandbox-sched_setscheduler.patch
 	sqlite-ppc.patch
+	ppc-abi.patch
+	time64.patch
 	widevine.patch
+	musl-prctl.patch
+	wasm-wasip1.patch
 
-	loong0001-Enable-WebRTC-for-loongarch64.patch
 	loong0003-Define-HWCAP_LOONGARCH_LSX_and_LASX.patch
 	loong0004-Fix-ycbcr-chromium_types-warning.patch
 
 	l10n.patch.early
-	tos.patch.early
 
 	mozconfig
 	librewolf.desktop
@@ -513,6 +520,24 @@ sonameprefix="$pkgname:"
 #   68.0.2-r0:
 #     - CVE-2019-11733
 
+# Run this to bump commits above.
+_bump() {
+	msg "Updating commit hashes in $APKBUILD..."
+
+	# Get pinned settings submodule commit from librewolf source tag
+	local _tag=${pkgver/_p/-}
+	local _settings_commit=$(curl -sL "https://codeberg.org/api/v1/repos/librewolf/source/contents/settings?ref=$_tag" | jq -r '.sha')
+	local _l10n_commit=$(git ls-remote https://github.com/mozilla-l10n/firefox-l10n.git main | awk '{print $1}')
+
+	msg "  settings=$_settings_commit"
+	msg "  l10n=$_l10n_commit"
+
+	sed -i \
+		-e "s|^_settings_commit=.*|_settings_commit=$_settings_commit|" \
+		-e "s|^_l10n_commit=.*|_l10n_commit=$_l10n_commit|" \
+		"$APKBUILD"
+}
+
 # we need this because cargo verifies checksums of all files in vendor
 # crates when it builds and gives us no way to override or update the
 # file sanely... so just clear out the file list
@@ -529,7 +554,6 @@ prepare() {
 	mv ../firefox-l10n-$_l10n_commit librewolf-${pkgver/_p/-}/lw/l10n
 
 	patch -p1 < "$srcdir"/l10n.patch.early
-	patch -p1 < "$srcdir"/tos.patch.early
 
 	python3 scripts/librewolf-patches.py ${pkgver%_p*} ${pkgver#*_p}
 
@@ -540,6 +564,10 @@ prepare() {
 
 	_clear_vendor_checksums audio_thread_priority
 	_clear_vendor_checksums libc
+	_clear_vendor_checksums cc
+	_clear_vendor_checksums zeitstempel
+	_clear_vendor_checksums wgpu-hal
+	_clear_vendor_checksums alsa
 }
 
 build() {
@@ -572,6 +600,14 @@ build() {
 
 	export LDFLAGS="$LDFLAGS -Wl,--thinlto-jobs=$thinlto_jobs -Wl,--threads=$link_threads"
 
+	case "$CARCH" in
+	# ld.lld: error: undefined symbol: __atomic_store
+	# ld.lld: error: undefined symbol: __atomic_load
+	x86)
+		LDFLAGS="$LDFLAGS -latomic"
+		;;
+	esac
+
 	export SHELL=/bin/sh
 	export BUILD_OFFICIAL=1
 	export MOZILLA_OFFICIAL=1
@@ -600,7 +636,7 @@ build() {
 	case "$CARCH" in
 	# mimalloc clashes with scudo in a weird way here
 	# we can try to minimize memory usage instead by reducing parallels
-	x86)
+	x86|arm*)
 		export MOZ_PARALLEL_BUILD=4
 		;;
 	# default allocator returns oom ( and, in turn, std::bad_alloc in clang )
@@ -707,26 +743,30 @@ package() {
 }
 
 sha512sums="
-eeb78e67ffcfa8ce28972887fe02cec401d4cf4f9b938c9123a9a2c87253a7280a19f05a72fd38a045fc12e288a4aa90a5e0ce449f0dc5468e1bb371d42a13af  librewolf-source-142.0.1_p1.tar.gz
-0e552a13b3c3558ba3844a8d1eaf33f57926478fb8425e6738f5fd61e7ac48ed80fa7a8dcca6cbb4dd998e5af2d057f53d358f95ea7e4d2f68bb762d2c687150  librewolf-settings-a642ca7659c070756211a9e78f11c26ed556c6cf.tar.gz
-fca1b9c67a0b2f216f1f11fd5e3a08920998921e3d61eb633f1dde7fe69cb40cdbb63a41a1dfc4f1022509da643e3791467d88e62e7ea30b293ebf69d87bb585  firefox-142.0.1.tar.xz
-ca31415d36c65e58c23e1ed0a952d2fb0847e74cd5e16080b09b6e9fc385380bf5a2c10565277e73b978dd8c63caca668c2f9a0a410917ff664c1533e77022c0  firefox-l10n-73fcb6ec9a1a8a0f1baa993db5a904e6ebdedecd.tar.gz
+ea27141a205e5da8e52f6a07a7e0960455c9942a4d78bd0576958b25f8667d5fea28a2cd96bbac059e42b416529460cc191527fd212ef5441f785e5f10dcd01b  librewolf-source-152.0.2_p1.tar.gz
+05c054aa7ebef7a549237f916fc6b2bb8680db32a46fd2e364db193fb8ed168fb5bc3df63cf40b81ce3418e08e840ff63c20a493b9037a5cbb8f916768277dd9  librewolf-settings-38e92f591d526878dab70a4764fa8db3bbb01bed.tar.gz
+e4e54cffffcfd5751eac5817a7b74b0ef0aa43fc00ef29397cc9df9aa52572b2272b96e60373a70d712be4dc849170d8d5c1b449f3ea978b4ab28dee19056b03  firefox-152.0.2.tar.xz
+74c15103644535d89b1879ca7f3ed6938aabb558814e6e0dae1bea11a2de6cd6816d1c0fdfd98952c7ac7a3c6dada38caa5242c0e519c05a5eb4eef0347cb594  firefox-l10n-2444b4f5c4a2d5887ae3fcf88fd903c309942b60.tar.gz
 616169325dc7715d3ff558c1846394d992f1a0a9427af5339e84abf3d9e7d85a5f9f6bae218ee3416ef39769a56150ac35881435ac09b976876fd556fddeac38  abseil-cpp.patch
-32c566a1529d36b4816cef80bb56f0723d0ec2e407e5e4a61cd278d40dafa3a3032d5a77497f191989f4954fa3ee539845dd170a596e0b22c6ef5b337405a72e  bmo-1952657-no-execinfo.patch
+8775931ad403f8a6545ecbedf139b7e7e152a2d6638f70d8feb457ea33e6e86147cd3c882e8059732ae946045b4918b412d0d6ba4dfdaeb2878a2277c6671676  bmo-1988166-no-single_threaded-h.patch
+9677a117e8f196ab969d1d8a5bb0f0eea9ebdfd983c0fce21e7507fd1178de7007bdd2ab59535ffd0703b5cfe4144d089a7bcf36a1518f318b394fa733836cf5  bmo-2039878-vulkan-32bit.patch
+5f02e950b60ff699d73a47da277fb561e887e25e2896920737f55dfd5aeeaad93acb539524414de99376f9ab511934dec4bff2acd7b55d997da8fdff4960760a  bmo-2048097-inttypes-x86.patch
+538b48f94b65b116f6f8d34b8ad9b58cd0bfaee1f83a6c3d7d523102816a619e19eff8b5dd09a6ef5921d85b6ab4c3746cf05eb035aef5b69a594e478a4d6331  bmo-2048100-xsimd-ppc64le.patch
 19eea840aa9c1c21e7bd1f832ec078989fe6f08fca40baa271be7e74f1cffeb5ab8d3218a93e664b8d90a41506dede524e2a5174cd47580866109bc6711ea969  fix-fortify-system-wrappers.patch
-305c874fdea3096e9c4c6aa6520ac64bb1c347c4b59db8360096646593fe684c3b5377874d91cecd33d56d1410b4714fbdea2b514923723ecbeff79d51265d9b  fix-webrtc-glibcisms.patch
 e75daab5573ec6e28d3940a9bb98304d572dfb26ce7c1709e99fdd75dfa58abce170c96de683f8dc2224ea2e118aa7d78affbd54f99c4e328a4641685d64bd7d  lfs64.patch
 c0437a6753f3f350968fa12d250efdfe1bea77baf0e4c06b072b5cc9e78c774dbf4506bc536337030d349fb3ba4460097b75b0c7c5b8fb2d39d8b0a392948936  no-ccache-stats.patch
 1c6918dd6655d3a1251bfd4af2e1c561cbb00d540a883b4c1ebf7f5de530d754d9ac07b4b5f56cdab6c511d25c8910ec94043f5733e97501a67abffe1bafaeb1  rust-lto-thin.patch
 b12dbff6513ac8c231d91c257a9accecc034d9ea9c31d99ca0454334ccf80fe7b50d6a356182dc46a9f25064366ea9a177f463cb2544b1cf5368ee6bd71bc095  riscv64-no-lto.patch
 f8c3555ef6207933cbffbf4fc101a9b4c0d2990c0063162f0f0bde70ef0b46f86bfac42e7110695183424a87948de593f3927b2d8509ede3e4fc7bd8a1fad1ce  sandbox-sched_setscheduler.patch
 67bc0be3da973e6859256bf9be4df7100837430e6076fc0bd623f504c35e02e6c191e9c5a3a1d202e5ad4d89f874f254a09e164e39c7bfd97bbc8d4c8d0632a5  sqlite-ppc.patch
+2a09e1d6cdc8a6e4a357c1e10dd0dde5c381c64b4a952b3ce54eb4436cb16933f321be85ff616647334ce7379480f415db029adeac1a0782f4ef9816c83b8ca4  ppc-abi.patch
+066d85c494a2ac8d231e57a628093db4c56ea60673305d8662de429b070b4146157f8a33e7d7af3d048f765d528bb746711f86bc8980d2ad419b9c90e674d0a9  time64.patch
 eadf3f2d12d469010a1f6b83bd33ba276cdbf570db8c74c61b7c3d3eda80c7e843c1ea17400412be243b5309383543456f0d6de94b18323c542ba66d5cff89db  widevine.patch
-10190908796ea681cb9c7726e5f000d010dc438560f1c9574ad52f91b984c92634291453d4f7cdb3a5b5e54c1968513bf78d4dc44f5befa39d58065d0e9c3326  loong0001-Enable-WebRTC-for-loongarch64.patch
+a5427a5cbf670dc4d63256cfc471c39a401254991081cba50a39ef0035c655381f379f064daf3ebc83392d1d1080a51f6f66242f68a0331935195c1539ec7285  musl-prctl.patch
+49989fa0e87e438b76905f730299449995c67bdd78f4f41d1225b5bdf48efe293e7363d40f918efc91a5f5d7b03c69fb9b4e58a99d8f4ef36b89d66a933e52bf  wasm-wasip1.patch
 bcc6987568082e5471962fed98110c13f9a81de7bba11cd961c2ac6c1240e677dc141d6834bf5755d2d85fc8251e522920dd3d9afae20ed9d9896b632ee9336f  loong0003-Define-HWCAP_LOONGARCH_LSX_and_LASX.patch
 f95b3a8338b34c98ae028278fcec3a1ae48d8de9fa9eed54544151ae994b57b8d0ff0e6363632257d3cbe9452bcd93ade5c139cf728d0a149a038a179a0b4016  loong0004-Fix-ycbcr-chromium_types-warning.patch
 9d7648181d3998dd751d3d4e549177908caddcfd51b7f7bcf801171fac247ec7a1d59cc752214e82c1ee8950bd004d3bb72d0fd6f26477a9e0de88b8f9e5f497  l10n.patch.early
-587f142c7c2bb12fa833dc2fb1d7984ecd7268891d1b3a3e10526427bb045c6dd19f5ec5f2164f0970576083dd4cca3fd156af3d1b39427ed63e4f3d1fe2effb  tos.patch.early
 0b174366eeba6068df95b68460d743b39ca5df93fff1b53523af9cc8e05ed6eecead9791cddb59a47392c0b2aa270737fde836bbee1e34f6d3cb0920b725bb81  mozconfig
 73e9c51977d1a675c38fafeaa7478499d002d0dbfc8741ed7d9810ac39fb190870bd3295b86f7c9f7e8191f0fda7b7d6454d0a4cc1d7c61f3810a4d3a165180f  librewolf.desktop
 b6ceaf541ecb16a91398e1f629c7479e37c42c467e78980895ade8fe16feeb307ead50c839bac72f18bf74b7be46382c431a1361b3194cf3dffc6d58d67f82e5  distribution.ini

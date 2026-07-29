@@ -1,20 +1,38 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=libde265
-pkgver=1.0.15
-pkgrel=1
+pkgver=1.1.1
+pkgrel=0
 pkgdesc="Open h.265 video codec implementation"
 url="https://github.com/strukturag/libde265"
 arch="all"
 license="LGPL-3.0-or-later"
-makedepends="autoconf automake libtool"
+makedepends="
+	cmake
+	samurai
+	"
 options="!check"  # no tests provided
-subpackages="$pkgname-static $pkgname-dev $pkgname-examples"
+subpackages="
+	$pkgname-static
+	$pkgname-dev
+	$pkgname-examples
+	"
 source="https://github.com/strukturag/libde265/releases/download/v$pkgver/libde265-$pkgver.tar.gz
-	disable_tools.patch
 	export-only-decoder-api.patch
 	"
+
 # secfixes:
+#   1.1.1-r0:
+#     - CVE-2026-45382
+#     - CVE-2026-45383
+#     - CVE-2026-49295
+#     - CVE-2026-49337
+#     - CVE-2026-49346
+#     - CVE-2026-54240
+#     - CVE-2026-54241
+#   1.0.18-r0:
+#     - CVE-2026-33165
+#     - CVE-2026-33164
 #   1.0.15-r0:
 #     - CVE-2023-49465
 #     - CVE-2023-49467
@@ -59,30 +77,41 @@ source="https://github.com/strukturag/libde265/releases/download/v$pkgver/libde2
 #     - CVE-2021-36411
 #     - CVE-2022-1253
 
-prepare() {
-	default_prepare
-	autoreconf -fvi
-}
+# Use the optimization level the project is optimised for.
+# This is en/decoder, so performance matters more than size.
+export CPPFLAGS="${CPPFLAGS/-Os/}"
+export CXXFLAGS="${CXXFLAGS/-Os/}"
 
 build() {
-	# This is en/decoder, so performance matters more than size.
-	export CPPFLAGS="${CPPFLAGS/-Os/-O2}"
-	export CXXFLAGS="${CXXFLAGS/-Os/-O2}"
+	_build build-shared -DBUILD_SHARED_LIBS=ON
+	_build build-static -DBUILD_SHARED_LIBS=OFF
+}
 
-	./configure \
-		--build="$CBUILD" \
-		--host="$CHOST" \
-		--prefix=/usr \
-		--mandir=/usr/share/man \
-		--disable-sherlock265
-	make
+_build() {
+	local builddir="$1"; shift
+
+	local crossopts=
+	[ "$CBUILD" != "$CHOST" ] \
+		&& crossopts="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
+
+	cmake -B "$builddir" -G Ninja -Wno-dev \
+		-DCMAKE_BUILD_TYPE=Release \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DCMAKE_VERBOSE_MAKEFILE=ON \
+		-DBUILD_SHARED_LIBS=ON \
+		$crossopts \
+		"$@"
+	cmake --build "$builddir"
 }
 
 package() {
-	make DESTDIR="$pkgdir" install
+	DESTDIR="$pkgdir" cmake --install build-shared
 
 	# The upstream do the same in their Ubuntu/PPA packages.
 	mv "$pkgdir"/usr/bin/dec265 "$pkgdir"/usr/bin/libde265-dec265
+
+	install -D -m755 build-static/libde265/libde265.a -t "$pkgdir"/usr/lib/
 }
 
 examples() {
@@ -93,7 +122,6 @@ examples() {
 }
 
 sha512sums="
-375d8e781108247e0e8b4d7a036d20cc5d0670bdbf6ddb40a6d3dbf912fa776d2f001fb762301cb97e4d43be29eb415b0cdbfc6e07aa18b3f2346f7409c64fce  libde265-1.0.15.tar.gz
-1c702f229e2bafb2e72c90aed55b14691fa8f216ea855931197b8cd266c701ce2679a8f143651bdf984d7ac79a66a0d84b603822601a800ffb504461399d84ee  disable_tools.patch
-f7bd3799f4e4440e7efb98671eca425a5926dd526f8b1147cee2e49b1995853f67b63287c12739ef8ea680713af903517820f83f7f88eac6459f37bae01b4d50  export-only-decoder-api.patch
+7ecc2fc2d20bc85f2a117c16562e1abd6ad9ec92785f65dfb15a5c7038687b64ae885ad31d31beaf2fa5471b4ce4dbfee98191db9457b2a6b14eabda8c483cad  libde265-1.1.1.tar.gz
+f4d586c478dc22c0d8304e8b321c24a75279a8877db43803f2202d888d8b6828b9aec1a5d01e43af349402cfc34cd7c8af6d448bef40986a04efa3d18ed971e6  export-only-decoder-api.patch
 "

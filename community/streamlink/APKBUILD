@@ -2,7 +2,7 @@
 # Contributor: Robert Sacks <robert@sacks.email>
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=streamlink
-pkgver=7.5.0
+pkgver=8.4.0
 pkgrel=0
 pkgdesc="CLI for extracting streams from various websites to a video player of your choosing"
 url="https://streamlink.github.io/"
@@ -68,5 +68,5 @@ package() {
 }
 
 sha512sums="
-00a2d801eb9afafa1fd9a1a79f87bfd0feb0fbeb70be28962dbe1e1212eabc8cdf60048cc994d686a5ee46a0658b34a5a583417da40e26e6eb41ae83a796b782  streamlink-7.5.0.tar.gz
+12061b16b80efec7de1d92fb83b556fa14aac34c6dccab077f133656576ee9b20c8c497b8f03cc4aeae51b8c90a610c26694e56256d88ac8925b157f1f717115  streamlink-8.4.0.tar.gz
 "

@@ -1,8 +1,9 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=libqmi
-pkgver=1.36.0
-pkgrel=1
+pkgver=1.38.0_git20260414
+_commit=cff17a676e10d75081516dafa997fe9bc9043c38
+pkgrel=0
 pkgdesc="QMI modem protocol helper library"
 url="https://www.freedesktop.org/wiki/Software/libqmi"
 arch="all"
@@ -25,7 +26,9 @@ subpackages="
 	$pkgname-bash-completion
 	qmi-utils
 	"
-source="https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/$pkgver/libqmi-$pkgver.tar.gz"
+#source="https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/$pkgver/libqmi-$pkgver.tar.gz"
+source="https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/archive/$_commit/libqmi-$_commit.tar.gz"
+builddir="$srcdir/$pkgname-$_commit"
 
 build() {
 	abuild-meson \
@@ -53,5 +56,5 @@ utils() {
 }
 
 sha512sums="
-a98c0e302aad09ffbf94172f840355ffe197c32c29598ad70b582a29af34a2dcbc6a3dd7a94e9a9145e9ba03d90ee2cb70dec6918935ea83dd08c053fbf2dc21  libqmi-1.36.0.tar.gz
+fc178689675b47faaa46c14b126dc054354044238ea00464b4cc4910c5f2c73faaa12d80a5219fbfad65ab575e38f7af3fd79ae7974ea80ed67bfffe027b85c3  libqmi-cff17a676e10d75081516dafa997fe9bc9043c38.tar.gz
 "

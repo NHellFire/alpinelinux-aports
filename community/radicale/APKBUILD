@@ -2,18 +2,18 @@
 # Contributor: Michał Polański <michal@polanski.me>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=radicale
-pkgver=3.5.6
+pkgver=3.7.7
 pkgrel=0
 pkgdesc="Free and open-source CalDAV and CardDAV server"
 url="https://radicale.org/"
 arch="noarch"
 license="GPL-3.0-or-later"
 depends="
-	py3-dateutil
 	py3-defusedxml
-	py3-passlib
+	py3-libpass
+	py3-packaging
 	py3-pika
-	py3-setuptools
+	py3-requests
 	py3-vobject
 	"
 makedepends="py3-gpep517 py3-wheel"
@@ -36,8 +36,8 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
-	.testenv/bin/python3 -m pytest -c /dev/null
+	.testenv/bin/python3 -m installer .dist/*.whl
+	.testenv/bin/python3 -m pytest -c /dev/null --ignore "integ_tests"
 }
 
 package() {
@@ -57,7 +57,7 @@ package() {
 }
 
 sha512sums="
-10c48c7b01f3c767eaaff661fe673076be5146fa6e35badf80959dec8feaf70748d2f5d47a6dfe05d2fa951d3448610aed2bb84922e7fec89cdacfc78bfe6a9c  radicale-3.5.6.tar.gz
+68d22ef711cb1dd6ecbac2e8754b3acf2004c304d00356361ad29219b9a6139b29f327621811178046c2b96f64c3792868eeb3a3292a0b64db8c0474e9822d13  radicale-3.7.7.tar.gz
 f1eb4477ca7d7d8040837b712289f18d6b62c7f862a8e9bea32968a49b8bf4394360b5440c815aa23df48ba0aaac61bcb8c9d6e7575c3b23da2ac05a45eac194  radicale.initd
 09bb6228ba07039b97b317d4547a33b7ebf9c8f47ff72b870fc2f5e46de620e0614d993c5c96d73f0ad6196d469bb0f7206478781abf314af1d598e3132d678e  radicale.confd
 "

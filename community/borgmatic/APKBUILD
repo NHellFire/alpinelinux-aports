@@ -1,6 +1,6 @@
 maintainer="Michał Polański <michal@polanski.me>"
 pkgname=borgmatic
-pkgver=2.0.7
+pkgver=2.1.4
 pkgrel=0
 pkgdesc="Simple, configuration-driven backup software for servers and workstations"
 url="https://torsion.org/borgmatic/"
@@ -24,6 +24,7 @@ checkdepends="
 	py3-flexmock
 	py3-pytest
 	py3-pytest-cov
+	py3-pytest-timeout
 	"
 subpackages="$pkgname-bash-completion $pkgname-pyc"
 source="$pkgname-$pkgver.tar.gz::https://projects.torsion.org/borgmatic-collective/borgmatic/archive/$pkgver.tar.gz"
@@ -55,5 +56,5 @@ package() {
 }
 
 sha512sums="
-85c893be616a7d21eb6cc1cac137400b1eef7aee812b869baee78fc397aadcac4fe21566bed08f043dee8e6ad323b167537bea94df09feaad81b1f5fca0b8215  borgmatic-2.0.7.tar.gz
+2e63833717d4d21ee8d2c13c349df124a40c2c2de227622eebc6b981d55626d731abb4c7ed5e3ca1114081f11b8a8cf32ace1225256fd20dc28759077fa9d6ea  borgmatic-2.1.4.tar.gz
 "

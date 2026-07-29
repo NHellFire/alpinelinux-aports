@@ -2,13 +2,17 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=purpose
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Framework for providing abstractions to get the developer's purposes fulfilled"
 # armhf blocked by qt6-qtdeclarative -> kirigami
 arch="all !armhf"
 url="https://community.kde.org/Frameworks"
 license="LGPL-2.1-or-later"
+depends="
+	kitemmodels
+	prison
+	"
 depends_dev="
 	kconfig-dev
 	kcoreaddons-dev
@@ -18,8 +22,13 @@ depends_dev="
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	"
+case "$CARCH" in
+	x86|s390x|riscv64|armv7|loongarch64) ;;
+	*) depends_dev="$depends_dev kaccounts-integration-dev" ;;
+esac
 makedepends="$depends_dev
 	extra-cmake-modules
+	kcmutils
 	qt6-qtdeclarative-private-dev
 	samurai
 	"
@@ -48,5 +57,5 @@ package() {
 }
 
 sha512sums="
-7519ea0ad579aba25d84c36a43432a534147ff36d3a67d67a6c3fa14ab5e8c73d26a6fe2415a5999c7c6cb37325d0bb9f79c0836471fec3e9aa51602725e8415  purpose-6.17.0.tar.xz
+639461fef2fae2d6060a0385f3a8b9535b6389158e871261dd1b847adfdc00d5eed0fc03885ad993e53dc6bfce04657b7d82bf2f46b8bb3c3eb6620eab168983  purpose-6.28.0.tar.xz
 "

@@ -1,7 +1,7 @@
 # Maintainer: Struan Robertson <contact@struanrobertson.co.uk>
 pkgname=py3-markdownify
 _pkgname=python-markdownify
-pkgver=1.2.0
+pkgver=1.2.3
 pkgrel=0
 pkgdesc="Convert HTML to Markdown"
 url="https://github.com/matthewwithanm/python-markdownify"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-ecbef2ec5e5c4a58aac486baf5bab16faf40e01f54c59032cfa96047ad575952a6a759185f1e2607bba596b32ea8f43a2ee5235e8fa9133d2ab6b3b9c167dee9  python-markdownify-1.2.0.tar.gz
+e2871a7971c538378112bd13da12cdb3983f93c98598d69db61c9e57c0a3366ba5c7889032b1f886afc408504e31b81217d526ff47aa032b6a5ac981d0d6ae24  python-markdownify-1.2.3.tar.gz
 "

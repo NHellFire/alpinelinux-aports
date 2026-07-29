@@ -2,12 +2,12 @@
 # Contributor: Maxim Karasev <begs@disroot.org>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=arm-trusted-firmware
-pkgver=2.12.6
+pkgver=2.14.4
+_gittag="lts-v$pkgver"
 pkgrel=0
 pkgdesc="ARM Trusted Firmware-A (TF-A)"
 url="https://github.com/ARM-software/arm-trusted-firmware"
-# no lld on s390x, but it doesn't matter anyway as this is arm firmware
-arch="all !s390x"
+arch="all"
 license="BSD-3-Clause"
 makedepends="
 	clang
@@ -17,16 +17,14 @@ makedepends="
 	openssl-dev
 	"
 subpackages="$pkgname-tools"
-source="$pkgname-$pkgver.tar.gz::https://github.com/ARM-software/arm-trusted-firmware/archive/refs/tags/lts-v$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://github.com/ARM-software/arm-trusted-firmware/archive/refs/tags/$_gittag.tar.gz
 	0001-rk-3399-fix-build-with-alpine.patch
 	0002-fiptool-fix-build-on-musl.patch
 	0003-define-key-t-as-1.patch
-	1b65be5-fix-imx8mq-build-break.patch
-	3a36f70-fix-imx8mq-build-break-due-to-hab.patch
-	31265-rk3568-support-scmi-for-clock-reset-domain.patch
+	revert-81844f5-fix-psci-make-sure-cmos-on-struct-psci.patch
 	"
 options="!check" # No tests
-builddir="$srcdir/$pkgname-lts-v$pkgver"
+builddir="$srcdir"/$pkgname-$_gittag
 
 _plats="
 	imx8mq
@@ -36,7 +34,16 @@ _plats="
 	rk3588
 	sun50i_a64
 	sun50i_h6
+	sun50i_h616
 	"
+
+prepare() {
+	default_prepare
+
+	# configure tools
+	make -C tools/fiptool BUILD_PLAT=fvp PLAT=fvp
+	make -C tools/cert_create BUILD_PLAT=fvp PLAT=fvp
+}
 
 build() {
 	unset LDFLAGS
@@ -53,8 +60,9 @@ build() {
 		done
 	fi
 
-	make -C tools/fiptool
-	make -C tools/cert_create
+	# build tools
+	make -C tools/fiptool BUILD_PLAT=fvp PLAT=fvp all
+	make -C tools/cert_create BUILD_PLAT=fvp PLAT=fvp all
 }
 
 package() {
@@ -72,8 +80,8 @@ package() {
 			install -D $path -t "$pkgdir"/usr/share/$pkgname/$plat/
 		done
 	fi
-	install -Dm755 -t "$pkgdir"/usr/bin tools/fiptool/fiptool
-	install -Dm755 -t "$pkgdir"/usr/bin tools/cert_create/cert_create
+	install -Dm755 -t "$pkgdir"/usr/bin tools/fiptool/fvp/tools/fiptool/fiptool
+	install -Dm755 -t "$pkgdir"/usr/bin tools/cert_create/fvp/tools/cert_create/cert_create
 }
 
 tools() {
@@ -84,11 +92,9 @@ tools() {
 }
 
 sha512sums="
-6fb6a55756c7809dcb5b5c9d077918a42fb147a4684c72fe6c3bf071be01a0a123a83f9aad9fe5d984073ae807754f5b83c2604ee4ab1cc7614fd9f0611ca549  arm-trusted-firmware-2.12.6.tar.gz
-fddb00980be8b5fa2562e6cca7a93900ae9dfd30a2c5d92e0af07f2f8e30c9f251912f17d093df95b36b5a14129fade1e393d0db83f46a33bc95380d4ebefdd0  0001-rk-3399-fix-build-with-alpine.patch
+8efeab2e7f4e97638651fbba5fd9b555ad667877b3b23c1e49253e282b367ea83ba20dc8a0b8cd923fff321deba994e53516d3f2edbe5ceaeeddccc3038e0aef  arm-trusted-firmware-2.14.4.tar.gz
+d8e2c0d96faa52c63cdcb3cd890c8480aefd16502232331a79dbcd3847aaedcd4f07f0d6b335505aca360c1055c5caf28f3dc4cad0b3083c0ce8a022235be5a2  0001-rk-3399-fix-build-with-alpine.patch
 8860d728baef70abdee808af7fd0a7530d736302edadb5438098bce84e2e6f6b8edf572f4f306afb5edf588492e6243334e7394b9ad64257416ef37037e55558  0002-fiptool-fix-build-on-musl.patch
-71f59abbb3c53d975afe0f20456e8bd943f005aeeb14633f609ad7b7617d51c479a505b54f9c49f77e02ecdea233bc8dffecd31b79b86a38d9ad39f6b0dc1129  0003-define-key-t-as-1.patch
-ceaf977f0a968d652a43dd53db721a311ba824cae4b19cada3af9e9054ec1fbaa5e566466957944191faa0563dc77cc1da2a157151e4516265cbf9961040f548  1b65be5-fix-imx8mq-build-break.patch
-1cf8bfa0844431a2dcb10427c1fd91cc78a7ee9aa53f20d32fcdfec6a73e57bc697133602cc786f209e5866e2b10546b4a9182f240f9466cf7f3f60eb6554bc1  3a36f70-fix-imx8mq-build-break-due-to-hab.patch
-e3230f8bc86d1baee2c871c8bc733d0735d097e76d8949c619e7ae1e576d94333e5974e8aca99a193fe229c454dd17869aa6c00474dae2262e78d51b4e2e69b9  31265-rk3568-support-scmi-for-clock-reset-domain.patch
+7758beb7e81c0b8c1ef1f2dcc0c053ebf6fb172beef50a76de0aa7ff9c1e061ceae9bf276ec1c7b265e53a3a274d67d6708713d85cdd585be9649f6b180f08ed  0003-define-key-t-as-1.patch
+5447335437d394b99eb7ec4c1c7f9f365e9e122973305e906aec730c7b5d983bcbf0eb43e6a3f470b0179d7c758a3b4f1a1a1833cec63b161b7e8ddf62ae1d93  revert-81844f5-fix-psci-make-sure-cmos-on-struct-psci.patch
 "

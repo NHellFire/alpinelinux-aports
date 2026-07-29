@@ -2,16 +2,18 @@
 # Contributor: Mike Crute <mike@crute.us>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=libupnp
-pkgver=1.14.24
+pkgver=1.18.5
 pkgrel=0
 pkgdesc="Portable Open Source UPnP Development Kit"
 url="https://pupnp.github.io/pupnp/"
 arch="all"
 license="BSD-3-Clause"
 makedepends="cmake samurai"
-subpackages="$pkgname-dev"
+subpackages="$pkgname-dev $pkgname-nftrules"
 source="$pkgname-$pkgver.tar.gz::https://github.com/pupnp/pupnp/archive/refs/tags/release-$pkgver.tar.gz
+$pkgname.nft
 disable-failing-test.patch"
+
 builddir="$srcdir"/pupnp-release-$pkgver
 
 # secfixes:
@@ -34,9 +36,11 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --build build --target install
+	install -Dm644 "$srcdir"/$pkgname.nft "$pkgdir"/usr/share/nftables.avail/50_$pkgname.nft
 }
 
 sha512sums="
-0ec4d2af846e1f85be6e5142540ed5f61c65cfc1dc6a30668c94cbced615d53abb126699c6ee557646dd30f47a9f29ff2554d6a4345f7cbf8f0a998dc9df3048  libupnp-1.14.24.tar.gz
-f5890d2c1a3540fd1717eb038d1c4fc361b04e5a13be37d4f0ecbc574651b054b7326160c9399c6f7a4ce631c6ab912151d49a724615ee8f87138e4c0da9af0a  disable-failing-test.patch
+a4ffb5977d9e103f8ce3ed8f9dec6a336424258c9541ae38790accaa35cd7bf92165cded285ce30f57c7aa5e03f05f0a639d846436b460800ee5e5fcb4d2d7c8  libupnp-1.18.5.tar.gz
+5779bbcc55e411ec4da58e4e7eaaa6918cdcea5b8818cd72ab93be2d1108f020861457dbd8079a60b0912f84d05eb7b42274cc9a0577f66e8322f3596b89b411  libupnp.nft
+7f6cc5b52993fb18e90046342bfaebf796376cf958314de158b3d75caa205a75d941566a7d4f50c90a0f4f7eda90a13a67fb7f3b253df55975844cd639a6c1f9  disable-failing-test.patch
 "

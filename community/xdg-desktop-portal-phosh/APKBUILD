@@ -1,9 +1,9 @@
 maintainer="team/phosh <achill@achill.org>"
 pkgname=xdg-desktop-portal-phosh
-pkgver=0.49.0
+pkgver=0.56.1
 pkgrel=0
 pkgdesc="xdg-desktop-portal implementation using GTK/GNOME/Phosh"
-url="https://gitlab.gnome.org/guidog/xdg-desktop-portal-phosh"
+url="https://gitlab.gnome.org/World/Phosh/xdg-desktop-portal-phosh"
 arch="all"
 license="GPL-3.0-or-later"
 depends="
@@ -15,7 +15,13 @@ makedepends="
 	gnome-desktop-dev
 	libadwaita-dev
 	meson
+	py3-docutils
 	xdg-desktop-portal-dev
+	"
+subpackages="
+	$pkgname-doc
+	$pkgname-lang
+	$pkgname-systemd
 	"
 source="https://sources.phosh.mobi/releases/xdg-desktop-portal-phosh/xdg-desktop-portal-phosh-${pkgver/_/.}.tar.xz"
 options="!check net" # no tests, cargo modules for pfs
@@ -38,11 +44,8 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" meson install --no-rebuild -C output
-
-	# We don't ship systemd
-	rm -fr "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-5aef585fe5e995bb393d695f1260e5ff1818781b6b9f27c0136afb57c4f9685530ec7e5c86c282a57d002409aaa54bd2739194bb8b65081c85799266b8273c19  xdg-desktop-portal-phosh-0.49.0.tar.xz
+3478ac88b9a482861e40caf3508210da7fd8a75a8e32ca17f5ae971004ee74d96895b8252e6c2efb2070a438d93d6708473a02fc2ad837089869cee69ec1c84a  xdg-desktop-portal-phosh-0.56.1.tar.xz
 "

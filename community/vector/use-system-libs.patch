@@ -1,0 +1,60 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 52f066efe0..3be6e72a14 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -4291,6 +4291,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "843fba2746e448b37e26a819579957415c8cef339bf08564fe8b7ddbd959573c"
+ dependencies = [
+  "crc32fast",
++ "libz-ng-sys",
+  "miniz_oxide",
+  "zlib-rs",
+ ]
+@@ -6541,6 +6542,16 @@ dependencies = [
+  "vcpkg",
+ ]
+ 
++[[package]]
++name = "libz-ng-sys"
++version = "1.1.29"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "879917b256f6317769b9f374b435805a8697013098aacce5a38ac106cd6a9469"
++dependencies = [
++ "cmake",
++ "libc",
++]
++
+ [[package]]
+ name = "libz-sys"
+ version = "1.1.28"
+diff --git a/Cargo.toml b/Cargo.toml
+index 81391b34b0..ae05c92294 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -170,7 +170,7 @@ darling = { version = "0.20.11", default-features = false, features = ["suggesti
+ dashmap = { version = "6.1.0", default-features = false }
+ derivative = { version = "2.2.0", default-features = false }
+ exitcode = { version = "1.1.2", default-features = false }
+-flate2 = { version = "1.1.2", default-features = false, features = ["zlib-rs"] }
++flate2 = { version = "1.1.2", default-features = false, features = ["zlib-ng"] }
+ futures = { version = "0.3.32", default-features = false, features = ["std"] }
+ futures-util = { version = "0.3.29", default-features = false }
+ glob = { version = "0.3.3", default-features = false }
+@@ -235,7 +235,7 @@ vector-lib = { path = "lib/vector-lib", default-features = false, features = ["v
+ vector-vrl-category = { path = "lib/vector-vrl/category" }
+ vector-vrl-functions = { path = "lib/vector-vrl/functions", default-features = false }
+ vrl = { git = "https://github.com/vectordotdev/vrl.git", branch = "main", default-features = false, features = ["arbitrary", "cli", "test", "test_framework", "stdlib-base"] }
+-zstd = { version = "0.13.0", default-features = false }
++zstd = { version = "0.13.0", default-features = false, features = ["pkg-config"] }
+ mock_instant = { version = "0.6" }
+ serial_test = { version = "3.4" }
+ strum = { version = "0.28", features = ["derive"] }
+@@ -573,7 +573,7 @@ vendored = ["gssapi-vendored"]
+ # TODO: Enable SASL https://github.com/vectordotdev/vector/pull/3081#issuecomment-659298042
+ base = ["api", "enrichment-tables", "sinks", "sources", "transforms", "secrets", "vrl/stdlib", "codecs-parquet"]
+ enable-api-client = ["base", "api-client"]
+-default-musl = ["enable-api-client", "sources-dnstap", "tikv-jemallocator", "vendored", "rdkafka?/cmake_build"]
++default-musl = ["enable-api-client", "sources-dnstap", "tikv-jemallocator", "default", "rdkafka?/dynamic-linking"]
+ default-no-api-client = ["base", "sources-dnstap", "tikv-jemallocator", "vendored"]
+ 
+ tokio-console = ["dep:console-subscriber", "tokio/tracing"]

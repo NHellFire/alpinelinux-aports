@@ -1,12 +1,10 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=audiocd-kio
-pkgver=25.08.0
-pkgrel=0
-# armhf blocked by extra-cmake-modules
+pkgver=26.04.3
+pkgrel=1
+# armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://www.kde.org/applications/multimedia/"
 pkgdesc="Kioslave for accessing audio CDs"
@@ -21,7 +19,6 @@ makedepends="
 	ki18n-dev
 	kio-dev
 	libkcddb-dev
-	libkcompactdisc-dev
 	libvorbis-dev
 	qt6-qtbase-dev
 	samurai
@@ -44,5 +41,5 @@ package() {
 }
 
 sha512sums="
-9330ea4a4fd8b533e6931b07b2af2028c0b44a36323eb51b117d8daf4020416314e5922e3d8dbabe1c37cd2fb732ae294ed2e5a3e8a4f2bd3f91631a9ae3cbe8  audiocd-kio-25.08.0.tar.xz
+b78caa295fda52ffad07feb390ec060461fb423260f11f069689c32cebb8c42aed95da142425d2b27380c567d2839581073a0f074f43f5c50e4c60d142abeb81  audiocd-kio-26.04.3.tar.xz
 "

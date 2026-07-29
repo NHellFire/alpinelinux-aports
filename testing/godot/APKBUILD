@@ -1,8 +1,8 @@
 # Contributor: Díaz Urbaneja Diego <sodomon2@gmail.com>
 # Maintainer: Díaz Urbaneja Diego <sodomon2@gmail.com>
 pkgname=godot
-pkgver=4.4.1
-pkgrel=0
+pkgver=4.6
+pkgrel=2
 pkgdesc="Multi-platform 2D and 3D game engine"
 url="https://godotengine.org"
 license="MIT"
@@ -12,6 +12,7 @@ arch="x86_64 x86 armv7 aarch64"
 makedepends="
 	alsa-lib-dev
 	brotli-dev
+	dbus-dev
 	enet-dev
 	freetype-dev
 	glslang-dev
@@ -31,7 +32,7 @@ makedepends="
 	libxinerama-dev
 	libxkbcommon-dev
 	libxrandr-dev
-	mbedtls-dev
+	mbedtls3-dev
 	mesa-dev
 	miniupnpc-dev
 	opusfile-dev
@@ -97,6 +98,13 @@ x86_64)
 	;;
 esac
 
+case "$CARCH" in
+armv7)
+	# runs out of ram with lto
+	_sconsflags="$_sconsflags lto=none"
+	;;
+esac
+
 build() {
 	export BUILD_NAME="alpine_linux"
 	for target in editor template_release template_debug; do
@@ -131,6 +139,6 @@ templates() {
 }
 
 sha512sums="
-f67882a70dc9e2d2efbbc9cda657f292ba05bb4c8341809c56fe054979032a93b04f9125815865efeaa269cf404010eb74f075a37faebb2a8f28be5abb706480  godot-4.4.1-stable.tar.xz
+e93201aa5a78da5baf81a110b3ca17603cc028ff35bfbfd1bff0061fcbbfa264b3941e7a42dc44320e141ab0624fe7e096f35ee362c9e0d4fa695d396a52eedd  godot-4.6-stable.tar.xz
 0878e5f269fa16884d8b84e217c96817245dc6748a3fe60ae576dfd3006123f59ff25fac793898a30a8a6ff70b2accbde474671d998d7b05584951512743f7a0  glslang.patch
 "

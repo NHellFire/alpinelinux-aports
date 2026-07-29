@@ -1,11 +1,11 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Contributor: Andrew Hills <ahills@ednos.net>
 # Contributor: Jean-Louis Fuchs <safe.pen2857@rhizoome.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=girara
-pkgver=0.4.5
-pkgrel=4
+pkgver=2026.07.18
+pkgrel=0
 pkgdesc="GTK user interface that focuses on simplicity and minimalism"
 url="https://pwmt.org/projects/girara/"
 arch="all"
@@ -13,8 +13,6 @@ license="Zlib"
 makedepends="
 	check-dev
 	doxygen
-	gtk+3.0-dev
-	json-glib-dev
 	libnotify-dev
 	muon
 	ncurses
@@ -23,7 +21,6 @@ checkdepends="xvfb-run"
 subpackages="
 	$pkgname-doc
 	$pkgname-dev
-	$pkgname-lang
 	"
 source="https://pwmt.org/projects/girara/download/girara-$pkgver.tar.xz"
 
@@ -31,8 +28,6 @@ build() {
 	abuild-muon \
 		-Ddefault_library=shared \
 		-Ddocs="$(subpackage_types_has doc && echo enabled || echo disabled)" \
-		-Djson=enabled \
-		-Dtests="$(want_check && echo enabled || echo disabled)" \
 		build .
 	ninja -C build
 }
@@ -50,5 +45,5 @@ package() {
 }
 
 sha512sums="
-86cdb87c919e871746e9b1a118867a8af39ac60f42b084c599159aa1c5f59f0d9eb493d22a79d2d4561497c14fc6e5a531aef805f4785050990eaa91b5fd5521  girara-0.4.5.tar.xz
+cbb5c6888efc964c7dbccd6743b89a0b12fe19fec44386372c0732f1eb513e1ea8d465662aa8435f309b52329cb042db03dcb68bdc0404eb27feb24a05c726cf  girara-2026.07.18.tar.xz
 "

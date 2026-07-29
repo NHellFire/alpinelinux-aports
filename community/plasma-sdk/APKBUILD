@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-sdk
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Applications useful for Plasma Development"
 # armhf blocked by qt6-qtdeclarative
@@ -30,7 +30,7 @@ makedepends="
 	ktexteditor-dev
 	kwidgetsaddons-dev
 	libplasma-dev
-	plasma5support-dev>=$pkgver
+	plasma5support-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qtdeclarative-private-dev
@@ -65,5 +65,5 @@ package() {
 }
 
 sha512sums="
-d5c1a6751a27f545efa50073579c562d8fc88595ebd9f35f70e07c9339f6e843f8d517a2497b1938543311b56f3cff7ebefaa90dea0e6df84586f334308129f4  plasma-sdk-6.4.5.tar.xz
+3c2aedcf199b974616ab99568a87b524877687fef264e4702fb6949b4e64d05fd38a951a88269291657dfcdc94ddd9627ff3f26870b79e83f0f5012ef51627d5  plasma-sdk-6.7.3.tar.xz
 "

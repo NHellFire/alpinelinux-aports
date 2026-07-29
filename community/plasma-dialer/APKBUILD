@@ -2,8 +2,8 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-dialer
-pkgver=6.4.5
-pkgrel=0
+pkgver=6.7.3
+pkgrel=2
 pkgdesc="A dialer for Plasma Mobile"
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -30,7 +30,6 @@ makedepends="
 	pulseaudio-qt-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
-	qtmpris-dev
 	reuse
 	samurai
 	"
@@ -62,5 +61,5 @@ package() {
 }
 
 sha512sums="
-ba2fa5d0be81b8671043aaaf597c660c629b472391faf6a19444c6cbafdf52f38c198c8a65819aa8341fa89833566f9161f6fa4ce86ac81fa00a4a886fcdc913  plasma-dialer-6.4.5.tar.xz
+e7eb8f75fd59aae872e691c3e2f5ea3c66f544793a5956bc960c262c0d89171eba6495749b322da773dcf3892bac25bc84484f03db63da9960c0fe3a903e6430  plasma-dialer-6.7.3.tar.xz
 "

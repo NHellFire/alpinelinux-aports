@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=krunner
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Framework for providing different actions given a string query"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -60,5 +60,5 @@ package() {
 }
 
 sha512sums="
-7475496ce280fc2ba7b93fc3f38cfbabb89d42b457436fa8532a1973dbf6eafa9254740016cedbe404064207d6f7c91c2d05e8f0b9774789f9e87960683d2e1d  krunner-6.17.0.tar.xz
+5ead7a6b504fcc0455147e33fcf11ed441632ee8a1f108eb86a975e9da3c0cd290b49d698210f471ce5465ac9757d0506e2c5ee242ebee824436141472c2be97  krunner-6.28.0.tar.xz
 "

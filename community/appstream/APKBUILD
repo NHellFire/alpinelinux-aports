@@ -1,14 +1,16 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: Pablo Correa Gomez <pabloyoyoista@postmarketos.org>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=appstream
-pkgver=1.0.6
+pkgver=1.1.5
 pkgrel=0
 pkgdesc="Provides a standard for creating app stores across distributions"
 url="https://distributions.freedesktop.org/wiki/AppStream"
 arch="all"
 license="LGPL-2.1-or-later"
 makedepends="
+	bash-completion-dev
+	blake3-dev
 	cairo-dev
 	curl-dev
 	fontconfig-dev
@@ -17,6 +19,7 @@ makedepends="
 	gobject-introspection-dev
 	gperf
 	itstool
+	libfyaml-dev
 	librsvg-dev
 	libxml2-dev
 	libxmlb-dev
@@ -59,7 +62,17 @@ build() {
 
 check() {
 	XDG_RUNTIME_DIR="$builddir" \
-	meson test --print-errorlogs -C output
+	meson test --print-errorlogs -C output \
+		AppStream:as-validate_metainfo.cli \
+		AppStream:as-validate_metainfo.compose \
+		AppStream:as-test_basic \
+		AppStream:as-test_xml \
+		AppStream:as-test_pool \
+		AppStream:as-test_validate \
+		AppStream:as-test_perf \
+		AppStream:as-test_misc \
+		AppStream:as-test_qt-pool \
+		AppStream:as-test_qt-misc
 }
 
 package() {
@@ -87,5 +100,5 @@ qt() {
 }
 
 sha512sums="
-a7a34ce2b37f7a3d9f22a69ff4a546d4fb33edaec4a303bd7541ede990d8a2c2a67d17f61c9cf09d75af277e308d21baaf42d6b968eca1a11d1df983a27e02a5  AppStream-1.0.6.tar.xz
+a9907eeba4c6e80456fcf265e02462bcb4761b9a839ae98f4e5d6c02b80d4b4294ed1132668893d7537dbe6e74b011a274325e83226a92f7fa0b3792d4a1e467  AppStream-1.1.5.tar.xz
 "

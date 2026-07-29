@@ -1,10 +1,10 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=jujutsu
-pkgver=0.33.0
+pkgver=0.43.0
 pkgrel=0
 pkgdesc="Git-compatible distributed version control system"
-url="https://github.com/jj-vcs/jj"
+url="https://www.jj-vcs.dev/"
 # armhf, armv7, x86: tests fail
 # s390x: serde_bser crate fails to build
 arch="all !armhf !armv7 !x86 !s390x"
@@ -15,6 +15,7 @@ makedepends="
 	cargo-auditable
 	"
 checkdepends="
+	git
 	gpg
 	gpg-agent
 	gpgsm
@@ -27,8 +28,9 @@ subpackages="
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
-source="https://github.com/jj-vcs/jj/archive/v$pkgver/jujutsu-$pkgver.tar.gz
-	0001-Fix-loongarch64-build.patch
+source="
+	https://github.com/jj-vcs/jj/archive/v$pkgver/jujutsu-$pkgver.tar.gz
+	b32e4c391251248178dcd13789b4f51dcb943ed4.patch
 	"
 builddir="$srcdir/jj-$pkgver"
 options="net" # cargo fetch
@@ -40,15 +42,31 @@ if [ "$CARCH" != "loongarch64" ]; then
 		"
 fi
 
+case "$CARCH" in
+# Hangs on the builder
+riscv64) options="$options !check" ;;
+esac
+
 # taken from main/rust/APKBUILD
 _clear_vendor_checksums() {
 	sed -i 's/\("files":{\)[^}]*/\1/' vendor/$1/.cargo-checksum.json
 }
 
 prepare() {
+	cargo vendor --locked
+
 	default_prepare
 
-	cargo fetch --target="$CTARGET" --locked
+	mkdir -p .cargo
+	cat >> .cargo/config.toml <<-EOF
+		[source.crates-io]
+		replace-with = "vendored-sources"
+
+		[source.vendored-sources]
+		directory = "vendor"
+	EOF
+
+	_clear_vendor_checksums gix-index
 }
 
 build() {
@@ -95,6 +113,6 @@ package() {
 }
 
 sha512sums="
-30a54fe8407bb96db3af024fbfac5d7458d4e6b877482f680b89d9fd5537f593e73e70664f2703ea757e0be9a4e49595d8d6534edc2e029a73de0929140ed79b  jujutsu-0.33.0.tar.gz
-37e4048d1c25a99e86ee6577f5afc9fb7a22dd47cd237e10fe7103dd4dff56260e096fc519170c5cc469c7180e08998bedd51f19ebaf7677a9a381d173093a8b  0001-Fix-loongarch64-build.patch
+b421817893e379fe6239cb27e70fc551988433408188d1589a799744c842ab5de3655d20b07ff058e70f25213cbe061eb4d8adabac5edd4d7876cde19322513d  jujutsu-0.43.0.tar.gz
+f71bd6af8abf3338a472725cba8a62093b456845f2c0e7849a07e986c7e429cab21a4bda0697a3a8135a584786b1dae546848232e0cf2514defbee40f83a3f60  b32e4c391251248178dcd13789b4f51dcb943ed4.patch
 "

@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=mixxx
-pkgver=2.5.2
-pkgrel=3
+pkgver=2.5.6
+pkgrel=1
 pkgdesc="DJ mixing software"
 url="https://www.mixxx.org/"
 # armhf: qt6-qtdeclarative
@@ -54,7 +54,7 @@ makedepends="
 	wavpack-dev
 	"
 checkdepends="xvfb-run"
-subpackages="$pkgname-doc"
+subpackages="$pkgname-doc $pkgname-udev"
 source="https://github.com/mixxxdj/mixxx/archive/$pkgver/mixxx-$pkgver.tar.gz
 	disable-external-libdjinterop.patch
 	"
@@ -78,6 +78,6 @@ package() {
 }
 
 sha512sums="
-3ea8faef80c5a8b28ffd1bd6384d2b60b318da6b77dc34d1a68a626e48756e235fe854cb5a7b1bbfab1f8c2b8be2489dd238c11f072b08d0fde86618ddd55c0f  mixxx-2.5.2.tar.gz
+b1263d0942a7bf3f8f203f5d1a024615f05feb7874da5ed21679d7c26a457e91d372eac49ea03497436fe8a577b47ab424e0cca8fc99e43ec0d3d7ca0c6c6007  mixxx-2.5.6.tar.gz
 e8a879b127163091b843f1321559285b67778cdccb3fc9f463ecb23bb1f053cd74d9dd6b798442985db64fa926d0ed11825177b21af04921bc46994d48b17376  disable-external-libdjinterop.patch
 "

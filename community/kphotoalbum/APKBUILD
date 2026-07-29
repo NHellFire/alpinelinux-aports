@@ -2,12 +2,12 @@
 # group=kde-other
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kphotoalbum
-pkgver=6.0.1
+pkgver=6.2.0
 pkgrel=0
 pkgdesc="KDE Photo Album, picture collection manager"
 url="https://kphotoalbum.org"
-# armhf, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine -> purpose
-arch="all !armhf !ppc64le !s390x !riscv64"
+# armhf, armv7, x86, s390x and riscv64 blocked by qt6-qtwebengine -> purpose
+arch="all !armhf !armv7 !x86 !s390x !riscv64"
 license="GPL-2.0-or-later"
 makedepends="
 	exiv2-dev
@@ -32,7 +32,7 @@ makedepends="
 	qt6-qtbase-dev
 	samurai
 	"
-checkdepends="xvfb-run"
+checkdepends="xwayland-run"
 subpackages="$pkgname-doc $pkgname-lang"
 _repo_url="https://invent.kde.org/graphics/kphotoalbum.git"
 source="https://download.kde.org/stable/kphotoalbum/$pkgver/kphotoalbum-$pkgver.tar.xz"
@@ -47,8 +47,8 @@ build() {
 
 check() {
 	case "$CARCH" in
-		x86|armv7) xvfb-run -a ctest --test-dir build -E "TestThumbnailCache" ;;
-		*) xvfb-run -a ctest --test-dir build ;;
+		x86|armv7) wlheadless-run -- ctest --test-dir build -E "TestThumbnailCache" ;;
+		*) wlheadless-run -- ctest --test-dir build ;;
 	esac
 }
 
@@ -57,5 +57,5 @@ package() {
 }
 
 sha512sums="
-9d0a9e45f32da3f129688b575021a6fff2dd6c0cdb0f8b8c479c33d5243f251d0598e331b8029a9e95d442a9b63cae8a43f2e1232a82b6c6a86daa5d0d6e7690  kphotoalbum-6.0.1.tar.xz
+b87afb23d6c34eef5078e79de41ab0bdea8d72a5b7f836818cba99a03aa8e4d1f291eab85d1f1be3f8b7849f1dc43c59f78d27b954fa3097ed4bb076a55c7e53  kphotoalbum-6.2.0.tar.xz
 "

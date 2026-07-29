@@ -1,8 +1,8 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-maintainer="Natanael Copa <ncopa@alpinelinux.org>"
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=gnote
-pkgver=47.2
-pkgrel=1
+pkgver=50.1
+pkgrel=0
 pkgdesc="Gnote is a port of Tomboy to C++"
 url="https://gitlab.gnome.org/GNOME/gnote"
 arch="all"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-eb8938e3d62b12edf869ce10292032a3c6f63af36bfeef704ed0cd769f906e637d0e8738c0bebb8a22e5367e70042a2faabaf5bb1388020f9e6bd55e94442b6c  gnote-47.2.tar.xz
+9e381b268364ecf1af469e37d6f7774656dde9f8ec84a3aa26a919654308a43336959d54b30aca457292208d65e5db551e1f734293fd3d9dcbd7106211acf6f6  gnote-50.1.tar.xz
 "

@@ -3,12 +3,11 @@
 pkgname=mnamer
 _pkgname=mnamer
 pkgver=2.5.5
-pkgrel=1
+pkgrel=2
 pkgdesc="Media file organiser"
 options="!check" # No testsuite
 url="https://pypi.org/project/mnamer/"
-# s390x blocked by py3-requests-cache
-arch="noarch !s390x"
+arch="noarch"
 license="MIT"
 depends="
 	py3-appdirs

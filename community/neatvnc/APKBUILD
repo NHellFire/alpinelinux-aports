@@ -1,8 +1,8 @@
 # Contributor: Michał Polański <michal@polanski.me>
 # Maintainer: Michał Polański <michal@polanski.me>
 pkgname=neatvnc
-pkgver=0.9.4
-pkgrel=1
+pkgver=1.0.0
+pkgrel=0
 pkgdesc="A liberally licensed VNC server library with a clean interface"
 url="https://github.com/any1/neatvnc"
 license="ISC"
@@ -37,5 +37,5 @@ package() {
 }
 
 sha512sums="
-daa30c4f673f097ab3f9d15f471814c42fcb47ed143a8ee938b9f81a3a49fb832fc5d971ebd20aed0ae0fb1788c64e308c64f6754d95d06f374d5feb63fd818d  neatvnc-0.9.4.tar.gz
+8a47611cf5ca94e87777052f53f9ecbd9673ab0fe970feeaae225f4d81af6f6945e3fb5620cc154db8fa57567188e9213340b3f46913e8cbf7999e70095a7c39  neatvnc-1.0.0.tar.gz
 "

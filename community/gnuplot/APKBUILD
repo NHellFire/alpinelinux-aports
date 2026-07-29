@@ -1,15 +1,15 @@
 # Contributor: prspkt <prspkt@protonmail.com>
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=gnuplot
-pkgver=6.0.3
-pkgrel=1
+pkgver=6.0.4
+pkgrel=2
 pkgdesc="Utility for plotting graphs"
 url="https://gnuplot.sourceforge.net/"
 arch="all"
 license="MIT"
-_luaver=5.3
+_luaver=5.5
 makedepends="
 	cairo-dev
 	gd-dev
@@ -49,5 +49,5 @@ package() {
 }
 
 sha512sums="
-932197864b68cec6398402fe1815f864bb377e76611d897f3a00c69e6da7ec7e274548b5c287b61029cb5da6b080c0692d7e2dd61ee2ea04d79f6746a97bab2e  gnuplot-6.0.3.tar.gz
+086e109cc040c0b9ebedded17d551c2758629c13dc2a5bf950fe129c8c0dec38b01a3d1e89a8f138f7b0bedccb68996676ab2ff9e9f53aebea8e8d0c0ce98a75  gnuplot-6.0.4.tar.gz
 "

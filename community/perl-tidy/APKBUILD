@@ -1,7 +1,7 @@
 # Contributor: Duncan Bellamy <dunk@denkimushi.com>
 # Maintainer: Duncan Bellamy <dunk@denkimushi.com>
 pkgname=perl-tidy
-pkgver=20250912
+pkgver=20260705
 pkgrel=0
 pkgdesc="Parses and beautifies perl source"
 url="https://metacpan.org/dist/Perl-Tidy"
@@ -31,5 +31,5 @@ package() {
 }
 
 sha512sums="
-8027051a4fda6c17b691fa452086745d437822c5b758292d7a777c4b9dae9a55e13b2c3005be750e241f88ab65c655f40bf92fffb92da46636f52a989953aa71  Perl-Tidy-20250912.tar.gz
+4eaea66aa2514b16e98d9bc5f640130b702b0656561a55c68b358db5c763cebfcd78037a822cb90849c9064b2e5ce02dac380b06bc41b9600c2d735cefdc4e3c  Perl-Tidy-20260705.tar.gz
 "

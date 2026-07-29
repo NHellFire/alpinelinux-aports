@@ -1,7 +1,7 @@
 # Contributor: ProgCat <progcat@protonmail.com>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-chewing
-pkgver=5.1.8
+pkgver=5.1.12
 pkgrel=0
 pkgdesc="Chewing Wrapper for Fcitx"
 url="https://github.com/fcitx/fcitx5-chewing"
@@ -43,5 +43,5 @@ package() {
 }
 
 sha512sums="
-2acb2a6cf64d9109115136a4bfd306eb29cc041c4402cc412c6d040d6114832b781e7fe3ef4fb1a13fc306a49fb27953b52e6c71e0adb55ae16b58bb6c2aa48d  fcitx5-chewing-5.1.8.tar.gz
+46cc08b96d9c7825e3def7ec2c24fd51e31d97928f6f59a57e33edde3d8f46599a5d3574c87282fe4666981af2cce69497201bb28b0d2bcc253ea6018a1f2af9  fcitx5-chewing-5.1.12.tar.gz
 "

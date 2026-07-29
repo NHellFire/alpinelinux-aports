@@ -3,8 +3,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sertonix <sertonix@posteo.net>
 pkgname=syncthing
-pkgver=2.0.6
-pkgrel=0
+pkgver=2.1.2
+pkgrel=1
 pkgdesc="Open Source Continuous File Synchronization"
 url="https://syncthing.net/"
 arch="all"
@@ -18,10 +18,12 @@ subpackages="
 	$pkgname-utils
 	$pkgname-openrc
 	$pkgname-nftrules
+	$pkgname-systemd
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/syncthing/syncthing/archive/v$pkgver.tar.gz
 	only-test-with-race-when-provided.patch
 	$pkgname.initd
+	$pkgname-user.initd
 	$pkgname.nft
 	"
 options="chmod-clean net"
@@ -29,10 +31,6 @@ options="chmod-clean net"
 # secfixes:
 #   1.15.1-r0:
 #     - CVE-2021-21404
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	# Build syncthing + server utils
@@ -44,8 +42,13 @@ build() {
 }
 
 check() {
-	# Tests sometimes OOM
-	go test ./... || go test ./...
+	local testflags=
+	case $CARCH in
+		# https://github.com/syncthing/syncthing/issues/6209
+		arm*|x86) testflags="-short";;
+	esac
+	# shellcheck disable=SC2086
+	go test $testflags ./... || go test $testflags ./...
 }
 
 package() {
@@ -54,9 +57,13 @@ package() {
 	install -d -o $pkgname -g $pkgname "$pkgdir"/var/lib/$pkgname
 	install -D -m755 -t "$pkgdir"/usr/bin/ bin/*
 	install -D -m755 "$srcdir"/$pkgname.initd "$pkgdir"/etc/init.d/$pkgname
+	install -D -m755 "$srcdir"/$pkgname-user.initd "$pkgdir"/etc/user/init.d/$pkgname
 
 	# Desktop files so people in Desktop Environments can put them on Autostart
 	install -Dm0644 etc/linux-desktop/*.desktop -t "$pkgdir"/usr/share/applications
+
+	install -Dm644 etc/linux-systemd/system/*.service -t "$pkgdir"/usr/lib/systemd/system/
+	install -Dm644 etc/linux-systemd/user/*.service -t "$pkgdir"/usr/lib/systemd/user/
 
 	for i in 32 64 128 256 512; do
 		install -Dm644 "$builddir"/assets/logo-"$i".png \
@@ -80,8 +87,9 @@ utils() {
 }
 
 sha512sums="
-0d58bf4a2a1c0704ab764f58ca53b59d1b50bac003fcdceda12b8beec333ebea864dc8afe67c16dcf0ffd316b6fafe29dd2583535d0895fd00c8a0a5dec09f5a  syncthing-2.0.6.tar.gz
+52d22bf25957e843a9501d06312a2471a4881f587b0a9e5496dfd757c791d281032453ba90a6a75f33bb7f374689caea9c347e9fcae6307e35445b4520d0caec  syncthing-2.1.2.tar.gz
 81bcb6b2e0956624b596201d1de24a3b6fcb10d08761f2c426081350b611295a7f4d47775d175f2ee5dbbb289b98bc022389fc9992f0d31bcdbfde855ceafaf8  only-test-with-race-when-provided.patch
-17da9c6e03efa3b43a4b46bfb85a7a63d393bbe5a8f431e4e6d86a6dcde6dbe0c536d7b29c007a1a5207534519dc87183f6f91e5596ea5e645cd702e4e2478b4  syncthing.initd
+c53e897982d19b218166a0e4977e50b493478640a50165ecc1c3fc2361a01ad92d15d5f5fc1899ef86b8ec53ec7dde9aab9663e5a54b645d0eeabefa382608f1  syncthing.initd
+e63189dfa1cc091b75d0fe03c766dfb8ffc66a882fa630b808e612454f18cb29c94805448264e28f0699cc693b24b54480685bef182a206082937580cafefefb  syncthing-user.initd
 938c1a17a2c3448638270e1a84fac7848ed7e5bbc913404ef3f5ac3a0c285fbb57e0b851af8c69e207a679c8e35e673ab2fa8882642650ecda9af9a98de0b010  syncthing.nft
 "

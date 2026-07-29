@@ -3,8 +3,8 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-multidict
 _pkgname=multidict
-pkgver=6.6.4
-pkgrel=0
+pkgver=6.7.1
+pkgrel=1
 pkgdesc="multidict implementation"
 url="https://github.com/aio-libs/multidict/"
 arch="all"
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-02a6dc8c1dac331251a5a0a04f2c00dab60a524bd4ee1a8923b3747f1dd3d75639952e32b49a2a46f94aa1ff95220503b22cb24c9252a5458d2c7346bd02faac  multidict-6.6.4.tar.gz
+4009a310dac4732c48cc9654fbd55468dda5a6d18a05ef013ff90b030d3124459620d6d6ae4f85e88ef6cefa0b9bccea1b745f3acbfa0b351eb2c92cc8812b89  multidict-6.7.1.tar.gz
 "

@@ -1,11 +1,11 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=qps
-pkgver=2.11.1
+pkgver=2.13.0
 pkgrel=0
 pkgdesc="LXQt process manager"
 url="https://github.com/lxqt/qps"
-arch="all !armhf !riscv64" # limited by lxqt-config
+arch="all !armhf" # limited by lxqt-config
 license="LGPL-2.0-or-later"
 makedepends="
 	cmake samurai lxqt-build-tools qt6-qtbase-dev qt6-qttools-dev
@@ -38,5 +38,5 @@ lang() {
 }
 
 sha512sums="
-7c0189874164a38b8c1fa534f8822acda4168cf4fd48e7508568937c69cd30718265fae49628c96359216c8cc865badc80596097c6b8d55f71bb400a8dafe6de  qps-2.11.1.tar.xz
+caaf40a878633848a5c780e4f3e0e289794f544e74b6067e7cb0db4cb5e57c63f92ee9283246e53abbf5b90537809965dd4f8ab8508dac5023514a48bcd5a13e  qps-2.13.0.tar.xz
 "

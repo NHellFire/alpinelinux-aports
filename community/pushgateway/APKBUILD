@@ -1,7 +1,7 @@
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=pushgateway
-pkgver=1.11.1
-pkgrel=5
+pkgver=1.11.3
+pkgrel=1
 pkgdesc="Prometheus push acceptor for ephemeral and batch jobs"
 url="https://github.com/prometheus/pushgateway"
 license="Apache-2.0"
@@ -16,10 +16,6 @@ source="
 subpackages="$pkgname-openrc"
 # net: go mods
 options="net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go mod vendor
@@ -43,7 +39,7 @@ package() {
 }
 
 sha512sums="
-e26311bddf6b9d8419aa1ec2ee5204c4ee8c6b0ae95a1be6f3bd3bc5a8eb7302c59b21b12ea0f3824fef4513dc871e56b1573529275cb4eae531e6dad29946a7  pushgateway-1.11.1.tar.gz
+1b601f9189bc269c3246578aee3ba06df7e44d4f5afc3d211cde09f05ecbbd44517afa57bf96c99d30adbab2b16cfd130808c31b0e90292fa7e49d03fc090335  pushgateway-1.11.3.tar.gz
 39b797f6a38b02f84f94cfdbc5c860af060b044eaf98d7ec99909c4abcb9bf6112755bbd21460bfda9825b31715e403fedb6c88158072cd79d985429bcb5cf01  pushgateway.confd
 8dec09ad9b420da54f6f9434307c07d905c4bb17c2bc68fc4863e2bc2288ae1c8faf5757485ad4b0ebb89a78e907f6ccaf11f8379e8ab71e5e88f7c741657f6f  pushgateway.initd
 "

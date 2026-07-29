@@ -3,7 +3,7 @@
 pkgname=py3-flask-themer
 _pyname=flask-themer
 pkgver=2.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple theme mechanism for Flask"
 url="https://pypi.org/project/flask-themer"
 arch="noarch"
@@ -26,7 +26,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

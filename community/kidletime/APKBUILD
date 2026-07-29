@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kidletime
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Monitoring user activity"
 # armhf blocked by extra-cmake-modules
@@ -46,5 +46,5 @@ package() {
 }
 
 sha512sums="
-404b625e0fa05b4afb6b15ca84a4e652d41e7a9d1d1b4d19fa5d86ae3ac9a9b7b36cd986deb7a679166664756f5809ae8b1e996db20c3055154c27ceaf8f54f7  kidletime-6.17.0.tar.xz
+d7417ae4e977500bec810fbd24a4921405eabdd357fdcab25fad1847039bfb1666f70c717c8ac6c99125c9742ad8a5a5cc81eb02d2608a08f28d6ebb3c8c6e1a  kidletime-6.28.0.tar.xz
 "

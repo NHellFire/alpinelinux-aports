@@ -2,7 +2,7 @@
 # Maintainer: Guy Godfroy <guy.godfroy@gugod.fr>
 pkgname=nitro-init
 _pkgname=nitro
-pkgver=0.3
+pkgver=0.8.1
 pkgrel=0
 pkgdesc="Tiny but flexible init system and process supervisor"
 url="https://git.vuxu.org/nitro/"
@@ -11,7 +11,7 @@ license="0BSD"
 subpackages="$pkgname-doc"
 source="$_pkgname-$pkgver.tar.gz::https://git.vuxu.org/nitro/snapshot/nitro-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver/"
-options="!check" # test suite not yet released
+checkdepends="reap ruby"
 
 build() {
 	make
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-b62fb18521bfc0498553407454edee5c2e7477b94c36e21cd85ef993e41255379685df03eea41204508f58e1b056a2af6042b0be25139e45ce3f780c867943af  nitro-0.3.tar.gz
+52dd66fdc035fc26625877f3d60f1be5d52d6ff17084e8f8b8a67038dd9a4b6a88acccf63cc63a34ff367bebe9d3274a816935ff62fb0d506fe081d8a94e0887  nitro-0.8.1.tar.gz
 "

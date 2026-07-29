@@ -2,7 +2,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=yubikey-manager
 pkgver=5.8.0
-pkgrel=0
+pkgrel=3
 pkgdesc="Python library and command line tool for configuring any YubiKey over all USB interfaces"
 url="https://developers.yubico.com/yubikey-manager/"
 arch="noarch"
@@ -31,6 +31,7 @@ subpackages="
 	$pkgname-bash-completion
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
+	$pkgname-udev
 	"
 source="https://github.com/Yubico/yubikey-manager/releases/download/$pkgver/yubikey_manager-$pkgver.tar.gz"
 builddir="$srcdir/yubikey_manager-$pkgver"
@@ -67,6 +68,14 @@ package() {
 ykman() {
 	depends=
 	amove usr/lib
+}
+
+udev() {
+	depends="libfido2-udev"
+	pkgdesc="$pkgdesc (udev support)"
+	install_if="udev $pkgname=$pkgver-r$pkgrel"
+
+	mkdir -p "$subpkgdir"
 }
 
 sha512sums="

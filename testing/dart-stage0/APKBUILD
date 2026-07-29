@@ -2,7 +2,7 @@
 # Maintainer: lauren n. liberda <lauren@selfisekai.rocks>
 pkgname=dart-stage0
 # upgrade checklist: https://md.sdomi.pl/Q-ECZTJ2Qqyp3ahfJuYSBw
-pkgver=3.8.0_alpha237_p0
+pkgver=3.10.0_alpha244_p0
 pkgrel=0
 pkgdesc="Dart is a client-optimized language for fast apps on any platform (temporary bootstrap package)"
 url="https://dart.dev/"
@@ -55,8 +55,8 @@ package() {
 }
 
 sha512sums="
-1244f167d36bf0dc320481c6f72284a7f038148655f4839c45d47248dc092a5a40508c2bcede92105e8ebba7e430d7cf7b16ebaee94fbf0c5a181f19346792d4  dart-musl-stage0-x64-3.8.0-237.0.dev.tar.gz.noauto
-272f158048821a2d8b575ff24a6075d864b33165be7e309a2026387039a936e3851fe0c2495f7b3f0cdc4f42f518a7194ca832aeb1e7c26433722bcc90b77fd4  dart-musl-stage0-arm-3.8.0-237.0.dev.tar.gz.noauto
-eebcea7d9638691d44a9f6601a6d0b21bddf50b508a83d020a27165eeb478ad2bb0971d3817de46109cd4c6dc3e977ab18271dcddebd7caf15cf107b2d73cfb0  dart-musl-stage0-arm64-3.8.0-237.0.dev.tar.gz.noauto
-c3a0785a4d249edbc7ca4251ed057491e2ea72b6e218dfb5411b6d15131e457ab75e444f0e0b8494dd3ff0d9e39124413c2b3f93fc6c6c2e4a9e294ff0cc8f16  dart-musl-stage0-riscv64-3.8.0-237.0.dev.tar.gz.noauto
+b759450f3df43e927c2f663c559306818d7ddfa81100e98d57d7cc1935a2c906b2d26e3f01c0a0785debeeb2a232ea3e71a5e07557b602be534ccf0e4aa692d4  dart-musl-stage0-x64-3.10.0-244.0.dev.tar.gz.noauto
+bc51078ad6e604a61cc09dd317515eddcb47645554aaf9a4b1a8a5275248e331059399ca9aac64ce0770e98c14637adb0c46395a59dc6ac185ad84fa83d8ba34  dart-musl-stage0-arm-3.10.0-244.0.dev.tar.gz.noauto
+700a6113d6105c2d552433b1b180f1985293de22c76ebd083f9facbf53f39289b17fcde0f7f42718d02e653e93279d4a2b88f62de316bd72c0c415b08597e96a  dart-musl-stage0-arm64-3.10.0-244.0.dev.tar.gz.noauto
+ec62545605cfb54c2a650df645af072c6bca13f4a181a7aeddb4ae1af88feb8419b5889d046c353f1c12f4c1326b186cc61132981d333b8b9fac567f6010823f  dart-musl-stage0-riscv64-3.10.0-244.0.dev.tar.gz.noauto
 "

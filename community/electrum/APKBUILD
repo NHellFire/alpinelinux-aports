@@ -1,12 +1,13 @@
 # Contributor: Michał Adamski <michal@ert.pl>
 # Contributor: Rdbo <rdbodev@gmail.com>
-# Maintainer: Rdbo <rdbodev@gmail.com>
+maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=electrum
-pkgver=4.5.8
+pkgver=4.7.2
 pkgrel=0
 pkgdesc="Lightweight Bitcoin Wallet"
 url="https://electrum.org/"
-arch="noarch"
+# loongarch64: test fails: 499500000000 != 499520000000
+arch="noarch !loongarch64"
 license="MIT"
 depends="
 	libsecp256k1
@@ -14,13 +15,13 @@ depends="
 	py3-aiohttp-socks
 	py3-aiorpcx
 	py3-attrs
-	py3-bitstring
 	py3-certifi
 	py3-dnspython
-	py3-ecdsa
+	py3-electrum-aionostr
 	py3-jsonpatch
 	py3-protobuf
 	py3-pycryptodomex
+	py3-cryptography
 	py3-qrcode
 	"
 makedepends="
@@ -28,18 +29,32 @@ makedepends="
 	py3-setuptools
 	py3-wheel
 	"
-checkdepends="py3-pytest-xdist py3-cryptography py3-pyaes"
-subpackages="$pkgname-pyc $pkgname-gui"
+checkdepends="
+	py3-pyaes
+	py3-pytest-xdist
+"
+subpackages="$pkgname-pyc"
 source="
 	electrum-$pkgver.tar.gz::https://github.com/spesmilo/electrum/archive/refs/tags/$pkgver.tar.gz
 	0001-apk-add-instead-of-apt-get-install.patch
 "
 
+case "$CARCH" in
+armhf)
+	# no py3-qt6 (gui and tests depend on it)
+	options="$options !check"
+	;;
+*)
+	subpackages="$subpackages $pkgname-gui"
+	checkdepends="$checkdepends py3-qt6"
+	;;
+esac
+
 gui() {
 	pkgdesc="GUI for $pkgname"
 	install_if="$pkgname=$pkgver-r$pkgrel" # The GUI will be installed by default, and can
 	                                       # be disabled with !electrum-gui
-	depends="$pkgname=$pkgver-r$pkgrel py3-qt5"
+	depends="$pkgname=$pkgver-r$pkgrel py3-qt6"
 
 	mkdir -p "$subpkgdir"
 }
@@ -64,6 +79,6 @@ package() {
 }
 
 sha512sums="
-0e7b15747fcce94ad60f068c013a5f6051402b049bb63493179768f6a4c6cb7b8d1b7b1750861afd89f7ed6a83313dee6d40022098ed2dbb9897fbf31e978350  electrum-4.5.8.tar.gz
-797f684a8df30176129335e9e09868be8a4db7a76b3b89dd0b48d93e577a90aa378839a7cc2bf7804494e1cfea77e392fcf74d55243ad51531f4e42c6c747aac  0001-apk-add-instead-of-apt-get-install.patch
+ee63a02582c8115bcd3bb58fecfc6821c4c31b91b4bd9d4aa62e3c5a658a095176928678ba300acb590eab2d46d23109e05d4b4c5ae5fabadd0061e8850a1ca0  electrum-4.7.2.tar.gz
+b5eef3f92e34a3c7ec6ebfdb0941c6f38fc96fd864e7cbe4447dc791180e1278d6b1a164831ccee020482a26bee942df2885450e12a5314ae7bf5a2772b06b62  0001-apk-add-instead-of-apt-get-install.patch
 "

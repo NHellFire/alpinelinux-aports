@@ -1,27 +1,38 @@
 # Contributor: Michał Polański <michal@polanski.me>
 # Maintainer: Michał Polański <michal@polanski.me>
 pkgname=btop
-pkgver=1.4.4
+pkgver=1.4.7
 pkgrel=0
 pkgdesc="Resource monitor"
 url="https://github.com/aristocratos/btop"
 license="Apache-2.0"
 arch="all"
 makedepends="coreutils-fmt lowdown linux-headers"
+checkdepends="cmake gtest-dev samurai"
 subpackages="$pkgname-doc"
 source="https://github.com/aristocratos/btop/archive/v$pkgver/btop-$pkgver.tar.gz"
-options="!check" # no test suite
 
 build() {
 	make ADDFLAGS="-fno-ipa-cp" GIT_COMMIT=""
 }
 
+check() {
+	cmake -B build-check -G Ninja \
+		-DCMAKE_BUILD_TYPE=None \
+		-DBUILD_TESTING=ON \
+		-DCMAKE_DISABLE_FIND_PACKAGE_GTest=OFF \
+		-DFETCHCONTENT_FULLY_DISCONNECTED=ON
+
+	cmake --build build-check
+	ctest --test-dir build-check --output-on-failure
+}
+
 package() {
 	make install DESTDIR="$pkgdir" PREFIX=/usr
 
-	rm "$pkgdir"/usr/share/btop/README.md
+	rm "$pkgdir"/usr/share/doc/btop/README.md
 }
 
 sha512sums="
-acd206daa8832cf6ca8a715ae481088f2854887dbce586a3b1dd5142e8a43e2ee67f2cfa29d9e680f51786ff107346d82ceb17205c30c47f0ec737372a17ef58  btop-1.4.4.tar.gz
+49f2d2aa4fa83816f4fdaebc7239b3036d6e776b45b059d40ec535867762f207dcd9e79df16e410b37965e10c758404bd6aab8106a8c8b8e0761d3950e8856ef  btop-1.4.7.tar.gz
 "

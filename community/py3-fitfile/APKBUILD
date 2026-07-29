@@ -2,8 +2,8 @@
 # Maintainer: Iztok Fister, Jr. <iztok@iztok-jr-fister.eu>
 pkgname=py3-fitfile
 _pkgorig=fitfile
-pkgver=1.1.10
-pkgrel=0
+pkgver=1.2.0
+pkgrel=1
 pkgdesc="Decode/parse Garmin's FIT format files"
 url="https://github.com/tcgoetz/Fit"
 arch="noarch"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-0d58b831c2ede4607809b53f8bba7d5aca47633335ec84bf1dff3ec854054d8b210aa884b23157022e218121ccc67881b3d5dbe4f50a531036b8903659650c2b  py3-fitfile-1.1.10.tar.gz
+e315a3011644ba5409da992442c53f568d47b6f342177e5706293ea83978e21c1e5f8c1d0ad1b91811c4274c9728c2da2ef74bcc03729dec2c09cafe925c87f6  py3-fitfile-1.2.0.tar.gz
 "

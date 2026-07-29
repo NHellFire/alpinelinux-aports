@@ -1,8 +1,8 @@
 # Contributor: Grigory Kirillov <txgk@bk.ru>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Wen Heping <wenhepingalpine@sohu.com>
 pkgname=htmldoc
-pkgver=1.9.21
+pkgver=1.9.23
 pkgrel=0
 pkgdesc="HTML conversion software"
 url="https://www.msweet.org/htmldoc/"
@@ -29,5 +29,5 @@ package() {
 }
 
 sha512sums="
-9a114ef72856cff1677881ae7495925b70b1799148d5cc201d82a6d26344251aa1de37f44c8d39a5ae816977145d991fd827f697d06c737c32f6797165a4f33a  htmldoc-1.9.21.tar.gz
+551fefec54c691d831056c360728acdb1c98d4313305659208485138379fbbf21685c6898961fe75d8b8d18a5eb5bb1b649492405df572f5ed6ef94b87d8fb39  htmldoc-1.9.23.tar.gz
 "

@@ -2,7 +2,7 @@
 # Maintainer: Philipp Glaum <p@pglaum.de>
 pkgname=py3-babelfish
 pkgver=0.6.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Work with countries and languages"
 url="https://pypi.org/project/babelfish/"
 arch="noarch"
@@ -22,7 +22,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

@@ -1,8 +1,8 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=lxqt-qtplugin
-pkgver=2.2.0
-pkgrel=2
+pkgver=2.4.0
+pkgrel=1
 pkgdesc="Qt-LXQt plugin integration"
 url="https://github.com/lxqt/lxqt-qtplugin"
 arch="all !armhf" # armhf blocked by liblxqt-dev
@@ -27,5 +27,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-98f50453b9be659cc4b7cd69addb2e24ee6ab8e9c865f873a88971480bccee8fddc1417da1075b4d94faf46c50176ec2b6b45d04aed969808493254921ca6ddb  lxqt-qtplugin-2.2.0.tar.xz
+b5671f4d975449d768152c08287733a63e3f64d8868bebe11ffa11f8b5336adcd257fcf738c9196f7de217b099e356886a539279dd6ff2c3657afd3961ff2933  lxqt-qtplugin-2.4.0.tar.xz
 "

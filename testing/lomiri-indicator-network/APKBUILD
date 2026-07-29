@@ -1,7 +1,7 @@
 # Contributor: Bart Ribbers <bribbers@disroot.org>
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=lomiri-indicator-network
-pkgver=1.1.2
+pkgver=1.99.0
 pkgrel=0
 pkgdesc="The 'Network' indicator for Ubuntu Touch"
 # armhf: blocked by qt5-qtdeclarative
@@ -55,5 +55,5 @@ package() {
 }
 
 sha512sums="
-7b9acac6f67160bfd24b8a057a8ef654780c43f5ec2f8ded3cc249ebe5372f49d079caf21ed379f3ba1ef4cfedeca62508a917c75fb64e04df4e95e7e31cd209  lomiri-indicator-network-1.1.2.tar.gz
+8b0418daa714df2435f28679d6e44f92ff46ab6671445c012315c6a6fe153feb04fc408de1cd9944f3947faa0dfdf3abde80854f6bd56158c04cc16314459f9a  lomiri-indicator-network-1.99.0.tar.gz
 "

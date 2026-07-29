@@ -2,7 +2,7 @@
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=py3-pycryptodome
 pkgver=3.23.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Self-contained cryptographic library"
 url="https://www.pycryptodome.org"
 arch="all"
@@ -62,8 +62,8 @@ package() {
 }
 
 pycryptodomex() {
-	amove usr/lib/python3.\*/site-packages/Cryptodome
-	amove usr/lib/python3.\*/site-packages/pycryptodomex-$pkgver.dist-info
+	amove usr/lib/python3.*/site-packages/Cryptodome
+	amove usr/lib/python3.*/site-packages/pycryptodomex-$pkgver.dist-info
 }
 
 sha512sums="

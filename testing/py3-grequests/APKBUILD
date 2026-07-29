@@ -3,7 +3,7 @@
 pkgname=py3-grequests
 _pkgname=grequests
 pkgver=0.7.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Asynchronus HTTP requests with gevent"
 url="https://github.com/spyoungtech/grequests"
 arch="noarch"
@@ -24,7 +24,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m nose
 }
 

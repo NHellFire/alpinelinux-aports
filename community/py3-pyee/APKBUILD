@@ -1,7 +1,7 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-pyee
-pkgver=13.0.0
-pkgrel=0
+pkgver=13.0.1
+pkgrel=1
 pkgdesc="A port of node.js's EventEmitter to Python"
 url="https://github.com/jfhbrook/pyee"
 arch="noarch"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-d4e10fca309d770ed46fdbda4c33ca1c49f089b1e9914a761ea18aff7b818e28e8a5212980ae1a7853c98ecaa5e5d3bfef4db8bc7afd5f8699d2a798a7647513  pyee-13.0.0.tar.gz
+35a64438b125d0425c7a54a205b4613a0cdf3ebdc8195cc5706423e08acf996cda69fe406d5a8330732a066a21fa1ff6cec5cb447f0a483a72e24ccf19088415  pyee-13.0.1.tar.gz
 "

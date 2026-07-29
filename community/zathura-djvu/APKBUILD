@@ -1,8 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=zathura-djvu
-pkgver=0.2.10
-pkgrel=3
+pkgver=2026.07.18
+pkgrel=0
 pkgdesc="DjVu plugin for zathura"
 url="https://pwmt.org/projects/zathura-djvu/"
 arch="all"
@@ -27,5 +28,5 @@ package() {
 }
 
 sha512sums="
-c743e60588e07fe18f7da8db1ae9ae997ffb50ef696258f1901523159ff4d29e5649b13d6e52f53cf79f19429083308390c0b4923081451bf5c4bfb9ac6e8903  zathura-djvu-0.2.10.tar.xz
+debd4eba1f303e509628ccbaba499cba46cdc145778d4705927b21e89773ad7f5a61f6a047d17a6dee7b835037b4e2ba9af8ee1d118cccb8a6b5e25062d3222e  zathura-djvu-2026.07.18.tar.xz
 "

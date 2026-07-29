@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kolf
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="A miniature golf game with 2d top-down view"
 # armhf blocked by extra-cmake-modules
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-7649634d9bb5f07a1fcaca183af57ebd720599ef09662a36b5425fae252f0bb033df2780c48377187c2342dd145ad4d4722151e5a0fea2ed0f411eaf6f8921ca  kolf-25.08.0.tar.xz
+fa7ece8cab7c5cc69d21d8432f4607903bfdf2648dfc18b6053c8a67a7b999dfe7f0f3382f677c3db1d9c1a7074cb413ad59321c196360d81a6ecb7699929bd4  kolf-26.04.3.tar.xz
 "

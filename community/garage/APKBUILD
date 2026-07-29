@@ -1,13 +1,14 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=garage
-pkgver=1.2.0
+pkgver=2.3.0
 pkgrel=0
 pkgdesc="Lightweight S3-compatible distributed object store"
 url="https://garagehq.deuxfleurs.fr"
 # armhf,armv7,x86: fails to build (std::bad_alloc)
 # riscv64: would take eternity to build
-arch="all !armhf !armv7 !x86 !riscv64"
+# s390x: fails to build due to nix crate (https://git.deuxfleurs.fr/Deuxfleurs/garage/issues/1307)
+arch="all !armhf !armv7 !x86 !riscv64 !s390x"
 license="AGPL-3.0"
 makedepends="
 	cargo
@@ -37,8 +38,8 @@ case "$CARCH" in
 	ppc64le | s390x) options="!check";;
 esac
 
-# Disable bundled-libs, sqlite, k2v
-_cargo_opts="--frozen --no-default-features --features lmdb,metrics,system-libs,syslog"
+# Disable bundled-libs, k2v
+_cargo_opts="--frozen --no-default-features --features lmdb,metrics,sqlite,system-libs,syslog"
 
 export CARGO_PROFILE_RELEASE_OPT_LEVEL=2
 
@@ -48,7 +49,6 @@ export GIT_VERSION="v$pkgver"  # version used in --version
 prepare() {
 	default_prepare
 
-	cargo add time@0.3.35 libc@0.2.155
 	cargo fetch --target="$CTARGET" --locked
 }
 
@@ -73,8 +73,8 @@ package() {
 }
 
 sha512sums="
-03bd6d16219466fd85328ef3e217d115c2e4a91c42579aadc8e24ec52e902a26cb216f8cdd27204fecc3c7440a8edf359c49e189fe02d744e7011a54abcd5426  garage-1.2.0.tar.gz
-bb8009a0fa7ff4a3203b7db97f09c1e08fb7b0f30288b9cd05dfb7ed97cc4c8dac427a5bd7887877cb2f38fc33b01392cc69014abd22d9a5cd1f90ba3c38a903  garage.toml
+f0a1bd730e0240be9a9d2ad1de6ddd3c0408f97d2cf81b598e672007092f33243bc95e001cb89078adf57baad2aacb86f67282a2c0e69859f49fcad4a77419e3  garage-2.3.0.tar.gz
+808d47c52005665e603b7dbaac00c1e31888e3b43bf8ebbb8f89abd804c26717b4ee27b976008a907fae39c3153378e5496a3d71f1036a3bbd8fe6fa390302d3  garage.toml
 0f20ce973c49de9bd526a35d094d4024cd51ca36210b4c14196448fb59f594555c561c5858152d1df603ba87a284ff63e9cf914f21687de2f1842efc50aea2ec  garage.initd
 668c1fc719bcd54ec966ef00fedda94048867f429a7f373a270e18fbd54435f17c19dd75a2a79467751dfcd3cce2391e9c7ea377910d8dd2c853551a04aebe5d  garage.confd
 "

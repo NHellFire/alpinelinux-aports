@@ -1,7 +1,7 @@
 # Maintainer: John Anthony <john@jo.hnanthony.com>
 pkgname=wire-go
 pkgver=0.6.0
-pkgrel=13
+pkgrel=21
 pkgdesc="Compile-time Dependency Injection for Go"
 url="https://github.com/google/wire"
 arch="all"
@@ -12,10 +12,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/google/wire/archive/refs/tag
 	"
 options="chmod-clean net !check" # generation differs from golden file
 builddir="$srcdir/wire-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

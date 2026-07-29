@@ -1,7 +1,6 @@
-# Contributor: Michał Polański <michal@polanski.me>
-# Maintainer: Michał Polański <michal@polanski.me>
+maintainer="Michał Polański <michal@polanski.me>"
 pkgname=py3-podman
-pkgver=5.5.0
+pkgver=5.8.0
 pkgrel=0
 pkgdesc="Python bindings for Podman's RESTful API"
 url="https://github.com/containers/podman-py"
@@ -21,7 +20,8 @@ build() {
 }
 
 check() {
-	pytest podman/tests/unit
+	pytest podman/tests/unit \
+		--ignore podman/tests/unit/test_utils.py # imports "utils" module that doesn't mock podman binary
 }
 
 package() {
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-a48253375e90f426baf046bdffc3df3ee8dc4e66a0ccacf55d86cb847b1937a1135f3518b5ad5e9ddd50f11800e97bd5454ec2098535ccf7f06d7210a0cd63ba  py3-podman-5.5.0.tar.gz
+a0d9014ba8d44a91c9c1dbb7afccf9b3ad3badfb05e44f780069bf0117cad08d753ebe19b05c2395f7112a0b36bd100bd1dd96c7d9c5ba1181c6d5d3a2d73c79  py3-podman-5.8.0.tar.gz
 "

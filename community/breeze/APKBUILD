@@ -2,14 +2,13 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=breeze
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Artwork, styles and assets for the Breeze visual style for the Plasma Desktop"
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
 url="https://kde.org/plasma-desktop/"
 license="GPL-2.0-or-later"
-depends="$pkgname-cursors=$pkgver-r$pkgrel"
 depends_dev="
 	frameworkintegration-dev
 	frameworkintegration5-dev
@@ -40,7 +39,7 @@ makedepends="$depends_dev
 	extra-cmake-modules
 	samurai
 	"
-
+checkdepends="xwayland-run"
 case "$pkgver" in
 	*.*.9*) _rel=unstable;;
 	*) _rel=stable;;
@@ -48,6 +47,7 @@ esac
 subpackages="
 	$pkgname-dev
 	$pkgname-lang
+	$pkgname-wallpapers::noarch
 	$pkgname-cursors::noarch
 	"
 _repo_url="https://invent.kde.org/plasma/breeze.git"
@@ -62,20 +62,26 @@ build() {
 }
 
 check() {
-	ctest --test-dir build
+	wlheadless-run -- ctest --test-dir build -E "(breezestyleconfig_smoke|kcm_breezedecoration_smoke)test"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 
+wallpapers() {
+	pkgdesc="$pkgdesc (wallpapers)"
+	install_if="$pkgname=$pkgver-r$pkgrel"
+	amove usr/share/wallpapers
+}
+
 cursors() {
 	pkgdesc="$pkgdesc (cursors)"
-	depends=""
+	install_if="$pkgname=$pkgver-r$pkgrel"
 	amove usr/share/icons/Breeze_Light
 	amove usr/share/icons/breeze_cursors
 }
 
 sha512sums="
-6f956352d8ca4e6db3ac981507e4e6ce369a139240aa1d8b8543f8a45b4b7beab60bb26555339abb6308968ca94d4c12221dd3ec23458f047fd49837bda59c4c  breeze-6.4.5.tar.xz
+d63320d3a9a7be4860d6b702294605b2a95077db43b45fd4f34bc1b64ec0e909150faf0dee9252c51a720be5334a2efefbf0514988dfad2ad91bf87d4c5d5e1a  breeze-6.7.3.tar.xz
 "

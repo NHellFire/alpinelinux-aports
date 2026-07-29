@@ -2,7 +2,7 @@
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=spirv-llvm-translator
 _pkgname=SPIRV-LLVM-Translator
-pkgver=20.1.5
+pkgver=22.1.0
 pkgrel=0
 pkgdesc="Library for bi-directional translation between SPIR-V and LLVM IR"
 url="https://github.com/KhronosGroup/SPIRV-LLVM-Translator"
@@ -61,5 +61,5 @@ package() {
 }
 
 sha512sums="
-e9445707933293ae401267dd344863823b9d4843b1426f2709d1f3a8cb77bc1e92b6ef1c12a91776c4d666f7d95f0a5c7996bf18d932f76155bfe1ace6e8b931  SPIRV-LLVM-Translator-20.1.5.tar.gz
+eeda165c6c5e7c78c3df758e47336924daaf328651de2784824c5fee7f0a1aed140a3b38f05e7526851876b75ac1f7a02d665f418b82ef4cab96d40930d8646c  SPIRV-LLVM-Translator-22.1.0.tar.gz
 "

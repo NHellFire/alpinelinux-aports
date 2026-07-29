@@ -4,11 +4,11 @@
 # Contributor: Dave <dj.2dixx@gmail.com>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=kubernetes
-pkgver=1.33.4
-pkgrel=1
+pkgver=1.36.3
+pkgrel=0
 pkgdesc="Container Cluster Manager"
 url="https://kubernetes.io/"
-arch="all !armhf"
+arch="all"
 license="Apache-2.0"
 options="!check chmod-clean net" # Tests hang
 
@@ -40,7 +40,7 @@ subpackages="
 	kubectl-zsh-completion
 	"
 
-source="$pkgname-$pkgver.tar.gz::https://github.com/kubernetes/kubernetes/archive/v$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://github.com/kubernetes/kubernetes/archive/refs/tags/v$pkgver.tar.gz
 	make-e2e_node-run-over-distro-bins.patch
 	make-test-cmd-run-over-hyperkube-based-kubectl.patch
 
@@ -68,10 +68,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/kubernetes/kubernetes/archiv
 _agent="kubelet"
 _cli="kubeadm kubectl kubectl-convert"
 _services="kube-apiserver kube-controller-manager kube-proxy kube-scheduler"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 # Without this the build scripts will attempt to download a whole Go toolchain
 # with the 'gimme' script when our Go does not match version from '.go-version'
@@ -145,7 +141,7 @@ zshcomp() {
 }
 
 sha512sums="
-da6da0608cf79a45621a54666a4848858d976928447e03e64e2bc0c7e08d53957f7b78b53ffb51ad577091351034a609bc7bafebe88d85fddc9316bc8ae558b3  kubernetes-1.33.4.tar.gz
+3a160625cd3f6e1d157f15b75afb4b53009f316cd25be0a6359e005f30879a5526bc11b8a25a02dc2936dc517437c438cf475d93316ddb578d0420c88d66cf1a  kubernetes-1.36.3.tar.gz
 5427c2e653504cfd5b0bcaf195d4734ee40947ddfebc9f155cd96dddccfc27692c29d94af4ac99f1018925b52995c593b584c5d7a82df2f185ebce1a9e463c40  make-e2e_node-run-over-distro-bins.patch
 94d07edfe7ca52b12e85dd9e29f4c9edcd144abc8d120fb71e2a0507f064afd4bac5dde30da7673a35bdd842b79a4770a03a1f3946bfae361c01dd4dc4903c64  make-test-cmd-run-over-hyperkube-based-kubectl.patch
 e690daff2adb1013c92124f32e71f8ed9a18c611ae6ae5fcb5ce9674768dbf9d911a05d7e4028488cda886e63b82e8ac0606d14389a05844c1b5538a33dd09d1  kube-apiserver.initd

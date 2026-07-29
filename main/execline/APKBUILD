@@ -1,14 +1,13 @@
 # Maintainer: Laurent Bercot <ska-devel@skarnet.org>
 pkgname=execline
-pkgver=2.9.7.0
+pkgver=2.9.9.2
 pkgrel=0
 pkgdesc="A small scripting language, to be used in place of a shell in non-interactive scripts."
-url=https://skarnet.org/software/execline/
+url="https://skarnet.org/software/execline/"
 arch="all"
 license="ISC"
-options="!check"
-_skalibs_version=2.14.4
-makedepends="skalibs-dev>=$_skalibs_version"
+options="!check"  # No test suite.
+makedepends="skalibs-dev"
 subpackages="$pkgname-static $pkgname-libs $pkgname-dev $pkgname-doc"
 source="https://skarnet.org/software/execline/execline-$pkgver.tar.gz"
 install="execline.post-install execline.post-upgrade execline.pre-deinstall"
@@ -16,6 +15,8 @@ install="execline.post-install execline.post-upgrade execline.pre-deinstall"
 build() {
 	./configure \
 		--prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir="/usr/libexec/$pkgname" \
 		--enable-shared \
 		--disable-allstatic \
 		--enable-pkgconfig \
@@ -26,10 +27,11 @@ build() {
 
 package() {
 	make DESTDIR="$pkgdir" install
+	install -D -m 0644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 	mkdir -p "$pkgdir/usr/share/doc"
-	cp -a "$builddir/doc" "$pkgdir/usr/share/doc/$pkgname"
+	cp -a doc "$pkgdir/usr/share/doc/$pkgname"
 }
 
 sha512sums="
-c46aa4954a560610074a5a4f8cecc1512bab05b40739c4dddc74881edb30468f248fc08ca1a461ec66279fa43fa25d130b339790995fb1eeb1612a13dc479ac1  execline-2.9.7.0.tar.gz
+95576c7ad1b9ee5b2162a91c029c43d70753de1a9924c6b4ec07d39ca0d6c063460b399a610ebd8ad251dfa74a2b06e25c2b11a6e1e52759c75e7d005134f006  execline-2.9.9.2.tar.gz
 "

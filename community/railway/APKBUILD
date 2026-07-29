@@ -1,7 +1,7 @@
 # Contributor: Usia Bechtle <usia@bechtlebox.de>
 # Maintainer: jane400 <alpine@j4ne.de>
 pkgname=railway
-pkgver=2.8.2
+pkgver=2.9.4
 pkgrel=0
 pkgdesc="Railway lets you look up travel information for many different railways"
 url="https://gitlab.com/schmiddi-on-mobile/railway"
@@ -19,7 +19,7 @@ makedepends="
 	"
 subpackages="$pkgname-lang"
 source="https://gitlab.com/schmiddi-on-mobile/railway/-/archive/$pkgver/railway-$pkgver.tar.gz"
-options="!check" # no tests
+options="!check net" # no tests, cargo
 
 provides="diebahn=$pkgver-r$pkgrel"
 replaces="diebahn"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-ac6f483cda04cd1398b6aff79e78a21da0f7efe45fc56f6ba3990f11d3477f775614760e5fb781b0f74ad8d7e4211a975ced03549c1306a5a911cb4a2d398696  railway-2.8.2.tar.gz
+c327a6e9d8bb083f3430aedf83713567b0ae2eae4aeff5cffeb5d974edae89955d270cd089faba429798f9ec527b243eae6efd2d00b1c373954f5c553b5091c3  railway-2.9.4.tar.gz
 "

@@ -3,7 +3,7 @@ Reason: making it works with Alpine musl
 
 --- a/config.h.in
 +++ b/config.h.in
-@@ -204,3 +204,13 @@
+@@ -207,3 +207,14 @@
  
  /* Define for large files, on AIX-style hosts. */
  #undef _LARGE_FILES
@@ -17,3 +17,4 @@ Reason: making it works with Alpine musl
 +       while (__result == -1L && errno == EINTR);                             \
 +       __result; }))
 +#endif
++

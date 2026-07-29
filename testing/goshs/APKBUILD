@@ -1,20 +1,16 @@
 # Contributor: Jonas <spameier+alpine@proton.me>
 # Maintainer: Jonas <spameier+alpine@proton.me>
 pkgname=goshs
-pkgver=1.1.0
-pkgrel=3
+pkgver=2.1.4
+pkgrel=1
 pkgdesc="A SimpleHTTPServer written in Go, enhanced with features and with a nice design."
 url="https://goshs.de"
 arch="all"
 license="MIT"
 makedepends="go"
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/patrickhener/goshs/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/goshs-labs/goshs/archive/refs/tags/v$pkgver.tar.gz"
 options="net !check" # no tests provided
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -ldflags="-s -w"
@@ -26,5 +22,5 @@ package() {
 }
 
 sha512sums="
-17b6999823a75592b8c01996a86bb423aa6b72bd76d6c429b5e043b530e4714b85a1a94a868b31deb3fefe5b0b137466918476efb24f2696b9a7f37c211f9377  goshs-1.1.0.tar.gz
+ca05d9a8bbbd1c9bc220fc6b4a27a0a75b6d31c7bfbbc217afd2960f398c7003a3faf2bbd5e18846f53d61e386ef266aa793f1b9722fa5188264cb533d9af46d  goshs-2.1.4.tar.gz
 "

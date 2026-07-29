@@ -1,7 +1,7 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=tmuxinator
-pkgver=3.3.5
+pkgver=3.4.1
 pkgrel=0
 pkgdesc="manage complex tmux sessions easily"
 url="https://github.com/tmuxinator/tmuxinator"
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-4356b2bdf3670925e1871b83202c9b635786d99c1abd663aa49b4c00594018c0c6806c29e84b4015fb8c6cb7d6de563a0c0e70fcc0298f187208a41ec75ea424  tmuxinator-3.3.5.tar.gz
+54d2ccbb2b40f8e3d096908c786fe877acb72e5815a5b2dcd4d07f96e943730929bd89577a3a081f5812d02184eaafcb7903aa86202a1c70205ad5f4b9cbd641  tmuxinator-3.4.1.tar.gz
 "

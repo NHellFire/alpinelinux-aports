@@ -1,0 +1,34 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=q6voiced
+pkgver=0.3.1
+pkgrel=0
+pkgdesc="Userspace QDSP6 voice driver daemon listing on oFono/ModemManager"
+url="https://gitlab.postmarketos.org/postmarketOS/q6voiced/"
+arch="all"
+license="MIT"
+makedepends="
+	alsa-lib-dev
+	dbus-dev
+	meson
+	"
+subpackages="$pkgname-doc $pkgname-openrc $pkgname-systemd"
+source="https://gitlab.postmarketos.org/postmarketOS/q6voiced/-/archive/$pkgver/q6voiced-$pkgver.tar.gz"
+
+build() {
+	abuild-meson \
+		output .
+	meson compile -C output
+}
+
+check() {
+	meson test --print-errorlogs -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+sha512sums="
+ab41adb9724747054b660794df7bcb73afb55f5ce086a5b3f9b1c8107048a7febb54a6e3415a47f01d2b715f9012a9508ca17a9f84b72061503d214b01b1bbb0  q6voiced-0.3.1.tar.gz
+"

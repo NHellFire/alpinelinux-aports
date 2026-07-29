@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=ca-certificates
-pkgver=20250619
+pkgver=20260611
 pkgrel=0
 pkgdesc="Common CA certificates PEM files from Mozilla"
 url="https://www.mozilla.org/en-US/about/governance/policies/security-group/certs/"
@@ -70,5 +70,5 @@ bundle() {
 }
 
 sha512sums="
-803f714421b2293b99a52a812cf367e4f764152e1aedfbd31a261658d91540fd311394cbcb95a8055f417ed56291c6c99d33403954446ed84f6a9f728bdf002e  ca-certificates-20250619.tar.bz2
+f473a1111eb508ef5d1096489479dba07db6b0d76ef2b900b3473933d57419429061d83e9c1e881ab61c4b0f17c64859ec74d670da6fc1d83d9b0fa73e1b7d8d  ca-certificates-20260611.tar.bz2
 "

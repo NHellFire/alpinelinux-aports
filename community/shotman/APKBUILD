@@ -1,6 +1,6 @@
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=shotman
-pkgver=0.4.10
+pkgver=0.5.1
 pkgrel=0
 pkgdesc="Uncompromising screenshot GUI for Wayland"
 url="https://git.sr.ht/~whynothugo/shotman"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-8bebba0c0b76db4a3bb9b3a906c345d261053babc26c2ed702081ea36cc4500eb61d30f223f12db13a4382c0ee647b0c9cbe96d6d3368cc77b2a6d7912d3f0bd  shotman-0.4.10.tar.gz
+8366a4dda398a1bfbb12b6c188000e5126716f8f53c4c29335de329fc08503165edb915ca15d47bd40e6fd9f18ba2fd41df43a50818b4cd0c975e9b7508613ca  shotman-0.5.1.tar.gz
 "

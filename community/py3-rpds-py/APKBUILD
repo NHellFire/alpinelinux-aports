@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-rpds-py
-pkgver=0.27.1
-pkgrel=0
+pkgver=0.30.0
+pkgrel=2
 pkgdesc="Python bindings to the Rust Persistent Data Structures (rpds) crate"
 url="https://github.com/crate-py/rpds"
 arch="all"
@@ -43,5 +43,5 @@ package() {
 }
 
 sha512sums="
-3d252925cc4a54c7d9c5908332f8c85efbdb1a0756fceec730bb844587c4421a46f731fc44e9578eba756c272f705bf879bec247d5cffc8ad7ae8ea3bfefd1ec  rpds_py-0.27.1.tar.gz
+d6791b9e6020fdd09d5168214d22d5f8d170563ac3e59540c05921a88b269ca11a8456270a0cd4862b6beca516425f505f0d75a5d80fc8367f2209edd826ecd3  rpds_py-0.30.0.tar.gz
 "

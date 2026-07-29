@@ -2,24 +2,26 @@
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=postgresql-pg_graphql
 _projname=pg_graphql
-pkgver=1.5.11
+pkgver=1.6.1
 pkgrel=0
 pkgdesc="GraphQL support for PostgreSQL"
 url="https://supabase.github.io/pg_graphql/"
-# ppc64le,riscv64,s390x: fails to build due to ring crate (https://github.com/pgcentralfoundation/pgrx/pull/1442)
-arch="all !ppc64le !riscv64 !s390x"
+# riscv64,s390x: fails to build due to ring crate (https://github.com/pgcentralfoundation/pgrx/pull/1442)
+arch="all !riscv64 !s390x"
 license="Apache-2.0"
 makedepends="
 	cargo
 	chrpath
-	clang-dev
+	clang22-libclang
 	jq
 	openssl-dev
 	postgresql
 	postgresql-dev
 	rustfmt
 	"
-source="https://github.com/supabase/pg_graphql/archive/v$pkgver/$_projname-$pkgver.tar.gz"
+source="https://github.com/supabase/pg_graphql/archive/v$pkgver/$_projname-v$pkgver.tar.gz
+	bump-pgrx.patch
+	"
 builddir="$srcdir/$_projname-$pkgver"
 # check: tests tries to write to /usr/lib/...
 # net: fetches crates in build phase
@@ -30,6 +32,7 @@ export PGRX_HOME="$srcdir/.pgrx"
 prepare() {
 	default_prepare
 
+	cargo update -p pgrx -p pgrx-tests
 	cargo fetch --target="$CTARGET" --locked
 }
 
@@ -45,8 +48,14 @@ build() {
 
 	export PATH="$PWD/target/tools/bin:$PATH"
 
-	cargo pgrx init --pg$pgver="$(which pg_config)"
+	cargo pgrx init --pg$pgver="$(command -v pg_config)"
 
+	# TODO: Remove after https://github.com/pgcentralfoundation/pgrx/issues/1455 is resolved.
+	if [ -n "$RUSTFLAGS" ]; then
+		export RUSTFLAGS="$RUSTFLAGS"
+	else
+		unset RUSTFLAGS
+	fi
 	cargo pgrx package --verbose --out-dir="target/release/dist"
 
 	# Remove RPATH.
@@ -62,5 +71,6 @@ package() {
 }
 
 sha512sums="
-338344c30ea5fe194a09cc7b9daa798a823d9a40008dc1fd5eb2ad4c9b89c01f67d9c499f5df1c0a7d360d12e274dc540fd85de02708fa90aa4a0a2fed77f8b1  pg_graphql-1.5.11.tar.gz
+b233116ac1ee165103771f24c6638edb620be6c3ca27abc08222c9754d5941986a09d5eecd44cffe39c6bdd4bf1e0fcb27a0b8438ac94b925f3ee6a8e9a0dd02  pg_graphql-v1.6.1.tar.gz
+de4e89d9600f5d4a76dc66cd2e8a0b3f7f56ff2b882a36aa30d4e8978e0a564d5e2bc4e810c934fb74fd12cf98e75afedd9a7f7b588604e2a8837df015fc2989  bump-pgrx.patch
 "

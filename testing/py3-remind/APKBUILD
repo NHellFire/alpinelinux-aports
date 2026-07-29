@@ -2,7 +2,7 @@
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=py3-remind
 pkgver=0.19.2
-pkgrel=0
+pkgrel=1
 pkgdesc="Python library to convert between Remind and iCalendar"
 url="https://github.com/jspricke/python-remind"
 arch="noarch"
@@ -22,7 +22,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

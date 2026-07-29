@@ -1,7 +1,8 @@
 maintainer="Maarten van Gompel <proycon@anaproy.nl>"
 pkgname=rivercarro
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.0
+_commit=793aa4cc890b96529ad3373dbe9d9d124b6f79f4
+pkgrel=0
 pkgdesc="A layout generator for river Wayland compositor, fork of rivertile"
 url="https://git.sr.ht/~novakane/rivercarro"
 arch="x86_64 aarch64" # limited by zig aport
@@ -13,7 +14,7 @@ makedepends="
 	scdoc
 	wayland-dev
 	wayland-protocols
-	wlroots0.18-dev
+	wlroots0.19-dev
 	zig
 	"
 options="!check net"
@@ -21,10 +22,9 @@ subpackages="
 	$pkgname-doc
 "
 source="
-	$pkgname-$pkgver.tar.gz::https://git.sr.ht/~novakane/rivercarro/refs/download/v$pkgver/rivercarro-v$pkgver.tar.gz
-	0001-Update-to-Zig-0.14.patch
+	$pkgname-$_commit.tar.gz::https://git.sr.ht/~novakane/rivercarro/archive/$_commit.tar.gz
 	"
-builddir="$srcdir/$pkgname-v$pkgver"
+builddir="$srcdir/$pkgname-$_commit"
 
 # We may want other than "baseline" for other targets, when enabled by zig
 case "$CARCH" in
@@ -47,6 +47,5 @@ package() {
 
 
 sha512sums="
-2dbbdb93cdd06c727072c1e2e9e0e5a7c1b0dadf7d29dd95805e22920b776107115fc9ea9831113412eb507fd51c06115f8124388d0a5644398ed4ce208548c2  rivercarro-0.5.0.tar.gz
-34910534e5aa4936b05892f679021487cdbad494338a68e7cd3e973e0545e7679bf925fe4976ef5bb0d2db62432ceabb81d14ef502dca2ca4cf2ae307dc6c629  0001-Update-to-Zig-0.14.patch
+b0d9c807816d6a9c0d91f11ab6aee51b6717040a98fd82139b7fe6e3985be65743a5a2de410fcfb8120c983aa24334732bdee7c72bcbc340d02f72f0a2552f3e  rivercarro-793aa4cc890b96529ad3373dbe9d9d124b6f79f4.tar.gz
 "

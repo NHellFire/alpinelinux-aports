@@ -1,8 +1,8 @@
 # Contributor: Galen Abell <galen@galenabell.com>
-# Maintainer: Galen Abell <galen@galenabell.com>
+maintainer="Galen Abell <galen@galenabell.com>"
 pkgname=py3-identify
 _pyname=identify
-pkgver=2.6.14
+pkgver=2.6.19
 pkgrel=0
 pkgdesc="File identification library for Python"
 url="https://github.com/pre-commit/identify"
@@ -33,5 +33,5 @@ package() {
 }
 
 sha512sums="
-3fd6a669824adfbea77fab483d8cdba9e4b4665cbca1e705e83de3f4bf540e07a376cdca5d2a690fec305b1b8f41174fc734d630fe2034937763ad365e17a6e4  identify-2.6.14.tar.gz
+746a9452e2cba83a2054addb564b7d131115166946a2fca6af2f307e20f210c8eb97052ec4d1b596885db71b190c0091d9b3ba3def286079ed9935801631534d  identify-2.6.19.tar.gz
 "

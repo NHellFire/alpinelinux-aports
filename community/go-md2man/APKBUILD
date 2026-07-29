@@ -2,7 +2,7 @@
 # Maintainer: Jake Buchholz Göktürk <tomalok@gmail.com>
 pkgname=go-md2man
 pkgver=2.0.7
-pkgrel=4
+pkgrel=12
 pkgdesc="Utility to convert markdown to man pages"
 options="net"
 url="https://github.com/cpuguy83/go-md2man"
@@ -11,10 +11,6 @@ license="MIT"
 makedepends="go"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/cpuguy83/go-md2man/archive/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 export GOFLAGS="$GOFLAGS -modcacherw"
 

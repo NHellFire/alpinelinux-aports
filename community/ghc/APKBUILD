@@ -4,15 +4,20 @@
 pkgname=ghc
 # XXX: GHC is tightly coupled with community/cabal-stage0.
 # Only update to GHC versions supported by cabal bootstrapping setup.
-pkgver=9.8.2
-pkgrel=2
+pkgver=9.14.1
+pkgrel=1
 # GHC version used to bootstrap the build. This is relevant for the
 # bootstrapping of the Hadrian build system used by GHC these days.
-_bootstrapver=9.8.2
+_bootstrapver=9.14.1
 # Normal non rc candidate
 _urlprefix="$pkgver"
 _pkgprefix="$pkgname-$pkgver"
 _llvmver=15
+# TODO: Unfortunately, we don't package clang-15 anymore. Therefore,
+# we use clang-16 for now. Ideally, we want to use the same clang and
+# llvm version. However, ghc also only uses clang as an assembler so
+# the version difference hopefully doesn't matter to much.
+_clangver=16
 pkgdesc="The Glasgow Haskell Compiler"
 url="https://haskell.org/ghc"
 arch="aarch64 x86_64"
@@ -26,11 +31,11 @@ license="BSD-3-Clause"
 #      https://ghc.haskell.org/trac/ghc/wiki/ImprovedLLVMBackend
 #
 # Without libffi-dev in $depends linking of software via ghc(1) fails.
-depends="gmp-dev libffi-dev perl gcc>=6.2.1 llvm$_llvmver"
+depends="gmp-dev libffi-dev perl gcc>=6.2.1 llvm$_llvmver clang$_clangver"
 # ghc is self-hosted, so we need ghc to build ghc. ghc-bootstrap is provided by
 # this aport (see below).
 makedepends_build="$pkgname-bootstrap~$_bootstrapver
-	autoconf automake binutils libffi-dev ncurses-dev xz coreutils grep py3-sphinx"
+	autoconf automake binutils libffi-dev ncurses-dev xz coreutils grep py3-sphinx git"
 makedepends_host="linux-headers musl-dev zlib-dev gmp-dev binutils-dev
 	libffi-dev ncurses-dev"
 makedepends="$makedepends_build $makedepends_host"
@@ -46,27 +51,36 @@ options="!strip ldpath-recursive"  # we strip it manually in build()
 source="https://downloads.haskell.org/~ghc/$_urlprefix/$_pkgprefix-src.tar.xz
 	https://downloads.haskell.org/~ghc/$_urlprefix/$_pkgprefix-testsuite.tar.xz
 	$pkgname-$pkgver-hadrian-ghc-$_bootstrapver.tar.gz::https://dev.alpinelinux.org/archive/ghc-hadrian/ghc-$pkgver/ghc-$_bootstrapver-hadrian-bootstrap-source.tar.gz
-	0001-Fix-IPE-test.patch
-	0002-Fix-C-warnings-25237.patch
-	0003-testsuite-fix-testwsdeque-with-recent-clang.patch
 	0004-Increase-the-default-test-timeout.patch
+	0005-users-guide-fix-runtime-error-sphinx-9.1.0.patch
 
-	ghc-self-bootstrap.patch
 	fix-T21035.patch
 	fix-T7060.patch
 	"
 
-# Adjust path for specific LLVM version target by GHC.
-export PATH="$PATH:/usr/lib/llvm$_llvmver/bin"
-
+_llvmdir="/usr/lib/llvm$_llvmver/bin"
 _hadrian="hadrian/bootstrap/_build/bin/hadrian"
 _hadrian_args="-j${JOBS:-1}"
+
+# Back paths to llvm/clang binaries into the binary.
+export LLC="$_llvmdir/llc"
+export OPT="$_llvmdir/opt"
+export LLVMAS="/usr/lib/llvm$_clangver/bin/clang" # TODO: temporary workaround
 
 if [ "$CBUILD" != "$CTARGET" ]; then
 	_hadrian_args="$_hadrian_args --docs=none --flavour=quickest"
 else
 	_hadrian_args="$_hadrian_args --docs=no-sphinx-pdfs --flavour=release"
 fi
+
+prepare() {
+	default_prepare
+
+	# TODO: Temporary workaround which can be removed once move to a
+	# compatible clang version. Without this change, the configure
+	# script will reset LLVMAS because our clang version is >15.
+	sed -i configure -e 's/LLVMAS=""/:/'
+}
 
 build() {
 	# Build the hadrian build system.
@@ -108,7 +122,7 @@ check() {
 	# See: https://gitlab.haskell.org/ghc/ghc/-/commit/cdd45a61ecfc34d3610dff4b654f1bca5dcb6829
 	"$_hadrian" $_hadrian_args test --skip-perf --test-speed=fast \
 		--broken-test=encoding004 --broken-test=T10458 \
-		--broken-test=linker_unload_native	
+		--broken-test=linker_unload_native
 }
 
 package() {
@@ -158,7 +172,7 @@ package() {
 	# Can't do a full strip on archives.
 	find . -type f \( -name "*.so" -o -name "*.a" \) \
 		-exec ${CROSS_COMPILE}strip --strip-unneeded {} \;
-	find $ghclib/bin -type f -exec ${CROSS_COMPILE}strip {} \;
+	find $ghclib/../bin -type f -exec ${CROSS_COMPILE}strip {} \;
 }
 
 # Like debian, we split apart the profiled archives/etc...
@@ -175,14 +189,11 @@ dev() {
 }
 
 sha512sums="
-9b677d5ead5ebb5df7bc960055a76ef00e68ed8102844997b12154bf71bdbfafdfff9ca31edce86b3df759242a7c98f52a464887973b53985f54ecd9fc4b4627  ghc-9.8.2-src.tar.xz
-e7766fcd98b4f70400d94ec33b39e633c2f6ab788f3b3e8431bb75e1f2a62081fc4c77e8d39b624702662168c3b5f7715d9b7866835f78d766dfa244feafe9d1  ghc-9.8.2-testsuite.tar.xz
-e5961b6de84ebe5095ad77c8c94ab328a8ab652b8acf3b832e8ab3beaf11cd7b869da56231206ec7a279e4f511b991a2fab7079e34e9f7bbe0ac66001031597a  ghc-9.8.2-hadrian-ghc-9.8.2.tar.gz
-ec2b6a470dc62af789a9071543a406b33d55c293fdf78c551e7615143b66d9c82a89117c625e82c24b2c1bffa49a9aebcd4baec62364ebb6adceaed32f7c898e  0001-Fix-IPE-test.patch
-af7f893fba031dcebd13eaaac46cd537f7bbb376ecc61d90a7fa735f3dc00bb668d07260379195ac110ba5d86fe2afd41b1ba25a847b10a5b0a1d39f00b639f4  0002-Fix-C-warnings-25237.patch
-8dc7f70567f4f140cfa631addbd3619232d88cd6c2944288f5404677136bcf5039fd99d17309edcf32bfe2fb3d974b94e97825f6a4bf8017a88609b48dbf171a  0003-testsuite-fix-testwsdeque-with-recent-clang.patch
+81264e8bd0ef6bb51c7c4ac8b2525deb0819f2ae9cc47d69c00b521a6954c5a087b644e7fd334535f9d85289fef50315cd63501163c18d93c26c0a8ba84e10ea  ghc-9.14.1-src.tar.xz
+64a385d62da8d360f91bceaad4aacbb4dbcc7289e7b1173a5a42dc3f7e691744f5c628845b91d293e09323055e38781537ca956640e4d6966f2d15276e672dfc  ghc-9.14.1-testsuite.tar.xz
+9d358969b9c19ece14a5f6d7903bf55d6714d4b0074d8d8ca45d55d1fbcb752c7257ec2ac4403476e1f0fd030e8bbf8e1ffe664f5e301c09039e74fffa7bd74c  ghc-9.14.1-hadrian-ghc-9.14.1.tar.gz
 0e4765076fb90a278b44f4448aa6934db90f399a30378bf90188c40fea5c4addcab23d13fbe9c148da75ccd08680ed8e816254efd4040c081009835f1f00aabb  0004-Increase-the-default-test-timeout.patch
-1a97002ec396d532af881e712377d80748fa9f6693931d961634524cab1ef681141b0f69ef007c0c8cd404c4e673c08b254880a581eac34dcfc49daaddb97f9f  ghc-self-bootstrap.patch
+bdb95ca11fe713ab17c2b7c130416dc9bbbeadc6671fb53cc995b2b75312d391bcd56e816ccd1a0ff9649d994cc5fba5c0b52e9dcfb0b766d31d73fd6501c37c  0005-users-guide-fix-runtime-error-sphinx-9.1.0.patch
 be5a8639b151b7828ad50b0f63775d34411d971aae73b0fe5c0226e4c70d1ee8353545b1d04c8de7825730b6d73a2e75f855757348b5ffa2d620d20d7e57f8c6  fix-T21035.patch
 28433f5e86b571ef591ee61153c804eb4a540fda120b7a7aa14f39af46eda6917361d0cd41127356e20f24cf5b9d493ae404023eae31b863c2485fb8cffa0c6a  fix-T7060.patch
 "

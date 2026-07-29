@@ -2,18 +2,16 @@
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=slides
 pkgver=0.9.0
-pkgrel=25
+pkgrel=33
 pkgdesc="Terminal based presentation tool"
 url="http://maaslalani.com/slides"
 arch="all"
 license="MIT"
 makedepends="go"
 checkdepends="bash"
+options="net" # go
 source="https://github.com/maaslalani/slides/archive/v$pkgver/slides-v$pkgver.tar.gz"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 export GOFLAGS="$GOFLAGS -modcacherw"
 
 build() {

@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: mio <miyopan@e.email>
+maintainer="mio <miyopan@e.email>"
 pkgname=tmux
-pkgver=3.5a
-pkgrel=1
+pkgver=3.7b
+pkgrel=0
 pkgdesc="Tool to control multiple terminals from a single terminal"
 url="https://tmux.github.io"
 arch="all"
@@ -41,11 +41,12 @@ check() {
 package() {
 	make DESTDIR="$pkgdir" install
 
-	install -D -m644 example_tmux.conf \
-		"$pkgdir"/usr/share/doc/$pkgname/examples/$pkgname.conf
-	install -Dm644 CHANGES README -t "$pkgdir"/usr/share/doc/$pkgname/
+	install -Dvm644 example_tmux.conf \
+		"$pkgdir"/usr/share/doc/$pkgname/examples/tmux.conf
+	install -Dvm644 CHANGES README \
+		-t "$pkgdir"/usr/share/doc/$pkgname/
 }
 
 sha512sums="
-2383e99aec2dcdb1d899793d5ecab40a68b921194f84770d3f4d19712bfc85590657a99d2a9a7bec36d4ba5ab39fa713f13937b0acad3b61cd9b2302dba61d43  tmux-3.5a.tar.gz
+4d97a2853bef9d11349f7a13facce47e87bdc03afe9f871fa88c3c30572c610ba880b24e3a8363dd17ce5564b6a5271f59078fc0b958795b1e5f088f217c873d  tmux-3.7b.tar.gz
 "

@@ -2,7 +2,7 @@
 # Maintainer: Iztok Fister, Jr. <iztok@iztok-jr-fister.eu>
 pkgname=py3-niaaml
 _pkgorig=NiaAML
-pkgver=2.1.2
+pkgver=2.2.1
 pkgrel=0
 pkgdesc="Python automated machine learning framework"
 url="https://github.com/firefly-cpp/NiaAML"
@@ -35,8 +35,11 @@ package() {
 	install -Dm644 CITATION.cff -t "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 COMPONENTS.md -t "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
+
+
+	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 sha512sums="
-3c574ee98ec0865684ef87e790d9f4139dd5fd7f97854233bace108058bb590d19faaf14b80dfe62d1bd4e75eb420b2d33b869c751d724630c4e40c5ae9f98cc  NiaAML-2.1.2.tar.gz
+dceba51dfea94da55332692adcef780e212482604a031d63e4a11e98aed2d7c7fc0cc5b7eac6fb9d68daac180cf199bae6a03f7e87001871a1bbea87bc42dc5f  NiaAML-2.2.1.tar.gz
 "

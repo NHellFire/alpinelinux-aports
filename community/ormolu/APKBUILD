@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=ormolu
-pkgver=0.8.0.0
+pkgver=0.8.1.1
 pkgrel=0
 pkgdesc="Formatter for Haskell source code"
 url="https://github.com/tweag/ormolu"
@@ -15,9 +15,6 @@ source="https://hackage.haskell.org/package/ormolu-$pkgver/ormolu-$pkgver.tar.gz
 
 # Directory were cabal files are stored.
 export CABAL_DIR="$srcdir/dist"
-
-# Needed to fix build on aarch64.
-export PATH="$PATH:/usr/lib/llvm15/bin"
 
 cabal_update() {
 	cd $builddir
@@ -59,6 +56,6 @@ package() {
 }
 
 sha512sums="
-a507e54665362b44c0c0d6447d30395a73b6a54ea7fdb6711cd511fed82c5e9ae2d88abd86f6e44ea5bac38d15eb52671942c74ae1a260d54a87d5ad5b9bbb2e  ormolu-0.8.0.0.tar.gz
-ef621dfc4cde26c0737a1999b1eb11bad101b2db817598e0472e3c83083707f25d28e825a13c4c2e6512299c5e2d5d9991586a575e465d3e9a24fa0dabc08271  cabal.project.freeze
+7ed6b32277a5b06dfec5866979194277931105c6c0eafe090aeb96c0db226a92468e067acc2c3a05174d5853425ce88de751d811bb82775be2478d5495b12ac0  ormolu-0.8.1.1.tar.gz
+2ac9e4abf0bae2999e69772dff17a33df73bef8e6488843425303466c84fcfb88c6f453e0fea647e9ab36b5361c1cc75a7804d94c43b03f0ef75bf3829a75ea3  cabal.project.freeze
 "

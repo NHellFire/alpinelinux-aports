@@ -2,8 +2,8 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=flannel
 _pkgname=flanneld
-pkgver=0.27.2
-pkgrel=1
+pkgver=0.28.8
+pkgrel=0
 pkgdesc="An etcd backed network fabric for containers"
 url="https://github.com/flannel-io/flannel"
 arch="x86_64"
@@ -16,10 +16,6 @@ $_pkgname.logrotated
 $_pkgname.initd
 $_pkgname.confd"
 builddir="$srcdir/$pkgname-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	mkdir -p out
@@ -51,12 +47,10 @@ contrib_cni() {
 	install -Dm0755 "$builddir"/dist/mk-docker-opts.sh "$subpkgdir"/usr/bin/mk-docker-opts.sh
 	install -Dm0644 "$builddir"/Documentation/kube-flannel.yml \
 		"$subpkgdir"/etc/kube-flannel/kube-flannel.yml
-	install -Dm0644 "$builddir"/Documentation/k8s-old-manifests/kube-flannel-legacy.yml \
-		"$subpkgdir"/etc/kube-flannel/kube-flannel-legacy.tml
 }
 
 sha512sums="
-fdd2543ac175a72749362581e1fff57fb5e992a9763c5aa597f3d883f0cdda43e38a5ea4eae66a3dbb8df513da1e95d5b9ac41b1d1f912497d16a414329f03e5  flannel-0.27.2.tar.gz
+7935918e56c17a17121e4d63233c6fed57282b7941052e59356384a8711c3bf4f3f588c085de549dc70ccda1a408064174fc1847cff09a7a38dfa4e18cdcf37b  flannel-0.28.8.tar.gz
 d84258a164adcec0f1cef7fcafcf0cadb3bf3959b393b905c4897274adeff476279ce96ec42e9aa9d574c6bd7d37649d92c7c52563975f85d303cade990a3942  flanneld.logrotated
 3f6f33fe90adca1dd17b503ce0cd3a7f3cc0ca7fc10d0ca5b631f4c87ed513c0133dfd7679618cf95540b252b3176f9bbefd6454867ef792258c46cafc039d86  flanneld.initd
 353b98bfc1a73d8f691b6f79489e0224961b5af8ca36ce2edde2d7a86790612de1d597c3455222f38a1c9f09b377e1bf3adfeedc04bd6b0b75c653a732d58988  flanneld.confd

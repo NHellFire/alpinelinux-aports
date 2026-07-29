@@ -2,7 +2,7 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Milan P. Stanić <mps@arvanta.net>
 pkgname=pgbackrest
-pkgver=2.56.0
+pkgver=2.58.0
 pkgrel=0
 pkgdesc="Reliable PostgreSQL backup & restore"
 url="https://www.pgbackrest.org/"
@@ -26,6 +26,7 @@ makedepends="
 	libssh2-dev
 	yaml-dev
 	zlib-dev
+	zstd-dev
 	"
 source="https://github.com/pgbackrest/pgbackrest/archive/release/$pkgver/pgbackrest-$pkgver.tar.gz
 	$pkgname.logrotate
@@ -63,7 +64,7 @@ package() {
 }
 
 sha512sums="
-64c3f3fd571f01adbb7ffc5945da4dea2ec441f0fdee9e652499c8e02c3de86a3b14dbf4905d4b95cab4f9194c4740760b3f3f3a506437db1c389dfcc5793985  pgbackrest-2.56.0.tar.gz
+89df8fdced7985160dd2277ec60026465e75b1e6f16c6ac7cc95c68d189996295e77a6164187433e90225a16beb8427e46749f06c1c851f81464fe4add8373ab  pgbackrest-2.58.0.tar.gz
 ded2377c531cea5709315c85007ddfed1f2eba0528eccd796bde4520d75f5cc6525918b3db8a073e892ebf04c943ab40cc7079dd306c7fdd344027748dae6570  pgbackrest.logrotate
 5a1caab3f3aae94779211c4cab2bb5b7404f44f659d27cb657d2079dc0577773e3a6522b1382a1d9a843804bfcfe5aeae210a3aca9d2b585266bbb1df9a82fbb  pgbackrest.conf.in
 "

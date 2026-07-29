@@ -1,8 +1,8 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=tree-sitter-c
-pkgver=0.23.5
-pkgrel=1
+pkgver=0.24.2
+pkgrel=0
 pkgdesc="C grammar for tree-sitter"
 url="https://github.com/tree-sitter/tree-sitter-c"
 arch="all"
@@ -25,5 +25,5 @@ package() {
 }
 
 sha512sums="
-76022e55c613901e6c58d08e425aa0d527027d0130ce6bed2c5f83cd9056a8bdfef7af73ccd5df056b03515a9a733d64759b37766ccaa994f757c8e5c51b9a74  tree-sitter-c-0.23.5.tar.gz
+daa56178adfc4cc7931fb2810367e531113e07ebadcf51cdf7645281627cb86c028c5bb32a1306d294e79d314ef19ce185dfd8786732d5c81a9f3c870396249c  tree-sitter-c-0.24.2.tar.gz
 "

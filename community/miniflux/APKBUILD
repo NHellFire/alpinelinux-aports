@@ -1,13 +1,12 @@
 # Contributor: Frédéric Guillot <fred@miniflux.net>
-# Maintainer: Thomas J Faughnan Jr <thomas@faughnan.net>
+# Maintainer: Julien Voisin <julien.voisin@dustri.org>
 pkgname=miniflux
-pkgver=2.2.12
-pkgrel=1
+pkgver=2.3.3
+pkgrel=0
 pkgdesc="Minimalist and opionated feed reader"
 url="https://miniflux.app/"
 arch="all"
 license="Apache-2.0"
-depends="postgresql-contrib" # for hstore extension
 makedepends="go"
 checkdepends="tzdata"
 install="$pkgname.pre-install"
@@ -21,10 +20,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/miniflux/v2/archive/$pkgver.
 	"
 pkggroups="miniflux"
 builddir="$srcdir/v2-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make miniflux VERSION=$pkgver
@@ -48,9 +43,9 @@ package() {
 }
 
 sha512sums="
-25b788a085ea0ac6a4006eb705bc15b9f0e179157d8987c5e4f0dac7b1fe6ae5739cb18365fecaf92767b4cc6a01d06e905802faf256191a6e40de666703be02  miniflux-2.2.12.tar.gz
+d908cf19bfddcae3dd044e70d8805a18a4efd46866f2d27e3056e427f6b6c2784094dcdee361dbd6d8616b7e8232a774e002197da5ac8bb04cbae04bf3154837  miniflux-2.3.3.tar.gz
 9314019c1ecb1d7b1420742f41ae5c7697e4a1a76ee05119c1cd524dedc1cd8b8825d0cf93976f284024eff5cf879fbd3d97c5d7f8015381ffc7f10661f8f89b  miniflux.initd
 073bdaa3eaad2db14dc728ee9072b6ae01cd2265d61ac0cc61e3ed7db4b97ae1da8f83e1ce3aed038f97c6f5d31e91aa621753e8fad018d9d88def7fcab3ee16  miniflux.confd
-fc0084e0d31a4ce29fc0110411dba8f9fd60c16af08a3364b3f828558981a308a5f9871908594753d868cdf9faf86f84f95e0134afdff8983da2b179ebdd24c1  miniflux.conf
+7ecc9c9c45003c5ee99849ba865f46cc3527fd0d53ea6ed3fa772dbca5505a64b93adf11d95b09e2791c66fd45eb9e81e2fb88c75a7486cad7088ad8cec9bd3c  miniflux.conf
 f9d594df6ea267b6d1f060090d39825998a03af02751ee5af446e84c84794ae01d16617c2737f00c3af5325fb27f26aa680b4ba1747dcf16acb22dbc23477e7d  miniflux.logrotate
 "

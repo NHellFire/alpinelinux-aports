@@ -1,8 +1,8 @@
-# Contributor: Dylan Van Assche <me@dylanvanassche.be>
-# Maintainer: Dylan Van Assche <me@dylanvanassche.be>
+# Contributor: Dylan Van Assche <dylan@postmarketos.org>
+# Maintainer: Dylan Van Assche <dylan@postmarketos.org>
 pkgname=libssc
-pkgver=0.2.2
-pkgrel=1
+pkgver=0.4.4
+pkgrel=0
 pkgdesc="Library to expose Qualcomm Sensor Core sensors"
 url="https://codeberg.org/DylanVanAssche/libssc"
 arch="all"
@@ -23,8 +23,12 @@ makedepends="
 "
 subpackages="$pkgname-dbg $pkgname-dev $pkgname-pyc"
 builddir="$srcdir/$pkgname"
-options="!check" # socket(AF_QIPCRTR): Address family not supported by protocol on many arches in CI
 source="$pkgname-$pkgver.tar.gz::https://codeberg.org/DylanVanAssche/libssc/archive/v$pkgver.tar.gz"
+
+# Tests suddenly fail on s390x, disable them for now
+case "$CARCH" in
+	s390x) options="!check";;
+esac
 
 build() {
 	abuild-meson \
@@ -38,9 +42,9 @@ package() {
 }
 
 check() {
-	cd "$srcdir"/"$pkgname" && sh run-tests.sh
+	meson test --print-errorlogs -C output
 }
 
 sha512sums="
-4f05067cb8cb38ec55a08c24d8bd787982eb80bfbc83dc668b34bf12f9edea9c35b3e01fcc69e6fc499c1b6015302d199fe545144c815f6c39a74c0868bb3e15  libssc-0.2.2.tar.gz
+6b7ec092c645af7210b3fc7c7e3ca48a5d7d74d2b787c103d30de6ca9d64c30479d75e9364d369944dc8b9ac9b4caeb6a9dea4641997aad40ab47fbc41224604  libssc-0.4.4.tar.gz
 "

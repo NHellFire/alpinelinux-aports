@@ -1,20 +1,18 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-# Maintainer: team/kde <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
-# group=kde-mobile
+# group=kde-applications
+maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-settings
-pkgver=25.07.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Settings application for Plasma Mobile"
-# armhf blocked by extra-cmake-modules
+# armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
 url="https://community.kde.org/Plasma/Mobile"
 license="GPL-2.0-or-later AND LGPL-2.1-or-later"
 depends="
 	kded
-	kirigami-addons
 	kirigami
+	kirigami-addons
 	openrc-settingsd
 	"
 makedepends="
@@ -40,7 +38,7 @@ makedepends="
 	"
 subpackages="$pkgname-lang"
 _repo_url="https://invent.kde.org/plasma-mobile/plasma-settings.git"
-source="https://download.kde.org/stable/plasma-settings/plasma-settings-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/plasma-settings-$pkgver.tar.xz"
 options="!check" # No tests
 
 build() {
@@ -56,5 +54,5 @@ package() {
 }
 
 sha512sums="
-251b5d2ef6bc052fa643891000d2b69c3417cf18f7fafb3601413bc1681c30a33a62068799792e6b8552339811278487d8f3a7e4319f8812f8a2394aa5b689fd plasma-settings-25.07.0.tar.xz
+639f154aaf0da0603fdb35f1867d21951eb9e6877895d89a2e815198020273579cde062d660288afa0a3167aefd3b17d56ffa36578421f8aa0ffa6ef17d6a704  plasma-settings-26.04.3.tar.xz
 "

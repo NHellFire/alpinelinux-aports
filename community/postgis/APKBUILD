@@ -2,8 +2,8 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
 maintainer="Holger Jaekel <holger.jaekel@gmx.de>"
 pkgname=postgis
-pkgver=3.6.0
-pkgrel=1
+pkgver=3.6.3
+pkgrel=0
 pkgdesc="spatial database extender for PostgreSQL object-relational database"
 url="https://postgis.net/"
 arch="all"
@@ -25,11 +25,6 @@ subpackages="$pkgname-doc"
 source="https://download.osgeo.org/postgis/source/postgis-$pkgver.tar.gz"
 options="!check" # tests depends on a running PostgreSQL server
 
-prepare() {
-	default_prepare
-	update_config_sub
-}
-
 build() {
 	./configure \
 		--build=$CBUILD \
@@ -45,5 +40,5 @@ package() {
 }
 
 sha512sums="
-393faebb2f5f67b46888aab0a9fcfca891bb73fadbefd54406b4029c434ddff3da81eecbee7176898751e1c3d50c22a801526853332daf122073f7523918c6c7  postgis-3.6.0.tar.gz
+edf22989c564e93514d06bc8743ea3494b20e8ebd7891ab22a32c6230592b848f3d2bdece11243960187086b243870e2c28398d5449f774fe562cd0389de2ff6  postgis-3.6.3.tar.gz
 "

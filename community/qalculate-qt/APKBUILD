@@ -2,7 +2,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 # version must be kept in sync with libqalculate
 pkgname=qalculate-qt
-pkgver=5.7.0
+pkgver=5.11.0
 pkgrel=0
 pkgdesc="Multi-purpose desktop calculator - Qt version"
 url="https://github.com/Qalculate/qalculate-qt"
@@ -31,5 +31,5 @@ package() {
 }
 
 sha512sums="
-6f55642ad8aeec7cdff52a92ad96aa22a3f76be612e468857fe5ff546f3431e7917fffcdbd5bc61bc82e68d2edb0dbc1451136ce0d07ac8f9f4995e0ea318a4f  qalculate-qt-5.7.0.tar.gz
+9b0e3426bfb73815d0076e23d5e3c178dac8045338efd149fe5764d4eb0999b7d82274fe94ea06f60b8e0d0f151d25fc31f4412d3d869e2cb5e27a0be03cb661  qalculate-qt-5.11.0.tar.gz
 "

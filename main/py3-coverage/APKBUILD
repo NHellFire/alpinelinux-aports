@@ -1,7 +1,7 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-coverage
-pkgver=7.10.6
+pkgver=7.15.2
 pkgrel=0
 pkgdesc="Code coverage measurement for Python"
 options="!check" # Requires 'xdist'
@@ -32,5 +32,5 @@ package() {
 }
 
 sha512sums="
-9b53246be27e009ba8639da2fdb9c975d743da6782f1d20a9f0da3ab07f4ebf2747124f3bb75c2694685c5b7fcdd09377a4611c85819123b9cc4defcf05c1cc3  coverage-7.10.6.tar.gz
+578cf91905d525343eee636fc24dbf70e0d0d249b0fd4228d750de3feef3cab344a3f24cb73cfa0af7a34d7e651e56b539b512d2cbf4ff59dce95eb03509e575  coverage-7.15.2.tar.gz
 "

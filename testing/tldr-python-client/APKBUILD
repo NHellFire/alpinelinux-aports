@@ -1,7 +1,7 @@
 # Maintainer: Keith Toh <ktprograms@gmail.com>
 pkgname=tldr-python-client
 pkgver=3.3.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Command line client for tldr, a collection of simplified and community-driven man pages"
 url="https://github.com/tldr-pages/tldr-python-client"
 arch="noarch"
@@ -22,7 +22,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	# test_error_message needs network access
 	.testenv/bin/python3 -m pytest -v -k "not test_error_message"
 }

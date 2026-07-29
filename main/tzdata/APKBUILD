@@ -2,14 +2,14 @@
 # Contributor: Ariadne Conill <ariadne@dereferenced.org>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=tzdata
-pkgver=2025b
+pkgver=2026c
 _ptzver=0.5
 pkgrel=0
 pkgdesc="Timezone data"
 url="https://www.iana.org/time-zones"
 arch="noarch"
 license="Public-Domain"
-subpackages="$pkgname-right $pkgname-doc $pkgname-utils::$CARCH"
+subpackages="$pkgname-right $pkgname-doc $pkgname-utils::all"
 source="https://www.iana.org/time-zones/repository/releases/tzcode$pkgver.tar.gz
 	https://www.iana.org/time-zones/repository/releases/tzdata$pkgver.tar.gz
 	https://dev.alpinelinux.org/archive/posixtz/posixtz-$_ptzver.tar.xz
@@ -65,8 +65,8 @@ doc() {
 }
 
 sha512sums="
-19826b12968c10fc4db7e4b07ba782bfb8590eeebaec6f719d74b92a2e642ab817bd72bceff0015ce52a838edfdb00753b3cd87dd84b35abf2606e5bee445f76  tzcode2025b.tar.gz
-7d83741f3cae81fac8131994b43c55b6da7328df18b706e5ee40e9b3212bc506e6f8fc90988b18da424ed59eff69bce593f2783b7b5f18eb483a17aeb94258d6  tzdata2025b.tar.gz
+ad1aadf26b9aaca487a4f780d7a8ebf1d7383472ce587b06cb63852d4eb030dbd190b537e393e75d59530318581e9d3f492ff5f97bbac78f548d0755c4f7257f  tzcode2026c.tar.gz
+e0b4b7044b66fbc27bc21d13d18063abcdf78ab58d5ba5fd64bd1a88d86e9d495f45add4d8e65bb6c40249f9c94ca29b72c8ebba8d0e4c468f2965ac77932ef0  tzdata2026c.tar.gz
 68dbaab9f4aef166ac2f2d40b49366527b840bebe17a47599fe38345835e4adb8a767910745ece9c384b57af815a871243c3e261a29f41d71f8054df3061b3fd  posixtz-0.5.tar.xz
 0f2a10ee2bb4007f57b59123d1a0b8ef6accf99e568f21537f0bb19f290fff46e24050f55f12569d7787be600e1b62aa790ea85a333153f3ea081a812c81b1b5  0001-posixtz-ensure-the-file-offset-we-pass-to-lseek-is-o.patch
 fb322ab7867517ba39265d56d3576cbcea107c205d524e87015c1819bbb7361f7322232ee3b86ea9b8df2886e7e06a6424e3ac83b2006be290a33856c7d40ac4  0002-fix-implicit-declaration-warnings-by-including-strin.patch

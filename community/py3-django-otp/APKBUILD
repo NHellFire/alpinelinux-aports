@@ -2,8 +2,8 @@
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-django-otp
 _pyname=django_otp
-pkgver=1.6.1
-pkgrel=0
+pkgver=1.7.0
+pkgrel=2
 arch="noarch"
 pkgdesc="A pluggable framework for adding two-factor authentication to Django using one-time passwords."
 url="https://pypi.python.org/project/django-otp"
@@ -47,5 +47,5 @@ package() {
 }
 
 sha512sums="
-7fdcbc53e7c210b4d8332b6facfefa7bd3d4f51df30f180be3936474da5a2bc604841e964114d2a8826a85839de2088e0e189779c47f7ab98473e575b5e3ffdf  py3-django-otp-1.6.1.tar.gz
+ecaeb839002ff348cd26e0a90c49e6191d01f49adc49691fda16beb062b1454a002c77e27dca791ec041dafd4d5cdd7b1ed08e1711809cfa18f1ade77662fa96  py3-django-otp-1.7.0.tar.gz
 "

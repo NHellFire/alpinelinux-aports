@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdoctools
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Documentation generation from docbook"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -51,5 +51,5 @@ package() {
 }
 
 sha512sums="
-363c48b4dffadf194e13a75f171f2affe0383af1910dbf1ab31828ef2f09057b4ad65a6d39897746b28c61c977a0af437bfb8d5da79d6c3c9ac172e40e5bc302  kdoctools-6.17.0.tar.xz
+35e5b981d6a7cfb471d46d5bccc59ee2a43aadbcb8c1f7c54747956589dc33a83e34648a197c457770912c2724dfd43086d027e20924467e45e19395b34887dd  kdoctools-6.28.0.tar.xz
 "

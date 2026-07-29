@@ -1,7 +1,7 @@
 # Contributor: Chloe Kudryavtsev <code@toast.bunkerlabs.net>
 # Maintainer: Mike Crute <mike@crute.us>
 pkgname=rclone
-pkgver=1.71.0
+pkgver=1.74.4
 pkgrel=1
 pkgdesc="Rsync for cloud storage"
 url="https://rclone.org/"
@@ -10,17 +10,50 @@ license="MIT"
 makedepends="go"
 checkdepends="fuse"
 subpackages="$pkgname-doc $pkgname-bash-completion $pkgname-fish-completion $pkgname-zsh-completion"
-source="
-	rclone-$pkgver.tar.gz::https://github.com/rclone/rclone/archive/refs/tags/v$pkgver.tar.gz
-	update-cronokirby-saferith.patch
-	"
+source="rclone-$pkgver.tar.gz::https://github.com/rclone/rclone/archive/refs/tags/v$pkgver.tar.gz"
 options="!check net" # tests fail in CI due filesystem access
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 # secfixes:
+#   1.74.1-r0:
+#     - CVE-2026-33811
+#     - CVE-2026-33814
+#     - CVE-2026-39817
+#     - CVE-2026-39819
+#     - CVE-2026-39820
+#     - CVE-2026-39823
+#     - CVE-2026-39825
+#     - CVE-2026-39826
+#     - CVE-2026-39836
+#     - CVE-2026-42499
+#     - CVE-2026-42501
+#   1.74.0-r0:
+#     - CVE-2026-32952
+#     - CVE-2026-33813
+#   1.73.5-r0:
+#     - CVE-2025-68121
+#     - CVE-2026-1229
+#     - CVE-2026-25679
+#     - CVE-2026-27137
+#     - CVE-2026-27138
+#     - CVE-2026-27140
+#     - CVE-2026-27141
+#     - CVE-2026-27142
+#     - CVE-2026-27143
+#     - CVE-2026-27144
+#     - CVE-2026-32280
+#     - CVE-2026-32281
+#     - CVE-2026-32282
+#     - CVE-2026-32283
+#     - CVE-2026-32288
+#     - CVE-2026-32289
+#     - CVE-2026-33186
+#     - CVE-2026-33809
+#     - CVE-2026-33810
+#     - CVE-2026-41179
+#     - GHSA-6g7g-w4f8-9c9x
+#   1.72.1-r0:
+#     - CVE-2025-58181
+#     - CVE-2025-61729
 #   1.69.3-r0:
 #     - CVE-2025-30204
 #   1.69.2-r0:
@@ -84,6 +117,5 @@ package() {
 }
 
 sha512sums="
-04a0059c3e850aa4b310734f079dc27acd48015ed1741e8a0f2351beb0542b3a0fa4e19b6f242a30b6f17c2e0f3ec9a114174a5201e5584963bc6535dc9d1047  rclone-1.71.0.tar.gz
-6e5d997f1649fe71f45966984bd0978156a2d1d52d9d2e4826f9ea05fcda0eafcae2cacfcac2fbf514fc3ffc559f26255eb822fd2ac3cbcba4003709e79ead94  update-cronokirby-saferith.patch
+ef9e3ba42d76686daef15d3cc4a032852426070468f59a0f7f5792546ee8107b182a94e0f716a275fc70e185a4df0441da128a713bb7b3a0ab2b974269dd061f  rclone-1.74.4.tar.gz
 "

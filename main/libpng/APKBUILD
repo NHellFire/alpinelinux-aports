@@ -1,8 +1,9 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=libpng
-pkgver=1.6.49
-pkgrel=0
+pkgver=1.6.58
+_apng_version=1.6.58
+pkgrel=1
 pkgdesc="Portable Network Graphics library"
 url="http://www.libpng.org"
 arch="all"
@@ -11,11 +12,30 @@ makedepends_build="gawk autoconf automake libtool"
 makedepends_host="linux-headers zlib-dev"
 subpackages="$pkgname-doc $pkgname-static $pkgname-dev $pkgname-utils"
 source="https://downloads.sourceforge.net/libpng/libpng-$pkgver.tar.gz
-	https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-$pkgver-apng.patch.gz
+	https://downloads.sourceforge.net/sourceforge/libpng-apng/libpng-$_apng_version-apng.patch.gz
 	libpng-fix-arm-neon.patch
 	"
 
 # secfixes:
+#   1.6.58-r1:
+#     - CVE-2026-40930
+#   1.6.57-r0:
+#     - CVE-2026-34757
+#   1.6.56-r0:
+#     - CVE-2026-33416
+#     - CVE-2026-33636
+#   1.6.55-r0:
+#     - CVE-2026-25646
+#   1.6.54-r0:
+#     - CVE-2026-22695
+#     - CVE-2026-22801
+#   1.6.53-r0:
+#     - CVE-2025-66293
+#   1.6.51-r0:
+#     - CVE-2025-64505
+#     - CVE-2025-64506
+#     - CVE-2025-64720
+#     - CVE-2025-65018
 #   1.6.37-r0:
 #     - CVE-2019-7317
 #     - CVE-2018-14048
@@ -34,8 +54,7 @@ build() {
 		--prefix=/usr \
 		--sysconfdir=/etc \
 		--mandir=/usr/share/man \
-		--localstatedir=/var \
-		--enable-riscv-rvv=check
+		--localstatedir=/var
 	make
 }
 
@@ -55,7 +74,7 @@ utils() {
 }
 
 sha512sums="
-d99a9b4121ebd45b19779d54bf8711e4a263064da6c62f782310871a91c2cfd082a22a2cced6fd0c5731e30a61f32b65cfc3112c2d7bf9936a7d2474e17f146c  libpng-1.6.49.tar.gz
-d3a7121f892049f5488f32b5de29fb8892f2b329ee1df956b129918601946ab86a542a4412587ee5f660c581484812aaf101f953bcc187c993d98ba9d8d63a00  libpng-1.6.49-apng.patch.gz
+177d81fd1ba1a46ff64da7f24260814876bd0a27ee5bed6dc9dbdd1fe28f3a67cb6f11c74a68f8380a9a7ab0d95c0022b847b1a3e4d939f2a562274627205789  libpng-1.6.58.tar.gz
+95a6f5bb7148b5c48dccd73811d7bcf9752a631a7bb4f4856670a7da12a7159581ac1bce1749318343794e0f5cb86972711ba2ec0f523c168f0991fa940687d5  libpng-1.6.58-apng.patch.gz
 0a5efa609bda4c2a38f5110b7287020a5f9dc81583f2b05a951d897a18ce62ea80350baf52daa3d02f20dff51bbc177b3af317ab7bbc09eb23a3c252600414a5  libpng-fix-arm-neon.patch
 "

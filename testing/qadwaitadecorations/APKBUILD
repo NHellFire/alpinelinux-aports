@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=qadwaitadecorations
-pkgver=0.1.6
-pkgrel=2
+pkgver=0.1.7
+pkgrel=5
 pkgdesc="Qt decoration plugin implementing Adwaita-like client-side decorations"
 url="https://github.com/FedoraQt/QAdwaitaDecorations"
 arch="all"
@@ -14,22 +14,18 @@ makedepends="
 	samurai
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/FedoraQt/QAdwaitaDecorations/archive/refs/tags/$pkgver.tar.gz
-	colors.patch
+	qt6.10.patch
 	"
 builddir="$srcdir/QAdwaitaDecorations-$pkgver"
 options="!check" # no tests
 
 build() {
-	if [ "$CBUILD" != "$CHOST" ]; then
-		local crossopts="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
-	fi
 	cmake -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_SHARED_LIBS=ON \
 		-DCMAKE_BUILD_TYPE=None \
-		-DUSE_QT6=true \
-		$crossopts
+		-DUSE_QT6=true
 	cmake --build build
 }
 
@@ -42,6 +38,6 @@ package() {
 }
 
 sha512sums="
-f19410a7fee92f83211a0a346c122023acf18499d297737f2b0b46a12b2066dff90234596954975b755658550d38e42924d93fbbd34182baf75a1cd05c4d8743  qadwaitadecorations-0.1.6.tar.gz
-567390f0b6115d29612e507f5ab38eb9448b80cf5eb5bdcd9d7ab5ae3435dd245b7f35d22296b758110938e49030b348dbe8330aca7aebc58a563fb82f5642d7  colors.patch
+a130412a4002365d6caa20b3b66e3d620449233bb4f8380eb0e0fad62efdd3e8ec8194d7239fc68bc5b1d9a33fe24acfdd66ea161abf80098219ab544e3a3c96  qadwaitadecorations-0.1.7.tar.gz
+5e1e224ad183af2311d4a33590c9d7b2854ea191f048d94af520fd62dd27e792194e4ccaca3e954129275f4e7045f06cf13bb47c8444e925e193c9944382803a  qt6.10.patch
 "

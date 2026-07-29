@@ -1,8 +1,7 @@
-# Contributor: Sodface <sod@sodface.com>
-# Maintainer: Sodface <sod@sodface.com>
+# Maintainer:
 pkgname=satty
-pkgver=0.19.0
-pkgrel=0
+pkgver=0.20.1
+pkgrel=1
 pkgdesc="Screenshot annotation tool"
 url="https://github.com/gabm/Satty"
 arch="all"
@@ -48,5 +47,5 @@ package() {
 }
 
 sha512sums="
-ff70fa3e00a1a1067c0a4c514ff2f64dd5f3db3cf114c11a3244fff1a8e37c2e23c6ed7974456c8ac1c3720b948526fea3a968287cd6ac22c9afe3690a51ec55  satty-0.19.0.tar.gz
+80e3027aa6a122f1bda8e035ac270472a829698c0120bb7fae6b4dd5ae632b44c04cb32745b8f4847e8f96b3813699e7b794c4a25aed5e77e880fab41537fd98  satty-0.20.1.tar.gz
 "

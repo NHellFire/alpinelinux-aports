@@ -1,7 +1,7 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-moto
-pkgver=5.1.12
+pkgver=5.2.0
 pkgrel=0
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=moto
@@ -80,6 +80,7 @@ check() {
 	# tests/test_firehose/test_firehose_put.py::test_put_record_http_destination: runtimeError: Firehose PutRecord(Batch) to HTTP destination failed on armv7
 	# tests/test_scheduler/test_scheduler.py::test_create_get_schedule__with_start_date: volatile unit on slower builders
 	# tests/test_events/test_events_sfn_integration.py::test_create_bucket_invokes_stepfunction[Mocked]: no module names antlr4
+	# other_langs/tests_sagemaker_client/test_pipeline_session.py::test_pipeline_session:missing module sagemaker
 	.testenv/bin/python3 -m pytest -v \
 		--ignore=tests/test_cognitoidp \
 		--ignore=tests/test_iotdata \
@@ -112,7 +113,9 @@ check() {
 		--deselect='tests/test_stepfunctions/test_stepfunctions_versions.py::test_describe_state_machine_using_version_arn[use_parser]' \
 		--deselect="tests/test_firehose/test_firehose_put.py::test_put_record_http_destination" \
 		--deselect="tests/test_events/test_events_sfn_integration.py::test_create_bucket_invokes_stepfunction[Mocked]" \
-		--deselect="tests/test_scheduler/test_scheduler.py::test_create_get_schedule__with_start_date"
+		--deselect="tests/test_scheduler/test_scheduler.py::test_create_get_schedule__with_start_date" \
+		--deselect="other_langs/tests_sagemaker_client/test_pipeline_session.py::test_pipeline_session" \
+		--deselect="tests/test_ec2/test_instance_types.py::test_describe_instance_types_gpu_instance_types"
 }
 
 package() {
@@ -121,5 +124,5 @@ package() {
 }
 
 sha512sums="
-3fedb02062e85416ae42c260ddf33b4ce7e6e3ccd1be907dae5e4fdc6e24c292450ff0fe12eaeb5137d9ba9371f0aca5b68a10ee9e34981c42d9329a97fca287  py3-moto-5.1.12.tar.gz
+d5f39e0ecd9bcc76161791ba5057ce0f0ff11264ac6c549804ff417d08659dc8e2983454b15e00e68e5af94650de776b226042928b71b4000ff633a5ee9acb64  py3-moto-5.2.0.tar.gz
 "

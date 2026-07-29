@@ -2,7 +2,7 @@
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=prosody-filer
 pkgver=1.0.3
-pkgrel=13
+pkgrel=21
 pkgdesc="Golang mod_http_upload_external server for Prosody and Ejabberd"
 url="https://github.com/ThomasLeister/prosody-filer"
 arch="all"
@@ -16,10 +16,6 @@ source="
 	$pkgname.initd
 	$pkgname.confd
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build

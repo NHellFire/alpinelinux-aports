@@ -1,0 +1,44 @@
+maintainer="team/alpine-desktop <achill@achill.org>"
+pkgname=gst-devtools
+pkgver=1.28.5
+pkgrel=0
+# NOTE: Upgrade together with the whole GStreamer suite &
+# only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
+pkgdesc="GStreamer devtools"
+url="https://gstreamer.freedesktop.org"
+arch="all"
+license="LGPL-2.0-or-later"
+makedepends="
+	gstreamer-dev
+	glib-dev
+	gtk+3.0-dev
+	gst-plugins-base-dev
+	gst-plugins-bad-dev
+	meson
+	json-glib-dev
+	"
+subpackages="$pkgname-dev"
+source="https://gstreamer.freedesktop.org/src/gst-devtools/gst-devtools-$pkgver.tar.xz"
+
+build() {
+	abuild-meson \
+		-Dtests="$(want_check && echo enabled || echo disabled)" \
+		. output
+	meson compile -C output
+}
+
+check() {
+	if [ "$CARCH" = s390x ]; then
+		# FIXME https://gitlab.freedesktop.org/gstreamer/gstreamer/-/issues/4951
+		sed -i 's/A444_16LE/A444_16BE/g' validate/tests/launcher_tests/simple_repeat/flow-expectations/log-sink-sink-expected
+	fi
+	meson test --print-errorlogs -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+}
+
+sha512sums="
+9e2a19e25fe7b11e06d0659d2a610eabd0335bd9c5b39fdd02a880fafcea79de2c7f20bf8bc2b727fda6a994622886385129d1443ec994d20053938e4773c8ef  gst-devtools-1.28.5.tar.xz
+"

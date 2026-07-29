@@ -1,9 +1,7 @@
-# Contributor: Hoang Nguyen <folliekazetani@protonmail.com>
-# Contributor: vinnie <fz12345@gmail.com>
-# Maintainer: vinnie <fz12345@gmail.com>
+# Maintainer: Donoban <donoban@riseup.net>
 pkgname=xonsh
-pkgver=0.19.1
-pkgrel=1
+pkgver=0.22.8
+pkgrel=0
 pkgdesc="Python-powered, full-featured and cross-platform shell"
 url="https://xon.sh"
 arch="noarch"
@@ -14,6 +12,7 @@ depends="
 	py3-pygments>=2.2
 	py3-pyperclip
 	py3-ujson
+	py3-setproctitle
 	"
 makedepends="py3-setuptools py3-gpep517 py3-installer py3-wheel"
 # man-db with groff-1.23.0 breaks "test_man.py" due to escape codes in output
@@ -50,6 +49,7 @@ check() {
 		--ignore=tests/test_ptk_shell.py \
 		--ignore=tests/completers/test_bash_completer.py \
 		--ignore=tests/procs/test_specs.py \
+		--ignore=tests/history/test_history_json.py \
 		--deselect tests/test_man.py::test_man_completion
 }
 
@@ -64,6 +64,6 @@ package() {
 }
 
 sha512sums="
-2fbbd6ae42708b2c95b062633c1f8214f06d51d2020e60b3e8ef5d7bd11472d9774eb176d46a71466ef4ee34067b4282bd1ecdb0e5e9ae56c9d87a3f4575e3a0  xonsh-0.19.1.tar.gz
+afd98dc1d891a999f785721d1ca8726d06637704084d1ddf844a07e84ad8dfa017d41d5b16a4882b10ed0d765b17e042c8501caef0d46081f303e6a1ac52a48c  xonsh-0.22.8.tar.gz
 56e6548dde6faaa70e000f0d49a260ca0fe5297b0ec0abb1ab2cb0c22154479a957155f06037b91d9fda3736f3c7935d019a6c45adf506334e5940dfd8ac37d1  no-col.patch
 "

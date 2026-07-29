@@ -1,8 +1,8 @@
 # Maintainer: Andy Postnikov <apostnikov@gmail.com>
 pkgname=php84-pecl-grpc
 _extname=grpc
-pkgver=1.74.0
-pkgrel=1
+pkgver=1.82.0
+pkgrel=0
 pkgdesc="PHP 8.4 extension provide a concrete implementation of the gRPC protocol, layered over HTTP/2."
 url="https://pecl.php.net/package/grpc"
 arch="all !s390x !ppc64le" # build failures
@@ -10,13 +10,20 @@ license="Apache-2.0"
 _phpv=84
 _php=php$_phpv
 depends="$_php-common"
-_clang_ver=20
+_clang_ver=22
 makedepends="$_php-dev clang$_clang_ver openssl-dev linux-headers"
 source="
 	php-pecl-$_extname-$pkgver.tgz::https://pecl.php.net/get/$_extname-$pkgver.tgz
 	boringssl.patch
 	"
 builddir="$srcdir"/$_extname-$pkgver
+
+prepare() {
+	default_prepare
+	# debug info is stripped from the package anyway, so don't waste
+	# time and memory generating it for ~1.5k bundled translation units
+	sed -i 's/ -g -O2/ -O2/g' config.m4
+}
 
 build() {
 	export CC=clang-$_clang_ver
@@ -41,6 +48,6 @@ package() {
 }
 
 sha512sums="
-e2b88eb901e82173f2b0781d9ce7941be5da85ca3cdd3272c7687056119e1ac339ba579ad1d019f7c1f58231240cbf53eea63c8722665c9651ca10e188e8a808  php-pecl-grpc-1.74.0.tgz
-6b551439ad5fd513720f1a267dab743b1c261f1662dd7a364080ec5e38a41eaf402e8950c8d8a5c3ef49297be8954f10d1ae9414da3ebce96a2dc8d87bee6bfd  boringssl.patch
+fe1d6b2ae7768b4464bf3c37fceb05d3de0d18f9ba192ee4b0f4009d6c5ad2d35b4f4de945aee0e245d166ea26698a8f3f021d0ab3a015aeebfc4b360ed0fb07  php-pecl-grpc-1.82.0.tgz
+653a407ae9078cf53bf6df8876e30e86112f1c141c6978a2caf9db8e44c1057150154e2b53e0475ca7ff1dea4f334308e68f914244c899b322ce12463b227967  boringssl.patch
 "

@@ -1,7 +1,7 @@
 # Contributor: Oleg Titov <oleg.titov@gmail.com>
 # Maintainer: Oleg Titov <oleg.titov@gmail.com>
 pkgname=lighthouse
-pkgver=7.1.0
+pkgver=8.2.0
 pkgrel=0
 pkgdesc="Ethereum 2.0 Client"
 url="https://lighthouse.sigmaprime.io/"
@@ -10,7 +10,7 @@ license="Apache-2.0"
 makedepends="
 	cargo
 	cargo-auditable
-	clang20-dev
+	clang21-dev
 	cmake
 	openssl-dev
 	protobuf-dev
@@ -22,6 +22,12 @@ subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/sigp/lighthouse/archive/v$pkgver/lighthouse-$pkgver.tar.gz"
 
 # secfixes:
+#   8.1.2-r0:
+#     - GHSA-vxx9-2994-q338
+#     - GHSA-gc42-3jg7-rxr2
+#     - GHSA-6xvm-j4wr-6v98
+#   8.1.1-r0:
+#     - GHSA-4w32-2493-32g7
 #   2.2.0-r0:
 #     - CVE-2022-0778
 
@@ -57,5 +63,5 @@ package() {
 }
 
 sha512sums="
-479627fc1aa2fdb64c0d354c4542a3ebaec0f87cb0c738a1792ce0a4f53a27014f6021ac9b3107b89c78a3cb1bf2ab5eed9bf1df047e1c18dba260adb4d67fb6  lighthouse-7.1.0.tar.gz
+428a5d6b5c19bb5b70c49f57dc2307d77bce2c75026213d3270e7babb3e5349e4bf45ae348a8cdbbf522e89ef402ccde027cbf36ed51f222eb5da9e0d75f75e0  lighthouse-8.2.0.tar.gz
 "

@@ -2,7 +2,7 @@
 # Maintainer: omni <omni+alpine@hack.org>
 pkgname=got
 _pkgname=got-portable
-pkgver=0.118.1
+pkgver=0.127
 pkgrel=0
 pkgdesc="A VCS which prioritizes ease of use and simplicity over flexibility"
 url="https://gameoftrees.org/"
@@ -16,7 +16,6 @@ makedepends="
 	util-linux-dev
 	zlib-dev
 	"
-options="!check"
 subpackages="$pkgname-doc"
 source="https://gameoftrees.org/releases/portable/got-portable-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
@@ -28,7 +27,12 @@ build() {
 }
 
 check() {
-	make tests
+	# Test targets from Makefile.am
+	# require-{tog,cmdline} tests require /usr/libexec/got-read-gitconfig to be
+	# installed when invoking got executable
+	make tests \
+		TEST_TARGETS="compat regress-delta regress-deltify regress-fetch \
+		regress-idset regress-path"
 }
 
 package() {
@@ -36,5 +40,5 @@ package() {
 }
 
 sha512sums="
-72601ed79b538e39fcb607c7c67426512998948f2ebe1e27004db7e94fd73b6bce015885da8cafd402b74a81d8dad46c0956ae2c229bea041774328b811f7995  got-portable-0.118.1.tar.gz
+94fa9602cd38bd1be18529669ac781039252b989db4515a9a05cc3cb25488403b163f178c33595306b84f7931e89183873eb586b4ec9048677fabf5bab37a0b6  got-portable-0.127.tar.gz
 "

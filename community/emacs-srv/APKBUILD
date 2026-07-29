@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=emacs-srv
 pkgver=0.2
-pkgrel=0
+pkgrel=1
 _pkgreal=srv
 pkgdesc="Elisp library to perform SRV DNS requests"
 url="https://github.com/legoscia/srv.el"

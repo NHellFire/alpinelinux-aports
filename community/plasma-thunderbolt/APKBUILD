@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-thunderbolt
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -53,5 +53,5 @@ package() {
 }
 
 sha512sums="
-9d1695f6f6d6e3bbcd90faa3412012c391fe52b416964a9c0bfddf5d1032baaacef87a1181d59284dbfdb6f4aa95fbfbbcfed3fe59d88fe0dfafc2a4bd1bd4b2  plasma-thunderbolt-6.4.5.tar.xz
+b1b51fdb1e6edb8c7a226466d5c82e4ad2108770bdadab1fc09bb7860b03de83c8656a23c8a3ef4a677fdd84a9a3a60101db254cb0d29df5d05ecd8cf7d15c21  plasma-thunderbolt-6.7.3.tar.xz
 "

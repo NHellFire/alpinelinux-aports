@@ -1,13 +1,13 @@
 # Contributor: Michał Polański <michal@polanski.me>
-# Maintainer: Sodface <sod@sodface.com>
+# Maintainer:
 pkgname=laminar
 pkgver=1.3
-pkgrel=8
+pkgrel=11
 pkgdesc="Fast and lightweight Continuous Integration server"
 url="https://laminar.ohwg.net/"
 license="GPL-3.0-or-later"
 arch="all !armhf !armv7 !x86" # FTBFS on 32-bit arches
-arch="$arch !ppc64le !s390x" # tests fail
+arch="$arch !s390x" # tests fail
 install="$pkgname.pre-install"
 makedepends="clang cmake samurai boost-dev capnproto-dev rapidjson-dev sqlite-dev gtest-dev"
 subpackages="

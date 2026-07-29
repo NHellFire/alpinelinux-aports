@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=dnsrecon
-pkgver=1.4.0
+pkgver=1.6.3
 pkgrel=0
 pkgdesc="DNS Enumeration Script"
 url="https://github.com/darkoperator/dnsrecon"
@@ -37,5 +37,5 @@ package() {
 }
 
 sha512sums="
-edb2455d76edf0dad27c3735ae466cec92f25ca8cc9decf53088fd2aeabec82748d61eb2c3466cb273c07ff7718501ef64b4c515efa8593d8d20028f891a909d  dnsrecon-1.4.0.tar.gz
+520475c8544d21bae4a9a91f6b5183c02fe2efae4b9c2fba477e7c76a1cc429219a35eb0ae43dfaf9c50ca55285df4106147972e6d4d62a24b107732c9ebe389  dnsrecon-1.6.3.tar.gz
 "

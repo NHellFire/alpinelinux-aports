@@ -2,7 +2,7 @@
 # Contributor: Timo Teras <timo.teras@iki.fi>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=openssl
-pkgver=3.5.2
+pkgver=3.5.7
 _abiver=${pkgver%.*.*}
 pkgrel=0
 pkgdesc="Toolkit for Transport Layer Security (TLS)"
@@ -13,22 +13,64 @@ provider_priority=100  # highest
 makedepends_build="perl"
 makedepends_host="linux-headers"
 makedepends="$makedepends_host $makedepends_build"
+install="$pkgname-fips.post-install"
 subpackages="
 	$pkgname-dbg
 	$pkgname-libs-static
 	$pkgname-dev
 	$pkgname-doc
 	$pkgname-misc::noarch
+	$pkgname-fips
 	libcrypto$_abiver:_libcrypto
 	libssl$_abiver:_libssl
 	"
 source="https://github.com/openssl/openssl/releases/download/openssl-$pkgver/openssl-$pkgver.tar.gz
 	auxv.patch
-	man-section.patch
 	"
 builddir="$srcdir/openssl-$pkgver"
 
 # secfixes:
+#   3.5.7-r0:
+#     - CVE-2026-34180
+#     - CVE-2026-34181
+#     - CVE-2026-34182
+#     - CVE-2026-34183
+#     - CVE-2026-42764
+#     - CVE-2026-42766
+#     - CVE-2026-42767
+#     - CVE-2026-42768
+#     - CVE-2026-42769
+#     - CVE-2026-42770
+#     - CVE-2026-45445
+#     - CVE-2026-45446
+#     - CVE-2026-45447
+#     - CVE-2026-7383
+#     - CVE-2026-9076
+#   3.5.6-r0:
+#     - CVE-2026-2673
+#     - CVE-2026-28387
+#     - CVE-2026-28388
+#     - CVE-2026-28389
+#     - CVE-2026-28390
+#     - CVE-2026-31789
+#     - CVE-2026-31790
+#   3.5.5-r0:
+#     - CVE-2025-11187
+#     - CVE-2025-15467
+#     - CVE-2025-15468
+#     - CVE-2025-15469
+#     - CVE-2025-66199
+#     - CVE-2025-68160
+#     - CVE-2025-69418
+#     - CVE-2025-69419
+#     - CVE-2025-69420
+#     - CVE-2025-69421
+#     - CVE-2026-22795
+#     - CVE-2026-22796
+#   3.5.4-r0:
+#     - CVE-2025-9230
+#     - CVE-2025-9231
+#     - CVE-2025-9232
 #   3.5.1-r0:
 #     - CVE-2025-4575
 #   3.3.3-r0:
@@ -169,6 +211,7 @@ build() {
 		--prefix=/usr \
 		--libdir=lib \
 		--openssldir=/etc/ssl \
+		enable-fips \
 		enable-ktls \
 		shared \
 		no-zlib \
@@ -224,6 +267,19 @@ misc() {
 	amove etc/ssl/misc
 }
 
+fips() {
+	depends="libssl$_abiver=$pkgver-r$pkgrel libcrypto$_abiver=$pkgver-r$pkgrel"
+	pkgdesc="FIPS module from openssl"
+
+	amove etc/ssl/fipsmodule.cnf
+	amove usr/lib/ossl-modules/fips.so
+
+	cp "${pkgdir}"/etc/ssl/openssl.cnf "${subpkgdir}"/etc/ssl/openssl.cnf.fips
+	sed -i 's/^default\s=\sdefault_sect/# default = default_sect/' "${subpkgdir}"/etc/ssl/openssl.cnf.fips
+	sed -i 's/^#\s\.include\sfipsmodule.cnf/\.include \/etc\/ssl\/fipsmodule.cnf/' "${subpkgdir}"/etc/ssl/openssl.cnf.fips
+	sed -i 's/^#\sfips\s=\sfips_sect/fips = fips_sect\nbase = base_sect\n\n[base_sect]\nactivate=1/' "${subpkgdir}"/etc/ssl/openssl.cnf.fips
+}
+
 _libcrypto() {
 	pkgdesc="Crypto library from openssl"
 	replaces="libcrypto1.1"
@@ -242,7 +298,6 @@ _libssl() {
 }
 
 sha512sums="
-db2c7a88bea432f96d867a98af15f850f371d4136c657338de93cb88a39a3578c025b5df7310e195a02fc715ad5a2422a319a44f0247c6a7e2ba8b36aad77651  openssl-3.5.2.tar.gz
-63f7b46f11c222d2c49200f252937516cbca0bfeb475f008a18ad1abeb1d73110ba7a0506898353c8c6c760c5cb446215da7c83a420afa57e0d73f7fb8c3af7a  auxv.patch
-8c44e990fe8a820f649631b9f81cf28225b7516065169a7f68e2dd7c067b30df9b2c6cb88fa826afbc9fcdaf156360aabf7c498d2d9ed452968815b12b004809  man-section.patch
+de5351d2d532e1a3908a738f7d8aae448d32bc60bdb24808c556a24bc37a3f53daedf12b5d432eeb8c235e16939d842f908332ede8a447ca103ad1c493c820d7  openssl-3.5.7.tar.gz
+b2541075148fd5af4552d34158deb1a325f5adced90626dc03fd126f47323cde949b15b2657523c34b26530b322312a43bd42ada7295b4f2dd1d3b5d11892c62  auxv.patch
 "

@@ -2,7 +2,7 @@
 # Maintainer: Thomas Boerger <thomas@webhippie.de>
 pkgname=cloudfoundry-cli
 pkgver=8.7.9
-pkgrel=12
+pkgrel=20
 pkgdesc="A CLI for Cloud Foundry written in Go"
 url="https://github.com/cloudfoundry/cli"
 arch="all !armv7"
@@ -14,10 +14,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/cloudfoundry/cli/archive/v$p
 	fix-cgo.patch
 	"
 builddir="$srcdir/cli-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 export GOFLAGS="$GOFLAGS -mod=mod -modcacherw"
 

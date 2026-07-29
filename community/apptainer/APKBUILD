@@ -1,7 +1,7 @@
 # Contributor: Oleg Titov <oleg.titov@gmail.com>
 # Maintainer: Oleg Titov <oleg.titov@gmail.com>
 pkgname=apptainer
-pkgver=1.4.2
+pkgver=1.5.2
 pkgrel=1
 pkgdesc="Application containers for Linux"
 url="https://apptainer.org/"
@@ -27,6 +27,10 @@ subpackages="
 source="apptainer-$pkgver.tar.gz::https://github.com/apptainer/apptainer/archive/refs/tags/v$pkgver.tar.gz"
 
 # secfixes:
+#   1.5.1-r0:
+#     - CVE-2026-48785 / GHSA-cr2j-534f-mf3g
+#   1.4.5-r0:
+#     - CVE-2025-65105
 #   1.1.8-r0:
 #     - CVE-2023-30549
 #   1.1.6-r0:
@@ -35,9 +39,6 @@ source="apptainer-$pkgver.tar.gz::https://github.com/apptainer/apptainer/archive
 #     - CVE-2022-39237
 
 export GOPATH="$srcdir"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare
@@ -71,5 +72,5 @@ _suid() {
 }
 
 sha512sums="
-610b0e17eb108d54e9314ba8ea2e4dd54827efaeb8433707e7c35ac2b70dd3d559d8bca362c96b65f4947c5c83d28701e57a7a30310d279eeb3b75d9fe2a3c8b  apptainer-1.4.2.tar.gz
+2dced255bd6a9da956a00bc566d6970b1df7f8b3342da15b27d3cd9e223a7fdf4dacb1db95948962322e4e90fbd3f501471a3b49f77755a8ce29f83864ccfad1  apptainer-1.5.2.tar.gz
 "

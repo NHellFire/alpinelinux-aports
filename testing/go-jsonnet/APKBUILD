@@ -1,7 +1,7 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=go-jsonnet
 pkgver=0.21.0
-pkgrel=3
+pkgrel=11
 pkgdesc="Implementation of Jsonnet in Go"
 url="https://jsonnet.org"
 arch="all"
@@ -15,10 +15,6 @@ options="net"
 case "$CARCH" in
 	s390x) options="$options !check" ;;
 esac
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	for bin in jsonnet jsonnetfmt jsonnet-deps jsonnet-lint; do

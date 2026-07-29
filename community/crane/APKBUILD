@@ -1,8 +1,8 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=crane
-pkgver=0.20.6
-pkgrel=3
+pkgver=0.21.7
+pkgrel=0
 pkgdesc="tool for interacting with remote images and registries"
 url="https://github.com/google/go-containerregistry/tree/main/cmd/crane"
 arch="all"
@@ -13,9 +13,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/google/go-containerregistry/
 builddir="$srcdir/go-containerregistry-$pkgver/"
 
 export GOFLAGS="$GOFLAGS -modcacherw"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	msg "Building crane"
@@ -31,5 +28,5 @@ package() {
 }
 
 sha512sums="
-fb5f8112e2e56444765913c6f15253a08fd0d059a855faf3ca62642aae4d453f4ee5744e02eb4597328afa0caadd5a18b2327f2541a12630deec7e30252ce8e1  crane-0.20.6.tar.gz
+f41536427b4d41de488d90ec5832dcfb9f1bcdbfe892e426ef09ce52df56ae1a62e9b7c8440ae12738c51d62206de7cbe9d9c0d32db7a8535d86611212ad6bc6  crane-0.21.7.tar.gz
 "

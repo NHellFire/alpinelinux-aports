@@ -1,19 +1,17 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=sngrep
-pkgver=1.8.2
+pkgver=1.8.4
 pkgrel=0
 pkgdesc="display SIP call message flows from a terminal"
 url="https://github.com/irontec/sngrep"
-arch="all !ppc64le"
+arch="all"
 license="GPL-3.0-or-later"
 depends="sed"
 makedepends="autoconf automake ncurses-dev libpcap-dev
 	pcre2-dev libgcrypt-dev openssl-dev>3"
-subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/irontec/sngrep/archive/v$pkgver.tar.gz
-	disable-failing-test.patch
-	"
+subpackages="$pkgname-dbg $pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/irontec/sngrep/archive/v$pkgver.tar.gz"
 
 prepare() {
 	default_prepare
@@ -42,6 +40,5 @@ package() {
 }
 
 sha512sums="
-0aa630ccd1816e81ed2d16f30275326ea4a91becd053ce5480a9695300e0cf1a97d06b75be248e8915a3e61f94baad0f6e61c2b580a28d291d1b8204388570c4  sngrep-1.8.2.tar.gz
-7fc1e65fb0fbb81118b7484fefc6501bfc0c87314f3d6dc7c974dc41b8fae38ba0f48d66d4234e3f9d81a63facc42ea8c15fb0f6120f86dc3b4c9b09d1b9539a  disable-failing-test.patch
+29a5f4de778eb55aacdea725277e58b1f882a402feaf8197cf00dfa6557f00c0b15067911f17981a375c5cf0e3f78f81c7c91fa3df8a2206e1e552ba2d41c193  sngrep-1.8.4.tar.gz
 "

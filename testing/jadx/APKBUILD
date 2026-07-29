@@ -1,7 +1,7 @@
 # Contributor: Matthias Ahouansou <matthias@ahouansou.cz>
 maintainer="Matthias Ahouansou <matthias@ahouansou.cz>"
 pkgname=jadx
-pkgver=1.5.3
+pkgver=1.5.5
 pkgrel=0
 pkgdesc="Tool for producing Java source code from Android Dex and Apk files"
 url="https://github.com/skylot/jadx"
@@ -43,5 +43,5 @@ package() {
 }
 
 sha512sums="
-438e62b3794f4dc153bcbc08cd549dcdb9a19e22cc2112522886556ee68c34d8aaea4d7ab748bc37a5195b790099fc44851bf2df7d5e20955ddc46a445eea8d7  jadx-1.5.3.tar.gz
+8b25c874fcf9c49b0b5e043f009ecd18d2373b8c336c8b300c8a2b5fb60745eedccde78bbb9fbb9917ddd86f896b2f332e3d4f9764f43322461130c7cd083be9  jadx-1.5.5.tar.gz
 "

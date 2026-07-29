@@ -2,7 +2,7 @@
 # Maintainer: Andy Postnikov <apostnikov@gmail.com>
 pkgname=php83-pecl-mailparse
 _extname=mailparse
-pkgver=3.1.8
+pkgver=3.2.0
 pkgrel=0
 pkgdesc="PHP 8.3 extension for parsing and working with email messages - PECL"
 url="https://pecl.php.net/package/mailparse"
@@ -36,5 +36,5 @@ package() {
 }
 
 sha512sums="
-d3b7b89f782a1e3d1c24ca7d953978b63818a1a149bff74349b2df268705a7ac912184ca13e185b6bc8cf425878f6c26a909738622e4a41ee3a8cb7d014abeab  php-pecl-mailparse-3.1.8.tgz
+fb0f87f48d3e5c710db2fa281b014801eb7cdb4cf2136fd39e0dd5cb79bde1ecf005e2a9128a58899b275fa474b6d51ea54a2afcf2fdc9ed792270cfc25e4785  php-pecl-mailparse-3.2.0.tgz
 "

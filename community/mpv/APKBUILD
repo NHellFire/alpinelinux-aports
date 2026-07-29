@@ -3,8 +3,8 @@
 # Contributor: Jakub Skrzypnik <j.skrzypnik@openmailbox.org>
 # Maintainer: Alex McGrath <amk@amk.ie>
 pkgname=mpv
-pkgver=0.40.0
-pkgrel=5
+pkgver=0.41.0
+pkgrel=4
 pkgdesc="Video player based on MPlayer/mplayer2"
 url="https://mpv.io/"
 license="GPL-2.0-or-later"
@@ -55,10 +55,12 @@ subpackages="
 	$pkgname-bash-completion
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
+	$pkgname-lua-scripts:lua_scripts:noarch
 	umpv::noarch
 	"
 source="https://github.com/mpv-player/mpv/archive/v$pkgver/mpv-v$pkgver.tar.gz
-meson-libcaca-version.patch"
+	meson-libcaca-version.patch
+	"
 
 case "$CARCH" in
 ppc64le|riscv64|loongarch64)
@@ -140,7 +142,16 @@ umpv() {
 	install -Dm755 "$builddir"/TOOLS/umpv -t "$subpkgdir"/usr/bin
 }
 
+lua_scripts() {
+	pkgdesc="$pkgdesc (lua scripts)"
+	depends="$pkgname=$pkgver-r$pkgrel"
+	install_if="$pkgname=$pkgver-r$pkgrel"
+
+	cd "$builddir"/TOOLS/lua/
+	find . -exec install -Dm 644 {} -t "$subpkgdir/usr/share/mpv/lua/" \;
+}
+
 sha512sums="
-24ccbff7fa34f85c033dc9ed94a364c6226e1081a47086365fc98e332af2004517dede371a005f1d51c2a3306b7dc915df9de4188cea140b1fd988058bbd6e8c  mpv-v0.40.0.tar.gz
+d8806ef04455aeb65d45c5956b4589d7a9728f869b74b9bcd8c9ab08475c28538334399ddc7fc2aee6a31fd178fe4b87ec755cd99ffa6e29ab4b6b61757b9320  mpv-v0.41.0.tar.gz
 4ff107b15c7d124a22547f73b10fa7cbaf247be27717474d875fa5db9652ae3b19b6801a069b066eb9566e66a4882257e09b9424f9fe95a477bd2deffa72c890  meson-libcaca-version.patch
 "

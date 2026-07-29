@@ -1,11 +1,10 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kpkpass
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
+# armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
 url="https://kontact.kde.org/"
 pkgdesc="Apple Wallet Pass reader"
@@ -13,6 +12,7 @@ license="GPL-2.0-or-later"
 depends_dev="
 	karchive-dev
 	qt6-qtbase-dev
+	qt6-qtdeclarative-dev
 	"
 makedepends="$depends_dev
 	extra-cmake-modules
@@ -40,5 +40,5 @@ package() {
 }
 
 sha512sums="
-f4eb3a493efe1ac10abf87bed0b4445dd99deeeacb8c4fa656ab139e8bc4163600ffdf6798dbb4098ac302f82957dbe5f309d906cdbfe394024408a13f5cb569  kpkpass-25.08.0.tar.xz
+979876ca9c0b44c75f980b1d49930d1009b63a0770eca014e7a80f1e71f6a57f98e191c45fca5753411a675f6d15b0d40b14ac66c816c89b1617c7a54ee1aacf  kpkpass-26.04.3.tar.xz
 "

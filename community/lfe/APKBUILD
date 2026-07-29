@@ -1,9 +1,9 @@
 # Contributor: rubicon <rubicon@mailo.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=lfe
 pkgver=2.2.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Lisp Flavoured Erlang"
 url="https://lfe.io/"
 arch="all"

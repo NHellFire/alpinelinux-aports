@@ -2,22 +2,18 @@
 # Maintainer: Carlo Landmeter <clandmeter@alpinelinux.org>
 pkgname=easypki
 pkgver=1.1.0
-pkgrel=40
+pkgrel=48
 pkgdesc="Creating a certificate authority the easy way"
 url="https://github.com/google/easypki"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
-options="!check"
+options="!check net" # ..., net
 source="easypki-$pkgver.tar.gz::https://github.com/google/easypki/archive/v$pkgver.tar.gz
 	go.mod
 	go.sum
 	overide-version.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 export GOFLAGS="$GOFLAGS -modcacherw"
 

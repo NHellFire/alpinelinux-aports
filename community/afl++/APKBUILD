@@ -1,15 +1,15 @@
-# Contributor: Marian <marian.buschsieweke@posteo.net>
-# Maintainer: Marian <marian.buschsieweke@posteo.net>
+# Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
+# Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 pkgname=afl++
-pkgver=4.32c
-pkgrel=0
+pkgver=4.40c
+pkgrel=1
 pkgdesc="Fuzzer relying on genetic algorithms instead of brute force"
 url="https://aflplus.plus/"
-# x86: test failures
-arch="all !x86"
+# s390x: internal error in c compiler, see https://gitlab.alpinelinux.org/alpine/aports/-/issues/17581
+arch="all !s390x"
 license="Apache-2.0"
 # afl-cmin requires stat
-_llvmver=20
+_llvmver=22
 # llvm LTO test fails on riscv64
 # https://github.com/AFLplusplus/AFLplusplus/issues/2064
 case "$CARCH" in
@@ -34,6 +34,7 @@ makedepends="
 	"
 checkdepends="
 	cmocka-dev
+	podman-docker
 	"
 subpackages="
 	$pkgname-doc
@@ -44,10 +45,7 @@ provides="
 	afl-clang=$pkgver-r$pkgrel
 	afl-gcc=$pkgver-r$pkgrel
 	"
-source="
-	$pkgname-$pkgver.tar.gz::https://github.com/AFLplusplus/AFLplusplus/archive/refs/tags/v$pkgver.tar.gz
-
-	extend-64bit-detection.patch
+source="$pkgname-$pkgver.tar.gz::https://github.com/AFLplusplus/AFLplusplus/archive/refs/tags/v$pkgver.tar.gz
 	"
 builddir="$srcdir/AFLplusplus-$pkgver"
 
@@ -56,6 +54,9 @@ build() {
 	export NO_NYX=1
 	export AFL_NO_X86=1
 	export LLVM_LTO=1
+	export NO_QEMU=1
+	export NO_FRIDA=1
+	export NO_UNICORN=1
 	make PREFIX=/usr all
 }
 
@@ -92,6 +93,5 @@ tools() {
 }
 
 sha512sums="
-9688f476129b45e842918b2e185c5fc82eb94aecd7ac27bfeecc74f5525aaf3754dbb4c442fec3902a93aad079178e1523a544f0808a4b6d21a11dc9508be0a0  afl++-4.32c.tar.gz
-671c404eb44f9890be66afb3dd3cca4e9423d83e4c98e9df8ff76f75209efc7c5f3427937bdeb71cbd93b12d7d5e877b494e9a231df0a274f1e80df72ded484d  extend-64bit-detection.patch
+3f2a521c6b24add24249801cf992055c562972ddcf7d574eb9cccfe22d9c5f8590b383f65873cf9c6d1d39568a40d235906a3c52cbcab7be9e1512a900f565ee  afl++-4.40c.tar.gz
 "

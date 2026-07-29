@@ -1,9 +1,9 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=ssldump
 pkgver=1.9
-pkgrel=0
+pkgrel=1
 pkgdesc="SSLv3/TLS network protocol analyzer"
 url="https://github.com/adulau/ssldump"
 arch="all"

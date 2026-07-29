@@ -1,15 +1,11 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=itinerary
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-# armhf blocked by qt6-qtdeclarative
-# ppc64le blocked by kitinerary
-# s390x blocked by qt6-qtdeclarative
-arch="aarch64 armv7 x86_64 x86"
+# armhf and s390x blocked by qt6-qtdeclarative
+arch="all !armhf !s390x"
 url="https://invent.kde.org/pim/itinerary"
 pkgdesc="Itinerary and boarding pass management application"
 license="BSD-3-Clause AND LGPL-2.0-or-later"
@@ -28,6 +24,7 @@ makedepends="
 	kcontacts-dev
 	kcoreaddons-dev
 	kdbusaddons-dev
+	khealthcertificate-dev
 	kholidays-dev
 	ki18n-dev
 	kirigami-addons-dev
@@ -38,6 +35,8 @@ makedepends="
 	kpublictransport-dev
 	kunitconversion-dev
 	networkmanager-qt-dev
+	libquotient-dev
+	qcoro-dev
 	qqc2-desktop-style-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
@@ -52,11 +51,13 @@ checkdepends="
 	dbus
 	qqc2-desktop-style
 	sonnet
-	xvfb-run
+	xwayland-run
 	"
 subpackages="$pkgname-lang"
 _repo_url="https://invent.kde.org/pim/itinerary.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/itinerary-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/itinerary-$pkgver.tar.xz
+	0001-itinerary-KMime-from-KF6.patch
+	"
 
 build() {
 	cmake -B build -G Ninja \
@@ -68,7 +69,7 @@ build() {
 
 check() {
 	# tripgrouptest and timelinemodel test are broken
-	dbus-run-session -- xvfb-run -a ctest --test-dir build -E "(tripgroup|timelinemodel|itinerary-self-)test"
+	dbus-run-session wlheadless-run -- ctest --test-dir build -E "(tripgroup|timelinemodel|itinerary-self-)test"
 }
 
 package() {
@@ -76,5 +77,6 @@ package() {
 }
 
 sha512sums="
-ce2c4e02e75212b0df94a580ee90f5d20c8968c3a1acf34062648bf2328aecf8b0ec6dfd6b6d9989b15eb71df24b657e74d5275a2f915d79e560110ea08b553e  itinerary-25.08.0.tar.xz
+f0728493f962bc89eba0bdd901917f67fdc4e1a05da0c951fbca871242015a4103a3cf96722624edca7b6f42c4c5fff0188d979b768f4f4454e3e2d94f52d2b7  itinerary-26.04.3.tar.xz
+d38b67899100ade06eadc453783de21537487c63c2db7fcb3377567fd456f04586de82b1e89db05b54a1b881ec2ef3a436c36c4d8ba2e52632355d7c6da92bc9  0001-itinerary-KMime-from-KF6.patch
 "

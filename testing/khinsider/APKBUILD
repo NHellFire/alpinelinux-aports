@@ -2,7 +2,7 @@
 # Maintainer: Edd Salkield <edd@salkield.uk>
 pkgname=khinsider
 pkgver=2.0.7
-pkgrel=23
+pkgrel=31
 pkgdesc="A khinsider downloader written in Go"
 url="https://github.com/marcus-crane/khinsider"
 arch="all"
@@ -12,9 +12,6 @@ source="https://github.com/marcus-crane/khinsider/archive/v$pkgver/khinsider-v$p
 	fix-loongarch64-build.patch"
 options="!check net"	# No upstream tests
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 export GOFLAGS="$GOFLAGS -modcacherw"
 
 prepare() {

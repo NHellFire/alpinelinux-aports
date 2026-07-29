@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=khealthcertificate
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Handling of digital vaccination, test and recovery certificates"
 url="https://invent.kde.org/pim/khealthcertificate"
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-90d6b6bb9879551d40f53ea8efead28f6d69568c241d3f797f912702e1dd186f22c19fe42e398407ec8b1c59666f71424a3fd76e4c35fe896035fe6212a8538d  khealthcertificate-25.08.0.tar.xz
+9bb9be8c3374ec0359aecf43f8015e86b4e1a65e4df362209cbd621027ff5335136472427f257bed54c04832f6523f73093cb348bccacdfd6e70c910941cbf4b  khealthcertificate-26.04.3.tar.xz
 "

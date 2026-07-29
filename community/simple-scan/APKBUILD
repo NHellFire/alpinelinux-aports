@@ -1,13 +1,12 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=simple-scan
-pkgver=49.0
+pkgver=50.0
 pkgrel=0
 pkgdesc="Simple Scan allows you to get images from a scanner"
 url="https://gitlab.gnome.org/GNOME/simple-scan"
-# riscv64 disabled due to missing rust in recursive dependency
-arch="all" # !s390x !riscv64" # polkit
+arch="all"
 license="GPL-3.0-or-later"
 makedepends="
 	colord-dev
@@ -42,5 +41,5 @@ package() {
 }
 
 sha512sums="
-bb7a9909e021423aac389454cef1cbd83af68b501014dd16c4d44aa47ccc6408aea8e3a087f0351e44107ecd15f9b1b8016268af9046a42e4c8aee73643faad5  simple-scan-49.0.tar.gz
+bd1d3bf6efc65c47b882fd3b1145c74c6180cfe83aa69ff6c54f873adfa21bbd40deda1e936714611f43985ab8c39f7d67332d9873caa80967d67cd6ffe87549  simple-scan-50.0.tar.gz
 "

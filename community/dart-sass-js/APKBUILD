@@ -1,7 +1,7 @@
 # Contributor: knuxify <knuxify@gmail.com>
 # Maintainer: knuxify <knuxify@gmail.com>
 pkgname=dart-sass-js
-pkgver=1.92.1
+pkgver=1.102.0
 pkgrel=0
 pkgdesc="The reference implementation of Sass, written in Dart (JS/Node version)"
 url="https://sass-lang.com/dart-sass/"
@@ -33,5 +33,5 @@ package() {
 }
 
 sha512sums="
-7df9ac75bc2a6f75dec91f23251e8a7a521701133d6c541ef00e90dd6e0a966c32e4291de60cfb8e050d1e8e143aabad5394a4d43b4a2dba433f49cb0a0d71a9  sass-1.92.1.tgz
+3523b24e769017bad30043ad2367f06f7f3abcbf9a9328902c166ef0d6bb85709bfae989cb4180aa570c21aa80099e99d55813052e0af4f1ba07721d8c7189b3  sass-1.102.0.tgz
 "

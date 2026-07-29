@@ -1,9 +1,9 @@
 # Contributor: River Dillon <oss@outerpassage.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=happy
 pkgver=1.21.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Parser generator for Haskell"
 url="https://www.haskell.org/happy/"
 arch="x86_64 aarch64" # limited by ghc

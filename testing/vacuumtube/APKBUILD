@@ -1,0 +1,45 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=vacuumtube
+pkgver=1.8.1
+pkgrel=0
+pkgdesc="YouTube Leanback on the desktop"
+url="https://github.com/shy1132/VacuumTube"
+arch="aarch64 x86_64" # electron
+license="MIT"
+depends="electron"
+makedepends="
+	nodejs
+	npm
+	"
+source="https://github.com/shy1132/VacuumTube/archive/v$pkgver/VacuumTube-$pkgver.tar.gz
+	startvacuumtube
+	"
+builddir="$srcdir/VacuumTube-$pkgver"
+options="net !check" # npm & electron
+
+prepare() {
+	default_prepare
+
+	npm i
+}
+
+build() {
+	npm run linux:build-unpacked
+}
+
+package() {
+	install -Dm644 dist/linux*unpacked/resources/app.asar -t "$pkgdir"/usr/lib/vacuumtube/
+
+	install -Dm755 "$srcdir"/startvacuumtube -t "$pkgdir"/usr/bin/
+
+	install -Dm644 flatpak/rocks.shy.VacuumTube.metainfo.xml -t "$pkgdir"/usr/share/metainfo/
+	install -Dm644 flatpak/rocks.shy.VacuumTube.desktop -t "$pkgdir"/usr/share/applications/
+	install -Dm644 assets/icon.svg "$pkgdir"/usr/share/icons/hicolor/scalable/apps/rocks.shy.VacuumTube.svg
+
+	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
+}
+
+sha512sums="
+2519f1168750e7f882a107d65da9891f9494189e53cad5b34069f4ec2b95034837ef94f2bbd683b7fa250956903d44683fedad743d132d1cb40e91681ab8008b  VacuumTube-1.8.1.tar.gz
+4e77c46a7840ec6cee8cb6089e1e8d0697bce779187d3e05f1e077350c8c5dd5404526b44d579fc6f4049e658685631de61e7d75f168ec30ecc09c124e54d2af  startvacuumtube
+"

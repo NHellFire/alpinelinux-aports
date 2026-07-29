@@ -2,8 +2,8 @@
 # Maintainer: Jonas <spameier+alpine@proton.me>
 pkgname=py3-minikerberos
 _pyname=minikerberos
-pkgver=0.4.7
-pkgrel=0
+pkgver=0.4.9
+pkgrel=1
 pkgdesc="Kerberos manipulation library in pure Python"
 url="https://github.com/skelsec/minikerberos"
 arch="noarch"
@@ -23,7 +23,10 @@ makedepends="
 	py3-setuptools
 	"
 checkdepends="py3-pytest"
-subpackages="$pkgname-pyc"
+subpackages="
+	$pkgname-pyc
+	$pkgname-examples
+	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/skelsec/minikerberos/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pyname-$pkgver"
 options="!check" # test suite requires connection to a KDC service (see /tests/config.py)
@@ -39,6 +42,13 @@ package() {
 	rm -rf "$pkgdir"/usr/lib/python3.*/site-packages/tests/ # remove tests
 }
 
+examples() {
+	pkgdesc="$pkgdesc (example scripts)"
+	depends="$pkgname=$pkgver-r$pkgrel"
+	amove usr/lib/python*/site-packages/minikerberos/examples
+	amove usr/bin
+}
+
 sha512sums="
-a6e781826ac6d456bf4e986ab04220c9dbef83c76837087f542b8b0f3843700c217c29bcf9c54269a1c10398e8d6fa05b08bddc9e5c7b3da7889ab12af0c164c  py3-minikerberos-0.4.7.tar.gz
+28c13a062e8ba2a4fe2f56729afa1fb6c7f097002b023537711b3524fa0dfcc0c4750fde0932cf17ea1959f4367a2aca9311adb69ade8fa239c1fece1033290b  py3-minikerberos-0.4.9.tar.gz
 "

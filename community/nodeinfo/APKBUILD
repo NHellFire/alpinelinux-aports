@@ -2,7 +2,7 @@
 # Maintainer: 6543 <6543@obermui.de>
 pkgname=nodeinfo
 pkgver=1.0.0
-pkgrel=4
+pkgrel=12
 pkgdesc="A command line tool to query nodeinfo based on a given domain"
 url="https://codeberg.org/thefederationinfo/nodeinfo-go"
 license="MIT"
@@ -10,19 +10,15 @@ arch="all"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://codeberg.org/thefederationinfo/nodeinfo-go/archive/v$pkgver.tar.gz"
 builddir="$srcdir/$pkgname"
-options="chmod-clean !check"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+options="chmod-clean net !check" # go
+builddir="$srcdir"/nodeinfo-go/cli
 
 build() {
-	cd $pkgname-go/cli
 	go build -tags extension -o $pkgname .
 }
 
 package() {
-	install -Dm755 $builddir-go/cli/$pkgname "$pkgdir"/usr/bin/$pkgname
+	install -Dm755 $pkgname "$pkgdir"/usr/bin/$pkgname
 }
 
 sha512sums="

@@ -5,8 +5,10 @@
 # Maintainer: omni <omni+alpine@hack.org>
 maintainer="omni <omni+alpine@hack.org>"
 pkgname=radare2
-pkgver=5.9.8
+pkgver=6.1.8
 pkgrel=0
+_sdbver=2.4.6 # subprojects/sdb.mk
+_qjsgit=3087a2ce5bcb66cc1fcd9f34d3e5ce3bd43a67d9 # subprojects/qjs.mk
 pkgdesc="Opensource, crossplatform reverse engineering framework"
 url="https://www.radare.org/"
 arch="all"
@@ -29,9 +31,22 @@ subpackages="
 	$pkgname-libs
 	$pkgname-zsh-completion:zshcomp:noarch
 	"
-source="$pkgname-$pkgver.tar.gz::https://github.com/radare/radare2/archive/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/radareorg/radare2/archive/$pkgver.tar.gz
+	radare-sdb-$_sdbver.tar.gz::https://github.com/radareorg/sdb/archive/$_sdbver.tar.gz
+	https://github.com/quickjs-ng/quickjs/archive/$_qjsgit/quickjs-$_qjsgit.tar.gz
+	"
 
 # secfixes:
+#   6.1.8-r0:
+#     - CVE-2026-14757
+#     - CVE-2026-14758
+#     - CVE-2026-14759
+#     - CVE-2026-14760
+#     - CVE-2026-14761
+#     - CVE-2026-14786
+#     - CVE-2026-14787
+#     - CVE-2026-14788
+#     - CVE-2026-14789
 #   5.8.2-r0:
 #     - CVE-2023-0302
 #   5.8.0-r0:
@@ -111,6 +126,15 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/radare/radare2/archive/$pkgv
 #     - CVE-2019-12802
 #     - CVE-2019-12790
 
+prepare() {
+	default_prepare
+
+	mv "$srcdir"/sdb-"$_sdbver" "$builddir"/subprojects/sdb
+	mv "$srcdir"/quickjs-"$_qjsgit" "$builddir"/subprojects/qjs
+	mv "$builddir"/subprojects/packagefiles/qjs/meson.build \
+		"$builddir"/subprojects/qjs/meson.build
+}
+
 build() {
 	local _disable_debugger=
 	if [ "$CARCH" = "s390x" ]; then
@@ -126,6 +150,7 @@ build() {
 		-Duse_sys_zip=true \
 		-Duse_sys_capstone=true \
 		-Dwant_capstone=true \
+		-Dwant_zydis=false \
 		. output
 	meson compile -C output
 }
@@ -136,7 +161,7 @@ package() {
 	# Install additional documentation files
 	for file in doc/*; do
 		if [ -f "$file" ]; then
-			install -Dm644 -t "$pkgdir"/usr/share/doc/$pkgname "$file"
+			install -Dm644 -t "$pkgdir"/usr/share/doc/"$pkgname"/ "$file"
 		fi
 	done
 
@@ -151,5 +176,7 @@ package() {
 }
 
 sha512sums="
-d1338bcbd437c7f376a07a9d6870fa56bdab883cc5371ce506bc7f667780e19ce777c2839926d4bedf0578ec9338567b402a678643f36ac84404be55eeadb2da  radare2-5.9.8.tar.gz
+7bd570170f90c333b841de59fef2adced48a967a6657221aa2312a3c9b39a396b2e69aa7faf328b04e3a66a1867f775351943e147485afe24ab30044976745c7  radare2-6.1.8.tar.gz
+192815a9dd4c7a3085963a93b4178a629e4e3e3b5c67b797c47ac4f558c07c0784257bbfe4371d39d347ffcad8322dea7a3b84a2487f6ad063606a27a30a6519  radare-sdb-2.4.6.tar.gz
+2545ccc690d78a7f46d7f770738ac6c8880ed6b0f2b68e180d9bb44294c451d68dcb72c28e55ec554bc98957a8443a39a2c3fa4b13de0796d63ab5add3f7581b  quickjs-3087a2ce5bcb66cc1fcd9f34d3e5ce3bd43a67d9.tar.gz
 "

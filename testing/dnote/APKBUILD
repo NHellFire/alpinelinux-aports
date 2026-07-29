@@ -1,12 +1,12 @@
 # Contributor: qaqland <qaq@qaq.land>
 # Maintainer: qaqland <qaq@qaq.land>
 pkgname=dnote
-pkgver=0.15.1
-pkgrel=8
+pkgver=0.16.0
+pkgrel=6
 pkgdesc="A simple command line notebook for programmers (cli)"
 url="https://www.getdnote.com/"
 arch="all !armhf !armv7 !x86" # no 32 support
-license="GPL-3.0-or-later"
+license="Apache-2.0"
 makedepends="go"
 checkdepends="bash"
 options="net"
@@ -17,12 +17,6 @@ subpackages="
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/dnote/dnote/archive/refs/tags/cli-v$pkgver.tar.gz"
 builddir="$srcdir/$pkgname-cli-v$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-export GOOS=linux
-export CGO_ENABLED=1
 
 # upstream's makefile is made for github release, only need build here
 build() {
@@ -42,8 +36,7 @@ check() {
 package() {
 	install -Dm755 build/cli "$pkgdir"/usr/bin/dnote
 
-	install -Dm644 README.md LICENSE licenses/GPLv3.txt \
-		-t "$pkgdir"/usr/share/doc/dnote/
+	install -Dm644 README.md LICENSE -t "$pkgdir"/usr/share/doc/dnote/
 
 	install -Dm644 pkg/cli/dnote-completion.bash \
 		"$pkgdir"/usr/share/bash-completion/completions/dnote
@@ -52,5 +45,5 @@ package() {
 }
 
 sha512sums="
-b06f82fa40b33d5b59d3308fe1f1def8438a31dd6812ae7ec4fc6ed42ccc7198e03c5e8a12e8db6e635c93e5319d259a7a7f965812939560137f6f195f4c7125  dnote-0.15.1.tar.gz
+4a849de4f613f1014994a06eeacb57716203aafea3246f82d0784708329b3c3c7656a348ba28a6b49d3be47eb86956e99ea36990a5ada1d78bf7b15a36820354  dnote-0.16.0.tar.gz
 "

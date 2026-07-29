@@ -2,14 +2,13 @@
 # Maintainer: Jonas <spameier+alpine@proton.me>
 pkgname=ldapdomaindump
 pkgver=0.10.0
-pkgrel=0
+pkgrel=2
 pkgdesc="Active Directory information dumper via LDAP"
 url="https://github.com/dirkjanm/ldapdomaindump"
 arch="noarch"
 license="MIT"
 depends="
 	py3-dnspython
-	py3-future
 	py3-ldap3
 	"
 makedepends="

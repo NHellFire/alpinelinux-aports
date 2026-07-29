@@ -2,7 +2,7 @@
 # Maintainer: Clayton Craft <clayton@craftyguy.net>
 pkgname=superd
 pkgver=0.7.1
-pkgrel=23
+pkgrel=31
 pkgdesc="lightweight user service supervising daemon"
 url="https://sr.ht/~craftyguy/superd"
 arch="all"
@@ -14,10 +14,6 @@ source="
 	$pkgname-$pkgver.tar.gz::https://git.sr.ht/~craftyguy/superd/archive/$pkgver.tar.gz
 	superd.desktop
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	unset LDFLAGS # passed as go linker flags and invalid

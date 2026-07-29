@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=monkeysphere
 pkgver=0.44
-pkgrel=3
+pkgrel=4
 pkgdesc="OpenPGP web of trust certification tools for SSH and TLS servers"
 options="!check" # 2 Tests fail on CI
 url="https://github.com/dkg/monkeysphere"

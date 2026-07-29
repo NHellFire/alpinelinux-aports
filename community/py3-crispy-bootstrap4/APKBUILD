@@ -3,8 +3,8 @@
 pkgname=py3-crispy-bootstrap4
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=crispy-bootstrap4
-pkgver=2025.6
-pkgrel=0
+pkgver=2026.2
+pkgrel=2
 pkgdesc="Bootstrap4 template pack for django-crispy-forms"
 url="https://pypi.org/project/crispy-bootstrap4/"
 arch="noarch"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-10edf4d44931a593072c3089ec6eb82e1d42e37b4fcddbfa7c8313c868f880c9eff3d9b270f4bb31148285b9a88f9952348fe4485c76932300e2b788dd00cb91  py3-crispy-bootstrap4-2025.6.tar.gz
+6a93c028337702ae921097b4018ebd1db08f0ed13dab4826910670595a17f833bb013f99fc2baffe597cb4cb9cb72faf6b88b12d6e4047e9a089c36118717374  py3-crispy-bootstrap4-2026.2.tar.gz
 "

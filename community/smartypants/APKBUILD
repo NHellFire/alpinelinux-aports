@@ -2,7 +2,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=smartypants
 pkgver=2.0.1
-pkgrel=5
+pkgrel=6
 pkgdesc="Translate plain ASCII punctuation characters into “smart” typographic punctuation HTML entities"
 url="https://github.com/leohemsted/smartypants.py"
 arch="noarch"
@@ -23,7 +23,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m unittest discover tests
 }
 

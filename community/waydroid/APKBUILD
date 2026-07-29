@@ -1,12 +1,11 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=waydroid
-pkgver=1.5.4
+pkgver=1.6.3
 pkgrel=0
 pkgdesc="A container-based approach to boot a full Android system on a regular Linux system"
 url="https://github.com/waydroid/waydroid"
 # Only x86, armv7, x86_64 and aarch64 supported upstream
-# 32bit: blocked by gbinder-python -> https://github.com/erfanoabdi/gbinder-python/issues/18
-arch="noarch !armhf !ppc64le !s390x !armv7 !x86"
+arch="noarch !armhf !ppc64le !s390x"
 license="GPL-3.0-only"
 depends="
 	dnsmasq
@@ -19,12 +18,14 @@ depends="
 	py3-pyclip
 	python3
 	"
+makedepends="coreutils"
 triggers="$pkgname.trigger=/usr/share/waydroid-extra/images"
 install="$pkgname.post-upgrade"
 subpackages="
 	$pkgname-openrc
 	$pkgname-pyc
-	$pkgname-nftables
+	$pkgname-nftrules::noarch
+	$pkgname-systemd
 	"
 source="https://github.com/waydroid/waydroid/archive/$pkgver/waydroid-$pkgver.tar.gz
 	waydroid-container.initd
@@ -35,7 +36,7 @@ source="https://github.com/waydroid/waydroid/archive/$pkgver/waydroid-$pkgver.ta
 options="!check" # No tests
 
 package() {
-	make DESTDIR="$pkgdir" USE_SYSTEMD=0 USE_NFTABLES=1 install
+	make DESTDIR="$pkgdir" USE_SYSTEMD=1 USE_NFTABLES=1 install
 
 	# Generate __pycache__ packaging time instead of runtime
 	python -m compileall "$pkgdir"/usr/lib/waydroid/tools
@@ -44,14 +45,9 @@ package() {
 
 	install -Dm755 "$srcdir"/waydroid-container.initd "$pkgdir"/etc/init.d/waydroid-container
 	install -Dm644 "$srcdir"/waydroid-container.confd "$pkgdir"/etc/conf.d/waydroid-container
-}
 
-nftables() {
-	pkgdesc="$pkgdesc (nftables rules)"
-	install_if="$pkgname=$pkgver-r$pkgrel nftables"
-	depends=""
-
-	install -Dm644 -t "$subpkgdir"/etc/nftables.d "$srcdir"/51_waydroid.nft
+	install -Dm644 "$srcdir"/51_waydroid.nft \
+		"$pkgdir"/usr/share/nftables.avail/51_waydroid.nft
 }
 
 pyc() {
@@ -63,7 +59,7 @@ pyc() {
 }
 
 sha512sums="
-c6fc3860ed059676bf770b672be3df14b8e47b2a2b4a44e4d5672fedd3651959d7cb2b75fc34a7a037f3a770b3b82b78e12d0f3c9f3979ae821474eef4fad90c  waydroid-1.5.4.tar.gz
+e395b0eed9bfda3cb7b0ab8de5e8d69c57188c86b810c76fccd6a9dea2179acf219b41338382a923d0f4cfbb276064d7336c0771ba54c6ef14e8496250a3acfa  waydroid-1.6.3.tar.gz
 f319dde4f4bb365069dff2c1ddaa0a85d711c9e9d49011b15aec0d10da2ba0da39c464505d28cd7e8b4f803e932fdde04ca69602805d084529bac0ee6b22ba59  waydroid-container.initd
 b841282b96110ec59a7aa539db0737327b09549d55c78dc4b2c3b28b4a6ad1facf015b3175cb6d3a38f13e47aa6314ef3dc1514a4e60dd653a97409ec54ba706  waydroid-container.confd
 27cec579cfda197ff70d6328043755fc3d1719347bf4987edb86a07341bc4f02b99b65a6ef1fcde58b48a925176e6d770ed7cef304edff6a860bf4d408a62e06  51_waydroid.nft

@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kded
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Extensible deamon for providing system level services"
 # armhf blocked by qt6-qtdeclarative -> kconfig
@@ -22,7 +22,11 @@ makedepends="$depends_dev
 	kdoctools-dev
 	samurai
 	"
-subpackages="$pkgname-dev $pkgname-doc"
+subpackages="
+	$pkgname-systemd
+	$pkgname-dev
+	$pkgname-doc
+	"
 _repo_url="https://invent.kde.org/frameworks/kded.git"
 source="https://download.kde.org/stable/frameworks/${pkgver%.*}/kded-$pkgver.tar.xz"
 options="!check" # No tests
@@ -37,11 +41,8 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-79b9febaf638ef2d947c6d23426983b045a0889106a872b7e3a7443c21ba3d34787499a9461809919254cd2d1595568d71eb3912910a255d1ec7a11e23b0d28e  kded-6.17.0.tar.xz
+f261aa314cd51751e101686362c7ce897adbf36715017c50c2a8a939750f016a78d417d30d9389aa6b86d9588650637e6acc965b48153126ea64231f2ecdb0d7  kded-6.28.0.tar.xz
 "

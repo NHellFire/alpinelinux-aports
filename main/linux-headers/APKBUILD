@@ -1,6 +1,6 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=linux-headers
-pkgver=6.16.7
+pkgver=7.1.5
 # NOTE: Follows Greg's stable Linux releases, see kernel.org
 _kernver=${pkgver%.*}
 pkgrel=0
@@ -9,8 +9,8 @@ url="https://kernel.org/"
 arch="all" # Headers are architecture specific
 license="GPL-2.0-only"
 makedepends="perl"
-options="!check !dbg !strip !tracedeps !archcheck"
-source="https://kernel.org/pub/linux/kernel/v6.x/linux-$_kernver.tar.xz
+options="!check !strip !tracedeps !archcheck"
+source="https://kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/linux-$_kernver.tar.xz
 	revert-broken-uapi.patch
 	0003-remove-inclusion-of-sysinfo.h-in-kernel.h.patch
 	"
@@ -31,7 +31,6 @@ s390*) _carch="s390" ;;
 ppc*) _carch="powerpc" ;;
 riscv*) _carch="riscv" ;;
 loongarch*) _carch="loongarch" ;;
-# not sure about this --	ppc64*) _carch="powerpc64" ;;
 esac
 
 build() {
@@ -44,14 +43,11 @@ package() {
 
 	msg "purging non header files.."
 	find "$pkgdir"/usr/include/ ! -iname "*.h" -type f -exec rm -v {} \+
-
-	# provided by libdrm
-	rm -rf "$pkgdir"/usr/include/drm
 }
 
 sha512sums="
-9351c2d01a914854831cd5db71aec3ebf9887161871ba7a00fdd234849121764b0af9ce4b08c5f275d9278268fc960e4aa4232edec15220e75113fc9610ca59e  patch-6.16.7.patch.xz
-55a00f89ad6db6db2e26ff5dc5cfc96bbf6654e5bd5d17d2a3b944a47640367e54139716d230923187bebc6cb7756edc9511a620fb8abc6f32c50a658a734784  linux-6.16.tar.xz
+fc3cc487e2a633b9c2f0122a2dcdc3e515b4ad433c72372d7cf489b2c60ac186bc6b5ba9a1a7ea40683a5387c0300349ca6873d2938dc4ed2292e77f1743e01f  patch-7.1.5.patch.xz
+d4d9c45261813559341c67ea53d4a47f5a04d1ad15e3c2b8222a09b5483380d2bfd31b8c675e144db2eb91f560d6cb28f66187a5ea4f24f6dfb82a4ad48064cc  linux-7.1.tar.xz
 c1fc9a8a0b42dacad51ceb13785f54dfce89369fe082e6457b80a1f75b02704415d397b5df48ca3fdf361ec8c1b72c196b5033bca0325e39d026bcc357d89452  revert-broken-uapi.patch
 607c074d72aca88fea9ecdbd62198d8f7857daca75e5d027966e0a9997338d6ac8ce0a1e9114b19232b390751d05acca09e28b0cfad2a12d5942f5575a9f4684  0003-remove-inclusion-of-sysinfo.h-in-kernel.h.patch
 "

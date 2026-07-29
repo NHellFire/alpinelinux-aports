@@ -1,0 +1,41 @@
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
+pkgname=mangowm
+pkgver=0.15.4
+pkgrel=0
+pkgdesc="Lightweight, high-performance Wayland compositor built on dwl"
+arch="all"
+url="https://mangowm.github.io/"
+license="GPL-3.0-or-later"
+makedepends="muon
+	cjson-dev
+	pango-dev
+	pcre2-dev
+	scenefx-dev
+	wlroots0.20-dev
+	wayland-protocols
+	"
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/mangowm/mango/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir/mango-$pkgver"
+
+build() {
+	abuild-muon output .
+	ninja -C output
+}
+
+check() {
+	./output/mango -v
+}
+
+package() {
+	DESTDIR="$pkgdir" muon -C output install
+	provides="mangowc=$pkgver-r$pkgrel"
+
+	install -dm755 "$pkgdir"/usr/share/doc/"$pkgname"/
+	mv docs/* "$pkgdir"/usr/share/doc/"$pkgname"/
+}
+
+sha512sums="
+25cec709f04f3cddece0e17f557ce1f90508e5465593467b04d3f5724a1d4171163608640344f4ebf4819e98d668973e1133f94fd0d3bd276b2fe33d9b877817  mangowm-0.15.4.tar.gz
+"

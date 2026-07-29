@@ -1,7 +1,7 @@
-From 51aa70488bb41451d84876cee9584117b3fa50be Mon Sep 17 00:00:00 2001
+From 7f95684af563430ba3cbcfe7e0213aa0e4208a1c Mon Sep 17 00:00:00 2001
 From: Ariadne Conill <ariadne@dereferenced.org>
 Date: Tue, 18 Feb 2020 21:10:22 +0000
-Subject: [PATCH 5/6] powerpc: config: defang gcc check for stack-protector
+Subject: [PATCH 5/7] powerpc: config: defang gcc check for stack-protector
  support
 
 When we rebase kernel configs in Alpine, it is common to do so from
@@ -12,17 +12,16 @@ simply remove it in preference for always enabling the
 HAVE_STACKPROTECTOR config option.
 
 Signed-off-by: Ariadne Conill <ariadne@dereferenced.org>
-Signed-off-by: Achill Gilgenast <fossdd@pwned.life>
 Signed-off-by: Achill Gilgenast <achill@achill.org>
 ---
  arch/powerpc/Kconfig | 3 +--
  1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
-index c3e0cc83f120..4d14f4bad0f4 100644
+index e93df95b79e7..3e1ed3533e32 100644
 --- a/arch/powerpc/Kconfig
 +++ b/arch/powerpc/Kconfig
-@@ -286,8 +286,7 @@ config PPC
+@@ -289,8 +289,7 @@ config PPC
  	select HAVE_SAMPLE_FTRACE_DIRECT_MULTI	if HAVE_DYNAMIC_FTRACE_WITH_DIRECT_CALLS
  	select HAVE_SETUP_PER_CPU_AREA		if PPC64
  	select HAVE_SOFTIRQ_ON_OWN_STACK
@@ -33,5 +32,5 @@ index c3e0cc83f120..4d14f4bad0f4 100644
  	select HAVE_STATIC_CALL_INLINE		if PPC32
  	select HAVE_SYSCALL_TRACEPOINTS
 -- 
-2.51.0
+2.55.0
 

@@ -4,12 +4,12 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=knot
-pkgver=3.4.8
+pkgver=3.5.6
 pkgrel=0
 pkgdesc="An high-performance authoritative-only DNS server"
 url="https://www.knot-dns.cz/"
 arch="all"
-license="GPL-3.0-or-later"
+license="GPL-2.0-or-later"
 depends_dev="
 	$pkgname=$pkgver-r$pkgrel
 	$pkgname-libs-static=$pkgver-r$pkgrel
@@ -51,10 +51,12 @@ subpackages="
 	$pkgname-dev
 	$pkgname-doc
 	$pkgname-openrc
+	$pkgname-systemd
 	"
 source="https://secure.nic.cz/files/knot-dns/knot-$pkgver.tar.xz
 	knotd.confd
 	knotd.initd
+	0001-Alpine-distro-use-Type-exec.patch
 	"
 
 # link against gcc libatomic on riscv64
@@ -97,6 +99,7 @@ package() {
 
 	install -D -m755 "$srcdir"/knotd.initd "$pkgdir"/etc/init.d/knotd
 	install -D -m644 "$srcdir"/knotd.confd "$pkgdir"/etc/conf.d/knotd
+	install -D -m644 distro/common/knot.service -t "$pkgdir"/usr/lib/systemd/system/
 }
 
 libs() {
@@ -117,18 +120,16 @@ utils() {
 }
 
 _module() {
-	local modname=${subpkgname#$pkgname-mod-}
+	local modname=${subpkgname#"$pkgname"-mod-}
 	pkgdesc="$modname module for Knot DNS"
 	depends="$pkgname=$pkgver-r$pkgrel"
 
 	amove usr/lib/$pkgname/modules-${pkgver%.*}/$modname.so
 }
 
-gpg_signature_extensions="asc"
-gpgfingerprints="good:742F A4E9 5829 B6C5 EAC6  B857 10BB 7AF6 FEBB D6AB"
-
 sha512sums="
-62fb62e07c751bbc63759c0c74e3967b6a245bb0c76770e109b2c1bacf1580be98315ce3ecac8adfbdd37beab7b300a06078c44e57a1189def9efbc48b8d2c3e  knot-3.4.8.tar.xz
+bd1818552ab076a007aae2d14fdae053e7ffabb37bcfd6cd4485b866fe2d80675f3a4367a87afe4c4a32ea529a503f2b6857632eb74f7cac0598f15b093d286b  knot-3.5.6.tar.xz
 471d3c639a8235ba09491c99d36c0a4f1074d6055ccfd3807be02a30d3ed5bbe69a84f0414ea7810db6bbc1e38f5837108e5744fc59f949ed78a262a7de4597e  knotd.confd
 352f9f85344743670e1ed2be3a4b9e6ddffa47fcc1958c3b903713a7437da02a1ec0521d73289a826e1d6bd5ad24553116757a5763e3c2b3dba74b3220937dbb  knotd.initd
+bfe644fb4f915c1b92bc5e767c8cb4a16255925b731841b485773302345c9fdd729fd60faf0fa56c55ce0b0bac142db7b90335099121daa988ed3e0107db637f  0001-Alpine-distro-use-Type-exec.patch
 "

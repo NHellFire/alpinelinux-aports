@@ -1,0 +1,52 @@
+# Contributor: Clayton Craft <clayton@craftyguy.net>
+# Maintainer: Clayton Craft <clayton@craftyguy.net>
+pkgname=cosmic-launcher
+pkgver=1.4.0
+_upstreamver="${pkgver/_beta/-beta.}"
+_upstreamver="${_upstreamver/_p/.}"
+pkgrel=0
+pkgdesc="Application launcher for the COSMIC Desktop Environment"
+url="https://github.com/pop-os/cosmic-launcher"
+# armv7, armhf, x86: DO NOT RE-ENABLE! 32-bit is problematic, often requires carrying patches to fix
+# riscv64: too slow to build
+arch="all !armv7 !armhf !riscv64 !x86"
+license="GPL-3.0-or-later"
+depends="
+	pop-launcher
+"
+makedepends="
+	appstream-glib
+	cargo-auditable
+	desktop-file-utils
+	intltool
+	just
+	libxkbcommon-dev
+	wayland-dev
+	wayland-protocols
+"
+options="net !check"  # fetch dependencies, no tests
+source="
+	$pkgname-$pkgver.tar.gz::https://github.com/pop-os/cosmic-launcher/archive/refs/tags/epoch-$_upstreamver.tar.gz
+"
+builddir="$srcdir/$pkgname-epoch-$_upstreamver"
+
+prepare() {
+	default_prepare
+	cargo fetch --target="$CHOST" --locked
+}
+
+build() {
+	cargo auditable build --release --frozen
+}
+
+check() {
+	cargo test --frozen
+}
+
+package() {
+	just rootdir="$pkgdir" install
+}
+
+sha512sums="
+fd65de3c2b234e499da50d16759cff8cdf9666a6f3c016d24153fdc78e27912fa333e66171692b4ade10c990b278a0f2e3f97d1faf238c71da550a359c86bec8  cosmic-launcher-1.4.0.tar.gz
+"

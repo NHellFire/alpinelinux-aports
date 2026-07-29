@@ -1,10 +1,10 @@
 # Maintainer: Andy Postnikov <apostnikov@gmail.com>
 pkgname=uv
-pkgver=0.8.17
+pkgver=0.11.32
 pkgrel=0
 pkgdesc="Extremely fast Python package installer and resolver, written in Rust"
 url="https://github.com/astral-sh/uv"
-arch="all !loongarch64" # FTBFS https://github.com/astral-sh/uv/pull/15387
+arch="all"
 license="Apache-2.0 OR MIT"
 makedepends="
 	bzip2-dev
@@ -24,6 +24,14 @@ subpackages="
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/astral-sh/uv/archive/refs/tags/$pkgver.tar.gz"
 options="net"
+
+case "$CARCH" in
+	arm*)
+		# Disable LTO on ARM to avoid OOM
+		export RUSTFLAGS="${RUSTFLAGS:-} -C codegen-units=1 -C debuginfo=0"
+		export CARGO_PROFILE_RELEASE_LTO="false"
+	;;
+esac
 
 prepare() {
 	default_prepare
@@ -66,5 +74,5 @@ py3() {
 }
 
 sha512sums="
-f8d331fa717fca1ecea0907ac5da483ab1f6ec4a1cdf149549dbbc765353b0e28f47ab472270a52581042260e58c03f8cfead6a315969852d057b030d9b9075e  uv-0.8.17.tar.gz
+cd1c810400b0712f93fa8dd56ca55b726c22e33f8655ab48011f34f8c2a69d8f517ccd758f0cc0a3a293ee1eae2bac994577073d3e2cd7449ff7a43ba2f88194  uv-0.11.32.tar.gz
 "

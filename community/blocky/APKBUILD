@@ -1,31 +1,32 @@
 # Contributor: Justin Berthault <justin.berthault@zaclys.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=blocky
 # Also update documentation links in blocky.example.yml
-pkgver=0.26.2
-pkgrel=3
-pkgdesc="DNS proxy as ad-blocker for local network"
-pkggroups="blocky"
-pkgusers="blocky"
+pkgver=0.32.1
+pkgrel=1
+pkgdesc="DNS proxy ad-blocker for local network"
 url="https://github.com/0xERR0R/blocky"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
-subpackages="$pkgname-openrc"
 install="$pkgname.pre-install $pkgname.pre-upgrade $pkgname.post-install"
+pkggroups="blocky"
+pkgusers="blocky"
+subpackages="$pkgname-openrc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/0xERR0R/blocky/archive/v$pkgver.tar.gz
 	busybox-date.patch
 	blocky.initd
 	blocky.confd
 	blocky.example.yml
 	"
-# fail with new go for some reason, even with tzdata/goroot
-options="!check net"
+options="net"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+case "$CARCH" in
+	loongarch64 | riscv64 | ppc64le)
+		options="$options !check"
+		;;
+esac
 
 build() {
 	make VERSION=$pkgver build
@@ -46,9 +47,9 @@ package() {
 }
 
 sha512sums="
-fbda89fc7baf940abd1aa33f385b78a9603329172a3b610b68b1b7c620c0382e417afb3003a2828df267476cefe49ac68661192307bb9faea85cc2998459d1ca  blocky-0.26.2.tar.gz
+5f4f606775649f52413cb8032d5cf8d0cecca759312f4a4a465e66a336059f11537c8bd9465b3332f2bc583a3889808c27536c1c5bf44e54ab2f30ca80e53695  blocky-0.32.1.tar.gz
 2f1e60037229ad2730f3d51a16e79f0ef93baf80fa73948d08d1216de5db454f10ea4081558f1c86db2e394948cfce62af20b802278dd89241b591e77bce8b4c  busybox-date.patch
 d5507cedb0dab49c139ab4366d3b6428b23c8aa891a7f7d6caad567cfca53f8434f055d4c15d03899712b164a5f2a9e00e9df75ab0e428d205a4bd5bdc50b973  blocky.initd
 3ddd8cd400f9c0f9999430e7fe2507ef5f9ac43bc2e9acbc1bf1b558d383bc891e36a6bf75e2031cd28da69e9dc875f0ac5ad3dac0cf35ce2076651d000e7981  blocky.confd
-ee04d325e23d0f69f7d9fd803afcca7aa45abf25438a086312e5dfac8cc5f82f752373601c3d7377a8992722b384a59b9c711c4094e62d3677b1a061af93d227  blocky.example.yml
+7dd4f8f4a825810f9dce34ce2de00cddeafaee4b51fc91be2abae400cce7033b526d18ca9fde412624bd2f9a012002ec35de77668c46ad1b2a3e5b9c96dc952b  blocky.example.yml
 "

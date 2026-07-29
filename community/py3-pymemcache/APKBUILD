@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-pymemcache
 pkgver=4.0.0
-pkgrel=2
+pkgrel=4
 pkgdesc="Comprehensive, fast, pure-Python memcached client"
 url="https://pymemcache.readthedocs.io/"
 arch="noarch"

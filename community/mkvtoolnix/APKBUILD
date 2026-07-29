@@ -2,13 +2,11 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=mkvtoolnix
-pkgver=95.0
-pkgrel=0
+pkgver=100.0
+pkgrel=1
 pkgdesc="Set of tools to create, edit and inspect Matroska files"
 url="https://mkvtoolnix.download/index.html"
-# riscv64 blocked by fatal error: boost/core/use_default.hpp: No such file or directory
-# armhf qt6-qtmultimedia-dev (no such package)
-arch="all !armhf !riscv64"
+arch="all"
 license="GPL-2.0-only"
 makedepends="
 	boost-dev
@@ -68,5 +66,5 @@ gui() {
 }
 
 sha512sums="
-e8aaccd4fb7a4cd11fadbfff230df85c68ea8af60f9c51536cb11c2bb58cce823b52e47123aa829414a776baeeb91ebfab81bf67075c387fb87171e63c1b014f  mkvtoolnix-95.0.tar.xz
+c8ad196cfcbfd4073931e02f1acee1e5abad954e128c4ee25922dc927790cc80b9e8f060e0821a38316a4ae7510fbac741df8f42c54e2471d57c237ccc434ffb  mkvtoolnix-100.0.tar.xz
 "

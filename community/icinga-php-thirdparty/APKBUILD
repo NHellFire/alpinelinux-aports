@@ -1,11 +1,11 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=icinga-php-thirdparty
-pkgver=0.13.1
+pkgver=1.0.0
 pkgrel=0
 pkgdesc="Bundle for all 3rd party PHP libraries used by Icinga Web products"
 url="https://github.com/Icinga/icinga-php-thirdparty"
-arch="noarch !armhf !armv7 !x86"
+arch="noarch"
 license="MIT"
 options="!check"
 subpackages="$pkgname-doc"
@@ -14,9 +14,9 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/Icinga/icinga-php-thirdparty
 package() {
 	install -dm755 "$pkgdir"/usr/share/icinga-php
 	cp -rT . "$pkgdir"/usr/share/icinga-php/vendor
-	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	install -Dm644 LICENSE.md "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
 }
 
 sha512sums="
-a8d13e2e539a3ddf998f7ca481524285a6def216eb69bef9a702f74607603f98493deb42fb04f110afab5bf40bca1e6475b23408c082a148c04cc2c06c6ad481  icinga-php-thirdparty-0.13.1.tar.gz
+ec7784d90f7eedcd7608227a1b74088408500563f003a5810119e333c636a93115c214774c0a28a4af4fb55178940a5b1d7b2fc8ad1512d74f3d7a8c7304dbc3  icinga-php-thirdparty-1.0.0.tar.gz
 "

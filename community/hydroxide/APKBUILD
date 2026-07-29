@@ -1,7 +1,7 @@
 # Maintainer: Dekedro <dekedro@protonmail.com>
 pkgname=hydroxide
 pkgver=0.2.29
-pkgrel=8
+pkgrel=16
 pkgdesc="Third-party, open-source ProtonMail CardDAV, IMAP and SMTP bridge"
 url="https://github.com/emersion/hydroxide"
 license="MIT"
@@ -11,10 +11,6 @@ options="net !check" # no tests
 source="https://github.com/emersion/hydroxide/releases/download/v$pkgver/hydroxide-$pkgver.tar.gz
 	go-mod.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build ./cmd/hydroxide

@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=raku-mime-base64
 pkgver=1.2.5
-pkgrel=0
+pkgrel=3
 pkgdesc="Encode and decode Base64 ASCII strings"
 url="https://github.com/raku-community-modules/MIME-Base64"
 arch="all"

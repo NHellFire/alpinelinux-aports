@@ -2,7 +2,7 @@
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=yubikey-touch-detector
 pkgver=1.12.5
-pkgrel=6
+pkgrel=15
 pkgdesc="Tool to detect when your YubiKey is waiting for a touch"
 url="https://github.com/maximbaz/yubikey-touch-detector"
 arch="all"
@@ -17,10 +17,6 @@ subpackages="$pkgname-doc"
 # !check: no tests provided
 # net: needed for fetching go dependencies
 options="!check net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -o yubikey-touch-detector -tags=netcgo -v

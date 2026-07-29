@@ -1,30 +1,30 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=dotnet9-stage0
-pkgver=9.0.103
+pkgver=9.0.116
 pkgrel=0
 
 [ "$CBUILD" != "$CHOST" ] && _cross="-$CARCH" || _cross=""
 
 # Tag of tarball generator.
-_gittag=v9.0.2
+_gittag=v$pkgver
 
 # Versions of prebuilt artifacts and bootstrap tar
-_artifactsver="9.0.103-servicing.25071.1.centos.9-x64"
-_bootstrapver="9.0.103"
+# _artifactsver can be set using PrivateSourceBuiltArtifactsVersion
+# in `eng/Versions.props` keeping centos.9-x64
+_artifactsver="9.0.116-servicing.26177.1.centos.9-x64"
+_bootstrapver="9.0.116"
 _bootstraprel=0
 _sdkver="$_bootstrapver"
-_runtimever="9.0.2"
-_aspnetver="9.0.2"
+_runtimever="9.0.15"
+_aspnetver="9.0.15"
 
 _patches="
-	aspnetcore_remove-internal-sources.patch
 	runtime_82269-mono-thread-coop-undefine-fortify-source.patch
 	runtime_83682-specify-notext-on-linux-musl-x86.patch
 	runtime_disable-fortify-on-ilasm-parser.patch
 	runtime_openssl-sha1.patch
 	runtime_re-enable-implicit-rejection.patch
-	runtime_nuget-disable-audit-source.patch
 	runtime_arm-pcode-null.patch
 	sdk_set-crossgen2rid-using-buildarchitecture.patch
 	"
@@ -40,7 +40,7 @@ pkgdesc="The .NET Core stage0 bits for dotnet build"
 # loongarch64: upstream code supported, blocked by binary tarball
 arch="all !x86 !armhf !riscv64 !s390x !ppc64le !loongarch64"
 _giturl=https://github.com/dotnet/dotnet
-url=https://dotnet.microsoft.com
+url="https://dotnet.microsoft.com"
 license="MIT"
 options="!check net" # Testsuite in main runtime aport
 # makes sure different major versions don't conflict
@@ -58,7 +58,7 @@ source="
 	Private.SourceBuilt.Artifacts.$_artifactsver.noextract::https://dotnetcli.azureedge.net/source-built-artifacts/assets/Private.SourceBuilt.Artifacts.$_artifactsver.tar.gz
 	$_patches
 	"
-
+_llvmver=20
 makedepends_host="
 	alpine-release
 	autoconf
@@ -66,7 +66,7 @@ makedepends_host="
 	bash
 	binutils
 	brotli-dev
-	clang
+	clang$_llvmver
 	cmake
 	findutils
 	g++
@@ -99,7 +99,7 @@ makedepends_host="
 	"
 case $CARCH in
 	s390x) ;;
-	*) makedepends_host="$makedepends_host lld-dev";;
+	*) makedepends_host="$makedepends_host lld$_llvmver-dev";;
 esac
 makedepends_build="
 	$makedepends_host
@@ -107,8 +107,8 @@ makedepends_build="
 	git
 	gcc$_cross
 	jq
-	llvm
-	llvm-dev
+	llvm$_llvmver
+	llvm$_llvmver-dev
 	patchelf
 	python3
 	sed
@@ -215,7 +215,7 @@ _init() {
 	export DOTNET_INSTALL_DIR=$_cli_root
 	export DOTNET_PATH=$_cli_root
 	export DotnetTool=$_cli_root/dotnet
-	export PATH="$_cli_root:$PATH"
+	export PATH="$_cli_root:/usr/lib/llvm$_llvmver/bin:$PATH"
 	export NUGET_PACKAGES=$_nugetdir
 	export DOTNET_CLI_TELEMETRY_OPTOUT=true
 	export DOTNET_SKIP_FIRST_TIME_EXPERIENCE=true
@@ -224,6 +224,8 @@ _init() {
 	export EXTRA_CXXFLAGS="${CXXFLAGS/--sysroot=$CBUILDROOT}"
 	export EXTRA_CFLAGS="${CFLAGS/--sysroot=$CBUILDROOT}"
 	export EXTRA_LDFLAGS="$LDFLAGS"
+	# sets LIBC_SO for /usr-merge setups
+	export EXTRA_CFLAGS="$EXTRA_CFLAGS -DLIBC_SO=\\\"libc.musl-$CARCH.so.1\\\""
 	unset CXXFLAGS CFLAGS LDFLAGS CPPFLAGS
 
 	ulimit -n 4096
@@ -485,19 +487,17 @@ artifacts() {
 }
 
 sha512sums="
-c6ba0972eb21757d70e9dff4fd7e540378fec3eb94931fbe7205234ee53efc976c682154c5224a16ff1dab223f4deea7c2b378d197039e6974b35bd8fa6f62cf  dotnet-tarball-v9.0.2.tar.gz
-feef286a7759d83e16566c5224eed5e24921431c81aaf260de15645225c327f17c96e57ce31d5c9d273120f6fc891ba342781d78ca69f32424577d8b868db558  dotnet-release-v9.0.2.json
-ac4e2116f99999f249c290e9a87c628f6236f59c65eb7672bbb484cc1159bf739c9585dad80b50ff727335e4bf626e175913156b13a283f175dae7f6a965a542  dotnet-sdk-9.0.103-linux-musl-x64.noextract
-bcc5019831f9636d81a87369e1cf56e70dc52c2993eb64468f62029629a610333b23c2062e3f93647bebcbdf7de2aaefa7e9c96d6e96ec161e3a745766ae109f  dotnet-sdk-9.0.103-linux-musl-arm64.noextract
-663c3351edb0d38b25fa854be092a2cf7b6fefd568f4d7458ff40740b9637605390b48a4acdbb35640d40dc9efe666a6ee2947f10fe9c9a16b9743fd75bcf0d0  dotnet-sdk-9.0.103-linux-musl-arm.noextract
-123920b316798a3ad3cd26014e6e5f18a4f0a199406b8e27b784fc37d526e3e10cb623d8dffa14d7d0166f76d95705dc9f8b7fbf747290415f51196e5041d328  Private.SourceBuilt.Artifacts.9.0.103-servicing.25071.1.centos.9-x64.noextract
-fa5a14f7044b1c7a891c6a2752190f9b5752dfeb2ad59e64bb71d1d15cf855bd7c43c66349f1c01dee77a699ba48b090b50462e6ece7ef6e5be920bcdb10e0a6  aspnetcore_remove-internal-sources.patch
+f05ddc927bbf489d58e0354d25162680486e77399f305bd84a5c1ab5d6da54197165b8e893246398c21f10417379fca7bf5a49d7927fab637ab351b5b55cdd66  dotnet-tarball-v9.0.116.tar.gz
+b1184ec4271a1e5ce1005d991d338fdbd79e6cfa95221103b5adafecc02f5f92ffb86bcdc2791e63954cf77729a14df6c50bf8992281fb2ef97d4ea360dd631e  dotnet-release-v9.0.116.json
+893e908cf9452044912c639bb75a02af1163b02b3a2b7cb1a6bb40819a10123cb1fa094ea90e1dd3d3807205bc22f3cffa414bd786d302f1ff508e574d99e260  dotnet-sdk-9.0.116-linux-musl-x64.noextract
+9e28ceca8b2abe5f3be2b5f0912c0883d3fa2548e5f733c40a2981a350cb27e683b885a37cce159c2cf663d66de77c6871a77c01b1d75292ff91a809638ebf56  dotnet-sdk-9.0.116-linux-musl-arm64.noextract
+b302949fa4c3112c17a31680682169aa71b1ce9f3a3150ce89eaed08667c5d7aeef68b370a89df8c8018eafcc6914f9faa1815447f1c6c166b92f1feea05f08d  dotnet-sdk-9.0.116-linux-musl-arm.noextract
+1ede773baa28860ea8a922fa3b7c296d0d29ede20b140c3e1f5e0f23cbfe3d5a7f2eedec2b40dae2f312b7ae62dfc2f3f65b6d124021ba164595830b820d24ed  Private.SourceBuilt.Artifacts.9.0.116-servicing.26177.1.centos.9-x64.noextract
 d732df247c721c9f677baabdd7f36dbf4b564814ff64164361065bb1c196b767494a1d39f634eadf01a23032c7b3e64102614b7213065c81096bbf3f8022e6a0  runtime_82269-mono-thread-coop-undefine-fortify-source.patch
 c983a1ab7f06ac86691e0fa7a61fcad69a074d984ef4a4116bee43f20be918215963c7ec8ddd7edd70432b29b160ff78288183acc89fda15ce4a75bfdbf99ee3  runtime_83682-specify-notext-on-linux-musl-x86.patch
 be8b98cb93c3d1e23cc72fd1f0c4e228613f8d39e1340b5c966de37c83419719956903d8937cff8e91e91c17e80141a710690c978742284ce9d4d65ecd4b49e7  runtime_disable-fortify-on-ilasm-parser.patch
 d3b62668c2d5a1056e698b804a20b933b79ad11b46aa37298b9089396969ce510a9620847c5787b7f95c33ccf5a6aabab41655809168740976c3dadd65f87e2b  runtime_openssl-sha1.patch
 0246634c4c907c1194e2680ad4d3ddbf1ef072f0710a02fa35e2f634826a3be26970ebec0c375b33ee62e42314e871befc1b964aebb27a2d73499c69ff989920  runtime_re-enable-implicit-rejection.patch
 cb007d319174337d81546eff954206c9fa16a0138db103da73674e2c3bd7bf0278a2224be612649aedc0b39ffa68cecad211385d22b0eb84ca16004750e73f27  runtime_arm-pcode-null.patch
-6cdff9ea4154cf153fefb4274f4cceb338a3ae8480e1d6bb60545ab5999afbbadc6cfa989537d2eab79ee92c0791490e126feb3d1ede7ae6011dac6bea761c3f  runtime_nuget-disable-audit-source.patch
 2b1d5d00a45d16f7aa12e74e2a6e543c98d7774e60733e222f442932c21bb67dced18b939e574f84d35ef284641cd740b4e05ae3abc33f31a0fda3188178761d  sdk_set-crossgen2rid-using-buildarchitecture.patch
 "

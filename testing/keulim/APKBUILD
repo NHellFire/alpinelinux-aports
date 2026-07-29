@@ -1,0 +1,58 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=keulim
+pkgver=0_git20260709
+_commit=892ba971bfd20f168a4f62cca7d2058bac6929b7
+pkgrel=0
+pkgdesc="Simple image C library"
+url="https://gitlab.freedesktop.org/emersion/keulim"
+arch="all"
+license="LGPL-3.0-only"
+makedepends="
+	cargo
+	clang-dev
+	ffmpeg-dev
+	giflib-dev
+	libjxl-dev
+	libpng-dev
+	librsvg-dev
+	libwebp-dev
+	meson
+	resvg-dev
+	"
+subpackages="$pkgname-dev"
+source="https://gitlab.freedesktop.org/emersion/keulim/-/archive/$_commit/keulim-$_commit.tar.gz"
+builddir="$srcdir/keulim-$_commit"
+options="net" # rust
+
+prepare() {
+	default_prepare
+
+	cd rust && cargo fetch --target="$CTARGET" --locked
+}
+
+build() {
+	abuild-meson \
+		-Dffmpeg=enabled \
+		-Dgiflib=enabled \
+		-Dlibjpeg=enabled \
+		-Dlibjxl=enabled \
+		-Dlibwebp=enabled \
+		-Dlibpng=enabled \
+		-Dlibrsvg=enabled \
+		-Dresvg=enabled \
+		-Drust=enabled \
+		output .
+	meson compile -C output
+}
+
+check() {
+	meson test --print-errorlogs -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+}
+
+sha512sums="
+464eaea148a93ae76344658f2884fad797da9032f49c2b9d3efdefb2cb6dd0344b24c874001ecdb219a7f248902f0367ad630dc60ddebd075270215a89bc777d  keulim-892ba971bfd20f168a4f62cca7d2058bac6929b7.tar.gz
+"

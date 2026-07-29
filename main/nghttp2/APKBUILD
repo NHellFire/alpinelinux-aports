@@ -1,6 +1,6 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=nghttp2
-pkgver=1.66.0
+pkgver=1.69.0
 pkgrel=0
 pkgdesc="HTTP/2 C client, server and proxy"
 url="https://nghttp2.org"
@@ -12,6 +12,8 @@ subpackages="$pkgname-static $pkgname-doc $pkgname-dev $pkgname-libs"
 source="https://github.com/nghttp2/nghttp2/releases/download/v$pkgver/nghttp2-$pkgver.tar.xz"
 
 # secfixes:
+#   1.68.1:
+#     - CVE-2026-27135
 #   1.57.0-r0:
 #     - CVE-2023-44487
 #   1.41.0-r0:
@@ -31,12 +33,10 @@ check() {
 }
 
 build() {
-	if [ -z "$BOOTSTRAP" ]; then
-		# fat to keep static non-lto too for non-gcc
-		# -20% size
-		export CFLAGS="$CFLAGS -ffat-lto-objects -flto=auto"
-		export CXXFLAGS="$CXXFLAGS -ffat-lto-objects -flto=auto"
-	fi
+	# fat to keep static non-lto too for non-gcc
+	# -20% size
+	export CFLAGS="$CFLAGS -ffat-lto-objects -flto=auto"
+	export CXXFLAGS="$CXXFLAGS -ffat-lto-objects -flto=auto"
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -72,5 +72,5 @@ package() {
 }
 
 sha512sums="
-23b4cae2bbd4b3c11c50093e2fc14f3b08241bb6a85c38409e9a1a328b81ad51f107179493a0ce4c6a767b557cafeca9ba638c491095639dcfd9a2d95fa8b80d  nghttp2-1.66.0.tar.xz
+31858cfd4a85995d006753c40393a7c23d2bfdd54fdb355757bef1a72b42177d31fff958e9e765a19d83e949eac77998e2bbe933b9390d1f2a1365506f5f6271  nghttp2-1.69.0.tar.xz
 "

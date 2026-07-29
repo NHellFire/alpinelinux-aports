@@ -1,8 +1,8 @@
 # Contributor: Tom Lebreux <me@tomlebreux.com>
-# Maintainer: Tom Lebreux <me@tomlebreux.com>
+# Maintainer: Julien Voisin <julien.voisin@dustri.org>
 pkgname=navidrome
-pkgver=0.58.0
-pkgrel=2
+pkgver=0.63.2
+pkgrel=1
 pkgdesc="Modern Music Server and Streamer compatible with Subsonic/Airsonic"
 url="https://navidrome.org/"
 arch="all !riscv64 !s390x"
@@ -23,12 +23,12 @@ source="
 	navidrome.toml
 	"
 
-export GOFLAGS="$GOFLAGS -tags=embed,netgo,libsqlite3"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+export GOFLAGS="$GOFLAGS -tags=embed,netgo,libsqlite3,sqlite_fts5"
 
 # secfixes:
+#   0.60.0-r0:
+#     - CVE-2026-25578
+#     - CVE-2026-25579
 #   0.56.1-r0:
 #     - CVE-2025-48948
 #     - CVE-2025-48949
@@ -54,7 +54,7 @@ build() {
 	cd ..
 
 	# Display pkgrel instead of keeping the git sha in sync with pkgver
-	CGO_ENABLED=1 go build \
+	CGO_ENABLED=1 CGO_CFLAGS_ALLOW="--define-prefix" go build \
 		-ldflags="
 			-X github.com/navidrome/navidrome/consts.gitSha=$pkgver-r$pkgrel
 			-X github.com/navidrome/navidrome/consts.gitTag=v$pkgver"
@@ -81,8 +81,8 @@ package() {
 }
 
 sha512sums="
-0e00482e7df68ba87705f053a4ebee497e62c30dedf14049b02ea1e8e6a4c9f4e3f8061a3bed1ca1f2615dc77dd0271d03177d315e02fffa8b5ce6fdd96fad32  navidrome-0.58.0.tar.gz
+29d2ed32f6a69cbfd6bd132f83c2fbbb9b135ff3250164b5650e7fc0dc282e37dc2913c3ca786ad513e84c623efac2300c18bc66052d0faad2eaf492e8f08cf1  navidrome-0.63.2.tar.gz
 9622f9e30b8964e7e2708d313f45e0977fdfa4ceec9b4311f8a40bd250c986fcc87f24577e74ccbcf06d4f3d071f0951d5e25eb3107ce0188b7caf6fe073edaa  navidrome.initd
 dc5a0f21c5da6c165c4dc216b8dc3cab8e2c02c5c2ff06dc393528383234034428df7cfa11704a2373fcebba4cba484fffd2231b3c5fd871420a34fe1dcf1e04  navidrome.confd
-2e8e01963798b01a803a93a2ab1a55c1243953e0c5459839c0625059febeedc0b7d0dbf5df0e8b8ccf4cb9ae64a389b35a91b16a8c67d276727476b20040bb33  navidrome.toml
+8c564fdf453b319c690a4314a3eb35982345dd37bbd3d248a00c00854318756baffc27c5e672d19705051e6a636fac6688270e2eabeca1e0338715b80f552c7c  navidrome.toml
 "

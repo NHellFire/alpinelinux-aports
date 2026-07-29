@@ -1,8 +1,8 @@
 # Contributor: Will Sinatra <wpsinatra@gmail.com>
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=networkmanager-l2tp
-pkgver=1.20.20
-pkgrel=1
+pkgver=1.52.4
+pkgrel=0
 # Please bump when ppp-dev is updated
 pkgdesc="L2TP support for NetworkManager"
 url="https://github.com/nm-l2tp/NetworkManager-l2tp"
@@ -24,8 +24,7 @@ makedepends="
 	python3
 	"
 depends="ppp xl2tpd strongswan"
-source="https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/$pkgver/NetworkManager-l2tp-$pkgver.tar.xz
-	gcc14.patch"
+source="https://github.com/nm-l2tp/NetworkManager-l2tp/releases/download/$pkgver/NetworkManager-l2tp-$pkgver.tar.xz"
 options="!check" #no check
 builddir="$srcdir/NetworkManager-l2tp-$pkgver"
 subpackages="$pkgname-lang"
@@ -47,6 +46,5 @@ package() {
 }
 
 sha512sums="
-0f57382abf82a01fb0b2485ebc04fd264d0450f11597d2a45a5f60018c9701e22faf2b10ea13ba8b2ea2944a4d49a77bd6d7358bd1411e1b694d45f963d97b8d  NetworkManager-l2tp-1.20.20.tar.xz
-de3558ef97ef2b5669ddab39ede13485c849e7765b516e62b42a0eee1e222ae670c2d7dd30042e7a0841c0af0d9ace9613ce96bb14b8f20d6c9e531d8a060bef  gcc14.patch
+496bcc41848ba7ad220f840bde466955969f218a888bac29628f2feb0fe8e563d29557a30dcf599826a044ff3cb7479760bd969f2700251bf34bc5f8f27d892f  NetworkManager-l2tp-1.52.4.tar.xz
 "

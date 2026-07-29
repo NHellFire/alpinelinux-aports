@@ -1,7 +1,7 @@
 # Maintainer: Siva Mahadevan <me@svmhdvn.name>
 pkgname=dmarc-cat
 pkgver=0.15.0
-pkgrel=8
+pkgrel=17
 pkgdesc="Small utility to decode DMARC reports"
 url="https://github.com/keltia/dmarc-cat"
 arch="all"
@@ -9,10 +9,6 @@ license="BSD-2-Clause"
 makedepends="go gpgme-dev"
 source="$pkgname-$pkgver.tar.gz::$url/archive/v$pkgver.tar.gz"
 options="net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build

@@ -1,7 +1,7 @@
 # Contributor: Bradford D. Boyle <bradford.d.boyle@gmail.com>
 # Maintainer: Bradford D. Boyle <bradford.d.boyle@gmail.com>
 pkgname=hamlib
-pkgver=4.6.5
+pkgver=4.7.2
 pkgrel=0
 pkgdesc="Library to control radio transceivers and receivers"
 url="https://hamlib.github.io/"
@@ -9,7 +9,8 @@ arch="all"
 license="LGPL-2.0-or-later"
 makedepends="linux-headers perl-dev python3-dev swig tcl-dev chrpath libusb-dev autoconf automake libtool"
 subpackages="$pkgname-dev $pkgname-doc $pkgname-perl py3-$pkgname-pyc py3-$pkgname:py3 $pkgname-tcl"
-source="https://github.com/Hamlib/Hamlib/releases/download/$pkgver/hamlib-$pkgver.tar.gz"
+source="https://github.com/Hamlib/Hamlib/releases/download/$pkgver/hamlib-$pkgver.tar.gz
+	fix-unknown-type.patch"
 
 prepare() {
 	default_prepare
@@ -31,7 +32,7 @@ build() {
 package() {
 	make DESTDIR="$pkgdir" install
 	rm -f "$pkgdir"/usr/lib/*.a
-	rm -f "$pkgdir"/usr/lib/tcl8.6/Hamlib/hamlibtcl.a
+	rm -f "$pkgdir"/usr/lib/tcl/Hamlib/hamlibtcl.a
 
 	find "$pkgdir" \( -name perllocal.pod -o -name .packlist \) -delete
 	chrpath --delete "$pkgdir"/usr/lib/perl5/site_perl/auto/Hamlib/Hamlib.so
@@ -57,9 +58,10 @@ py3() {
 tcl() {
 	pkgdesc="Tcl bindings for $pkgname"
 
-	amove usr/lib/tcl8.6
+	amove usr/lib/tcl
 }
 
 sha512sums="
-edd0f5101921d512d8c0069ef5c13f053867870e75bd781040f2cabb194c96bca57d537f0fad06072b6f93c6363c18b4b18b186afc6520f5ad2a606452f20b3d  hamlib-4.6.5.tar.gz
+62063cfa5bc87efe735243d8776ac2bf942000e890824b241c32b329b0bd2f40ec708c89ee59a56f24a3988a30bb4dec463a467223dbc06d64665f72c15ff625  hamlib-4.7.2.tar.gz
+49db13701d28317b63734bc74774f43e448a52b747b5a537587bcb6857fe9c7f543b011e1e9e9d3c2ffc85b0e7194a10d08f6d1ded0b7319571ac9cbefe117c9  fix-unknown-type.patch
 "

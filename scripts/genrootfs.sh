@@ -28,6 +28,10 @@ if [ -z "$outfile" ]; then
 	outfile=rootfs-$arch.tar.gz
 fi
 
+if [ "$BOOTSTRAP_USR_MERGED" = "1" ]; then
+	mkdir -p "$tmp"/usr/lib "$tmp"/usr/bin "$tmp"/usr/sbin
+	ln -s usr/bin usr/sbin usr/lib "$tmp"/
+fi
 ${APK:-apk} add --keys-dir "$keys_dir" --no-cache \
 	--repositories-file "$repositories_file" \
 	--no-script --root "$tmp" --initdb --arch "$arch" \
@@ -53,8 +57,8 @@ case $VERSION_ID in
 esac
 
 cat > "$tmp"/etc/apk/repositories <<EOF
-https://dl-cdn.alpinelinux.org/alpine/$branch/main
-https://dl-cdn.alpinelinux.org/alpine/$branch/community
+https://cdn.alpinelinux.org/$branch/main
+https://cdn.alpinelinux.org/$branch/community
 EOF
 
 tar --numeric-owner --exclude='dev/*' -c -C "$tmp" . | gzip -9n > "$outfile"

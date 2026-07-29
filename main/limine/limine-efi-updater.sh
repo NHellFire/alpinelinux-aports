@@ -1,22 +1,48 @@
 #!/bin/sh
 # TODO: limine-enroll-config with b2sum option
 
-. /etc/limine/limine-efi.conf
+. /etc/limine/limine-efi-updater.conf
 
-if [ "$disable_update_hook" = 1 ]; then
-  exit 0
+if [ -z "$efi_file" ]; then
+  case "$(uname -m)" in
+    aarch64) efi_file="BOOTAA64.EFI" ;;
+    loongarch64) efi_file="BOOTLOONGARCH64.EFI" ;;
+    riscv64) efi_file="BOOTRISCV64.EFI" ;;
+    x86_64|i?86) efi_file="BOOTX64.EFI BOOTIA32.EFI" ;;
+    *)
+      echo "* could not autodetect EFI file! must set efi_file variable" >&2
+      exit 1
+  esac
 fi
 
-if ! [ -f "/usr/share/limine/$efi_file" ]; then
-  # not found as a file..
-  echo "* efi_file: $efi_file was not found in /usr/share/limine/ .." >&2
-  echo "* you probably need to install the package that contains the one you want:" >&2
-  echo "* [limine-x86_64 | limine-x86_32 | limine-aarch64]" >&2
-  echo "* and configure efi_file accordingly in /etc/limine-efi.conf" >&2
-  echo "*" >&2
-  echo "* seeing this on first install is normal." >&2
+if [ -z "$efi_system_partition" ]; then
+  echo "* efi_system_partition variable not set in /etc/limine/limine-efi-updater.conf" >&2
   exit 1
 fi
+
+if [ -z "$destination_path" ]; then
+  destination_path=/EFI/BOOT
+fi
+
+if [ -z "$destination_filename" ]; then
+  destination_filename="$efi_file"
+fi
+
+if ! [ "$(echo "$efi_file" | wc -w)" = "$(echo "$destination_filename" | wc -w)" ]; then
+  echo "* the efi_file variable and the destination_filename variable have a different" >&2
+  echo "* amount of items" >&2
+  exit 1
+fi
+
+for f in $efi_file; do
+  if ! [ -f "/usr/share/limine/$f" ]; then
+    # not found as a file..
+    echo "* efi_file: $f was not found in /usr/share/limine/ .." >&2
+    echo "* you probably need to install the package that contains the one you want:" >&2
+    echo "* limine-efi-<architecture>" >&2
+    exit 1
+  fi
+done
 
 # partition | mountpoint | fstype | flags | ..
 parttype="$(awk "\$2 == \"$efi_system_partition\" { print \$3 }" < /etc/mtab)"
@@ -34,8 +60,7 @@ elif ! [ "$parttype" = "vfat" ]; then
 fi
 # is vfat and correct mountpoint..
 
-# correct location to place a BOOTXXXX.efi that gets default-loaded.
-# make the directory in case it doesn't already exist..
-mkdir -p "$efi_system_partition"/EFI/BOOT/
-
-install -Dm755 /usr/share/limine/"$efi_file" -t "$efi_system_partition"/EFI/BOOT/
+for f in $efi_file; do
+  install -Dm644 /usr/share/limine/"$f" "$efi_system_partition"/"$destination_path"/"${destination_filename%% *}"
+  destination_filename="${destination_filename#* }"
+done

@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kcompletion
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Text completion helpers and widgets"
 # armhf blocked by qt6-qtdeclarative -> kconfig
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-ca9755f4af467f3417592ada0ef90d7c4c57b67bb262fae4c3c0460cd9982666645f12bf53bf3596f2a58a4b33026bb2f48061795a439645b662725fe4667670  kcompletion-6.17.0.tar.xz
+9a30cef5ea3a9bdc853325edac9d7a789b77cf3c2b3bfce116a8bba787baf3af89355a0c812ce51ec94fa946a3af26cda581d8d1536e8984fda84aea4ec45ff7  kcompletion-6.28.0.tar.xz
 "

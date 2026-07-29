@@ -3,7 +3,7 @@
 pkgname=gb
 pkgver=0.4.4
 _errors_ver=0.8.0
-pkgrel=34
+pkgrel=42
 pkgdesc="Project based build tool for Go"
 options="!check"
 url="https://github.com/constabulary/gb"
@@ -15,10 +15,6 @@ source="gb-$pkgver.tar.gz::https://github.com/constabulary/gb/archive/v$pkgver.t
 	buildmode-pie.patch
 	"
 builddir="$srcdir/src/github.com/constabulary/$pkgname"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	mkdir -p ${builddir%/*}

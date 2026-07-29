@@ -1,8 +1,8 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=dotnet9-sdk
-pkgver=9.0.110
-_bldver=9.0.9-r0
+pkgver=9.0.119
+_bldver=9.0.18-r0
 pkgrel=0
 
 # compute different versions for sdk and runtime
@@ -23,7 +23,7 @@ pkgdesc="The .NET $_pkgver_macro SDK"
 # s390x | ppc64le: mono-based builds are not yet stable on musl
 # loongarch64: blocked by dotnet9-runtime
 arch="all !x86 !armhf !riscv64 !s390x !ppc64le !loongarch64"
-url=https://dotnet.microsoft.com
+url="https://dotnet.microsoft.com"
 license="MIT"
 makedepends="dotnet$_pkgver_name-runtime-bootstrap=$_bldver"
 subpackages="
@@ -34,7 +34,6 @@ subpackages="
 	dotnet-doc
 	netstandard21-targeting-pack:netstandard_targeting_pack:noarch
 	"
-provides="dotnet$_pkgver_name=$pkgver-r$pkgrel"
 options="!check" # No test suite
 builddir="$srcdir"
 _libdir="/usr/lib"
@@ -87,7 +86,7 @@ package() {
 
 aot() {
 	pkgdesc="Ahead-of-Time (AOT) support for the .NET $_pkgver_macro Software Development Kit"
-	depends="dotnet$_pkgver_name-sdk"
+	depends="dotnet$_pkgver_name-sdk clang openssl-dev zlib-dev brotli-dev"
 	provides="dotnet-sdk-aot-$_pkgver_macro=$pkgver-r$pkgrel"
 
 	install -dm 755 "$subpkgdir"/$_libdir/dotnet/packs

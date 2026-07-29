@@ -1,6 +1,6 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=qbs
-pkgver=3.0.3
+pkgver=3.3.0
 pkgrel=0
 pkgdesc="Cross platform Qt build tool"
 url="https://wiki.qt.io/Qbs"
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-b31c5163a9348059a2843ef28c3d62a97994c3d20dcc33686c72a15ef73e4a732456b8e023b19d7e927bb45f8fef84cbd8b746a5bbbdb1a454a21f7ef50724a9  qbs-src-3.0.3.tar.gz
+63146ef32519c48b447559ec3b19db1b4557984771ea9c385bd5d275f0a3e46c63cc07783548f0ca1076f7a86bb69761c1bc98eb1be77c53f85fbe2d462319c4  qbs-src-3.3.0.tar.gz
 "

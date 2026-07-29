@@ -1,8 +1,8 @@
 # Contributor: Alexander Sharov <kvendingoldo@gmail.com>
 # Maintainer: Alexander Sharov <kvendingoldo@gmail.com>
 pkgname=tenv
-pkgver=4.7.6
-pkgrel=3
+pkgver=4.12.2
+pkgrel=1
 pkgdesc="OpenTofu, Terraform, Terragrunt, and Atmos version manager"
 license="Apache-2.0"
 arch="all"
@@ -17,10 +17,6 @@ subpackages="
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	local i
@@ -47,5 +43,5 @@ package() {
 }
 
 sha512sums="
-395d7f2438f3c6638388febfa77c94f3cb0bacc92365225d644250bcce6fd5313410c9294ef3f1dec330ef99ad0db1f35fb161302a794c7c051475e4a081d11d tenv-4.7.6.tar.gz
+c360d748145cfa48206e7413ec92fc395e4e7f75a5054b67ab9f605f5e33bf77ebeb7d18bd319705cea8be67febaabf986e986550fb844619d31a8dd23a410bf  tenv-4.12.2.tar.gz
 "

@@ -1,7 +1,7 @@
 # Contributor: Duncan Bellamy <dunk@denkimushi.com>
 # Maintainer: Duncan Bellamy <dunk@denkimushi.com>
 pkgname=perl-ppi
-pkgver=1.283
+pkgver=1.291
 pkgrel=0
 pkgdesc="Parse, Analyze and Manipulate Perl (without perl)"
 url="https://metacpan.org/pod/PPI"
@@ -32,5 +32,5 @@ package() {
 }
 
 sha512sums="
-97f108567f1351afc871d824d38f003ab2e7542493ec7debd93685c792a92a504dc961796a03492ec8cb7a85f3ffd3b3d460fd88d2865d8bb9f834470107651a  PPI-1.283.tar.gz
+33f7526f6294e1e8c62e1690960785a63e51b0822259417de2432b620f857c875120f54fa97b64fa621539abf787d752cfd2c1273a3193c50fb70a762e28a0d4  PPI-1.291.tar.gz
 "

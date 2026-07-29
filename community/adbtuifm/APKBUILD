@@ -2,18 +2,14 @@
 # Maintainer: omni <omni+alpine@hack.org>
 pkgname=adbtuifm
 pkgver=0.5.8
-pkgrel=13
+pkgrel=21
 pkgdesc="A TUI File Manager for Android Debug Bridge (ADB)"
 url="https://github.com/darkhz/adbtuifm"
 license="MIT"
 arch="all !loongarch64"
 makedepends="go"
-options="!check" # no test files
+options="!check net" # no test files, go
 source="$pkgname-$pkgver.tar.gz::https://github.com/darkhz/adbtuifm/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v .

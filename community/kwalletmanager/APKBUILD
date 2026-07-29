@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwalletmanager
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -55,5 +55,5 @@ package() {
 }
 
 sha512sums="
-42958045776b3c87ea8bdef786e7c6b33e8119ac803380f01cc9a61868e2c0e5e5751e94a49fbd835fcba639d7804f75708ac777bbc38042c644c9fcf762fb5c  kwalletmanager-25.08.0.tar.xz
+be9cd6e6ae01f619aa4f47729032fa97cb9373afe4296b4b02a4937a202cf1aaabedccb98ce207defa8431a430038ab65d8385e22eb0b2bdd317500cdb3e48c7  kwalletmanager-26.04.3.tar.xz
 "

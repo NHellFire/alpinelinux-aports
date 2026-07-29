@@ -1,16 +1,18 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=frei0r-plugins
-pkgver=2.4.0
-pkgrel=0
+pkgver=3.2.3
+pkgrel=1
 pkgdesc="A minimalistic plugin API for video sources and filters"
 url="https://frei0r.dyne.org/"
-arch="all"
+# s390x blocked by opencv
+arch="all !s390x"
 license="GPL-2.0-or-later"
 depends_dev="$pkgname"
 makedepends="
 	cairo-dev
 	cmake
 	gavl-dev
+	opencv-dev
 	samurai
 	"
 subpackages="$pkgname-dev"
@@ -19,7 +21,7 @@ options="!check"  # No test suite.
 builddir="$srcdir/frei0r-$pkgver"
 
 build() {
-	cmake3.5 -B build -G Ninja \
+	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr
 	cmake --build build
@@ -30,5 +32,5 @@ package() {
 }
 
 sha512sums="
-4dc8a7b127e9991d276e40ac8869069b1b97e32531c30d8ec1d5644409ab8e381f1a128dd3bbafda26d7efb445586d5133a81da1bb3c3374a1bf351d51a493df  frei0r-plugins-2.4.0.tar.gz
+0fd40f880e906841d50bab0dc0d7cf94715967ad3128bce1906b07e2b63c887e757f4b8d96b45d2e4fab3459b80716de03186b399c3b714dc9a1999509c58488  frei0r-plugins-3.2.3.tar.gz
 "

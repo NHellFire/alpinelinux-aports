@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-findpython
-pkgver=0.7.0
-pkgrel=1
+pkgver=0.8.0
+pkgrel=0
 pkgdesc="Utility to find python versions on your system"
 url="https://github.com/frostming/findpython/"
 arch="all"
@@ -17,10 +17,12 @@ makedepends="
 	py3-wheel
 	"
 checkdepends="py3-pytest"
+subpackages="$pkgname-pyc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/frostming/findpython/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/findpython-$pkgver"
 
 build() {
+	export PDM_BUILD_SCM_VERSION=$pkgver
 	gpep517 build-wheel \
 		--wheel-dir .dist \
 		--output-fd 3 3>&1 >&2
@@ -38,5 +40,5 @@ package() {
 }
 
 sha512sums="
-1e9ea0c53d818f4b091f4713adbd84d37d03fbb326ad12120bcca114a8d38dd698d71dad42336291f48ecdde0bffc3c28b1b8e901d3819d33b2f2f33349207be  py3-findpython-0.7.0.tar.gz
+caabc85d8a1c51fd29d3dac548d68f15e412f5954958bf86a880c3a4d7bdc6aec961b6e1142254a6ba02a0e44591ac590f3e3a6da01cbe86b4beaf4e15623483  py3-findpython-0.8.0.tar.gz
 "

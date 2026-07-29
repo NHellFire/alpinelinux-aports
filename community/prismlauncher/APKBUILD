@@ -2,9 +2,9 @@
 # Contributor: knuxify <knuxify@gmail.com>
 # Maintainer: Sertonix <sertonix@posteo.net>
 pkgname=prismlauncher
-pkgver=9.4
-pkgrel=1
-_libnbtplusplus_commit=23b955121b8217c1c348a9ed2483167a6f3ff4ad
+pkgver=11.0.3
+pkgrel=0
+_libnbtplusplus_commit=687e43031df0dc641984b4256bcca50d5b3f7de3
 pkgdesc="A custom launcher for Minecraft that allows you to easily manage multiple installations of Minecraft at once"
 url="https://prismlauncher.org/"
 # riscv64: blocked by openjdk
@@ -19,26 +19,27 @@ makedepends="
 	cmake
 	cmark-dev
 	extra-cmake-modules
+	gamemode-dev
+	libarchive-dev
+	libqrencode-dev
 	qt6-qtbase-dev
-	qt6-qt5compat-dev
 	qt6-qtimageformats-dev
 	qt6-qtnetworkauth-dev
 	openjdk8
-	quazip-dev
 	samurai
 	scdoc
 	tomlplusplus-dev
+	zlib-dev
 	"
 case "$CARCH" in
 armv7|armhf) makedepends="$makedepends clang" ;; # fails to build with gcc, see note in build()
 esac
-install="$pkgname.post-upgrade"
 source="$pkgname-$pkgver.tar.gz::https://github.com/PrismLauncher/PrismLauncher/archive/refs/tags/$pkgver.tar.gz
 	libnbtplusplus-$_libnbtplusplus_commit.tar.gz::https://github.com/PrismLauncher/libnbtplusplus/archive/$_libnbtplusplus_commit.tar.gz
 	0001-system-jemalloc.patch
 	0002-native-openal-lwjgl-2.patch
 	0003-use-system.patch
-	0004-disable-ghc-filesystem.patch
+	0004-no-Werror.patch
 
 	README.alpine
 	"
@@ -62,18 +63,16 @@ build() {
 	esac
 
 	JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk \
-	cmake -B build -G Ninja \
+	cmake -B build \
 		-DCMAKE_BUILD_TYPE=MinSizeRel \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DLauncher_QT_VERSION_MAJOR=6 \
 		-DLauncher_BUILD_PLATFORM=alpinelinux \
 		-DLauncher_ENABLE_JAVA_DOWNLOADER_DEFAULT=OFF
 	cmake --build build
 }
 
 check() {
-	cd build
-	ctest
+	ctest --test-dir build
 }
 
 package() {
@@ -83,11 +82,11 @@ package() {
 }
 
 sha512sums="
-61a5def54a86988ef47d761a50147137e451d7ab5285298275647d40dc7bf8a7d92b2d634fcb95192a6f18f20e3cfaf145376fc8ef3780398037ae44e41c954a  prismlauncher-9.4.tar.gz
-ea18c2b4016d078c19337cedc3b2563e2eeaf4dfbb452812bc1d4022544df03c3376219a706e7a7da39144d8d20bde2f8780e382f0abf68191a04c52358af0f8  libnbtplusplus-23b955121b8217c1c348a9ed2483167a6f3ff4ad.tar.gz
-d0e40b01e9bff51e2454302314b5c316556cdd40928df89446c7ecb531a1a8f3fd02cad9f39641f3bbffad1fd0ae2508bc7386ef19afaccff338a88598481155  0001-system-jemalloc.patch
-bf8b5a7592b6866e9fd2d32716daea812435eaae472a1dd36047e8ae11bf10be4183910ac274f27c3e5c2133efd75fe5002fc2db7d91af42c85ab67c4725c20c  0002-native-openal-lwjgl-2.patch
-87e72332a74476cb4b0f4761c76725a3c8ff60723dc58073387d38040a9b5d5317da70a9cebff1cdad5efd6cdeddc9719882d526f32af4efaef3f9251019de01  0003-use-system.patch
-0398fd04e6ff3e11d05d4b504f39f8f5d13f7b396d72fd5d19df850b253ac7e265133169f641185a72fbb54388d5803a66ee0d1d394bbf5bb14e575d262004c2  0004-disable-ghc-filesystem.patch
-ef1b7c17f39c10b7db73cf03ba25e2b4f683a56fcd7d14cc3bed1d70f574ccaa1021632b01331468f490b42996bbc28972fe98dfc3ea6bcd5f8db6b499fff137  README.alpine
+3fdb19a232499cb6125fd94e5fac26c35b793b89110152f2be77390543a1e65449c59e6bc0f9a7eb2a9fe47ca622792bdee864630169f588c199e20dfb724435  prismlauncher-11.0.3.tar.gz
+2ead07c3b8ca55ad59a561358e7773549703f291bdceb40e64c0b1a6ff5298ebd68ec54216954b4bb1f66a566e9da93b00008af859fcfe76cfdd9b72e9923064  libnbtplusplus-687e43031df0dc641984b4256bcca50d5b3f7de3.tar.gz
+255cc02760bd1fa561d325e4059a0d82f6f88da135a3848088c1df12a9e978226554a8dda57bf6a7cc7993902c7722aba9d68f9644cedca78035e312af905450  0001-system-jemalloc.patch
+1d2174b1d8673c4ae07a15e3d649cfa79c6e55e3eb28c86ae2f84bfc354734284f7e4b7fb3b3934cae4e4a139572b74721d04bdc6cb944c731960cc30f105cec  0002-native-openal-lwjgl-2.patch
+c2a13759537637ca3c65a88f3be009370ecbdaa2cab0f61c6669c6b41f845ac8c92b2a620398152879b996caaa1d3c95cdc4c8ba6aa6464c6b7a455b0b914add  0003-use-system.patch
+3c1f48f49ba6108a0aa1a8c4e05ac1c398ac495474f5b5bb72f0283c5bec97486b68821942774b03842ca9f79df889e118056b062043bd4a1175e2fed845a24b  0004-no-Werror.patch
+144061cf956cf07e12668dc9534517b7a6543eca05039f69779dd8c18f17055473bfd066a06fad88dac229ee217a05c485b821b10945eb9bc2da0080db4242c6  README.alpine
 "

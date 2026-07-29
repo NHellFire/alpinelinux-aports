@@ -2,7 +2,7 @@
 # Maintainer: Marvin Preuss <marvin@xsteadfastx.org>
 pkgname=speedtest_exporter
 pkgver=0.3.2
-pkgrel=18
+pkgrel=26
 pkgdesc="Prometheus exporter for Speedtest metrics"
 url="https://github.com/nlamirault/speedtest_exporter"
 # riscv64 unsupported by Golang deps
@@ -21,10 +21,6 @@ source="
 	0002-Fix-build-on-loongarch64.patch
 	"
 options="!check" # no tests
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

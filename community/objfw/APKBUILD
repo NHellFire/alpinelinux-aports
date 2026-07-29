@@ -1,13 +1,13 @@
 # Contributor: Jonathan Schleifer <js@nil.im>
 # Maintainer: Jonathan Schleifer <js@nil.im>
 pkgname=objfw
-pkgver=1.4.1
+pkgver=1.5.7
 pkgrel=0
 pkgdesc="Portable, lightweight framework for the Objective-C language"
 url="https://objfw.nil.im/"
 arch="all"
 license="LGPL-3.0-only"
-_llvmver=20
+_llvmver=22
 makedepends="
 	clang$_llvmver
 	openssl-dev
@@ -60,12 +60,15 @@ package() {
 }
 
 dev() {
+	depends="clang$_llvmver"
+
 	amove usr/bin/objfw-compile
 	amove usr/bin/objfw-config
 	amove usr/bin/objfw-embed
 	amove usr/bin/objfw-new
 	amove usr/include
 	amove usr/lib/*.so
+	amove usr/lib/cmake
 	amove usr/lib/objfw-config
 }
 
@@ -135,5 +138,5 @@ _ofgctester() {
 }
 
 sha512sums="
-f3355b85549a8a5961b392f95dffde1939cb309a95739729d568362627b950563c0f735618a1e8d638a3ce32de86fd65abb5c3ccc9fb3ffdeaae04ce4303aa1c  objfw-1.4.1.tar.gz
+b6dbcaa2f2e3e5c2a71fceb31060c2bc328c9a628ae1423d44370698f5f147ce8a0a8bdcc1cc5bfb4907eb971a3a7cfbf1ed9a2461739e1c1aca2325e1ded81e  objfw-1.5.7.tar.gz
 "

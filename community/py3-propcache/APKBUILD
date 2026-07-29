@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-propcache
-pkgver=0.3.2
-pkgrel=1
+pkgver=0.5.2
+pkgrel=0
 pkgdesc="Fast property caching"
 url="https://github.com/aio-libs/propcache"
 license="Apache-2.0"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-d85a89dd1d34936578eb05a869e0ec07679d477c716aa047bbda00688a2926fd8a1f712c9ddec3de38faa49762941120df12ebe88dc36278f20d84ee796b91fe  propcache-0.3.2.tar.gz
+7d720b55a54a3dc35a13c27c8b2821e5dc8ccabae1c004c4049df6a4d914c7f5247cac4efb8a6e0cc95cb9cf62119c27febfeaaaa900343f19ee8c8cef92e15f  propcache-0.5.2.tar.gz
 "

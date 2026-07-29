@@ -1,7 +1,7 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer:
+# Maintainer: Robert Mongold <rtmongold@gmail.com>
 pkgname=thin-provisioning-tools
-pkgver=1.1.0
+pkgver=1.3.3
 pkgrel=0
 pkgdesc="suite of tools for manipulating the metadata of the dm-thin device-mapper target"
 url="https://github.com/jthornber/thin-provisioning-tools"
@@ -25,7 +25,7 @@ options="net !check"
 prepare() {
 	default_prepare
 
-	cargo fetch --target="$CTARGET" --locked
+	cargo fetch --target="$CHOST" --locked
 }
 
 build() {
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-8cf3953743334b5a34504695757fa2de5a5fb5bdb8c7aed859995154fc004f52c3ef041558d307a2309c2de8dcdcbd8a0537bd3408fd78c7ff2f641f28944c1e  thin-provisioning-tools-1.1.0.tar.gz
+0bba8f851fdfd65751564ca65d48c3ebca7c5839258db1401003c6cf58bb6a4c79f291135a96b4151ba1118fb1c6d083f49a0a9adc1362e06264253d7180ecd2  thin-provisioning-tools-1.3.3.tar.gz
 "

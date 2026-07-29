@@ -1,8 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Runxi Yu <me@runxiyu.org>
+maintainer="Runxi Yu <me@runxiyu.org>"
 pkgname=groff
-pkgver=1.23.0
-pkgrel=3
+pkgver=1.24.1
+pkgrel=0
 pkgdesc="GNU troff text-formatting system"
 url="https://www.gnu.org/software/groff/groff.html"
 arch="all"
@@ -11,9 +12,10 @@ depends="perl"
 makedepends="bison zlib-dev texinfo"
 checkdepends="diffutils"
 subpackages="$pkgname-doc"
-source="https://ftp.gnu.org/gnu/groff/groff-$pkgver.tar.gz
-	getopt-gcc15.patch
-	"
+source="
+	https://ftp.gnu.org/gnu/groff/groff-$pkgver.tar.gz
+	fix-neqn-wrapper.patch
+"
 
 build() {
 	./configure \
@@ -26,6 +28,9 @@ build() {
 }
 
 check() {
+	export GROFF_BIN_PATH="$builddir"
+	export GROFF_TMAC_PATH="$builddir/tmac"
+	export GROFF_FONT_PATH="$builddir/font"
 	make check
 }
 
@@ -40,6 +45,6 @@ package() {
 }
 
 sha512sums="
-eff473fd1d0e6b27527318452ef2b7c6c7aba0b1c27fc529036496eccba5717f3639df0b81a297a57f700e27543196d7086b15e43d7e3c7bf075f95feb7f4089  groff-1.23.0.tar.gz
-ab0456a55d960ab5de505b5b1c3c0cf6fcebb6610c7bdf8b169cb18f5d12ef498cdacdf8d9f8326c4856d8561465776295870f2a34c8dc53a9acd959eb2e9590  getopt-gcc15.patch
+86545c67042ad034a464a371d0587f8f0b449070c82fb1cfbcd0368c2e249624778d43e95d6cacd79cbe5b441142db96fdc3ab6222638337702f05a71c0990be  groff-1.24.1.tar.gz
+0afdd15b08d4aa7fc375b4f48dd291b3a63282a0ac154c22a3e9d0cd536096515d23734b068d1764d8693b3c5cabe9c735dca356d92e81c649527fe3d98013b5  fix-neqn-wrapper.patch
 "

@@ -1,8 +1,8 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: prspkt <prspkt@protonmail.com>
 pkgname=bspwm
-pkgver=0.9.10
-pkgrel=4
+pkgver=0.9.12
+pkgrel=0
 pkgdesc="Tiling window manager based on binary space partitioning"
 url="https://github.com/baskerville/bspwm"
 arch="all"
@@ -26,5 +26,5 @@ package() {
 }
 
 sha512sums="
-9ccb98c4e80635a781b3f889d8c3ae621c0926a79e9607268924b78bd11137caf70ee9a1edf5bc137d362d2acbe2984645f58ba31c586e6b017797758a66f9cf  bspwm-0.9.10.tar.gz
+2f93ecefb80a5359c2805daa74d0627db738e8367f5b355a2ab6d270904ed234fc38e84bd789f559efd446d86b48952167a377c5b5f3c8cc8448ae8ed66a0f88  bspwm-0.9.12.tar.gz
 "

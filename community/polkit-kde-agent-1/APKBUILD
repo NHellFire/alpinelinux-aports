@@ -2,14 +2,13 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=polkit-kde-agent-1
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Daemon providing a polkit authentication UI for KDE"
 # armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://kde.org/plasma-desktop/"
 license="GPL-2.0-or-later"
-depends="polkit-elogind"
 makedepends="
 	extra-cmake-modules
 	kcoreaddons-dev
@@ -28,7 +27,10 @@ case "$pkgver" in
 	*.*.9*) _rel=unstable;;
 	*) _rel=stable;;
 esac
-subpackages="$pkgname-lang"
+subpackages="
+	$pkgname-systemd
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/plasma/polkit-kde-agent-1.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/polkit-kde-agent-1-$pkgver.tar.xz"
 # No tests
@@ -44,11 +46,8 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-0ce7865cd1f2de03bc8c47841c64cf29f012d88e07659ddfebee03d2fa5347af398d1a19fed53a665a4ec3d503fd67a73f51a98816cc5bdc0d84541e6ece09cb  polkit-kde-agent-1-6.4.5.tar.xz
+a56e4ddb5e10577f00743a773e43404925ae3562705e138f004fe2018e397705292eb1eb378e876c8572e12943824ab97a8521188f52fed26b0c156bf18db505  polkit-kde-agent-1-6.7.3.tar.xz
 "

@@ -1,12 +1,10 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kontactinterface
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-# armhf blocked by extra-cmake-modules
+# armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://kontact.kde.org/"
 pkgdesc="Kontact Plugin Interface Library"
@@ -23,26 +21,37 @@ makedepends="$depends_dev
 	doxygen
 	extra-cmake-modules
 	graphviz
+	kde-qdoc-common
 	samurai
 	"
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-dev
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/pim/kontactinterface.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/kontactinterface-$pkgver.tar.xz"
 options="!check" # No tests
 
 build() {
+	export KDE_DOCS=/usr/share/kde/documentation
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_QCH=ON
+		-DCMAKE_INSTALL_LIBDIR=lib
 	cmake --build build
+
+	#cmake --build build --target prepare_docs
+	#cmake --build build --target generate_docs
+	#cmake --build build --target generate_qch
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
+
+	#DESTDIR="$pkgdir" cmake --build build --target install_html_docs
+	#DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 
 sha512sums="
-a0630bf2bec0a9364ba49ebfe5ce2064b535ae8c31d30975ac2c9afcbbd1efe402ba23213272012b83a991d7ad42ab5ebd9bbb8c3dc91badb950915f7bbcf7e0  kontactinterface-25.08.0.tar.xz
+b8753fc1c52c5769f330fbef2608d8ef2fc3ab886fe21ad647e611dfc45760903d3867d7ff38de1dcacac6f7afdc182b2b42ecc3135b2af06f7d7c7ce2a5562f  kontactinterface-26.04.3.tar.xz
 "

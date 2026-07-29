@@ -1,9 +1,9 @@
 # Contributor: Antoine Fontaine <antoine.fontaine@epfl.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-janus
 pkgver=1.2.0
-pkgrel=0
+pkgrel=2
 pkgdesc="Mixed sync-async queue to interoperate between asyncio tasks and classic threads"
 url="https://github.com/aio-libs/janus/"
 arch="noarch"

@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=moor
-pkgver=2.1.1
-pkgrel=0
+pkgver=2.10.2
+pkgrel=5
 pkgdesc="Pager designed to do the right thing without any configuration"
 url="https://github.com/walles/moor"
 arch="all"
@@ -13,10 +13,6 @@ source="https://github.com/walles/moor/archive/v$pkgver/moor-$pkgver.tar.gz
 	fix-test.patch
 	"
 options="net" # for downloading Go modules
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build \
@@ -36,6 +32,6 @@ package() {
 }
 
 sha512sums="
-56569df932fdda4b23f59344c03d0d3f1aa749704ee993bb074117a53a6de5beb7cfe1e3cbd601f3997752cd8755d679b10ed22fa17e4c76a05d6b063e4ff787  moor-2.1.1.tar.gz
-7602a1402337cc15f76f3ef1106236fbe03df8206b37461ce72d311afa51eec2499db1e07826a8f66e387b0a6e4262864800a577bd27ff912d649ec9ec7db665  fix-test.patch
+a81a8c3888b1c2cd163f51e325ebd9fee2a4c275e188d95598d690cebae0bfb2d4241394287dba9e94eada718789ccb4e09fbf0698df2fe82dd77839907a6d4a  moor-2.10.2.tar.gz
+dcc1802281b9cb61cde63b9e9bf743cabd619d8a24933e67fcb062657c18400426aeabfd5dd7a97a64e5bf6cf9482daecf2f0d128234182d06ffaf28d6686735  fix-test.patch
 "

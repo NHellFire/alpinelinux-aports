@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdeclarative
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Provides integration of QML and KDE Frameworks"
 # armhf blocked by qt6-qtdeclarative
@@ -58,5 +58,5 @@ package() {
 }
 
 sha512sums="
-c47d838e976c9ae66ab1041475b2cce02b75f96c772688a332da93959ae7639023fce38f9058a0452ddecc2a2603f736e440a309268d2a6fef05362fa4b209b3  kdeclarative-6.17.0.tar.xz
+60b2ea2291861b5d1bd8dc9b39d6374f835a86b8fe551f53b484576b8b5355a6a658be70dc7aa3e6bb866acfd5d8a8480666bb490c870675a1c52c8bfd1da433  kdeclarative-6.28.0.tar.xz
 "

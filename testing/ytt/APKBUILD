@@ -2,7 +2,7 @@
 # Maintainer: techknowlogick <techknowlogick@gitea.com>
 pkgname=ytt
 pkgver=0.52.1
-pkgrel=0
+pkgrel=8
 pkgdesc="YAML templating tool that works on YAML structure instead of text"
 url="https://carvel.dev/ytt/"
 arch="all !armhf !armv7 !x86"
@@ -11,10 +11,6 @@ makedepends="go"
 options="chmod-clean net"
 source="$pkgname-$pkgver.tar.gz::https://github.com/carvel-dev/ytt/archive/v$pkgver.tar.gz
 	0001-e2e-tests.patch"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	local ldflags="-X carvel.dev/ytt/pkg/version.Version=$pkgver"

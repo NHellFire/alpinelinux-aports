@@ -1,8 +1,8 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
-# Maintainer: Sodface <sod@sodface.com>
+# Maintainer:
 pkgname=libnpupnp
-pkgver=6.2.1
-pkgrel=0
+pkgver=6.3.0
+pkgrel=1
 pkgdesc="UPnP library based on libupnp, but extensively rewritten"
 url="https://www.lesbonscomptes.com/upmpdcli/npupnp-doc/libnpupnp.html"
 arch="all"
@@ -27,5 +27,5 @@ package() {
 }
 
 sha512sums="
-5718616321e5204e79de78095951fd48789fb0a7f7b8539420429743cf1cb2443fc0005be4ba4a1df26387620b95c8b924be59353c419467e6d359d29f991f11  libnpupnp-6.2.1.tar.gz
+fa2e0958a5e2e885cf30bb0a92e6e3a50226e784e3f8b71aa385a5c81b37de57027af5eed2c0f80bf72b603d1c8eb57ed9125b243ad739cbe62c73acc9f50581  libnpupnp-6.3.0.tar.gz
 "

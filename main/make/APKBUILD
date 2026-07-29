@@ -1,8 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Runxi Yu <me@runxiyu.org>
+maintainer="Runxi Yu <me@runxiyu.org>"
 pkgname=make
 pkgver=4.4.1
-pkgrel=3
+pkgrel=4
 pkgdesc="GNU make utility to maintain groups of programs"
 url="https://www.gnu.org/software/make"
 arch="all"
@@ -13,9 +14,7 @@ source="https://ftp.gnu.org/gnu/make/make-$pkgver.tar.gz
 	"
 
 build() {
-	if [ -z "$BOOTSTRAP" ]; then
-		export CFLAGS="$CFLAGS -flto=auto"
-	fi
+	export CFLAGS="$CFLAGS -flto=auto"
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \

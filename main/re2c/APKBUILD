@@ -1,8 +1,9 @@
 # Contributor: Jeff Bilyk <jbilyk at gmail>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=re2c
-pkgver=4.3
+pkgver=4.5.1
 pkgrel=0
 pkgdesc="Lexer generator for C, C++ and Go"
 url="https://re2c.org/"
@@ -17,11 +18,13 @@ source="https://github.com/skvadrik/re2c/releases/download/$pkgver/re2c-$pkgver.
 #     - CVE-2020-11958
 
 prepare() {
- 	default_prepare
+	default_prepare
+
 	update_config_sub
 }
 
 build() {
+	CFLAGS="$CFLAGS -flto=auto" \
 	CXXFLAGS="$CXXFLAGS -flto=auto" \
 	./configure \
 		--build=$CBUILD \
@@ -42,5 +45,5 @@ package() {
 }
 
 sha512sums="
-14889a19774c8d97a5e2365d67b4112b8a346feea75b380b94874a7a7a33807da1ee89a2d6528039efda09977c57487d49cf05833f9d3641906da21bef8d0de4  re2c-4.3.tar.xz
+cdd0376ddd0cdba4ebeea3883b66ee7ee48fbdcbe078b8a16c55f7937c880aa9ff2b28f70938f2926d36cfba1d42a1e42c705734ea00149fc8bed51f49402704  re2c-4.5.1.tar.xz
 "

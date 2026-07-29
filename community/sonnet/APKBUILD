@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=sonnet
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Spelling framework for Qt"
 # armhf blocked by qt6-qtdeclarative
@@ -54,5 +54,5 @@ package() {
 }
 
 sha512sums="
-efa39b29819b9a7cfa7a0694e330d025fc549008ac6a4bf9ce6f1f09b60e57d61366310be6fa175d231b74079b2a97c4925774d785a5d394cda89864ede5251e  sonnet-6.17.0.tar.xz
+6bd44d3a95df42924b7bf66c0fff419c54db10617f28cf78cec7beb4bc4cdc9c9b6425cf2d91ed172e080fb0cc50a0a694686f108e1ce22af0c0774f515838bd  sonnet-6.28.0.tar.xz
 "

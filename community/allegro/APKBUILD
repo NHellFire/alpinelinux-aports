@@ -1,7 +1,7 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=allegro
-pkgver=5.2.10.1
-pkgrel=0
+pkgver=5.2.11.3
+pkgrel=1
 arch="all"
 url="https://liballeg.org"
 pkgdesc="Portable library mainly aimed at video game and multimedia programming"
@@ -36,7 +36,8 @@ build() {
 		-DALLEGRO_SDL=OFF \
 		-DWANT_TESTS=ON \
 		-DWANT_EXAMPLES=OFF \
-		-DWANT_DEMO=OFF
+		-DWANT_DEMO=OFF \
+		-DCMAKE_POLICY_VERSION_MINIMUM=3.5
 	cmake --build build
 }
 
@@ -50,5 +51,5 @@ package() {
 }
 
 sha512sums="
-126fe357049b9f069d5b1d880dd7579406f87c7b17b05b26088b40ed72bb8f4b2d014b879d49f89648accf9b80dd5d81c4a1a116d7cb4601130187ae3d5b05f9  allegro-5.2.10.1.tar.gz
+592f9b0784a7d8145dda178b74de4aa444ee65856169a51d9178d35f50c1008800fb22f0169032faddc83fa572963cd3b60e63b67bcc20b0f8b02aee32b78dad  allegro-5.2.11.3.tar.gz
 "

@@ -1,20 +1,26 @@
-# Contributor: omni <omni+alpine@hack.org>
 # Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=arti
-pkgver=1.5.0
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="An implementation of Tor, in Rust"
 url="https://tpo.pages.torproject.net/core/arti/"
 license="GPL-3.0-or-later"
 # s390x: merlin crate doesn't support big-endian targets
 arch="all !s390x"
-makedepends="cargo openssl-dev>3 sqlite-dev zstd-dev xz-dev cargo-auditable"
+makedepends="cargo
+	cargo-auditable
+	curl
+	openssl-dev>3
+	sqlite-dev
+	xz-dev
+	zstd-dev
+	"
 subpackages="$pkgname-doc $pkgname-openrc"
 source="$pkgname-$pkgver.tar.gz::https://gitlab.torproject.org/tpo/core/arti/-/archive/arti-v$pkgver/arti-arti-v$pkgver.tar.gz
 	arti-example-config.patch
-	bump_rustix_crate.patch
-	disable-access_symlink-test.patch
 	no-journald-build.patch
+	tor-rpcbase-dep.patch
 	32b_arti_example_config_patch
 	32b_time_conversion_tests_patch
 	32b_tor-memquota_patch
@@ -24,13 +30,16 @@ builddir="$srcdir/$pkgname-$pkgname-v$pkgver"
 install="$pkgname.pre-install $pkgname.pre-upgrade"
 pkgusers="arti"
 pkggroups="arti"
+options="net" # cargo fetch
 
 case "$CARCH" in
 arm*|loongarch64|ppc64le|riscv64|x86)
 	# for aws-lc-sys
-	checkdepends="$checkdepends cmake clang-dev"
+	checkdepends="$checkdepends cmake ninja"
 	;;
 esac
+
+export OPENSSL_NO_VENDOR=1
 
 prepare() {
 	default_prepare
@@ -57,6 +66,7 @@ prepare() {
 }
 
 build() {
+	RUST_BACKTRACE=full \
 	cargo auditable build --release --frozen --features=full --package arti
 }
 
@@ -102,13 +112,12 @@ package() {
 }
 
 sha512sums="
-8ce71d9d1c12611c9c0ef4ac652299fa2e0724beac8aded48accf5cf9dadfc5807f53e8dc146705d1793f7fcc8cc74f647e4b2e1ef2c4bbaf7391b8740503991  arti-1.5.0.tar.gz
-921aefe7501ef60c1854d8ad23d820fef939fad6a4fc312a09cc91d0c979abd006d03a39956654c9852ffe00255a1bca675072861ab11f0c56381ad13f8f1b26  arti-example-config.patch
-0143eb57b6155cfdfdce73e8f9b6afb08e6d7fa673afa8d46a0b7bb1074c38fa53c1ba71cc691814f78af74b21ebb86731212d4e6338a43d58e38b65607401b3  bump_rustix_crate.patch
-a95b255dfd3624d4d543def7da88c266b2451dd78290bfd02f6ec7bc125c2aef17f89f8dc20b93b630cb886b8397d3c6980704a93efe5697381f0c6c6ac7d47c  disable-access_symlink-test.patch
-beb28ae96d01978c26112cd72d745fb146daeca73183350530e7bbd2a8c7bbc7ca89ca8c31e37fad2e6ac41043fe6524ac6c860e2bea3beaa90265daf3c0f8b1  no-journald-build.patch
-36cb4e29637466c4ecf39dab48f397f3baa2a1e701b313b5f49b46a9206c911bb10969455a9bc1ef7c91e3687ed1554e5b3e788cd91fd51110f6f3cd4871dac4  32b_arti_example_config_patch
-995dea23df8212c04fde61f402a10ba15a0b4796b8dded7935e362c70601e71654d71a79ef071f5ebe9c6d4b21e7ad448ce8361ef6fdb7c5c4bbfd42c8216a5e  32b_time_conversion_tests_patch
-2b1723a1678f13c6463295427a939e496a8368358bb407f5a502b667c379f7180f734099d812e0e71a4cedf59fe1ddc589b0e13c4bc3f847e984ee60d783856d  32b_tor-memquota_patch
+f19da20e4bce980d2649511cf0d0a9ba955f5f8d087110ed63538a01ec5c0fe3133fca66f51cb1182c464308f604814874c26fa434db5d2ca277090e37e38f34  arti-2.4.0.tar.gz
+70f544fd46117f91861e671fe509960eb5bf5cbac628e78fd197f8e20c312c41ae07800c0a86269cf3041af74b0c69937c72c945175f169eea80d1bccd19f5f9  arti-example-config.patch
+ae637fc8ba3c3e3c91849e7aef8a5e8679c5a40fe50dfcd7990717ab6e29e4307c7f9bcf444fcea0f779963b4e94350c35a665e5c0e862c53a86a87cd1fc5fca  no-journald-build.patch
+c6c45f94e0e2d4fb6fe8366e3534dfdca858e98baec3f7b8ab4983e300996dcc99ba5d92b01a6f8d1fe1edac5130b81aec1a53b1b4708a6d8ab38616da688dfd  tor-rpcbase-dep.patch
+305b6e2223ec6ac0bf9e595d653b974538a643c3e6d13f7e0d6794a3f73d0f5d15a0bbd26231afb87b540fe90b37100468a69e7653f51cdcfe9d89e5fc057fe1  32b_arti_example_config_patch
+c24425e549c15f9a43fe88e5b6fe3843029caeef4696147eed4ba530b6e12e470cd4bf6b6f386641b0a6a90599caee57ad8e2e4cf75d95fb650be2f2313be5b8  32b_time_conversion_tests_patch
+1f3123f2968a4f8c04fed8d45cbbf76f08557fcfc03111c45872cc914b5908a2d3c212ddf2a7ccb796c4560767c81b7a8670fb6f5b95b9439a4abd1d77c8903d  32b_tor-memquota_patch
 c6e214875455b1101aaade6a3ec2d9d0653abd1cf49b3b562da1c8ebc7b3a6bee708540cfa1c5a60c1b3bfb6921bc064504baba2dde50010e896c708a0a8f352  arti.initd
 "

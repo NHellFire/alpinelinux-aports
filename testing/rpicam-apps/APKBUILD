@@ -1,8 +1,8 @@
 # Contributor: Zach DeCook <zachdecook@librem.one>
 maintainer="Krystian Chachuła <krystian@krystianch.com>"
 pkgname=rpicam-apps
-pkgver=1.8.1
-pkgrel=1
+pkgver=1.12.0
+pkgrel=0
 pkgdesc="Suite of libcamera-based applications to drive the Raspberry Pi cameras"
 url="https://github.com/raspberrypi/rpicam-apps"
 arch="aarch64 armhf armv7" # libcamera by default only includes rpi/vc4 pipeline on these archs
@@ -22,7 +22,7 @@ makedepends="
 "
 subpackages="$pkgname-doc"
 source="
-	https://github.com/raspberrypi/rpicam-apps/archive/v$pkgver/rpicam-apps-v$pkgver.tar.gz
+	$pkgname-$pkgver-1.tar.gz::https://github.com/raspberrypi/rpicam-apps/archive/v$pkgver/rpicam-apps-v$pkgver.tar.gz
 	"
 
 build() {
@@ -35,7 +35,6 @@ build() {
 		-Denable_tflite=disabled \
 		-Dneon_flags=auto \
 		-Denable_hailo=disabled \
-		-Ddownload_hailo_models=false \
 		build .
 	meson compile -C build
 }
@@ -50,5 +49,5 @@ package() {
 }
 
 sha512sums="
-4164de4e495d1e1dd83edc5f8d3c033635b5904ea4b5b1786aa515e63a9f8f003341a2d2691721bb7325ce1783ed169f1e71662ca9f91e3fc14dd15cb30b0bfa  rpicam-apps-v1.8.1.tar.gz
+51ccc1bd445abb6ed98621bb24f6bf6d8f569c1b9f2a93715d3d02c89666a9b6fb12da67d4808ff6797e0e32076339cb1bbf3c12aebe328274b97c1f8ef349cb  rpicam-apps-1.12.0-1.tar.gz
 "

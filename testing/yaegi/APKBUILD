@@ -1,7 +1,7 @@
 # Maintainer: Hoang Nguyen <folliekazetani@protonmail.com>
 pkgname=yaegi
 pkgver=0.16.1
-pkgrel=11
+pkgrel=19
 pkgdesc="Elegant Go interpreter"
 url="https://github.com/traefik/yaegi"
 # 32bit: TestEvalBuiltin test fails
@@ -13,10 +13,6 @@ options="net"
 # Required to pass tests.
 # Ref: https://github.com/traefik/yaegi/issues/1523#issuecomment-1465730351
 builddir="$srcdir/src/github.com/traefik/$pkgname"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	export GOPATH="$srcdir"

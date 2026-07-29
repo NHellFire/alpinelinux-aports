@@ -1,6 +1,6 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=please-build
-pkgver=17.17.0
+pkgver=17.28.0
 pkgrel=3
 pkgdesc="High-performance, extensible build system for reproducible multi-language builds"
 url="https://please.build/"
@@ -14,16 +14,11 @@ subpackages="
 	$pkgname-bash-completion
 	$pkgname-zsh-completion
 	"
-source="
-	$pkgname-$pkgver.tar.gz::https://github.com/thought-machine/please/archive/refs/tags/v$pkgver.tar.gz
-	fix-test.patch
+source="$pkgname-$pkgver.tar.gz::https://github.com/thought-machine/please/archive/refs/tags/v$pkgver.tar.gz
+	fix-go-rules-go126.patch
 	"
 builddir="$srcdir/please-$pkgver"
 options="net" # download Go modules
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	local _buildargs="--plain_output --noupdate --profile=alpine"
@@ -67,6 +62,6 @@ tools() {
 }
 
 sha512sums="
-f54076c5ca8b7ab0246313e291647f6e870822ebb9001104ed6d705fd76853982756d21141e25c5f2b97f7d6d387c847e9e4d2a5174dafbcf59e980bca2173c2  please-build-17.17.0.tar.gz
-b28a5919b3550b5f8f3a460abefe3c2595aed17305486d328a384936138aa9fde01cf99932c088d472dc8df80d9741c67a36abf1799ac346596c8ccbcfe479f5  fix-test.patch
+c18a867e3b32edad61bb1ea06e680c615b2868bb95d9f1427caecf8b18137a48c905d5980c027ca2c0c2c4af7f5a1e0b97cc0c40d9e9ffeed539eb913e8773f2  please-build-17.28.0.tar.gz
+b809f23547c3775b8e265a1cddbdf99464df21f0800fb7c16d3c224c248046c56da84eff062c7ac2e333fb0f6a316d3c135401bb3aaa8e58538afc2456e42aac  fix-go-rules-go126.patch
 "

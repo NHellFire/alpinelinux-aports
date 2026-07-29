@@ -1,7 +1,7 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Wen Heping <wenhepingalpine@sohu.com>
 pkgname=nickle
-pkgver=2.103
+pkgver=2.108
 pkgrel=0
 pkgdesc="Desk calculator language with C-like syntax"
 url="https://nickle.org/"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-e60fa993b0c4d732106fcddfd7139c32bbf8bb443f8032c1344ea668fa0ee3cec1852c9dc674791ddf31220f38da6093d7f7a444341baf107592aef42bd8b9b0  nickle-2.103.tar.xz
+83f2e1f0eca0f5d925e53306677a872f623e80bf987a16fe83c2f8f3f6976369562fa5c082fbde3138c7e5147c412bf2b623d2520a2e01a5875bd2520f0da6a1  nickle-2.108.tar.xz
 "

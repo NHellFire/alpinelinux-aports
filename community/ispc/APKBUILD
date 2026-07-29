@@ -1,13 +1,13 @@
 # Contributor: Leon Marz <main@lmarz.org>
 # Maintainer: Leon Marz <main@lmarz.org>
 pkgname=ispc
-pkgver=1.28.1
+pkgver=1.31.0
 pkgrel=0
 pkgdesc="Intel SPMD Program Compiler"
 url="https://ispc.github.io/"
 arch="x86_64 aarch64" # ispc only supports these arches
 license="BSD-3-Clause"
-_llvmver=20
+_llvmver=22
 makedepends="cmake
 	bison
 	clang$_llvmver-dev
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-1ed2a60126150ff5e5af3a10cf767ba6b0b25258b5297f55be23fbc3b6f72ff23ad37bfc61c03ad0c05641e128f553a2da7fe65a15dda0cb14901f37f413ea19  ispc-1.28.1.tar.gz
+eff612d2671a6e8c033ec6b7247c49c74704a64e56535117c815a8db9cbfa73051fb2ee4326ed15c8fbe983beeec87c1a46d6041dc56672df37f9ac756bf5b5e  ispc-1.31.0.tar.gz
 "

@@ -1,7 +1,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=py3-seedir
 pkgver=0.5.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Python package for creating, editing, and reading folder tree diagrams"
 url="https://github.com/earnestt1234/seedir"
 arch="noarch"
@@ -21,7 +21,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

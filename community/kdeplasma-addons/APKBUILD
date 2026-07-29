@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdeplasma-addons
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="All kind of addons to improve your Plasma experience"
 # armhf blocked by qt6-qtdeclarative
@@ -29,17 +29,18 @@ depends_dev="
 	kwindowsystem-dev
 	networkmanager-qt-dev
 	libplasma-dev
-	plasma5support-dev>=$pkgver
+	plasma5support-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	sonnet-dev
 	"
 case "$CARCH" in
-	x86_64|armhf|armv7|aarch64)
+	x86_64|aarch64|ppc64le)
 		depends_dev="$depends_dev qt6-qtwebengine-dev"
 		;;
 esac
 makedepends="$depends_dev
+	corrosion
 	extra-cmake-modules
 	qt6-qtdeclarative-private-dev
 	samurai
@@ -65,7 +66,7 @@ build() {
 check() {
 	# converterrunnertest is broken
 	# datetimerunnertest requires running Wayland session
-	wlheadless-run -- ctest --test-dir build -E "(converterrunner|datetimerunner)test"
+	wlheadless-run -- ctest --test-dir build -E "(converterrunner|datetimerunner|kcm_(krunner_charrunner|cube|runner_spellcheck|krunner_dictionary)_smoke)test"
 }
 
 package() {
@@ -73,5 +74,5 @@ package() {
 }
 
 sha512sums="
-22834cf34ffe9437720aadb4b21e3f1fecce75162132dceef2866cf2a43f6a6fd0a04b51540c91150af29f9395ac6b197ad75fdf21413dbba77393af3bca1358  kdeplasma-addons-6.4.5.tar.xz
+5a495eda995d1fad1cb4e955d36ac5601f15b2de4216e973fe7b0adaa99030e5882110f25b7321ad75aaba3c018711f9db63d82d24083b5036e2438568d8c51b  kdeplasma-addons-6.7.3.tar.xz
 "

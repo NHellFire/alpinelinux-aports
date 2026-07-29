@@ -2,10 +2,10 @@
 # Contributor: Jake Buchholz Göktürk <tomalok@gmail.com>
 # Maintainer: Jake Buchholz Göktürk <tomalok@gmail.com>
 pkgname=docker
-pkgver=28.4.0
-_cli_commit=d8eb465f86cfceeb57f8582e373d41a558d35503    # https://github.com/docker/cli/releases/tag/v$pkgver
-_moby_commit=249d679a6baf8a32bb6d72d6ac5cc7ab9c90b4ea   # https://github.com/moby/moby/releases/tag/v$pkgver
-pkgrel=1
+pkgver=29.6.2
+_cli_commit=dfc4efb1e2ab8c06d70d2a1366ad448d2f917e90    # https://github.com/docker/cli/releases/tag/v$pkgver
+_moby_commit=3d80467678f6e36325fa9ae3dd486fe91e5652e3   # https://github.com/moby/moby/releases/tag/v$pkgver
+pkgrel=0
 pkgdesc="Pack, ship and run any application as a lightweight container"
 url="https://www.docker.io/"
 arch="all"
@@ -13,11 +13,38 @@ license="Apache-2.0"
 _engine_deps="ca-certificates containerd iptables tini-static"
 depends="docker-engine=$pkgver-r$pkgrel docker-cli=$pkgver-r$pkgrel docker-cli-buildx"
 makedepends="go btrfs-progs-dev bash linux-headers coreutils lvm2-dev libtool libseccomp-dev
-	$_engine_deps"
+	$_engine_deps log_proxy nftables-dev"
 options="net chmod-clean"
 install="$pkgname-engine.pre-install"
 
 # secfixes:
+#   29.6.2-r0:
+#     - GHSA-hw3h-2gp9-cxpv
+#     - GHSA-qx3x-mv6r-52p6
+#     - GHSA-32pv-7hq5-qhwq
+#     - GHSA-g2h8-426c-7976
+#     - GHSA-388v-wmr2-g2v2
+#   29.6.1-r0:
+#     - GHSA-mjcv-p78q-w5fw
+#     - GHSA-jpcc-p29g-p8mq
+#     - GHSA-72x6-4j93-7w86
+#     - GHSA-7236-3392-c5c6
+#   29.5.1-r0:
+#     - CVE-2026-41567
+#     - CVE-2026-41568
+#     - CVE-2026-43206
+#   29.4.3-r0:
+#     - CVE-2026-31431
+#   29.4.2-r0:
+#     - CVE-2026-31431
+#   29.3.1-r0:
+#     - CVE-2026-34040
+#     - CVE-2026-33997
+#     - CVE-2026-33748
+#     - CVE-2026-33747
+#   29.1.2-r0:
+#     - CVE-2025-61727
+#     - CVE-2025-61729
 #   28.3.3-r0:
 #     - CVE-2025-54388
 #   27.1.1-r0:
@@ -77,11 +104,12 @@ subpackages="
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	$pkgname-rootless-extras:rootless:noarch
+	$pkgname-systemd
 	"
 
 source="
 	cli-$pkgver.tar.gz::https://github.com/docker/cli/archive/v$pkgver.tar.gz
-	moby-$pkgver.tar.gz::https://github.com/moby/moby/archive/v$pkgver.tar.gz
+	moby-$pkgver.tar.gz::https://github.com/moby/moby/archive/refs/tags/docker-v$pkgver.tar.gz
 	docker.initd
 	docker.confd
 	docker-rootless-extras.conf
@@ -90,14 +118,10 @@ source="
 
 builddir="$srcdir"
 _cli_builddir="$srcdir/cli-$pkgver"
-_moby_builddir="$srcdir/moby-$pkgver"
+_moby_builddir="$srcdir/moby-docker-v$pkgver"
 
 _buildtags="seccomp"
 
-export GO111MODULE=off # go1.16 defaults to on
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 export CGO_ENABLED=1 # go1.22 needs this
 
 build() {
@@ -115,9 +139,7 @@ build() {
 	# engine (moby)
 	msg "building engine"
 	cd "$_moby_builddir"
-	mkdir -p src/github.com/docker/
-	ln -sf "$_moby_builddir" src/github.com/docker/docker
-	GOPATH="$PWD" VERSION="$pkgver" hack/make.sh dynbinary
+	GOPATH="$PWD/src" VERSION="$pkgver" hack/make.sh dynbinary
 
 	# Required for building man-pages
 	export GOPATH="$_cli_builddir"
@@ -162,6 +184,9 @@ package() {
 
 	install -Dm755 "$srcdir"/docker.initd "$pkgdir"/etc/init.d/docker
 	install -Dm644 "$srcdir"/docker.confd "$pkgdir"/etc/conf.d/docker
+	install -Dm644 "$_moby_builddir"/contrib/init/systemd/docker.service \
+		"$_moby_builddir"/contrib/init/systemd/docker.socket  \
+		-t "$pkgdir"/usr/lib/systemd/system/
 
 	install -Dm755 "$srcdir"/docker-user.initd "$pkgdir"/etc/user/init.d/docker
 }
@@ -200,8 +225,8 @@ rootless() {
 	url="https://docs.docker.com/engine/security/rootless/"
 	depends="$pkgname rootlesskit slirp4netns fuse-overlayfs"
 
-	install -Dm755 "$srcdir/moby-$pkgver/contrib/dockerd-rootless.sh" "$subpkgdir/usr/bin/dockerd-rootless"
-	install -Dm644 "$srcdir/docker-rootless-extras.conf" "$subpkgdir/etc/modules-load.d/docker-rootless-extras.conf"
+	install -Dm755 "$_moby_builddir/contrib/dockerd-rootless.sh" "$subpkgdir/usr/bin/dockerd-rootless"
+	install -Dm644 "$srcdir/docker-rootless-extras.conf" "$subpkgdir/usr/lib/modules-load.d/docker-rootless-extras.conf"
 }
 
 rootless_openrc() {
@@ -212,8 +237,8 @@ rootless_openrc() {
 }
 
 sha512sums="
-ab35867bdcaa07909cfd24e9bc4f5cde10b6930fa42e87d61d4544bb20b365fff146713239483169ef989cacfae7d7493d7f42d269b0f37f86c0c14a9373b445  cli-28.4.0.tar.gz
-a98f8012547dc1e61e6a4f420355d29fbd6f6ddb5642601d8762099768e0b284fcf129ee31af155049731f61f43ff4efe42313467055dae32337dc5cc8c8cf78  moby-28.4.0.tar.gz
+12104bc6811ee75153423cf69f6b40b7ab319fdbe05d6b16b8483372891e722281f7cf836bc3be6d2d18a30d7e5cb66a57915fc8c5cc85d620d9f4c6010acff0  cli-29.6.2.tar.gz
+4266286de1756c6175e88a9afbe13661670f2ccd3c9451926b2d3a84c59502c3c0c503407017c8d167da0a3897a4819768f548dc4c0a1e75c7aa85b2344549d2  moby-29.6.2.tar.gz
 d74bd831291c0dca6d95436c42d426ef318b551b9dc1b0d0cc74476dec349828d19376200c779e30bcdb3707a4880ab3bc3cc754d1d5e64bb7cf8d7be62eb763  docker.initd
 43432a05e5776910d45364aee9070932aa89f70eb9e69d3b7ed8e17d9a70eaed4c8c29b3524888214c7ddba592399e781a72255f7eb8fafd80c9f532a9481fac  docker.confd
 45499bbd9d607cb782b014a2d5697d7279f327ac630accf249a13785d91e15fb0ba1ae2edc10b6b42fcf40b7ce23ef160a40d8cda17b3084d68fe8c54a84b8f4  docker-rootless-extras.conf

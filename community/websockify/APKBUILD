@@ -1,9 +1,9 @@
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=websockify
 pkgver=0.13.0
-pkgrel=0
+pkgrel=2
 pkgdesc="WebSockets support for any application/server"
 url="https://github.com/novnc/websockify"
 arch="noarch"

@@ -1,7 +1,7 @@
 # Contributor: Noel Kuntze <noel.kuntze@thermi.consulting>
 # Maintainer: Noel Kuntze <noel.kuntze@thermi.consulting>
 pkgname=fehqlibs
-pkgver=27
+pkgver=31
 pkgrel=0
 pkgdesc="State-of-the-art C routines for Internet services"
 url="http://www.fehcom.de/ipnet/qlibs.html"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-e1918514f34a0301a656ee93d396914ddcaf53c85e2ec5419200f04f43114db639aaa55b0404eee1db5e428299855b434830771ce06a6e6d3334607f8ce9b6ae  fehQlibs-27.tgz
+f1b05b3da7c2e56742ed0cd6281c5a0572ccc2e467bc02bf348fbd59151ea624b122e149772b976c44b8f7472b41a8843dab1d143124aba7b489ac7b0b04061d  fehQlibs-31.tgz
 "

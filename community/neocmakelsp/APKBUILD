@@ -1,0 +1,49 @@
+maintainer="qaqland <qaq@qaq.land>"
+pkgname=neocmakelsp
+pkgver=0.11.0
+pkgrel=0
+pkgdesc="CMake LSP implementation based on Tower and Tree-sitter"
+url="https://neocmakelsp.github.io"
+arch="all"
+license="MIT"
+makedepends="cargo cargo-auditable"
+subpackages="
+	$pkgname-doc
+	$pkgname-bash-completion
+	$pkgname-fish-completion
+	$pkgname-zsh-completion
+	"
+source="https://github.com/neocmakelsp/neocmakelsp/archive/v$pkgver/neocmakelsp-$pkgver.tar.gz"
+options="net" # cargo fetch
+
+prepare() {
+	default_prepare
+
+	cargo fetch --target="$CTARGET" --locked
+}
+
+build() {
+	cargo auditable build --frozen --release
+}
+
+check() {
+	cargo test --frozen -- --test-threads 1
+}
+
+package() {
+	install -Dm755 target/release/neocmakelsp "$pkgdir"/usr/bin/$pkgname
+
+	install -Dm644 README.md -t "$pkgdir"/usr/share/doc/$pkgname
+	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname
+
+	install -Dm644 completions/bash/neocmakelsp \
+		-t "$pkgdir"/usr/share/bash-completion/completions
+	install -Dm644 completions/fish/neocmakelsp.fish \
+		-t "$pkgdir"/usr/share/fish/vendor_completions.d
+	install -Dm644 completions/zsh/_neocmakelsp \
+		-t "$pkgdir"/usr/share/zsh/site-functions
+}
+
+sha512sums="
+829cdb23b114f9dbe49a0369517961ed14bbc484c5bea5ff3ce2a2e6408143cae4f4980b11870cfb56074bc9a902d233164967eed9edf7e3f3dca35c97f570b2  neocmakelsp-0.11.0.tar.gz
+"

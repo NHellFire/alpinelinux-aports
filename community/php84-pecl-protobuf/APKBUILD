@@ -2,11 +2,12 @@
 # Maintainer: TBK <alpine@jjtc.eu>
 pkgname=php84-pecl-protobuf
 _extname=protobuf
-pkgver=4.32.0
+pkgver=5.34.0
 pkgrel=0
 pkgdesc="PHP 8.4 extension: Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data."
 url="https://pecl.php.net/package/protobuf"
-arch="all"
+# s390x segf
+arch="all !s390x"
 license="BSD-3-Clause"
 _phpv=84
 _php=php$_phpv
@@ -36,5 +37,5 @@ package() {
 }
 
 sha512sums="
-5135c6cf8db9d283b1b42432c129232a532abf00d52e7e56d239ef7061a5f363bb6238a606c043eec029db13f310cec362d2bc993e296e2444694fa4b3919be0  php-pecl-protobuf-4.32.0.tgz
+bcaedc37da1d6692ace5699a74f51fcba0287466ebb534caaaa71503ee82154d686d2cc3fe9c2e642f72f6ae25dc19193b64ae96709fc6edfd84ab6ec56b2132  php-pecl-protobuf-5.34.0.tgz
 "

@@ -1,7 +1,7 @@
 # Contributor: André Klitzing <aklitzing@gmail.com>
 # Maintainer: André Klitzing <aklitzing@gmail.com>
 pkgname=ostree
-pkgver=2025.6
+pkgver=2026.1
 pkgrel=0
 pkgdesc="Operating system and container binary deployment and upgrades"
 url="https://github.com/ostreedev/ostree"
@@ -39,11 +39,6 @@ source="https://github.com/ostreedev/ostree/releases/download/v$pkgver/libostree
 builddir="$srcdir/lib$pkgname-$pkgver"
 # todo: fails to make stuff in var/tmp in root
 options="!check"
-
-prepare() {
-	default_prepare
-	update_config_sub
-}
 
 build() {
 	CFLAGS="$CFLAGS -flto=auto" \
@@ -120,5 +115,5 @@ mkinitfs() {
 }
 
 sha512sums="
-ca321175a9272cc7f6c3d7a3989d90d2cbb53def41ac2984ce6a60a05007b5760960a1bf4e9a5f13adc246c7061214424f21a5a284c201d8c4a4f5c619c6e02d  libostree-2025.6.tar.xz
+df5123a8455f5fda8b3d06c682d01fdf3603965e1990f66ccc3eef0bc6f59eddf1cde118a79d82218c95612d8ffa0af4befdfc613ac6c4480444f90edfd66df2  libostree-2026.1.tar.xz
 "

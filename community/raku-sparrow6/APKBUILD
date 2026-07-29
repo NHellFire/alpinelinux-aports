@@ -1,11 +1,11 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Robert Mongold <rmongold@gmail.com>
 pkgname=raku-sparrow6
-pkgver=0.0.78
-pkgrel=0
+pkgver=0.0.93
+pkgrel=1
 pkgdesc="Raku-based automation framework"
 url="https://github.com/melezhik/Sparrow6"
-arch="all !s390x" # raku-yamlish
+arch="all"
 license="Artistic-2.0"
 depends="
 	bash
@@ -46,5 +46,5 @@ package() {
 }
 
 sha512sums="
-a7b1c43aa049408fd112d493aee34be4f9b06cf5844ff5fb8e723740e07cd14e36095297e2b7d9d670c3777109e41e5b352a5b3c8b326f881a1ae021c988e8eb  raku-sparrow6-0.0.78.tar.gz
+51934c1c3c7f68d2f420bf0bfdc7559da1a222e193a41ad34a662c6101d295c58ab3a795d5fce58b4d14e1d3e1bad5522a1492b942f54f455f2d62aea2496ad7  raku-sparrow6-0.0.93.tar.gz
 "

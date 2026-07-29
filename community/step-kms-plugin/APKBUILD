@@ -1,8 +1,8 @@
 # Contributor: Dermot Bradley <dermot_bradley@yahoo.com>
 maintainer="Wolfgang Fischer <wdev@posteo.org>"
 pkgname=step-kms-plugin
-pkgver=0.14.1
-pkgrel=2
+pkgver=0.17.0
+pkgrel=1
 pkgdesc="Step plugin to manage keys and certs on KMSs and HSMs"
 url="https://github.com/smallstep/step-kms-plugin"
 arch="all"
@@ -13,10 +13,6 @@ makedepends="
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/smallstep/step-kms-plugin/archive/refs/tags/v$pkgver.tar.gz"
 options="net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make VERSION=$pkgver build
@@ -31,5 +27,5 @@ package() {
 }
 
 sha512sums="
-9eeed49db8bf4a5daab998e0d95ed9f8d9aa23432e956eeb1129a4b02e21bf3f5404111a9d9a139ff5802160a91ca3e23226d51347da6d321feb52e2e822f091  step-kms-plugin-0.14.1.tar.gz
+f0bcc115fbb8e9dad1273ef704919af9f36da8cbf8bce60d90831e4d81574d83dccc83d26eb42bb604d977e56f919becb1a49f00e570dc7d5fefe052891017de  step-kms-plugin-0.17.0.tar.gz
 "

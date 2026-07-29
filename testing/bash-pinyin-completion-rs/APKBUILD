@@ -1,6 +1,6 @@
 # Maintainer: qaqland <qaq@qaq.land>
 pkgname=bash-pinyin-completion-rs
-pkgver=0.3.0
+pkgver=1.0.4
 pkgrel=0
 pkgdesc="Simple completion script for pinyin, written in rust"
 url="https://github.com/AOSC-Dev/bash-pinyin-completion-rs"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-63490952807dfb543d97cf6289776ddc0c3e7b2683343be670b6232b5286b4c48f934091d89bddb07cb0af5fa243ac50bb3671452e483ad4b823f4b647d97c3c  bash-pinyin-completion-rs-0.3.0.tar.gz
+1f61f603f9e020f17ba488474c5eca75f356ab8871cca44193f52e756af764e59686fa847e3f803fa991d4b2a3c51dc18f4f57d79af044d093f7a5f77058cae5  bash-pinyin-completion-rs-1.0.4.tar.gz
 "

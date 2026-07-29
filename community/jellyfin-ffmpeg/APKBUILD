@@ -1,11 +1,12 @@
 # Contributor: Sergei Lukin <sergej.lukin@gmail.com>
 # Contributor: Łukasz Jendrysik <scadu@yandex.com>
 # Contributor: Jakub Skrzypnik <j.skrzypnik@openmailbox.org>
-# Maintainer: FintasticMan <finlay.neon.kid@gmail.com>
+# Contributor: FintasticMan <finlay.neon.kid@gmail.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=jellyfin-ffmpeg
-pkgver=7.1.1_p7
+pkgver=7.1.3_p5
 _pkgver="${pkgver/_p/-}"
-pkgrel=0
+pkgrel=1
 pkgdesc="Modified version of FFmpeg for Jellyfin"
 url="https://github.com/jellyfin/jellyfin-ffmpeg"
 arch="all"
@@ -52,8 +53,8 @@ builddir="$srcdir/$pkgname-$_pkgver"
 
 case "$CARCH" in
 x86_64)
-	makedepends="$makedepends onevpl-dev"
-	_onevpl="--enable-libvpl"
+	makedepends="$makedepends libvpl-dev"
+	_libvpl="--enable-libvpl"
 	;;
 esac
 
@@ -112,7 +113,7 @@ build() {
 		--enable-version3 \
 		--enable-vulkan \
 		$asm \
-		$_onevpl
+		$_libvpl
 	make
 }
 
@@ -130,5 +131,5 @@ package() {
 }
 
 sha512sums="
-62115558cea305e5f7f573df91a7fe39bb62dc01619764f2a8e451669187ee448a44542fa77c953819b392362ab37096c46ced25e944c5ee87361c02fb1c6211  jellyfin-ffmpeg-7.1.1-7.tar.gz
+0ba45e8c4b2a6926a67881e1081a9039b570e6b0f2071910755b40f1b14cfcdbb4d62e937c2151e0075d99d9e0667080bbbd09263665a9d83e79e307367186a0  jellyfin-ffmpeg-7.1.3-5.tar.gz
 "

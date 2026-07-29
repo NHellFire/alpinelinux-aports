@@ -1,0 +1,54 @@
+# Contributor: Clayton Craft <clayton@craftyguy.net>
+# Maintainer: Clayton Craft <clayton@craftyguy.net>
+pkgname=cosmic-initial-setup
+pkgver=1.4.0
+_upstreamver="${pkgver/_beta/-beta.}"
+_upstreamver="${_upstreamver/_p/.}"
+pkgrel=0
+pkgdesc="Initial setup for the COSMIC Desktop Environment"
+url="https://github.com/pop-os/cosmic-initial-setup"
+# armv7, armhf, x86: DO NOT RE-ENABLE! 32-bit is problematic, often requires carrying patches to fix
+# riscv64: too slow to build
+arch="all !armv7 !armhf !riscv64 !x86"
+license="GPL-3.0-or-later"
+depends="
+	cosmic-icons
+"
+makedepends="
+	cargo-auditable
+	eudev-dev
+	desktop-file-utils
+	just
+	libinput-dev
+	libxkbcommon-dev
+	mesa-dev
+	openssl-dev
+	wayland-dev
+	wayland-protocols
+"
+options="net !check"  # fetch dependencies, no tests
+source="
+	$pkgname-$pkgver.tar.gz::https://github.com/pop-os/cosmic-initial-setup/archive/refs/tags/epoch-$_upstreamver.tar.gz
+"
+builddir="$srcdir/$pkgname-epoch-$_upstreamver"
+
+prepare() {
+	default_prepare
+	cargo fetch --target="$CHOST" --locked
+}
+
+build() {
+	cargo auditable build --release --frozen
+}
+
+check() {
+	cargo test --frozen
+}
+
+package() {
+	just rootdir="$pkgdir" install
+}
+
+sha512sums="
+3a17533ab2bd2495ab851ce28b84f5dc91034878682a751fed3b295dbf81ffe83f463e04e11df9ee3d69ac65e1cb6b2f6d365c4b1642f400c740e51a69d40af1  cosmic-initial-setup-1.4.0.tar.gz
+"

@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <achill@achill.org>"
 pkgname=aurorae
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Themeable window decoration for KWin"
 # armhf blocked by qt6-qtdeclarative
@@ -10,7 +10,6 @@ arch="all !armhf"
 url="https://kde.org/plasma-desktop/"
 license="GPL-2.0-or-later"
 makedepends="
-	cmake
 	extra-cmake-modules
 	kcmutils-dev
 	kcolorscheme-dev
@@ -19,6 +18,7 @@ makedepends="
 	kdecoration-dev
 	ki18n-dev
 	knewstuff-dev
+	ksvg-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qttools-dev
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-0e30895b3b96f6204b1949b5c4e282b8386b6bfaa1b1f0824b930b2bd45932d5a12e9061f02a1197cbec292ca1f101f396086fe5e711985d0f4ef3002d5bf4cf  aurorae-6.4.5.tar.xz
+3439ff0d0f50d68049408a720fa88d4cd39e7032e772bf9d954e2d7c25fabed36c1b501d0b96364b11a8beb2c54a6d50c4e460c2481a8bca050fcad3f450d449  aurorae-6.7.3.tar.xz
 "

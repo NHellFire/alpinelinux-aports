@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kcodecs
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Provide a collection of methods to manipulate strings using various encodings"
 arch="all"
@@ -18,7 +18,10 @@ makedepends="
 	samurai
 	"
 checkdepends="xwayland-run"
-subpackages="$pkgname-dev $pkgname-lang"
+subpackages="
+	$pkgname-dev
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/frameworks/kcodecs.git"
 source="https://download.kde.org/stable/frameworks/${pkgver%.*}/kcodecs-$pkgver.tar.xz"
 case "$CARCH" in
@@ -52,5 +55,5 @@ package() {
 }
 
 sha512sums="
-5a99a5696089c3b0721283c3976147b3d43177f57fb8aa626241a6810fbb73e958dcd76ca1c64a4494bfa9cce545732c982e1496fd09cc9a267504a4d1d6bc3b  kcodecs-6.17.0.tar.xz
+6130f2a0e709b6da2a3dfcb1affc028bb61da0b15642b460d393e7c1b8abbc91cab30be597a907bf0490e565384e17e01d929c479623587895fd0e0b6cd8b178  kcodecs-6.28.0.tar.xz
 "

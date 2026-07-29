@@ -1,6 +1,6 @@
 # Maintainer: Oliver Smith <ollieparanoid@postmarketos.org>
 pkgname=vermin
-pkgver=1.6.0
+pkgver=1.8.0
 pkgrel=1
 pkgdesc="Detect the minimum Python versions needed to run code"
 url="https://github.com/netromdk/vermin"
@@ -27,5 +27,5 @@ package() {
 }
 
 sha512sums="
-94159631f284284ced726f6847a3cb1ea6590b269b8af3bdb9064325506d82d8b3011323cc70b507d6ee1695c40684c577f04382f5f116639f16f7ada2e8d6fd  vermin-1.6.0.tar.gz
+d8e6d8d789ab2b6cff21147f6534164a54d1ceb2ac174e6ac7b49f833e2552c293df13451be27e9201847f74e046c5607eeb3faaf55ae1bb081c7fa272ed675f  vermin-1.8.0.tar.gz
 "

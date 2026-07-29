@@ -2,7 +2,7 @@
 # Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
 # Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
 pkgname=perl-datetime-format-natural
-pkgver=1.19
+pkgver=1.27
 pkgrel=0
 #_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=DateTime-Format-Natural
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-3c057f4fd7ba7aabbfea5d16a155d4a84891f35b371ccac93c901ac3c93aa3a6c9aee1349c3e0768eb802a5709c7cf68784e9b4132b7956a770e3f5510af4c6e  DateTime-Format-Natural-1.19.tar.gz
+b8f3e3c8c35afec39edd9919d94d32ac423006726d36ab598cfa3339a77d4d99e5077b8a89e9df82c262a2aefba497461f4f7465a07867d35c50e5295993d0f8  DateTime-Format-Natural-1.27.tar.gz
 "

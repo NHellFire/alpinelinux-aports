@@ -1,8 +1,9 @@
 # Contributor: Clayton Craft <clayton@craftyguy.net>
 # Maintainer: Clayton Craft <clayton@craftyguy.net>
 pkgname=ytdl-sub
-pkgver=2025.04.03
-pkgrel=0
+pkgver=2026.02.04
+_pkgver="${pkgver//_p/.post}"
+pkgrel=1
 pkgdesc="tool for downloading media with yt-dlp and creating metadata"
 url="https://github.com/jmbannon/ytdl-sub"
 arch="noarch"
@@ -22,17 +23,18 @@ makedepends="
 	"
 checkdepends="py3-pytest py3-pytest-cov"
 subpackages="$pkgname-pyc"
-source="$pkgname-$pkgver.tar.gz::https://codeload.github.com/jmbannon/ytdl-sub/tar.gz/refs/tags/$pkgver"
+source="$pkgname-$pkgver.tar.gz::https://codeload.github.com/jmbannon/ytdl-sub/tar.gz/refs/tags/$_pkgver"
 # tests connect out to the internet
 options="!check"
+builddir="$srcdir/$pkgname-$_pkgver"
 
 prepare() {
 	default_prepare
 
 	# hardcoded incorrect version
 	cat >>src/ytdl_sub/__init__.py <<-EOF
-	__pypi_version__ = "$pkgver"
-	__local_version__ = "$pkgver"
+	__pypi_version__ = "$_pkgver"
+	__local_version__ = "$_pkgver"
 	EOF
 }
 
@@ -54,5 +56,5 @@ package() {
 }
 
 sha512sums="
-b347799bd04e70426bf0caa28ef45912da1b5ca6fd78b33bf5721e464bb0edc5e04d90f4fc946d911bc8d26efb22c23acb5f52c7f058dc95ae9ed789a5f184e0  ytdl-sub-2025.04.03.tar.gz
+0c63de02769d6154ff6ba5f94badf87eacdf1e9acf8efb0703b5c24b5709a38d33bef153d1f0776781ed8d2d96e0492636429d4d48d143ee209cd8bc355e4c5b  ytdl-sub-2026.02.04.tar.gz
 "

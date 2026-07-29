@@ -1,9 +1,9 @@
 # Contributor: A. Wilcox <awilfox@adelielinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=libpipeline
 pkgver=1.5.8
-pkgrel=0
+pkgrel=1
 pkgdesc="C pipeline manipulation library"
 url="https://libpipeline.gitlab.io/libpipeline/"
 arch="all"

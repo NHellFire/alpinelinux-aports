@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=filelight
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-57a7a18f969385c3590686f510515f73f314aefb0d8fa142294ec6c667b0ad0a1670533cd09473365ab904ed23b1bdf3cc6b9bb77a4b8b4ac26f2bfa4ea9be8e  filelight-25.08.0.tar.xz
+e9d2ab778dc2df6e06e02407b1811a5463c738a28627fb3e6a005329ef34b28997ab2f45cfc3ae6530efd2ea0ce0d8412404264d47e1a5777e374fc48346b2c3  filelight-26.04.3.tar.xz
 "

@@ -1,7 +1,7 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=lxqt-openssh-askpass
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="GUI to query passwords on behalf of SSH agents"
 url="https://github.com/lxqt/lxqt-openssh-askpass"
@@ -39,5 +39,5 @@ lang() {
 }
 
 sha512sums="
-6979e0559227b776e69e9f901985d3a9a0b1f72eb52b20017f2ca5cf7131b4a67f01b5b69fe3b72d24ceefe8ccfc8236a68f931a845606c78a610959144d95f0  lxqt-openssh-askpass-2.2.0.tar.xz
+6dbc68638026631aaf31c1533e08acc20feb9b5f04e6bf88cad175261f32efe960dfcbde1e9b90ba846a9a69bb6b8409afa7a332c6753bb27d5ffa6f33f8725e  lxqt-openssh-askpass-2.4.0.tar.xz
 "

@@ -3,7 +3,7 @@
 pkgname=py3-redmine
 _pkgname=python-redmine
 pkgver=2.5.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A simple library for communicating with redmine"
 url="https://github.com/maxtepkeev/python-redmine"
 arch="noarch"
@@ -26,7 +26,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

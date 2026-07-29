@@ -1,8 +1,9 @@
 # Contributor: Miguel Terron <miguel.a.terron@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=mawk
-pkgver=1.3.4_p20250131
+pkgver=1.3.4_p20260302
 pkgrel=0
 _pkgver=${pkgver/_p/-}
 pkgdesc="mawk is an interpreter for the AWK Programming Language"
@@ -10,12 +11,12 @@ url="https://invisible-island.net/mawk/"
 arch="all"
 license="GPL-2.0-only"
 subpackages="$pkgname-doc"
-source="https://invisible-island.net/archives/mawk/mawk-$_pkgver.tgz"
+source="https://invisible-island.net/archives/mawk/mawk-$_pkgver.tgz
+	disable-nan-tests.patch
+	"
 builddir="$srcdir/$pkgname-$_pkgver"
 
 build() {
-	# implicit decls for srandom/environ
-	CFLAGS="$CFLAGS -D_GNU_SOURCE" \
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \
@@ -35,5 +36,6 @@ package() {
 }
 
 sha512sums="
-100b1f5ee190d2841d5dee449c53601a6d32453e47b232de919f3489f6f7040d0c6d21f6c7d30df616b04abde2db9799c5eb16570c1f88dbc10fcd75c5838042  mawk-1.3.4-20250131.tgz
+9ee6442d9475e895aef0f2f1b623c91c6e795561c2b4c25b9d9a42ce3aa5c1e622141f85a34a8012b6145b7509cdce2f7faefb3bb863267b6982543888a42370  mawk-1.3.4-20260302.tgz
+a500d743863b03a58c5db9b4563ced04c389df4f5d1e81ffa43d086a18210dbcdee1f6c369abbfe387768caef32b29b723b1389b7a99bc421ce7c06a1bd2121b  disable-nan-tests.patch
 "

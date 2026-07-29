@@ -2,12 +2,11 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=R
-pkgver=4.5.1
-pkgrel=1
+pkgver=4.6.1
+pkgrel=0
 pkgdesc="Language and environment for statistical computing"
 url="https://www.R-project.org/"
-# riscv64: fails tests of complex arithmetic, including example(complex)
-arch="all !riscv64"
+arch="all"
 license="( GPL-2.0-only OR GPL-3.0-only ) AND LGPL-2.1-or-later"
 depends="$pkgname-mathlib tzdata"
 depends_dev="
@@ -94,9 +93,10 @@ check() {
 
 	case "$CARCH" in
 		# A (non-portable) numerical regression test currently (R 4.4.0)
-		# fails on the aarch64, loongarch64 and s390x runners.
+		# fails on the aarch64, loongarch64, riscv64 and s390x runners.
+		# riscv64 fails tests of complex arithmetic.
 		# Run at least two basic test suites:
-		aarch64 | s390x | loongarch64)
+		aarch64 | s390x | loongarch64 | riscv64)
 			make -C tests test-Examples && make -C tests test-Specific || {
 				tail -v -n 42 tests/Examples/*.fail tests/*.fail 2>/dev/null; exit 1
 			}
@@ -151,5 +151,5 @@ mathlib() {
 }
 
 sha512sums="
-b357bb6db93d1068d90505da02f14872d28f00d42e531a078c001370d14df4dd28202b5ae359d793b29c6396d89db42849711375a96048210895bfb42d0a62d1  R-4.5.1.tar.gz
+2f40e7e0b5808052bb177c9cdac8045a365a42835bb98e183421282dfd3ba8cbdc13e4efccf7753c0ba0faed1f289a77697ae1fe1659bca1fb54008f8b9d98d2  R-4.6.1.tar.gz
 "

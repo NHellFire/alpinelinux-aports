@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwallet-pam
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="KWallet PAM integration"
 # armhf blocked by qt6-qtdeclarative -> kwallet
@@ -17,12 +17,11 @@ makedepends="
 	linux-pam-dev
 	samurai
 	"
-
+subpackages="$pkgname-systemd"
 case "$pkgver" in
 	*.*.9*) _rel=unstable;;
 	*) _rel=stable;;
 esac
-
 _repo_url="https://invent.kde.org/plasma/kwallet-pam.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/kwallet-pam-$pkgver.tar.xz"
 # No tests available
@@ -39,11 +38,8 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-e9f646204975e9bf9bc8abd6017e36430beef347a53a5d8ea82ac554e9d969308e112ddede4628376ad248dc8e7e885d49abb945c4ddc664a5c7625883f3f222  kwallet-pam-6.4.5.tar.xz
+b0d70d3cff39cf98f0769da068a2200fd39b1400437c972d34dabf732cfbc8feb67f9558505a84eea0b79edb9b90327885a222e4aa34c0d349178762394e0fd5  kwallet-pam-6.7.3.tar.xz
 "

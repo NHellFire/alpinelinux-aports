@@ -1,7 +1,7 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=otree
-pkgver=0.6.1
+pkgver=0.7.1
 pkgrel=0
 pkgdesc="View JSON/YAML/TOML objects in a TUI tree widget"
 url="https://github.com/fioncat/otree"
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-075103b077b833f05a4e1e21846bb1cca8d717a6dd5d7fb698e0e745af0b46e142e498085269d23ea36434e11bfdf0880a66e922380769d358c5f88f0b35d091  otree-0.6.1.tar.gz
+3502944247f7a974e7a3e56a57930a8bc1c428453bc2536b4d77163b16cf0a2017cfa39c87312ac9890bc4b9d838e44987fc2206c5d53041f040c220cf7b412c  otree-0.7.1.tar.gz
 "

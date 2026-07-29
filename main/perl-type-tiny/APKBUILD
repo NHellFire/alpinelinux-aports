@@ -2,7 +2,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=perl-type-tiny
-pkgver=2.008003
+pkgver=2.010001
 pkgrel=0
 #_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=Type-Tiny
@@ -42,5 +42,5 @@ doc() {
 }
 
 sha512sums="
-dcb67373d0fa6d44c6df68207ca5ab67abfe32fb733196468316dea3b806965bfc745a82cba5b31c3033a005eb6e7f6c5c5892f9397b6d970f9e170314430ab9  Type-Tiny-2.008003.tar.gz
+1bc3c2d2e391ea489862c5b20a918fed1c056db95f949e23e0fe042764fd7d33da71b5adec25fd3f7fdc7c0b198eb4a8bad87bfd5e3eb8e20de17bd0f2680d4b  Type-Tiny-2.010001.tar.gz
 "

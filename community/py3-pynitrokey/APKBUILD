@@ -1,35 +1,28 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-pynitrokey
-pkgver=0.9.0
+pkgver=0.12.3
 pkgrel=0
 pkgdesc="Python Library for Nitrokey devices"
 url="https://github.com/Nitrokey/pynitrokey"
-# s390x blocked by py3-spsdk
-arch="all !s390x"
+arch="all"
 license="Apache-2.0 AND MIT"
 depends="
 	nitrokey-udev-rules
 	py3-click
 	py3-click-aliases
 	py3-cryptography
-	py3-dateutil
-	py3-ecdsa
 	py3-fido2
-	py3-frozendict
 	py3-intelhex
 	py3-libusb1
 	py3-nethsm
 	py3-nitrokey
 	py3-nkdfu
-	py3-protobuf
 	py3-pyserial
 	py3-requests
 	py3-semver
-	py3-spsdk
 	py3-tlv8
 	py3-tqdm
 	py3-typing-extensions
-	py3-urllib3
 	"
 makedepends="
 	poetry
@@ -60,5 +53,5 @@ package() {
 }
 
 sha512sums="
-061cfefb74ea7c7cb4357aa0336b5de2d0ef45e5cccd80970dc42e810a0bf9c0920a7666d16b61fa4df2613913fe4755dd949a22d5fbf220e2defe5b668fdcd6  pynitrokey-0.9.0.tar.gz
+feb11f29983c16b1f84d4620d2398b417a7b18d3c45ba7cd815615369bb48191e63988419683f24ce68f75df2f58906141164bc067a4e31469849cc2f171d022  pynitrokey-0.12.3.tar.gz
 "

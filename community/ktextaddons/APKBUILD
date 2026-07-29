@@ -2,7 +2,7 @@
 # group=kde-other
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=ktextaddons
-pkgver=1.7.1
+pkgver=2.1.1
 pkgrel=0
 pkgdesc="Various text handling addons"
 # armhf blocked by qt6-qtdeclarative -> syntax-highlighting
@@ -24,21 +24,31 @@ makedepends="$depends_dev
 	doxygen
 	extra-cmake-modules
 	graphviz
+	kde-qdoc-common
 	samurai
 	"
 checkdepends="xwayland-run"
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-dev
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/libraries/ktextaddons.git"
 source="https://download.kde.org/stable/ktextaddons/ktextaddons-$pkgver.tar.xz"
 
 build() {
+	export KDE_DOCS=/usr/share/kde/documentation
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_DESIGNERPLUGIN=ON \
-		-DBUILD_QCH=ON
+		-DBUILD_DESIGNERPLUGIN=ON
 	cmake --build build
+
+	# Doc generation fails:
+	# Error in line 3: Namespace "" has invalid syntax
+	#cmake --build build --target prepare_docs
+	#cmake --build build --target generate_docs
+	#cmake --build build --target generate_qch
 }
 
 check() {
@@ -47,20 +57,30 @@ check() {
 		grammalecte(resultwidget|resultjob|configwidget)
 		translator-translator(widget|engineloader)
 		textgotolinewidget
-	"
+		"
+	case "$CARCH" in
+		arm*|x86) tests="$tests
+			textautogenerate-core-textautogenerateattachments
+			textautogenerate-core-textautogeneratechat
+			textautogenerate-core-textautogeneratemessage
+			"
+		;;
+	esac
+
 	for test in $tests; do
 		skipped_tests="$skipped_tests|$test"
 	done
-	case "$CARCH" in
-	arm*|x86) skipped_tests="$skipped_tests|textautogenerate-core-textautogenerate(message|chat)" ;;
-	esac
+
 	skipped_tests="$skipped_tests)test"
 	wlheadless-run -- ctest --test-dir build -E "$skipped_tests"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
+
+	#DESTDIR="$pkgdir" cmake --build build --target install_html_docs
+	#DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 sha512sums="
-4268b402ad5f1d07c739e576dd8d9b8af2e34c4f50d4ce5bd78889a3f364645017175778e71ea628ab2e5baa96731e8324797f490ede131a05d69ae3f2edba37  ktextaddons-1.7.1.tar.xz
+5a6b0386724d7deea1a3f39c4682285a23ba9c264c8e04bc3427b904e0c2faeeab6a4088b346feffad9897c70011b15a2182920a89a1324a829479345c0d03d0  ktextaddons-2.1.1.tar.xz
 "

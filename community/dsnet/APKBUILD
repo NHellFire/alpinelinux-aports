@@ -1,10 +1,10 @@
 # Contributor: Marvin Preuss <marvin@xsteadfastx.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=dsnet
 pkgver=0.8.1
 _rev=60242f2e6b03923f4474c6d8c5961ed6c4317f89 # used for version command
-pkgrel=3
+pkgrel=11
 pkgdesc="Fast command to manage a centralised wireguard VPN"
 url="https://github.com/naggie/dsnet"
 arch="all"
@@ -13,10 +13,6 @@ makedepends="go"
 options="!check chmod-clean net" # no tests available
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/naggie/dsnet/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build \

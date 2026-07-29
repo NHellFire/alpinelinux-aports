@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=sddm-kcm
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Config module for SDDM"
 # armhf blocked by qt6-qtdeclarative
@@ -55,5 +55,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-817bfe438ece7f37f7573f90ad86e0d112bb2c30367e78846bf3b09b669e948385d31f61785b621d063c7e8a6f8e00dc13883b8158b0796621dd5a7e82c26b0c  sddm-kcm-6.4.5.tar.xz
+b67f7645d3ee3a155a30f16814f6c55521082f98413a43cb2324ff275d0e342cdec50e45b458a4cab565cca24b053b06600e984fe3bfbab6c3cc23352df15944  sddm-kcm-6.7.3.tar.xz
 "

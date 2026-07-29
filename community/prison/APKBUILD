@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=prison
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="A barcode API to produce QRCode barcodes and DataMatrix barcodes"
 # armhf blocked by qt6-qtdeclarative
@@ -58,5 +58,5 @@ package() {
 }
 
 sha512sums="
-97f0a647f7d458214d3f0f522b1b98a1d3e2e16dd170103ec26f16a88efa71cc740a58a88351330558cae2d5507ead49ad5c2a9a89937bed0f21bafe135133a3  prison-6.17.0.tar.xz
+df2f2b02d4e0e6d82683695ec20c3883408e783dc987e5d1cbf047368dbb717d7a4cda9c84e07ae96be9bb795a7b22873272a9508fc405e8de036a62caa7f4f7  prison-6.28.0.tar.xz
 "

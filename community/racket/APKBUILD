@@ -5,7 +5,7 @@
 # TODO: Install even packages from the full tarball?
 # TODO: Figure out how to run tests.
 pkgname=racket
-pkgver=8.18
+pkgver=9.2
 pkgrel=0
 pkgdesc="general purpose programming language in the Lisp-Scheme family"
 url="https://racket-lang.org/"
@@ -29,9 +29,8 @@ subpackages="
 	$pkgname-dev
 	$pkgname-doc
 	"
-source="
-	https://download.racket-lang.org/releases/$pkgver/installers/racket-minimal-$pkgver-src.tgz
-	gcc-15.patch
+source="https://download.racket-lang.org/releases/$pkgver/installers/racket-minimal-$pkgver-src.tgz
+	fix-rktio-poll-set-include.patch
 	"
 builddir="$srcdir/$pkgname-$pkgver/src"
 
@@ -90,6 +89,6 @@ package() {
 }
 
 sha512sums="
-0d3a11a37372c4e5b82cc4480d09afe3af5660b7726e7b7f59ce62614e857e26b7add664a5bcd56a4c5903f39daa414b0f2cedeb743b9e2a434bc3f6f80e398b  racket-minimal-8.18-src.tgz
-e4341bc14eeb4597ce0b690f0749bdc956894ed1bd86f7e4abcd01d9a89d973346f92ec3bf287808a43ab4b53fd6c19364cbaa5e873ea3964c717cf839120448  gcc-15.patch
+eec9c4c06f5cf89d56bcd3f037add8e66ef46e550c11ca1fc02e9346617a15efc24a77321a35bfff13ae5741c20fd23b572aec1bc0c3fa5fc0ab86cb83a8d269  racket-minimal-9.2-src.tgz
+f29c66c09dfa6a1ca8c4b67151f7726895bb2282a930729efd8adc929e0be4794e22cb86d9ef0b840e645666c3d077bae9211c731dd20d0363887583e3416a69  fix-rktio-poll-set-include.patch
 "

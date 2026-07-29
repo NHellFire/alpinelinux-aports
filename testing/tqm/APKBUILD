@@ -1,7 +1,7 @@
 # Contributor: Fabricio Silva <hi@fabricio.dev>
 maintainer="Fabricio Silva <hi@fabricio.dev>"
 pkgname=tqm
-pkgver=1.16.0
+pkgver=1.20.0
 pkgrel=1
 pkgdesc="Torrent Queue Manager, a tool to manage torrents in your clients."
 url="https://github.com/autobrr/tqm"
@@ -36,6 +36,6 @@ package() {
 }
 
 sha512sums="
-0474b42ed2ee091ce829b2a4ff9070999ad2bbd57c834976832684819ede32b70b3965fab0db749e28282529e681fd1babfbffb16b2c2fa3b453d7b025fdb733  tqm-1.16.0.tar.gz
+09ddd0eb423b8f86cc8a957e0b588b6cd498c7497552001f1de488058f89a24c16767be8b92be08755f086ab7e21b73391fe778c4bbfda493339712bdbf0c488  tqm-1.20.0.tar.gz
 ca29ce126793dc9be647aa57bace9e053d4f08532d40539957f10e2cf0479ba29bf2a71e8937152c3c057b95b32f1e5e9c32be25a52e87ffd0352817fddbe2ed  no-self-update.patch
 "

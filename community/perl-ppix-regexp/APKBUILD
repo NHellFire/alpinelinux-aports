@@ -1,7 +1,7 @@
 # Contributor: Duncan Bellamy <dunk@denkimushi.com>
 # Maintainer: Duncan Bellamy <dunk@denkimushi.com>
 pkgname=perl-ppix-regexp
-pkgver=0.089
+pkgver=0.092
 pkgrel=0
 pkgdesc="Represent a regular expression of some sort"
 url="https://metacpan.org/pod/PPIx::Regexp"
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-e934d4f5e27f2a497d2cae8641e2371053c74f98e1742a67ba0eebe98ce9baed14288924bc3b42c1c6c1d277a9713d25dd2cf53db98275e306418abc4cc41aa9  PPIx-Regexp-0.089.tar.gz
+a6d57792cbd509f0a65b66543d0dc8b6274cb33a49278e9c742c08d1e8d66bd17b13b4c014fe3e64c492ed84114a5cf2e1b4b0de4d94b15e08fe714869289bf8  PPIx-Regexp-0.092.tar.gz
 "

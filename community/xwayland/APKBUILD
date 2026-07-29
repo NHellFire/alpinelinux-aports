@@ -1,7 +1,7 @@
 # Contributor: Łukasz Jendrysik <scadu@yandex.com>
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=xwayland
-pkgver=24.1.8
+pkgver=24.1.13
 pkgrel=0
 pkgdesc="Compact xserver to run under wayland for compatibility"
 url="https://www.x.org/wiki"
@@ -38,6 +38,19 @@ source="https://xorg.freedesktop.org/archive/individual/xserver/xwayland-$pkgver
 replaces="xorg-server-xwayland"
 
 # secfixes:
+#   24.1.13-r0:
+#     - CVE-2026-55999
+#     - CVE-2026-56000
+#   24.1.10-r0:
+#     - CVE-2026-33999
+#     - CVE-2026-34000
+#     - CVE-2026-34001
+#     - CVE-2026-34002
+#     - CVE-2026-34003
+#   24.1.9-r0:
+#     - CVE-2025-62229
+#     - CVE-2025-62230
+#     - CVE-2025-62231
 #   24.1.7-r0:
 #     - CVE-2025-49175
 #     - CVE-2025-49176
@@ -117,6 +130,6 @@ package() {
 }
 
 sha512sums="
-417498baa87e6bfc11a778d31788a2b2d381efa08f2ac8308cfd8b1828ea62ba1da43542f798f124c25b51e8229ad1bdffc252462c0abf51be8fa0337f26d7e2  xwayland-24.1.8.tar.xz
+e06e58025b441892fdd17ac55fd5c7e137bffc941b76ad784dc008047c778c6ee2895fcc47b9e8c74b1d8372491e69c39933c4186aec4df55571614f8ba98e3c  xwayland-24.1.13.tar.xz
 42db6616a6566acedaa0c5dc125435183be0c0da5df4f542bf3857a1905ae4646d5eb311e4e00ec892c845a2dc2069f6e68f5f45ec6c499ea32b8e55d873a0f5  use-libtirpc-nokrb.patch
 "

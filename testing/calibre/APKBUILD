@@ -1,7 +1,8 @@
-# Maintainer: Cowington Post <cowingtonpost@gmail.com>
+# Contributor: Cowington Post <cowingtonpost@gmail.com>
+# Maintainer: Wen Heping <wenhepingalpine@sohu.com>
 pkgname=calibre
-pkgver=8.7.0
-pkgrel=2
+pkgver=9.10.0
+pkgrel=0
 pkgdesc="Ebook management application"
 # qt6-webengine
 arch="x86_64 aarch64"
@@ -9,6 +10,7 @@ url="https://calibre-ebook.com"
 license="GPL-3.0-or-later"
 depends="
 	font-liberation
+	libjpeg-turbo-utils
 	libwmf
 	mtdev
 	optipng
@@ -36,6 +38,7 @@ depends="
 	py3-pygments
 	py3-pyqt6-webengine
 	py3-regex
+	py3-tzlocal
 	py3-xxhash
 	py3-zeroconf
 	qt6-qtimageformats
@@ -50,10 +53,10 @@ makedepends="
 	ffmpeg-dev
 	hunspell-dev
 	hyphen-dev
+	icu-data-full
 	libmtp-dev
 	libstemmer-dev
 	libusb-dev
-	podofo-dev
 	py3-pyqt-builder
 	py3-pyqt6-sip
 	py3-qt6
@@ -72,6 +75,8 @@ subpackages="
 source="https://download.calibre-ebook.com/$pkgver/calibre-$pkgver.tar.xz
 	0001-$pkgname-no-update.patch
 	0002-$pkgname-use-make.patch
+	0003-$pkgname-disable-piper.patch
+	0004-calibre-disable-podofo.patch
 	"
 # net: downloads iso-codes
 # !check: no tests ran
@@ -115,7 +120,9 @@ package() {
 }
 
 sha512sums="
-12d6f49d09edef8677a966198b0b05da9f8deee3c3ff6980804e13561edc35a515555e6a8cb53be70925bc3bdb8e3714cb018454f4e5da4794105b0fe53bba63  calibre-8.7.0.tar.xz
+9655cf5530797c56ff4d5f30eb4ed5a71223152235eb50d6a5dff03ca4e4097a84d9e4069035c85dde199680a474f1dcb1856464bc96db6ef57f3e722e29b140  calibre-9.10.0.tar.xz
 eb8e7ce40ff8b8daf6e7e55a5dff8ec4dff06c45744266bb48b3194e92ab1196bc91468203e3c2ca1e5144166a7d6be90e6cf0253513e761b56a4c85be4c2c76  0001-calibre-no-update.patch
-10681fdfddddd9de4858e02a0b2a40e108fccb582979fce5a7b1aea20df58cf0f04df6b0eb1e64fbad6337d9299703f5fab6500c605ae1bd43581912262fd9dd  0002-calibre-use-make.patch
+bbb7253257073ae14840b3b4697943fe129d862b49cabd9388ea24cbd0259e68a1d359870334772164897f0c781db121de55fcdf5bccc841e36c021abe56f1ec  0002-calibre-use-make.patch
+0efcf35944cd0f42d6f3572839647fc5c8336562db3f71655211d3de682e155b6d6fee4d281f9576201156e0bc828b6a579a8708a27791e4e4d604d456416954  0003-calibre-disable-piper.patch
+a39d593bcdeb298d5deff4147701e55be47d43fa94059fa9cbd7ace29fc829fc951510a87df97389e5904f66fc883bf8ddeccc89f801c1c660ae1341d670e227  0004-calibre-disable-podofo.patch
 "

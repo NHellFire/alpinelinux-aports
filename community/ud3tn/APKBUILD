@@ -1,25 +1,24 @@
 # Contributor: Oleg Titov <oleg.titov@gmail.com>
-# Maintainer: Oleg Titov <oleg.titov@gmail.com>
-
+maintainer="Oleg Titov <oleg.titov@gmail.com>"
 pkgname=ud3tn
-pkgver=0.12.0
-pkgrel=1
+pkgver=0.15.0
+pkgrel=0
 pkgdesc="uD3TN is a free, lean, and space-tested DTN protocol implementation"
 url="https://d3tn.com/ud3tn.html"
-arch="all !armhf !armv7 !s390x !x86" # segmentation fault running test
-license="( Apache-2.0 OR BSD-3-Clause ) AND BSD-3-Clause AND MIT"
-makedepends="libcbor-dev"
+arch="all !s390x" # segmentation fault running test
+license="AGPL-3.0-or-later AND BSD-3-Clause AND MIT"
+makedepends="libcbor-dev sqlite-dev jansson-dev"
 subpackages="$pkgname-doc"
-source="https://gitlab.com/d3tn/ud3tn/-/wikis/uploads/ca1bf09192946cb1faeedacd8eac5a74/ud3tn-v0.12.0.zip"
+source="https://gitlab.com/d3tn/ud3tn/-/wikis/uploads/9dedf4d798c74021f1699ae0111670bf/ud3tn-v0.15.0.zip"
 
 builddir="$srcdir"/"$pkgname"-v"$pkgver"
 
 build() {
-	make -j1 type=release posix
+	make type=release posix
 }
 
 check() {
-	make -j1 type=release run-unittest-posix
+	make type=release run-unittest-posix
 }
 
 package() {
@@ -29,5 +28,5 @@ package() {
 }
 
 sha512sums="
-70d27576c48a4c5f3b2918960842237cb49370e4e2a4612c185f4185238c8754e28bab08f0f14316aa7f9f41f066f7bcfda0e47f2937759da5617adcff14d07b  ud3tn-v0.12.0.zip
+5f5a462e314e2bdf0b927da88f8c0516c1bef09a905134b8a4168aa75c077128254eba24854a219936c227eeba752f9423d6eeb8584777c9835754b2d5d29bae  ud3tn-v0.15.0.zip
 "

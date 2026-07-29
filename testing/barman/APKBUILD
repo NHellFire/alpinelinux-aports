@@ -1,26 +1,43 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
+# Contributor: Dahlia <dahlia.alpine@fastmail.com>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=barman
-pkgver=3.15.0
+pkgver=3.19.1
 pkgrel=0
 pkgdesc="Backup and recovery manager for PostgreSQL"
 url="https://pgbarman.org"
 arch="noarch"
 license="GPL-3.0-or-later"
-depends="python3 rsync postgresql-client py3-argcomplete py3-dateutil py3-psycopg2 py3-boto3"
-makedepends="py3-gpep517 py3-setuptools py3-wheel"
+depends="
+	postgresql-client
+	py3-argcomplete
+	py3-boto3
+	py3-dateutil
+	py3-psycopg2
+	py3-setuptools
+	python3
+	rsync
+"
+makedepends="py3-gpep517 py3-wheel"
 subpackages="$pkgname-doc $pkgname-bash-completion $pkgname-pyc"
 pkgusers="barman"
 pkggroups="barman"
 install="$pkgname.pre-install"
-options="!check" #pytest does not start and I don't know why
 checkdepends="py3-pytest-timeout py3-mock py3-pytest-runner py3-pip py3-mock"
-source="$pkgname-$pkgver.tar.gz::https://github.com/EnterpriseDB/barman/releases/download/release/$pkgver/barman-$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/EnterpriseDB/barman/archive/refs/tags/release/$pkgver.tar.gz"
+builddir="$srcdir/$pkgname-release-$pkgver"
 
 build() {
 	gpep517 build-wheel \
 		--wheel-dir .dist \
 		--output-fd 3 3>&1 >&2
+}
+
+check() {
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+	.testenv/bin/python3 -m pytest \
+		tests/test_backup.py;
 }
 
 package() {
@@ -35,5 +52,5 @@ package() {
 }
 
 sha512sums="
-4bbb86b6dcadfacaacf9e4dbb1cea3e33b155cb73be7752d58602fb2aa0b4145f7bf7aa96d3d687158e4035ece9aef5f47f2170c71ac405946573993b94262ca  barman-3.15.0.tar.gz
+471b9daab7b4a8625b6b276e518fddc5fb8248e5d8107910109c65dfd72a90661b7db90166bc6e9dc2ea69922bdf9a0c01af800ed1bfaa02a91f67c1a90eaa49  barman-3.19.1.tar.gz
 "

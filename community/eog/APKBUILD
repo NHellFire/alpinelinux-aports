@@ -1,8 +1,8 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=eog
-pkgver=47.0
-pkgrel=2
+pkgver=50.2
+pkgrel=0
 pkgdesc="Image viewer for GNOME"
 url="https://gitlab.gnome.org/GNOME/eog"
 arch="all"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-5a3907988031360c53d7a2c9ba8c5e1c03c714f41f55bb980414e35591d522f32d9ae1c9e6c0ac6ca58e559074cd060572225417e30f39281a8f93473ec42159  eog-47.0.tar.xz
+0ded789d51370924a44b9f5df6e889ef68510c5afad637b00601686081aaf1b452a0fec75ebd885c6aa548232df2ffb417463085cd283f16207e501211c1f63e  eog-50.2.tar.xz
 "

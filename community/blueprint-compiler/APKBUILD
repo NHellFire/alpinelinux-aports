@@ -1,10 +1,10 @@
 # Contributor: Newbyte <newbie13xd@gmail.com>
-# Maintainer: Newbyte <newbie13xd@gmail.com>
+maintainer="team/gnome <newbie13xd@gmail.com>"
 pkgname=blueprint-compiler
-pkgver=0.18.0
+pkgver=0.22.2
 pkgrel=0
 pkgdesc="Markup language for GTK user interfaces"
-url="https://jwestman.pages.gitlab.gnome.org/blueprint-compiler"
+url="https://gnome.pages.gitlab.gnome.org/blueprint-compiler/"
 arch="noarch"
 license="LGPL-3.0-or-later"
 depends="
@@ -18,8 +18,7 @@ depends_dev="$pkgname=$pkgver-r$pkgrel"
 makedepends="meson"
 checkdepends="cage-run xwayland"
 subpackages="$pkgname-dev $pkgname-pyc"
-source="https://gitlab.gnome.org/jwestman/blueprint-compiler/-/archive/v$pkgver/blueprint-compiler-v$pkgver.tar.gz"
-builddir="$srcdir/$pkgname-v$pkgver"
+source="https://download.gnome.org/sources/blueprint-compiler/${pkgver%.*}/blueprint-compiler-$pkgver.tar.xz"
 
 build() {
 	abuild-meson . output
@@ -37,5 +36,5 @@ package() {
 }
 
 sha512sums="
-f0675972e3b52943f6c9de6c1399588c43ca270b94e03a95c97d4b826c537c544555b372d7a740a3636ae6eff9fcd7ff71108157cfe03399614ed92547a59ea4  blueprint-compiler-v0.18.0.tar.gz
+bdc380a3d77b33a71139ee4f0da97effa5c95876251563a904e25762f93b592393fdb9a6c99b294aea8a9a93ba411d17491da95427020860dfd8a696402c0b80  blueprint-compiler-0.22.2.tar.xz
 "

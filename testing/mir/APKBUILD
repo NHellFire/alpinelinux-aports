@@ -1,7 +1,7 @@
 # Contributor: Bart Ribbers <bribbers@disroot.org>
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=mir
-pkgver=2.22.1
+pkgver=2.28.0
 pkgrel=0
 pkgdesc="Mir Display Server"
 url="https://mir-server.io"
@@ -18,6 +18,7 @@ makedepends="
 	$depends_dev
 	boost-dev
 	capnproto-dev
+	cargo
 	cmake
 	eudev-dev
 	freetype-dev
@@ -39,11 +40,13 @@ makedepends="
 	nettle-dev
 	pixman-dev
 	protobuf-dev
+	py3-dbusmock
 	py3-pillow
 	samurai
 	umockdev-dev
 	wayland-dev
 	wlcs-dev
+	xwayland
 	yaml-cpp-dev
 	"
 checkdepends="
@@ -106,5 +109,5 @@ test_tools() {
 }
 
 sha512sums="
-1336c226b325c692f17f019713e8cf7a081cd4a2081529b23bef1176da9866cf7895bc2422b66c9421c4cff276c1b9065563e260914db4d91612b822647348f7  mir-2.22.1.tar.xz
+f8be31ccf9eed42698b1e823675b0f008260b688c8aae95360b9104254d96f700a680174d6e3c8c1395216749f91f01c8c5026a2749e4283b4a8a68eef007d54  mir-2.28.0.tar.xz
 "

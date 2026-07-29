@@ -2,19 +2,17 @@
 # Maintainer: omni <omni+alpine@hack.org>
 pkgname=judo
 pkgver=0.6
-pkgrel=14
+pkgrel=22
 pkgdesc="Simple orchestration & configuration management"
 url="https://github.com/rollcat/judo"
 license="MIT"
 arch="all"
 makedepends="go"
 subpackages="$pkgname-doc"
+options="net" # go
 source="$pkgname-$pkgver.tar.gz::https://github.com/rollcat/judo/archive/refs/tags/$pkgver.tar.gz"
 
 export GOFLAGS="$GOFLAGS -trimpath -mod=readonly -modcacherw"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v .

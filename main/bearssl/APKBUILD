@@ -1,8 +1,8 @@
 # Contributor: Laurent Bercot <ska-devel@skarnet.org>
 # Maintainer: Laurent Bercot <ska-devel@skarnet.org>
 pkgname=bearssl
-pkgver=0.6_git20241009
-_pkgcommit=3c040368f6791553610e362401db1efff4b4c5b8
+pkgver=0.6_git20260508
+_pkgcommit=7bea48e5e850ab4cafbe68d3765cdaba13a86d6f
 pkgrel=0
 pkgdesc="The BearSSL implementation of the SSL/TLS protocol"
 url="https://bearssl.org/"
@@ -29,8 +29,8 @@ build() {
 }
 
 package() {
-	mkdir -p "$pkgdir"/bin "$pkgdir"/usr/include "$pkgdir"/usr/lib
-	cp -f "$builddir/build/brssl" "$pkgdir/bin/"
+	mkdir -p "$pkgdir"/usr/bin "$pkgdir"/usr/include "$pkgdir"/usr/lib
+	cp -f "$builddir/build/brssl" "$pkgdir/usr/bin/"
 	cp -f "$builddir"/inc/* "$pkgdir/usr/include/"
 	cp -f "$builddir/build/libbearssl.a" "$pkgdir/usr/lib/"
 	cp -f "$builddir/build/libbearssl.so.$pkgver" "$pkgdir/usr/lib/"
@@ -46,7 +46,7 @@ check() {
 }
 
 sha512sums="
-1d6957515833c81ca3fa070bef1ddc82fab3ff03ca3e8a81aae3f8c09b01d1ed488eb8f54988f25c09cbfbc7a90a4cd1de13ba179f205580c9c73164a0ced2a8  bearssl-0.6_git20241009.tar.gz
+5b7ace93b54ec555425219f0a0c9f2dd9445ee1d5e9d9fd76afd2d55cce2efab45305c966adc24d17d4b0c6d07a19498bb51a88517025bb3379b0a63596a447b  bearssl-0.6_git20260508.tar.gz
 f5fe047862eb355a662ccb1b95c2ca4a870ac0f8d3f4cada5396d2f6a6635647db53fbeb038f9a7651b84d6cda32b6415ce0f69a8da92636d3b3b76578114d5c  bearssl-brssl-dynamic.patch
 9b4972cb47e59b3e090429d08734d90c77bc29868cdb3efe3de7b38de4b183880e71552319242f0cac9d7ffe8547b6238fa483a6be462598f5f53c394fe4371c  bearssl.pc
 "

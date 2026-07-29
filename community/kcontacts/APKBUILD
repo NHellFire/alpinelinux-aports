@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kcontacts
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Address book API for KDE"
 # armhf blocked by qt6-qtdeclarative
@@ -50,7 +50,7 @@ build() {
 }
 
 check() {
-	wlheadless-run -- ctest --test-dir build -E "kcontacts-addressformattest"
+	wlheadless-run -- ctest --test-dir build -E "kcontacts-(addressformat|address|vcarddrag)test"
 }
 
 package() {
@@ -61,5 +61,5 @@ package() {
 }
 
 sha512sums="
-85cfbfb7d7381011b949cc22b0ae319747f18d2390d7591ff8d2a2d04c494ff98687f1c46103611ba72fdfbf7a0d7835eecafc7302687b94f29987097ce3ecf5  kcontacts-6.17.0.tar.xz
+03525816014409aeda9a0e8d80aa7cb23897cd2d7f8429902ac243b89036d67e0b77b87011272d7f20ea9af5d04abdcc0b07fdb2bcd40512562edae5d3078049  kcontacts-6.28.0.tar.xz
 "

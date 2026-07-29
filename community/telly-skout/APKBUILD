@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=telly-skout
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Convergent TV guide based on Kirigami"
 url="https://invent.kde.org/plasma-mobile/telly-skout"
@@ -31,7 +31,6 @@ options="!check"
 
 build() {
 	cmake -B build -G Ninja \
-		-DBUILD_WITH_QT6=ON \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib
@@ -43,5 +42,5 @@ package() {
 }
 
 sha512sums="
-f11217ca43ab92df4c4d5822521af43007782ca3358157f50267044fc550daa945d7c34319750aa581d04b3a8355da34a53be1c7da3d6d2d5eb5b2bce05ceda4  telly-skout-25.08.0.tar.xz
+79eded1b8ca12b665842adf53952c1be1eaea4dfb31661e9f875d733c4c656263948fe8d6b396f79a01cec3d9e3e9ed4130198d1e233d835011dab3e8a813c83  telly-skout-26.04.3.tar.xz
 "

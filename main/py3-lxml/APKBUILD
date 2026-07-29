@@ -3,7 +3,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-lxml
 _pkgname=lxml
-pkgver=6.0.1
+pkgver=6.1.1
 pkgrel=0
 pkgdesc="Python3 LXML Library"
 url="https://lxml.de/"
@@ -20,12 +20,12 @@ makedepends="
 	"
 checkdepends="py3-html5lib"
 subpackages="$pkgname-pyc"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
-	libxml-2.11.0.patch
-	"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 # secfixes:
+#   6.1.0-r0:
+#     - CVE-2026-41066
 #   4.9.2-r0:
 #     - CVE-2022-2309
 #   4.6.5-r0:
@@ -56,6 +56,5 @@ package() {
 }
 
 sha512sums="
-cdf6c114a679918c18b76d0086866c23aa814c2757b8e687466cd1809eb78593d6d427ee4681e1b3448ccd27f115202aaaf3d7f14babe13df4689eba2a0c0dd8  lxml-6.0.1.tar.gz
-6436f87042563bb3a08bd7d0216fdb284d639b1a72fde77dce75d7c3e63f4f18ba115df9540fe4298f558df53f9dbfbd781374138544e8e5d9cb5ca5928f343c  libxml-2.11.0.patch
+972956629ce8fca885fd2261e7d46d0954f851ab14557de2706cec8a68ac7f612052b0c9ec64477aecc9284d769bf3958d688c58beea876f311acc0c6d59ab8a  lxml-6.1.1.tar.gz
 "

@@ -1,8 +1,8 @@
 # Contributor: Rdbo <rdbodev@gmail.com>
 # Maintainer: Rdbo <rdbodev@gmail.com>
 pkgname=arduino-cli
-pkgver=1.3.1
-pkgrel=0
+pkgver=1.5.1
+pkgrel=1
 pkgdesc="Arduino command line tool"
 url="https://github.com/arduino/arduino-cli"
 # loongarch64: "undefined: NFDBITS" in a dependency
@@ -29,5 +29,5 @@ package() {
 }
 
 sha512sums="
-250074438a8bc5f86698bbbae5565c987ba724bdc9841b469677ff763afc47180180e3a2fb6bc095a8550c60b30bd1841c0f098b24957911b67a2027e57cb55e  arduino-cli-1.3.1.tar.gz
+b9eeba2939fcc4a8242a618709ae142ff0e255282854c62ee12d76705c2baa381b91da59a1f3f15417398e6934b42690d23cc5d568813c670c6791d7cbade77c  arduino-cli-1.5.1.tar.gz
 "

@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-evalidate
-pkgver=2.0.5
-pkgrel=0
+pkgver=2.1.4
+pkgrel=1
 pkgdesc="Validation and secure evaluation of untrusted python expressions"
 url="https://pypi.org/project/evalidate/"
 arch="noarch"
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-e8c9cfbd31edc90816b31428ec084dc2f667c261d45ba823be14f527505b8c365fc78face6984403fd61bce6e1a99f2bf8fecf8be2c53ccecab9e9b45a19ffdc  evalidate-2.0.5.tar.gz
+6aad61282d16ad64455f50c7edf64d8533dcf6a72badc1dd04c4be98af8f336aca467baf8c3d1e5f896505c0298bb8ddacdc01653411e65849b026f09a08d4fb  evalidate-2.1.4.tar.gz
 "

@@ -1,9 +1,9 @@
 # Contributor: Mark Constable <markc@renta.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=mrxvt
 pkgver=0.5.4
-pkgrel=12
+pkgrel=13
 pkgdesc="Multi-tabbed X terminal emulator based on rxvt"
 url="https://sourceforge.net/projects/materm/"
 arch="all"
@@ -28,6 +28,7 @@ prepare() {
 }
 
 build() {
+	CFLAGS="$CFLAGS -std=gnu17" \
 	./configure \
 		--build=$CBUILD \
 		--host=$CHOST \

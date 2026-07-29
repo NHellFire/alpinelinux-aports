@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kcalc
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-3078a59e62a8084efe6ece811297169e85c33a21cc9566ee133650a57b18115e543da9a30883b06dd473f0d9a321bc9c4d9313078f08ff6ab309051234476919  kcalc-25.08.0.tar.xz
+805d53531b1ab59c7097eb4ec6f901c05ea96aeb3feb0917d283e8671518a8d8b0f45851ab470576f68d3f11ad9ca18a10e32de06f0c99b5f6f316468dd151fa  kcalc-26.04.3.tar.xz
 "

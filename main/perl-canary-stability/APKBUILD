@@ -1,9 +1,9 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=perl-canary-stability
 pkgver=2013
-pkgrel=3
+pkgrel=4
 pkgdesc="CPAN/Canary-Stability - canary to check perl compatability for schmorp's modules"
 url="https://metacpan.org/release/Canary-Stability"
 arch="noarch"

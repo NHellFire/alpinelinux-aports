@@ -1,8 +1,9 @@
 # Contributor: Justin Berthault <justin.berthault@zaclys.net>
-# Maintainer:
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=zathura-cb
-pkgver=0.1.11
-pkgrel=1
+pkgver=2026.07.18
+pkgrel=0
 pkgdesc="Comic book support for zathura"
 url="https://pwmt.org/projects/zathura-cb/"
 arch="all"
@@ -13,21 +14,22 @@ depends="
 	"
 makedepends="
 	libarchive-dev
-	meson
-	ninja
+	gtk4.0-dev
+	muon
 	zathura-dev
 	"
 source="https://pwmt.org/projects/zathura-cb/download/zathura-cb-$pkgver.tar.xz"
 options="!check" # no test suite
 
 build() {
-	abuild-meson build
-	meson compile -C build
+	abuild-muon build .
+	ninja -C build
 }
 
 package() {
-	DESTDIR="$pkgdir" meson install --no-rebuild -C build
+	DESTDIR="$pkgdir" muon -C build install
 }
+
 sha512sums="
-f927c4021937505bbc83d47959f4275701449dc4e889dd4a92ef7feecfcdf5ae772d34bb787ef8638c5fe209a1851ce355740c2b80921139f10fc059bd67f39d  zathura-cb-0.1.11.tar.xz
+acb2a3550cbf03b6ed2d3fcfb01c31c885e379f7735376dfc1bed84d0aa1448536615a96243d6cb215914bb6e8a2aa4bee6a5df26726757a4eee1f10763647c7  zathura-cb-2026.07.18.tar.xz
 "

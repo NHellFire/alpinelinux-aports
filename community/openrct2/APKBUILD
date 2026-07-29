@@ -1,12 +1,12 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=openrct2
-pkgver=0.4.26
-_pkgver_objects=1.7.2
-_pkgver_title_sequences=0.4.14
-_pkgver_replays=0.0.89
+pkgver=0.5.3
+_pkgver_objects=1.7.9
+_pkgver_title_sequences=0.4.26
+_pkgver_replays=0.0.93
 _pkgver_opensfx=1.0.6
 _pkgver_openmsx=1.6.1
-pkgrel=0
+pkgrel=1
 pkgdesc="Open-source re-implementation of Roller Coaster Tycoon 2"
 # s390x is not supported upstream
 arch="all !s390x"
@@ -28,6 +28,7 @@ makedepends="
 	musl-fts-dev
 	ninja
 	nlohmann-json
+	quickjs-dev
 	sdl2-dev
 	speexdsp-dev
 	unzip
@@ -117,10 +118,10 @@ cli() {
 	amove usr/bin/openrct2-cli
 }
 sha512sums="
-0c469b448e9d12510b0f30a607405e832615cdffdc45b178553bcffa2bcc686bc118f2d0e655d20190d92dd7cf0c63ad6b68531381e52faef1e213a8c031f712  openrct2-0.4.26.tar.gz
-27a1f5e87063ed9baf5faeca15a914e1a57584da6ab0d06d2b9e1f08e801c53f2ea9826381bf5e3dd8e220ff2da601a98841a08f9bcad1e0280b04746512bfb1  openrct2-0.4.14-title_sequences.zip
-c358546c8e2ee26d8d6fbecb221698a98067366209054800730bb525f96320c133d059a3fc5f178a13fa074f332039c969de3a39c30f3cd943f0ad7ea7d021b6  openrct2-1.7.2-objects.zip
-e4446e7e2c49380c396d3e5014552b1e420e432ac3699d8e20df2355c0efb8388a6cc012d35eba9ade3980efed4a156fc75975c716d8100ee5672e4f945f4c2e  openrct2-0.0.89-replays.zip
+4a25ab08209b88bf258a93a0d8aae88b8aef2543dd1a5f031daa4a13a03d498ab5089b1dc5327b9296d2acdd2c6e9304cfac2d68fa1dbddd3fb86913fd6449b8  openrct2-0.5.3.tar.gz
+7faa5afcebd0f95e184862bcb77f3ef41b59b900ad55eadbf4373b16fac315470734a854a4bd15496e832478ca0de6ea6f8f42f20c8f5d8f0403cbaae71338c5  openrct2-0.4.26-title_sequences.zip
+a2ca05ab0dd3dc30ad365085b6b4006a77c9aa45c780be8294a9cb1184e512dd278a8038213606a3193836bca4a77f8f76a9a8d11b8e337f9158b6205c22d5dd  openrct2-1.7.9-objects.zip
+b225f4acf5ca992e0b5364f249366ac7c646ea622981bce8894930d8b53cf35c85cf0263d3c9a3c79b694c638b75f0349be993836d2bba6e92c3f05b0fbad9e6  openrct2-0.0.93-replays.zip
 8ae2d31687c29cfcdc7630da5addc3bed4b94ed1712891bb1e22d2747f2f8435b7fda843b4490543dbd9d63d392c8b3e4863cd3e669df9ca34f9780c8d9e5485  openrct2-1.0.6-opensfx.zip
 bc524b20ab72696a5f38bd65d96a4a83f29a0e65884d9b847540631d31aae42f3bdc4a6db5fa5fe34869012e598543b9327ad92d34e8f4f0f274c7f04d4a2e7f  openrct2-1.6.1-openmsx.zip
 cd39a38a59b8544d38895255e8719a8c1ca404d56073649c2434db5c4aa121d4f86460cb90e04d16d5da61dff95826de9a634d433087c08dcc4f2222208507b1  Werror.patch

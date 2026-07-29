@@ -2,19 +2,15 @@
 # Maintainer: Shyam Sunder <sgsunder1@gmail.com>
 pkgname=ctop
 pkgver=0.7.7
-pkgrel=29
+pkgrel=37
 pkgdesc="Top-like interface for container metrics"
 url="https://ctop.sh/"
 license="MIT"
 arch="all !loongarch64"
 makedepends="go"
-options="chmod-clean !check" # no test suite
+options="chmod-clean net !check" # no test suite, go
 source="$pkgname-$pkgver.tar.gz::https://github.com/bcicen/ctop/archive/refs/tags/v$pkgver.tar.gz
 	enable-cgo.patch"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make build

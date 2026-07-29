@@ -1,11 +1,11 @@
 # Contributor: lauren n. liberda <lauren@selfisekai.rocks>
 maintainer="lauren n. liberda <lauren@selfisekai.rocks>"
 pkgname=ghostty
-pkgver=1.2.0_git20250907
-pkgrel=0
+pkgver=1.3.1
+pkgrel=3
 pkgdesc="Fast, feature-rich, and cross-platform terminal emulator"
 url="https://ghostty.org/"
-arch="x86_64"	# zig. fails to build on aarch64
+arch="aarch64 x86_64"
 license="MIT"
 depends_dev="
 	fontconfig-dev
@@ -14,6 +14,7 @@ depends_dev="
 	gtk4.0-dev
 	gtk4-layer-shell-dev
 	harfbuzz-dev
+	highway-dev
 	libadwaita-dev
 	libpng-dev
 	oniguruma-dev
@@ -35,22 +36,22 @@ subpackages="
 	$pkgname-zsh-completion
 	$pkgname-fish-completion
 	"
-# https://github.com/ghostty-org/ghostty/pull/8372
-_commit=4912b2b29b020bdab8c2eb3b377a03132bff0762
-builddir="$srcdir/ghostty-$_commit"
 source="
-	https://github.com/ghostty-org/ghostty/archive/$_commit/ghostty-$_commit.tar.gz
+	https://release.files.ghostty.org/$pkgver/ghostty-$pkgver.tar.gz
+	add-app-runtime-path-option.patch
 	"
 
 build() {
 	zig build \
 		--release=small \
 		-Dcpu=baseline \
+		-Dapp-runtime-path=/usr/bin/ghostty \
 		-fsys=fontconfig \
 		-fsys=freetype \
 		-fsys=glslang \
 		-fsys=gtk4-layer-shell \
 		-fsys=harfbuzz \
+		-fsys=highway \
 		-fsys=libpng \
 		-fsys=oniguruma \
 		-fsys=simdutf \
@@ -66,5 +67,6 @@ package() {
 }
 
 sha512sums="
-429034725f202e06207d99644680ec7f7632b70c1098c5196b9009db17acbd4dc99e61f189ce49d4eb2e00fbc8cd6628673fc2ef2687ceff941ee3900ebbe0c1  ghostty-4912b2b29b020bdab8c2eb3b377a03132bff0762.tar.gz
+2e54b80cb46130fceb2523a1d3c2e61f6545127d1a2085928608f024b92744971e7faa894dc7876ab6ff351126329341ee42ee3d6e134c524c345ceae3b4fc61  ghostty-1.3.1.tar.gz
+517406c7c03515176edd63c2d9eb3e8f87cd090db1dae298683a840c4e3d5f9e5c3f84014a8f69640a90deacdc776ccd159f9363ee4b4343ed4aca2ba1ff93bf  add-app-runtime-path-option.patch
 "

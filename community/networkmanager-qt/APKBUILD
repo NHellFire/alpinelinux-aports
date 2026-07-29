@@ -2,10 +2,10 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=networkmanager-qt
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Qt wrapper for NetworkManager API"
-# armhf blocked by extra-cmake-modules
+# armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
 url="https://community.kde.org/Frameworks"
 license="LGPL-2.1-only OR LGPL-3.0-only"
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-a70507389685b72e8474a9084c48de7c7b89a16de8a10ad72eaeeb663e19e9590fe1a35ddd573cc25dbd3365a58d228334667936ea138d45e433f9864c966275  networkmanager-qt-6.17.0.tar.xz
+66ae325f65c7541a8900c4ea9f76d5b8970364a71b5f310d3c35ccfd6a2373790760a516a65c16af55508d01381f20352bab52746c8ed62b134394ab8c1c7150  networkmanager-qt-6.28.0.tar.xz
 "

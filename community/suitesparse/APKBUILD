@@ -26,6 +26,11 @@ subpackages="
 source="https://github.com/DrTimothyAldenDavis/SuiteSparse/archive/v$pkgver/$_pkgname-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgname-$pkgver"
 
+# FIXME: make tests pass on ppc64le
+case "$CARCH" in
+	ppc64le) options="$options !check";;
+esac
+
 _flags="BLAS=-lopenblas LAPACK=-lopenblas"
 
 # Do not include the Partition module (it's optional and Julia doesn't need it).
@@ -47,11 +52,16 @@ esac
 
 build() {
 	make library $_flags CMAKE_OPTIONS="\
+		-G 'Unix Makefiles' \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_INCLUDEDIR=/usr/include/suitesparse \
 		-DCMAKE_INSTALL_LIBDIR=/usr/lib \
 		-DCMAKE_VERBOSE_MAKEFILE=ON \
 		"
+}
+
+check() {
+	make tests
 }
 
 package() {

@@ -2,7 +2,7 @@
 # Maintainer: omni <omni+alpine@hack.org>
 maintainer="omni <omni+alpine@hack.org>"
 pkgname=firecracker
-pkgver=1.13.1
+pkgver=1.16.1
 pkgrel=0
 pkgdesc="Secure and fast microVMs for serverless computing"
 url="https://github.com/firecracker-microvm/firecracker"
@@ -43,7 +43,6 @@ build() {
 		--package seccompiler \
 		--package rebase-snap \
 		--target "$CTARGET" \
-		--all-features \
 		--frozen \
 		--release
 }
@@ -88,5 +87,5 @@ rebase_snap() {
 }
 
 sha512sums="
-6047180ff237f5fdefa588557c2fe7b54b6b9e3af3504ea4e654f44ce703b70451beb8ac82578e2bc72d2606fc2edee01d9af50be3d875915fa3499a9a4848d7  firecracker-1.13.1.tar.gz
+15298681b2908ee9ed819b8676150a4febff482cc90f3b1fbc8275349dbd0ddbe95649bb9704fb36fdd19b32d0f85a6531b77805568e5fc6549a78ceb8065187  firecracker-1.16.1.tar.gz
 "

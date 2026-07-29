@@ -3,7 +3,7 @@
 maintainer="Will Sinatra <wpsinatra@gmail.com>"
 pkgname=ruby-path_expander
 _gemname=${pkgname#ruby-}
-pkgver=1.1.3
+pkgver=2.0.1
 pkgrel=0
 pkgdesc="pre-process cli arguments by expanding directories into constituent files"
 url="https://rubygems.org/gems/path_expander"
@@ -53,7 +53,7 @@ package() {
 }
 
 sha512sums="
-70d45086ff33b4493272661e8e41692be284f0ee7174743031fce7cf62d059cd4c0045a334c71b24a56a77e21965645133134b8437f230be8041ae76220e4103  ruby-path_expander-1.1.3.tar.gz
-b522a7b43b72e33dd3d176067cbb53417620f13ee0c270993edcd3c9bc7ab0f36ecaa8feca0bca258c416ecf37855e1eb1ca2abbafccbbd08ed7a19a3556a035  path_expander-1.1.3.gem
+c6f2575ea6388c2f5895bfe4185bfa9672495e8278c1cb80456e83f144f50462b7424e474633de460715226d47074f2b99f489fee2191bda0e67a571227578f3  ruby-path_expander-2.0.1.tar.gz
+170653318502bce1d4e6e39edbe7c89d66c57a2e11647156b7e521ae34a521b28cbb8c8279bb3e45a5eb4fc67e2e1b4aa1a5f7032e49d3c6eed4e816fd1e8764  path_expander-2.0.1.gem
 ecc55c268e6b239014a971b80e57149b0c9aeac0de81883f9d6a92641f3223d069bdb56462bc5ca5813f1cb34ba58ab8c38435ef1bcaa6d040eaa0834f750189  LICENSE
 "

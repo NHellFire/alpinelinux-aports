@@ -1,7 +1,7 @@
 # Maintainer: Haelwenn (lanodan) Monnier <contact+alpine@hacktivis.me>
 pkgname=py3-pytest-recording
 pkgver=0.13.4
-pkgrel=0
+pkgrel=1
 pkgdesc="pytest plugin to record network interactions via VCR.py"
 url="https://github.com/kiwicom/pytest-recording/"
 arch="noarch"
@@ -21,7 +21,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 
 	# test_block_network_with_allowed_hosts: Internet
 	# https://github.com/kiwicom/pytest-recording/issues/131

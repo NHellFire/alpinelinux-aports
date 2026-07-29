@@ -1,16 +1,17 @@
 # Contributor: Nulo <alpine@nulo.in>
 # Maintainer: Adam Thiede <me@adamthiede.com>
 pkgname=coreboot-tools
-pkgver=25.06
+pkgver=26.06
 pkgrel=0
 pkgdesc="Tools from the coreboot project"
 url="https://review.coreboot.org/coreboot"
-# coreboot only runs on x86_64 and x86 systems
-arch="x86 x86_64"
+arch="all"
 license="GPL-2.0-only"
 
 makedepends="
+	coreutils
 	inkscape
+	linux-headers
 	meson
 	pciutils-dev
 	qt5-qtbase-dev
@@ -19,33 +20,60 @@ makedepends="
 	yaml-cpp-dev
 	zlib-dev
 	"
-subpackages="$pkgname-intelmetool $pkgname-ectool $pkgname-nvramtool $pkgname-nvramtool-doc:nvramtool_doc:noarch $pkgname-ifdtool $pkgname-cbmem $pkgname-configurator"
+subpackages="$pkgname-ifdtool $pkgname-cbmem"
 case "$CARCH" in
-	x86_64) subpackages="$subpackages $pkgname-cbfstool" ;;
+	# memcpy is out of bounds on x86
+	aarch64|x86_64) subpackages="$subpackages $pkgname-cbfstool" ;;
+esac
+case "$CARCH" in
+	x86*) subpackages="$subpackages $pkgname-ectool $pkgname-intelmetool $pkgname-nvramtool $pkgname-nvramtool-doc $pkgname-configurator" ;;
 esac
 
 source="
 https://coreboot.org/releases/coreboot-$pkgver.tar.xz
+cbmem.patch
+cbfstool.patch
 "
 builddir="$srcdir/coreboot-$pkgver"
 options="!check" # no test suite
 
 build() {
-	make -C util/intelmetool CFLAGS+="-I $builddir/src/commonlib/bsd/include"
-	make -e -C util/ectool
-	make -e -C util/nvramtool CFLAGS="$CFLAGS -I. -DCMOS_HAL=1"
-	make -e -C util/ifdtool
-	make -e -C util/cbmem
-	abuild-meson -Db_lto=true util/coreboot-configurator util/coreboot-configurator/output
-	meson compile -C util/coreboot-configurator/output
+	make -C "$builddir"/util/ifdtool
+	make -C "$builddir"/util/cbmem
+
+	case $CARCH in
+		aarch64|x86_64)
+			make -C "$builddir"/util/cbfstool cbfstool
+		;;
+	esac
+	case $CARCH in
+		x86*)
+			make -C "$builddir"/util/ectool
+			make -C "$builddir"/util/intelmetool CFLAGS+="-I $builddir/src/commonlib/bsd/include"
+			make -C "$builddir"/util/nvramtool CFLAGS+="-I. -DCMOS_HAL=1"
+			abuild-meson -Db_lto=true "$builddir"/util/coreboot-configurator "$builddir"/util/coreboot-configurator/output
+			meson compile -C "$builddir"/util/coreboot-configurator/output
+		;;
+	esac
 }
 
 package() {
-	make -e -C util/intelmetool PREFIX="$pkgdir/usr" install
-	make -e -C util/ectool PREFIX="$pkgdir/usr" install
-	make -e -C util/nvramtool PREFIX="$pkgdir/usr" install
-	make -e -C util/ifdtool PREFIX="$pkgdir/usr" install
-	make -e -C util/cbmem PREFIX="$pkgdir/usr" install
+	make -C "$builddir"/util/ifdtool PREFIX="$pkgdir/usr" install
+	make -C "$builddir"/util/cbmem PREFIX="$pkgdir/usr" install
+
+	case $CARCH in
+		aarch64|x86_64)
+			make -C "$builddir"/util/cbfstool cbfstool PREFIX="$pkgdir/usr" install
+		;;
+	esac
+	case $CARCH in
+		x86*)
+			make -C "$builddir"/util/ectool PREFIX="$pkgdir/usr" install
+			make -C "$builddir"/util/intelmetool PREFIX="$pkgdir/usr" install
+			make -C "$builddir"/util/nvramtool PREFIX="$pkgdir/usr" install
+			DESTDIR="$pkgdir" meson install --no-rebuild -C $builddir/util/coreboot-configurator/output
+		;;
+	esac
 }
 
 intelmetool() {
@@ -58,14 +86,6 @@ nvramtool() {
 	pkgdesc="Manipulates NVRAM from userspace"
 
 	amove usr/sbin/nvramtool
-}
-
-nvramtool_doc() {
-	pkgdesc="Manipulates NVRAM from userspace (documentation)"
-	install_if="$pkgname-nvramtool=$pkgver-r$pkgrel docs"
-
-	amove usr/share/man/man8/nvramtool*
-	gzip -9n "$subpkgdir"/usr/share/man/man8/*
 }
 
 ectool() {
@@ -88,17 +108,21 @@ cbmem() {
 
 configurator() {
 	pkgdesc="Graphical NVRAMtool frontend"
-	DESTDIR="$subpkgdir" meson install --no-rebuild -C $builddir/util/coreboot-configurator/output
+
+	amove usr/share/icons
+	amove usr/share/polkit-1/
+	amove usr/share/applications
+	amove usr/bin/coreboot-configurator
 }
 
 cbfstool() {
 	pkgdesc="Management utility for CBFS formatted ROM images"
-	# x86_64 only - memcpy is out of bounds on x86
 
-	make -e -C "$builddir"/util/cbfstool cbfstool
-	make -e -C "$builddir"/util/cbfstool cbfstool PREFIX="$subpkgdir/usr" install
+	amove usr/bin/cbfstool
 }
 
 sha512sums="
-380546ee0353098065e824f1ae3f7fca012bb23adf47432b0b598a64ac6940d71035f8614f39ecb48f444c854bf532096c66149c26134ff1ed9ec14f7a836a22  coreboot-25.06.tar.xz
+e12786197f10b82ef4a84cb76641222dc3e0efdbc1127c0ed6e5576a5f9bcb8ecd1e4a7d04e1e852751a5087e5020e9c5607df98f4ce4de3f59736d6dfd354cb  coreboot-26.06.tar.xz
+c4f0904a24cb7873f7da8e3306a2c7d2f419c0098845e2e238bb931b7bd354238de146e689dc14bfa3b3ae383e6b6361bcf5cecc9d87427e684c02a0f42e08aa  cbmem.patch
+3c24acbaa3cd186d00eb2636c18c4b1cc0fdfbf7101d340aa613f6992bc061bb79d0f46f574e2ec7130e935c06a843805ad09f4ebef14f8b5ef433fd6b8a7c83  cbfstool.patch
 "

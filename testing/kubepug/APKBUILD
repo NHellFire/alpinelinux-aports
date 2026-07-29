@@ -1,7 +1,7 @@
 # Maintainer: Hoang Nguyen <folliekazetani@protonmail.com>
 pkgname=kubepug
 pkgver=1.7.1
-pkgrel=13
+pkgrel=21
 pkgdesc="Kubernetes pre-upgrade deprecation checker"
 url="https://github.com/rikatz/kubepug"
 arch="all"
@@ -13,10 +13,6 @@ subpackages="
 	$pkgname-fish-completion
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/rikatz/kubepug/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	local _goldflags="

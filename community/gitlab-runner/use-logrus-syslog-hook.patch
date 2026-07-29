@@ -12,9 +12,11 @@ I didn't contribute this patch to the upstream because I don't wanna
 contribute to any Go projects. However, if you find this patch useful,
 feel free to send it to the upstream under your name.
 
+diff --git a/commands/multi.go b/commands/multi.go
+index e62594be6..a0c2d659b 100644
 --- a/commands/multi.go
 +++ b/commands/multi.go
-@@ -30,6 +30,9 @@
+@@ -37,6 +37,9 @@ import (
  	"gitlab.com/gitlab-org/gitlab-runner/log"
  	"gitlab.com/gitlab-org/gitlab-runner/network"
  	"gitlab.com/gitlab-org/gitlab-runner/session"
@@ -23,8 +25,8 @@ feel free to send it to the upstream under your name.
 +	lSyslog "github.com/sirupsen/logrus/hooks/syslog"
  )
  
- var (
-@@ -997,7 +1000,13 @@
+ const (
+@@ -1462,7 +1465,13 @@ func (mr *RunCommand) Execute(_ *cli.Context) {
  	}
  
  	if mr.Syslog {
@@ -38,5 +40,4 @@ feel free to send it to the upstream under your name.
 +		}
  	}
  
- 	logrus.AddHook(&mr.sentryLogHook)
-
+ 	mr.sentryLogHookMutex.Lock()

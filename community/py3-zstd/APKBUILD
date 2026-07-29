@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-zstd
-pkgver=1.5.7.2
-pkgrel=0
+pkgver=1.5.7.3
+pkgrel=2
 pkgdesc="Simple Python bindings to Yann Collet ZSTD compression library"
 url="https://pypi.org/project/zstd/"
 arch="all"
@@ -15,7 +15,7 @@ makedepends="
 	zstd-dev
 	"
 checkdepends="py3-pytest-forked"
-source="https://github.com/sergey-dryabzhinsky/python-zstd/archive/v$pkgver/py3-zstd-$pkgver.tar.gz"
+source="py3-zstd-$pkgver-1.tar.gz::https://github.com/sergey-dryabzhinsky/python-zstd/archive/v$pkgver/py3-zstd-$pkgver.tar.gz"
 builddir="$srcdir/python-zstd-$pkgver"
 
 build() {
@@ -37,5 +37,5 @@ package() {
 }
 
 sha512sums="
-8c32713346efdd54b2775769b75a55e09fb01b80e4d198b520fd566a05bbb21818b9935a95b31faeeafbf785b9ac43392fcddc0ff4906d89927d30fa66a1a0ea  py3-zstd-1.5.7.2.tar.gz
+cd719b85ee4aed7676d16b8605257a076e61e3fe965983b6b046fa0eab116d0f3790d666a8533248329990df4d9061ab06581b2ec11947844bc986ff285e4dfd  py3-zstd-1.5.7.3-1.tar.gz
 "

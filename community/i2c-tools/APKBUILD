@@ -2,15 +2,17 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=i2c-tools
 pkgver=4.4
-pkgrel=0
+pkgrel=3
 pkgdesc="Tools for monitoring I2C devices"
 url="https://i2c.wiki.kernel.org/index.php/I2C_Tools"
 arch="all"
 license="GPL-2.0-or-later AND LGPL-2.1-or-later"
 options="!check" #no test/check provided by upstream
-makedepends="linux-headers python3-dev py3-setuptools"
+makedepends="linux-headers python3-dev py3-setuptools py3-gpep517"
 subpackages="$pkgname-dev $pkgname-doc py3-smbus:py"
-source="https://fossies.org/linux/misc/i2c-tools-$pkgver.tar.gz"
+# Source inaccessible via busybox wget
+# source="https://fossies.org/linux/misc/i2c-tools-$pkgver.tar.gz"
+source="https://www.kernel.org/pub/software/utils/i2c-tools/i2c-tools-$pkgver.tar.gz"
 
 prepare() {
 	default_prepare
@@ -24,7 +26,9 @@ build() {
 	make
 
 	cd "$builddir"/py-smbus
-	CFLAGS="$CFLAGS -I$builddir/include" python3 setup.py build
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 py() {
@@ -39,9 +43,9 @@ package() {
 	make install
 
 	cd "$builddir"/py-smbus
-	python3 setup.py install --skip-build --root="$pkgdir"
+	python3 -m installer -d "$pkgdir" .dist/*.whl
 }
 
 sha512sums="
-97e4b32df5c529df3a8912f93ff11a99fe8419cb3850c2f9c2c7e66104426c2103a39cf6fbe7e4bf84c67dcfde3722c029c19dae4f49b87fb1be303fc3cdfc34  i2c-tools-4.4.tar.gz
+a016590201c01759d3a9eee8054aeb242176143e22851df3c46605064ae221a7ccf63accf0eedc60d5bd809784b3eafd7b85245052cdb48b37bff79d3a2ace56  i2c-tools-4.4.tar.gz
 "

@@ -1,7 +1,7 @@
 # Maintainer:
 pkgname=git-revise
 pkgver=0.7.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Handy tool for doing efficient in-memory commit rebases & fixups with git"
 url="https://github.com/mystor/git-revise"
 arch="noarch"
@@ -20,7 +20,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest \
 		--deselect tests/test_gpgsign.py::test_gpgsign
 }

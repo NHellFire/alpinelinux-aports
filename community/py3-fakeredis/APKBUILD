@@ -1,7 +1,7 @@
 # Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
 pkgname=py3-fakeredis
 _pkgname=${pkgname#py3-}
-pkgver=2.30.3
+pkgver=2.36.0
 pkgrel=0
 pkgdesc="Fake implementation of redis API for testing purposes"
 url="https://pypi.org/project/fakeredis/"
@@ -40,5 +40,5 @@ package() {
 }
 
 sha512sums="
-239ac63d064e49c369d7114296e81afd03b6e3aa3a238eb59f0328e936d34b68746518de5f5bc3021a584bfd22b62ca4390b346717ca09c1171767c76e7be462  py3-fakeredis-2.30.3.tar.gz
+f873ee4b711ad994cc714125fc0b0456ba519bc1369ab2a25f3e4be043fc8697532336a1953c1b3d29dfc00fb4618e840b82578a67e6e33cd34f7727273e4fb5  py3-fakeredis-2.36.0.tar.gz
 "

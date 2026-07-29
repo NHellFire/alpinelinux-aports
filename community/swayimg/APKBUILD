@@ -1,16 +1,18 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=swayimg
-pkgver=4.5
+pkgver=5.4
 pkgrel=0
 pkgdesc="Image viewer for Sway"
 url="https://github.com/artemsen/swayimg"
-# optional libjxl, but nobody is using this on s390x
-arch="all !s390x"
+# riscv64: blocked by luajit
+# s390x: optional libjxl, but nobody is using this on s390x
+arch="all !riscv64 !s390x"
 license="MIT"
 makedepends="
 	bash-completion-dev
 	cairo-dev
+	exiv2-dev
 	giflib-dev
 	json-c-dev
 	libexif-dev
@@ -20,7 +22,9 @@ makedepends="
 	librsvg-dev
 	libwebp-dev
 	libxkbcommon-dev
+	luajit-dev
 	meson
+	openjpeg-dev
 	wayland-dev
 	wayland-protocols
 	"
@@ -28,6 +32,7 @@ subpackages="
 	$pkgname-full
 	$pkgname-doc
 	$pkgname-bash-completion
+	$pkgname-zsh-completion
 	"
 source="https://github.com/artemsen/swayimg/archive/v$pkgver/swayimg-$pkgver.tar.gz"
 options="!check"  # no tests provided
@@ -54,12 +59,14 @@ _build() {
 		-Dgif=enabled \
 		-Dheif=enabled \
 		-Djpeg=enabled \
+		-Djp2=enabled \
 		-Djxl=enabled \
 		-Dpng=enabled \
 		-Dsvg=enabled \
 		-Dwebp=enabled \
 		-Dexif=enabled \
 		-Dbash=enabled \
+		-Dzsh=enabled \
 		-Dversion=$pkgver \
 		"$@" \
 		. "$outdir"
@@ -71,7 +78,7 @@ package() {
 	provider_priority="100"  # highest (other provider is swayimg-full)
 
 	DESTDIR="$pkgdir" meson install --no-rebuild -C output
-	install -D -m644 extra/swayimgrc "$pkgdir"/etc/xdg/$pkgname/config
+	install -D -m644 extra/example.lua "$pkgdir"/etc/xdg/$pkgname/init.lua
 }
 
 full() {
@@ -82,9 +89,9 @@ full() {
 	cd "$builddir"
 
 	DESTDIR="$subpkgdir" meson install --no-rebuild -C output-full
-	install -D -m644 extra/swayimgrc "$subpkgdir"/etc/xdg/$pkgname/config
+	install -D -m644 extra/example.lua "$subpkgdir"/etc/xdg/$pkgname/init.lua
 }
 
 sha512sums="
-c193d3d3a56136279907138cfa832d1ec9991b17689949fb01150407591971bbf826a7898e23a5133905a25d2e35992bb45764e78c5844a8153771aab8ddbcdf  swayimg-4.5.tar.gz
+7a69c17d57c1f2a8e7ae2c19cb134d5194182a9dd403d5520d5d8fc133ba14a6aef04493e01526dfbcbdc27697a77eb1940baf7355c384075bd547fb1af7d571  swayimg-5.4.tar.gz
 "

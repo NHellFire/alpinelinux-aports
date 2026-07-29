@@ -1,10 +1,10 @@
 # Contributor: Arch3y <arch3y@riseup.net>
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=hexinject
 pkgver=1.6
-pkgrel=2
+pkgrel=3
 pkgdesc="Versatile packet injector and sniffer"
 url="https://hexinject.sourceforge.net/"
 arch="all"

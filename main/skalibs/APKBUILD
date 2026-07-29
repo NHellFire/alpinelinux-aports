@@ -7,30 +7,34 @@ pkgname=skalibs
 # - mingetty
 # - openssh
 # - util-linux
-pkgver=2.14.4.0
+pkgver=2.15.1.0
 pkgrel=0
 pkgdesc="Set of general-purpose C programming libraries for skarnet.org software."
-url=https://skarnet.org/software/skalibs/
+url="https://skarnet.org/software/skalibs/"
 arch="all"
 license="ISC"
-options="!check"
+options="!check"  # No test suite.
 subpackages="$pkgname-static $pkgname-libs $pkgname-dev $pkgname-doc"
 source="https://skarnet.org/software/skalibs/skalibs-$pkgver.tar.gz"
 
 build() {
 	./configure \
 		--prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir="/usr/libexec/$pkgname" \
 		--enable-pkgconfig \
 		--with-sysdep-devurandom=yes \
 		--with-sysdep-posixspawnearlyreturn=no \
-		--with-sysdep-procselfexe=/proc/self/exe
+		--with-sysdep-procselfexe=/proc/self/exe \
+		--with-sysdep-selectinfinite=yes
 	make
 }
 
 package() {
 	make DESTDIR="$pkgdir" install
+	install -D -m 0644 COPYING "$pkgdir/usr/share/licenses/$pkgname/COPYING"
 	mkdir -p "$pkgdir/usr/share/doc"
-	cp -a "$builddir/doc" "$pkgdir/usr/share/doc/$pkgname"
+	cp -a doc "$pkgdir/usr/share/doc/$pkgname"
 }
 
 dev() {
@@ -39,5 +43,5 @@ dev() {
 }
 
 sha512sums="
-a97c9ecd62e4d751a6613c01831bff5856c5d23f8fd295d539c3280c6ffa2379e67789c728552cb4d85aa03b30af7e2499b80cb8025b52ca6d1c1746b48102b1  skalibs-2.14.4.0.tar.gz
+e8a77a1b53343573c6be5272b0400e7a0a7018ff2b16fb257b70e182dace9562c3f2d666a81048224f5fe9107cafa1ddf2c62e6eaa485c739f6af5b2edde46f7  skalibs-2.15.1.0.tar.gz
 "

@@ -1,9 +1,9 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=libyang
-pkgver=3.13.5
-pkgrel=0
+pkgver=3.13.6
+pkgrel=1
 pkgdesc="YANG data modelling language parser and toolkit"
 url="https://github.com/CESNET/libyang"
 arch="all"
@@ -53,5 +53,5 @@ package() {
 }
 
 sha512sums="
-c6d9b3caf8a523ac35a508d51789ed4d2a567332e59772f615b212a84809c2c2ddadc87d61b21279c3d1a07a74f74b666a8cf942037c51e51d1a3eeb0eec149d  libyang-3.13.5.tar.gz
+c0a71bcff50530644e7c7d1d368393a6a50bad3cf1e052cf28b72ad7065442f79200af0a55d4ce02426c51660dacf5b4a3685e569f9bc51bdce1519666ec6ded  libyang-3.13.6.tar.gz
 "

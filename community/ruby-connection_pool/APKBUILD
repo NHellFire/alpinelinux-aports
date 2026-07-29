@@ -3,7 +3,7 @@
 maintainer="Will Sinatra <wpsinatra@gmail.com>"
 pkgname=ruby-connection_pool
 _gemname=${pkgname#ruby-}
-pkgver=2.5.4
+pkgver=3.0.2
 pkgrel=0
 pkgdesc="generic connection pool for ruby"
 url="https://rubygems.org/gems/connection_pool"
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-9b3e60e3b2240742183bb873c8333319981063619aa3e5a847b20e08929f53e7e72fc1331eadd4c09be042470d51ef6de8d5dc1d325e1e7fa967c91260a8503a  ruby-connection_pool-2.5.4.tar.gz
+9d44e58f7af32211b469a2eb2baf164886ba37ac28135d90530564b23eea0ba9952dd79dfbf2243e9bfbdc23a6a0b33ff032fb034c1b75389d9297637a14f870  ruby-connection_pool-3.0.2.tar.gz
 "

@@ -2,13 +2,22 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kinfocenter
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="A utility that provides information about a computer system"
 # armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://kde.org/plasma-desktop/"
 license="(GPL-2.0-only OR GPL-3.0-only) AND (LGPL-2.1-only OR LGPL-3.0-only)"
+depends="
+	dmidecode
+	libdisplay-info-tools
+	lm-sensors
+	mesa-utils
+	opencl
+	sysfsutils
+	systemsettings
+	"
 makedepends="
 	extra-cmake-modules
 	glu-dev
@@ -65,5 +74,5 @@ package() {
 }
 
 sha512sums="
-63f6b55725c86d6512425020a489b47b56c8d2137f3533449e9b4d516ba5515ea1bfe93f19b11c18005f0e056c024d4e0cf9460906421e779e7bcc4d37f95016  kinfocenter-6.4.5.tar.xz
+5e31e9e9bf0b71e6a3a1cbe4cc5e5895c46ca380e037e20d2991f94015eba14b9abcf2000168b4ebc65680ca65628ad4a90d7fc75fd1f53b57ae8213b9bbb759  kinfocenter-6.7.3.tar.xz
 "

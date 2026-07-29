@@ -1,8 +1,8 @@
 # Contributor: Alex Yam <alex@alexyam.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Wen Heping <wenhepingalpine@sohu.com>
 pkgname=pari
-pkgver=2.17.2
+pkgver=2.17.4
 pkgrel=0
 pkgdesc="Computer algebra system designed for fast computations in number theory"
 url="https://pari.math.u-bordeaux.fr/"
@@ -51,5 +51,5 @@ doc() {
 }
 
 sha512sums="
-3b981771fe7673470f0684351518ea88b5f71255a39ea39d72ae972dfc816d12468d81956400ec6bac1c6e191086007e696f63a342bf2e63c4ea8a2879e3fa50  pari-2.17.2.tar.gz
+795539468cc1df93dca5f7c4b6bfb29fa4304ae4cf8a779e541684177b63980739b04cfe4f49aaa4b4aa5a268412a01d1432373d0bf7a6852784a36b56560315  pari-2.17.4.tar.gz
 "

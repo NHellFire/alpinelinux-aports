@@ -1,11 +1,11 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
-# Maintainer: Holger Jaekel <holger.jaekel@gmx.de>
+maintainer="Holger Jaekel <holger.jaekel@gmx.de>"
 pkgname=tomcat9
-pkgver=9.0.107
+pkgver=9.0.120
 pkgrel=0
 pkgdesc="Open source implementation of the Java Servlet 4.0 and JavaServer Pages 2.3 technologies"
 url="https://tomcat.apache.org/"
-arch="noarch !x86 !armv7 !armhf !ppc64le !riscv64 !loongarch64" # eclipse-ecj availability
+arch="noarch !x86 !armv7 !armhf !riscv64" # eclipse-ecj availability
 license="Apache-2.0"
 depends="eclipse-ecj java-common"
 pkgusers="tomcat9"
@@ -26,6 +26,27 @@ source="
 builddir=$srcdir/apache-${pkgname//9/}-$pkgver
 
 # secfixes:
+#   9.0.120-r0:
+#     - CVE-2026-50229
+#     - CVE-2026-53404
+#     - CVE-2026-53434
+#     - CVE-2026-55276
+#     - CVE-2026-55955
+#     - CVE-2026-55956
+#     - CVE-2026-59083
+#     - CVE-2026-59084
+#   9.0.118-r0:
+#     - CVE-2026-34483
+#     - CVE-2026-34486
+#     - CVE-2026-34487
+#     - CVE-2026-34500
+#     - CVE-2026-41284
+#     - CVE-2026-41293
+#     - CVE-2026-42498
+#     - CVE-2026-43512
+#     - CVE-2026-43513
+#     - CVE-2026-43514
+#     - CVE-2026-43515
 #   9.0.99-r0:
 #     - CVE-2025-24813
 #   9.0.80-r0:
@@ -127,6 +148,6 @@ openrc() {
 }
 
 sha512sums="
-1815837fa10083258b653dab1f3947fadbad377fa66546fa74aecea1439c6fed2ef4e40c86fa55e176d8c5739ad448196a7415ddfca6ff8d17c6fe8cdba0fefb  apache-tomcat-9.0.107.tar.gz
+07eb6d9639c3e69af81171a16ccff1c19b7fd5b2e87e3646851f0a3f42a4ce3c1bf128fbe40fc978a08935ba4f0400ef3b43ded3e470b9aaf23b97a9e1fa0858  apache-tomcat-9.0.120.tar.gz
 7d16b14977c22e1ae998d15a0a83a574624b62c722a0adbfd05a4105581eee347d38e366a269ebca4c8fa894c3718d6fbdcea0e0974d20407075ec2af6ea07a4  10-daemon.patch
 "

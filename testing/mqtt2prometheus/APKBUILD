@@ -2,7 +2,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=mqtt2prometheus
 pkgver=0.1.7
-pkgrel=19
+pkgrel=27
 pkgdesc="MQTT to Prometheus gateway"
 url="https://github.com/hikhvar/mqtt2prometheus"
 arch="all"
@@ -11,10 +11,6 @@ makedepends="go"
 source="https://github.com/hikhvar/mqtt2prometheus/archive/v$pkgver/mqtt2prometheus-$pkgver.tar.gz
 	update-golang-sys.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -o mqtt2prometheus ./cmd

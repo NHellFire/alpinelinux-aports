@@ -3,6 +3,8 @@
 # Maintainer: Orion <systmkor@gmail.com>
 #
 # secfixes:
+#   4.1.1-r0:
+#     - CVE-2025-9230
 #   3.4.3-r0:
 #     - CVE-2022-0778
 #   3.1.5-r0:
@@ -14,9 +16,9 @@
 #     - CVE-2017-8301
 #
 pkgname=libressl
-pkgver=4.1.0
+pkgver=4.3.2
 _namever=${pkgname}${pkgver%.*}
-pkgrel=2
+pkgrel=0
 pkgdesc="Version of the TLS/crypto stack forked from OpenSSL"
 url="https://www.libressl.org/"
 # s390x: does not build there anymore due to missing arch detection and arch code
@@ -29,9 +31,19 @@ depends_dev="!openssl-dev !openssl-libs-static"
 #makedepends_build="automake autoconf libtool"
 makedepends_host="linux-headers"
 makedepends="$makedepends_host $makedepends_build"
-subpackages="$pkgname-dbg $pkgname-static $_namever-libcrypto:_libs $_namever-libssl:_libs
-	$_namever-libtls:_libs $pkgname-dev $pkgname-doc $pkgname-nc"
-source="https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-$pkgver.tar.gz 0001-libressl.cnf.patch"
+subpackages="
+	$pkgname-dbg
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-nc
+	$pkgname-static
+	$_namever-libcrypto:_libs
+	$_namever-libssl:_libs
+	$_namever-libtls:_libs
+	"
+source="https://ftp.openbsd.org/pub/OpenBSD/LibreSSL/libressl-$pkgver.tar.gz
+	0001-libressl.cnf.patch
+	"
 
 #prepare() {
 #	default_prepare
@@ -101,6 +113,6 @@ _libs() {
 }
 
 sha512sums="
-ee2cdcd2c0c68cf86e63d83af4d08f82433adeae3ea9d42928d564e18bd7f2d73cbe8fa925993fb532d01fb22fd82c185bf9a512fbdad629fa10b1fff79f2d99  libressl-4.1.0.tar.gz
+de80606d7f003afbbab766baf7f2a3cc3a515e88f14652535411052d293eacd06bac28667284c81ecac0382aad3a2c8cac49b687d9e3a09e45c19cd6aea41994  libressl-4.3.2.tar.gz
 aefa5dc99345462a93f97061fdee6b5b148eed30c4bf7a7097ade8cef9dd890d8d7100558d5e1ebe6790372261c76ce04a874526cb521dea068ec1439259a035  0001-libressl.cnf.patch
 "

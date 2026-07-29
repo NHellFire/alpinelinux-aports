@@ -2,7 +2,7 @@
 # Maintainer: Lindsay Zhou <i@lin.moe>
 maintainer="Lindsay Zhou <i@lin.moe>"
 pkgname=py3-telethon
-pkgver=1.40.0
+pkgver=1.44.0
 pkgrel=0
 pkgdesc="Full-featured Telegram client library"
 url="https://docs.telethon.dev/"
@@ -14,6 +14,7 @@ depends="
 	"
 makedepends="
 	py3-gpep517
+	py3-hatchling
 	py3-setuptools
 	py3-wheel
 	"
@@ -22,12 +23,13 @@ checkdepends="
 	py3-pytest-asyncio
 	"
 subpackages="$pkgname-pyc"
-source="https://github.com/LonamiWebs/Telethon/archive/v$pkgver/Telethon-v$pkgver.tar.gz
-	0001-Add-send_as-and-message_effect_id-for-client-send_fi.patch
+source="
+	$pkgname-$pkgver.tar.gz::https://codeberg.org/Lonami/Telethon/archive/v$pkgver.tar.gz
 	"
-builddir="$srcdir/Telethon-$pkgver"
+builddir="$srcdir"/telethon
 
 build() {
+	python3 setup.py gen
 	gpep517 build-wheel \
 		--wheel-dir .dist \
 		--output-fd 3 3>&1 >&2
@@ -36,7 +38,7 @@ build() {
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
 	.testenv/bin/python3 -m installer .dist/*.whl
-	.testenv/bin/python3 -m pytest -k 'not test_all_methods_present'
+	.testenv/bin/python3 -m pytest -v
 }
 
 package() {
@@ -45,6 +47,5 @@ package() {
 }
 
 sha512sums="
-b00bca0876187ff7bbf69c8996e19d20fc5c3d46d087f8406332740a75c4ae33e6fcd05efe8666ce58849b9249720887c071736a6d2afeb1382fe1d0e859a27c  Telethon-v1.40.0.tar.gz
-df8b3cd02162f70a51e06c895dd7475a7cad1a8daa60176e4a532ff531a90d90ba1dc9443646cc3e78471aae5d773a3a29bf0c064671e8bed59a552a5ef3206f  0001-Add-send_as-and-message_effect_id-for-client-send_fi.patch
+a51805a6b10b590b97cc8a2fcd1541fde8648c534e7a58044e7055998e76d700f2b7bd6c6489a6ed0d3aa8ee7658d4c9cdf5fd1929583a605d79a43efd317b88  py3-telethon-1.44.0.tar.gz
 "

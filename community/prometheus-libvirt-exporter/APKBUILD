@@ -3,7 +3,7 @@
 pkgname=prometheus-libvirt-exporter
 _pkgname=libvirt-exporter
 pkgver=2.3.3
-pkgrel=17
+pkgrel=25
 pkgdesc="Prometheus libvirt exporter"
 url="https://github.com/Tinkoff/libvirt-exporter"
 arch="all"
@@ -16,7 +16,7 @@ source="$_pkgname-$pkgver.tar.gz::https://github.com/Tinkoff/libvirt-exporter/ar
 	libvirt-exporter.confd
 	"
 builddir="$srcdir/$_pkgname-$pkgver"
-options="!check"
+options="!check net" # go
 
 build() {
 	go build

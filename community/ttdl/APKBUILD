@@ -1,6 +1,6 @@
 maintainer="Thomas Böhler <witcher@wiredspace.de>"
 pkgname=ttdl
-pkgver=4.12.0
+pkgver=6.2.2
 pkgrel=0
 pkgdesc="Terminal Todo List Manager"
 url="https://github.com/VladimirMarkelov/ttdl"
@@ -8,6 +8,7 @@ arch="all"
 license="MIT"
 makedepends="cargo cargo-auditable"
 subpackages="$pkgname-doc"
+options="net" # cargo
 source="$pkgname-$pkgver.tar.gz::https://github.com/VladimirMarkelov/ttdl/archive/refs/tags/v$pkgver.tar.gz"
 
 prepare() {
@@ -34,5 +35,5 @@ package() {
 }
 
 sha512sums="
-43e8753e02a757b2a3e91f70458b707f656442514c9ad998087170544a4989dcacaf5ec86942ca556140beb613911816d489ae15b5ec70f5a5430e8ca520a946  ttdl-4.12.0.tar.gz
+e6a6961b21cf9791ddfde356080fa3177d83a2b5c900fc297f1a8a2234907fda24aa24d718e166c5aca9ec2918de3af383628684bd965caf06bdcbd41e929206  ttdl-6.2.2.tar.gz
 "

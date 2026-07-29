@@ -1,9 +1,9 @@
 # Contributor: ScrumpyJack <scrumpyjack@st.ilet.to>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=libdbi
 pkgver=0.9.0
-pkgrel=5
+pkgrel=6
 pkgdesc="Database independent abstraction layer for C"
 url="https://libdbi.sourceforge.net/"
 arch="all"

@@ -1,7 +1,7 @@
 maintainer="Thomas Aldrian <aldrian.thom@proton.me>"
 pkgname=plots
 pkgver=0.7.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A graph plotting app for GNOME"
 url="https://github.com/alexhuntley/Plots"
 # loongarch64: blocked by py3-pyglm
@@ -26,7 +26,6 @@ makedepends="
 	py3-wheel
 	"
 checkdepends="
-	mesa-osmesa
 	py3-pytest
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/alexhuntley/Plots/archive/refs/tags/v$pkgver.tar.gz"
@@ -39,8 +38,6 @@ build() {
 }
 
 check() {
-	# Required for headless
-	export PYOPENGL_PLATFORM="osmesa"
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
 	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest

@@ -2,8 +2,8 @@
 # Contributor: Nicolas Lorin <androw95220@gmail.com>
 # Maintainer: Nicolas Lorin <androw95220@gmail.com>
 pkgname=crowdsec
-pkgver=1.7.0
-pkgrel=1
+pkgver=1.7.8
+pkgrel=3
 pkgdesc="behavior detection engine, coupled with a global IP reputation network"
 url="https://crowdsec.net/"
 arch="all"
@@ -12,6 +12,7 @@ makedepends="go sqlite-dev re2-dev"
 subpackages="
 	$pkgname-openrc
 	$pkgname-email-plugin:_plugin
+	$pkgname-file-plugin:_plugin
 	$pkgname-http-plugin:_plugin
 	$pkgname-sentinel-plugin:_plugin
 	$pkgname-slack-plugin:_plugin
@@ -20,12 +21,9 @@ subpackages="
 options="!check" # no test suite identified
 source="$pkgname-$pkgver-2.tar.gz::https://github.com/crowdsecurity/crowdsec/archive/refs/tags/v$pkgver.tar.gz
 	system-sqlite.patch
+	update-go-re2.patch
 	crowdsec.initd
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make \
@@ -45,7 +43,10 @@ package() {
 	install -Dm 0755 cmd/crowdsec-cli/cscli "$pkgdir"/usr/bin/cscli
 	install -m 0755 cmd/crowdsec/crowdsec "$pkgdir"/usr/bin/crowdsec
 	install -m 0644 config/patterns/* "$pkgdir"/etc/crowdsec/patterns/
+	install -m 0644 config/detect.yaml "$pkgdir"/var/lib/crowdsec/data/
 	install -m 0644 \
+		config/dev.yaml \
+		config/user.yaml \
 		config/acquis.yaml \
 		config/console.yaml \
 		config/profiles.yaml \
@@ -57,19 +58,19 @@ package() {
 		"$pkgdir"/etc/crowdsec/
 	install -m 0600 \
 		cmd/notification-email/email.yaml \
+		cmd/notification-file/file.yaml \
 		cmd/notification-http/http.yaml \
 		cmd/notification-sentinel/sentinel.yaml \
 		cmd/notification-slack/slack.yaml \
 		cmd/notification-splunk/splunk.yaml \
-		cmd/notification-sentinel/sentinel.yaml \
 		"$pkgdir"/etc/crowdsec/notifications
 	install -m 0551 \
 		cmd/notification-email/notification-email \
+		cmd/notification-file/notification-file \
 		cmd/notification-http/notification-http \
 		cmd/notification-sentinel/notification-sentinel \
 		cmd/notification-slack/notification-slack \
 		cmd/notification-splunk/notification-splunk \
-		cmd/notification-sentinel/notification-sentinel \
 		"$pkgdir"/usr/libexec/crowdsec/plugins/
 	sed \
 		-e '/^\s*pid_dir:/d' \
@@ -91,7 +92,8 @@ _plugin() {
 }
 
 sha512sums="
-5899b261ef0c16b00abfd7243276fb381e04373f2fce88a9583260d6c2c5cbe5f608ca3bf9cba8bc986524a9b0bf3fef483ba6ff6125a1166de3d4223d8ead28  crowdsec-1.7.0-2.tar.gz
-58dbdd1207eaf92627e5047cc610fd921cabd5c84eca05389d48dd608271ee09229f7e935d72f129365abcd0a0411143c0c6110f9809b89d33d5038a1b2ffe8a  system-sqlite.patch
+39dcbb9e3b5cd5ab36cf6af92b15d2ed661734ace4ea12751288199cb474219aeecf17a3841fd4ec87e01834b0d9b24b4216494d8949dbdeaf3b0081863c3f4f  crowdsec-1.7.8-2.tar.gz
+3c0d2c47a798fd8687361fc9aed89ed72a82dbc7683a6b71f44aabe7ee925346a66617c29f1c8ca992ded883e7539b3dd8829e02416c16d421ea2c827d70515b  system-sqlite.patch
+9551495893fbfcf77c4f3376ff892e1ce707601a0af46b1a4458a7675e322c0d08aad1efbc746ba9cc44f4a07d5ece45832943a2f3f86452b4046d0d5543f878  update-go-re2.patch
 098db47afd457c9d68c69097c31fae29cd0c0dc98199b254f75b130ac228ac43c024182bebd7eae756ae4fa2f54682b7f0534cb04311468224d9df2ce4f67ec2  crowdsec.initd
 "

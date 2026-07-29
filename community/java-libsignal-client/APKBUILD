@@ -1,7 +1,7 @@
 # Contributor: Simon Frankenberger <simon-alpine@fraho.eu>
 # Maintainer: Simon Frankenberger <simon-alpine@fraho.eu>
 pkgname=java-libsignal-client
-pkgver=0.80.2
+pkgver=0.96.3
 pkgrel=0
 pkgdesc="libsignal-client contains platform-agnostic APIs useful for Signal client apps"
 url="https://github.com/signalapp/libsignal"
@@ -13,10 +13,8 @@ url="https://github.com/signalapp/libsignal"
 arch="all !armhf !armv7 !x86 !ppc64le !s390x !riscv64 !loongarch64"
 license="AGPL-3.0-or-later"
 depends="java-jre-headless"
-makedepends="bash cargo clang-dev cmake openjdk17-jdk protoc python3 rust zip ninja"
-source="
-	$pkgname-$pkgver.tar.gz::https://github.com/signalapp/libsignal/archive/v$pkgver.tar.gz
-	"
+makedepends="bash cargo clang-dev cmake openjdk17-jdk protobuf-dev python3 rust zip ninja"
+source="$pkgname-$pkgver.tar.gz::https://github.com/signalapp/libsignal/archive/v$pkgver.tar.gz"
 install="$pkgname.post-install $pkgname.post-upgrade"
 builddir="$srcdir/libsignal-$pkgver"
 # tests succeed, but gradle aborts with exit value 134. have to further investigate later
@@ -42,5 +40,5 @@ package() {
 }
 
 sha512sums="
-59c913764b8218be491ba7d48de1a821eb7a20c412f31f75a61949a5727469cd593a23400717ac7fc61ffc50743939127e1bd15a949ed1baee9174df3d5dc112  java-libsignal-client-0.80.2.tar.gz
+d622ea6e77923a7b81cc9f9029a7e67ba14a22837a9ced20a0327618ae17adf5a118038edd8afe8661b728db87444523f35e986e726ca4e234540d9e8b8f0b0b  java-libsignal-client-0.96.3.tar.gz
 "

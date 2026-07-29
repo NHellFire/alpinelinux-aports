@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=triehash
 pkgver=0.3
-pkgrel=2
+pkgrel=3
 pkgdesc="Generator for order-preserving minimal perfect hash functions in C"
 url="https://github.com/julian-klode/triehash"
 arch="noarch"

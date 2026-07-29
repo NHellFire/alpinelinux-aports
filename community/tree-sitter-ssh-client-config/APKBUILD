@@ -1,7 +1,7 @@
 # Contributor: Matthias Ahouansou <matthias@ahouansou.cz>
 # Maintainer: Matthias Ahouansou <matthias@ahouansou.cz>
 pkgname=tree-sitter-ssh-client-config
-pkgver=2025.9.11
+pkgver=2026.6.4
 pkgrel=0
 pkgdesc="tree-sitter grammar for SSH client configuration files"
 url="https://github.com/metio/tree-sitter-ssh-client-config"
@@ -25,5 +25,5 @@ package() {
 }
 
 sha512sums="
-b864ee942efdc351889476d8871427bb82167d8d7b85f73b138302b9ac4837a12256b2992085d75636ca872b0c32bbee786e7f51bd1d05446dfd4c6938315534  tree-sitter-ssh-client-config-2025.9.11.tar.gz
+180b92804244521e657991358c517dd815b67e592f5487fa4754aeb25e58ac9669b85d55d4d030f44db9a6f60aeb5dc838a85c63004c5c8b6fa0e38a9c0c68e6  tree-sitter-ssh-client-config-2026.6.4.tar.gz
 "

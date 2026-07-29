@@ -1,23 +1,19 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=cri-tools
-pkgver=1.34.0
-pkgrel=1
+pkgver=1.36.0
+pkgrel=2
 pkgdesc="CLI tool for Kubelet Container Runtime Interface (CRI)"
 url="https://github.com/kubernetes-sigs/cri-tools"
-arch="all !armhf"
+arch="all"
 license="Apache-2.0"
 makedepends="go"
 options="!check" # no check available
 source="$pkgname-$pkgver.tar.gz::https://github.com/kubernetes-sigs/cri-tools/archive/v$pkgver.tar.gz"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
 case "$CARCH" in
-	armv7|riscv64|s390x|x86|loongarch64) CGO_ENABLED=1 make all;;
+	arm*|riscv64|s390x|x86|loongarch64) CGO_ENABLED=1 make all;;
 	*) make all;;
 esac
 }
@@ -30,5 +26,5 @@ package() {
 }
 
 sha512sums="
-c6ec6e9682c5891c15b22415269999210e1372274d692b0adb822219ee210918ca2d647755dd1f30f5f58ac23975531ea9c0bdea05fd97b155f5830f1d4fdbc3  cri-tools-1.34.0.tar.gz
+5daa05ad977c85c5656c0fd1a6d4dd0b4596bf9d05038229fa522941e51793fff4272bb7c403b6bff6b6dde80d6f45f161e979861547bf5fb91095a096726967  cri-tools-1.36.0.tar.gz
 "

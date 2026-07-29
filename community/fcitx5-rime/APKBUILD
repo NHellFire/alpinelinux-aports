@@ -1,7 +1,7 @@
 # Contributor: Lindsay Zhou <i@lin.moe>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-rime
-pkgver=5.1.11
+pkgver=5.1.14
 pkgrel=0
 pkgdesc="librime input method support for fcitx5"
 url="https://github.com/fcitx/fcitx5-rime"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-a40affe66603de8ba95f595a14f5b1c5382e8ece161ede36ffe893eac5249683fe84e4b0925bec89a0bc6e5d8969962e69b3394dd71e4616ea7fdfa960675c29  fcitx5-rime-5.1.11.tar.gz
+f51080b85d9d651a40a68da9be3c6fbbd3de1237fc96e81d205395d5956dd55e22129e65eb7b543d3dfbd2268724f98bbca8357a37220d57345c7ae2254f3901  fcitx5-rime-5.1.14.tar.gz
 "

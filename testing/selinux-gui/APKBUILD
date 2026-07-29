@@ -1,0 +1,32 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=selinux-gui
+pkgver=3.11
+pkgrel=0
+pkgdesc="GUI for managing SELinux"
+url="https://github.com/SELinuxProject/selinux"
+arch="noarch"
+license="GPL-2.0-or-later"
+depends="
+	gtk+3.0
+	py3-libselinux
+	selinux-python
+	"
+makedepends="gettext"
+subpackages="$pkgname-doc $pkgname-lang"
+source="https://github.com/SELinuxProject/selinux/releases/download/$pkgver/selinux-gui-$pkgver.tar.gz"
+
+build() {
+	make
+}
+
+check() {
+	make test
+}
+
+package() {
+	make DESTDIR="$pkgdir" SBINDIR=/usr/sbin install
+}
+
+sha512sums="
+82d2a5432ba1e862b46c36f4fb4e9a97ead0415bc88e34baf85b098ab3c20489e0f4984463a0840ff5e6a580450b6396ffb093944f4a6ba9c48fa4beb39381b3  selinux-gui-3.11.tar.gz
+"

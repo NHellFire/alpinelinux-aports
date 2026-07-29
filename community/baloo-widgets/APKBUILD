@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=baloo-widgets
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Widgets for Baloo"
 # armhf blocked by qt6-qtdeclarative -> baloo
@@ -46,5 +46,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-14cbcbec5cce5808964456d116a449547c8253d461f7ffae93fa6bcfa31ec12210b1e46f63f4e2a1a9ee3f0fa19a0b3ac33b9edc44efe433a3e06790154ed680  baloo-widgets-25.08.0.tar.xz
+93ed58650ee3a64882219da99908f53ceb9869356fe44c6ea23291b752591ab88866169dc2ab50359f6fc240ab7c34ff7e2508a2369b7d71eaf255ce092b0f20  baloo-widgets-26.04.3.tar.xz
 "

@@ -1,14 +1,14 @@
 # Contributor: André Klitzing <aklitzing@gmail.com>
 # Maintainer: André Klitzing <aklitzing@gmail.com>
 pkgname=gcovr
-pkgver=8.3
-pkgrel=0
+pkgver=8.6
+pkgrel=1
 pkgdesc="Generates a simple report that summarizes the gcc code coverage"
 url="http://gcovr.com/"
 arch="noarch"
 license="BSD-3-Clause"
 depends="python3 py3-lxml py3-jinja2 py3-pygments py3-colorlog"
-checkdepends="py3-pytest py3-pyutilib cmake"
+checkdepends="py3-pytest cmake"
 makedepends="py3-gpep517 py3-wheel py3-hatchling py3-hatch-fancy-pypi-readme py3-hatch-vcs"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/g/gcovr/gcovr-$pkgver.tar.gz"
@@ -29,5 +29,5 @@ package() {
 }
 
 sha512sums="
-5e161acf297d977d0e3ba92d37dfb395b39651be968dc7374989935b8dc14a17ba70d001d533dab4a8a2f861e7ee63761cb4378644de33649fb050f7cf291fcb  gcovr-8.3.tar.gz
+057f7eebf2c1884fcdfa1b7032b751a758dcfe0095e5c9cd964e77fd34a05681bd4a6b4ed813c79b5cf5edffb36dbaa0c700e1650630cd81ca2ba89a11801152  gcovr-8.6.tar.gz
 "

@@ -2,7 +2,7 @@
 # Contributor: Nulo <git@nulo.in>
 # Maintainer: Zoey <zoey@z0ey.de>
 pkgname=geckodriver
-pkgver=0.36.0
+pkgver=0.37.1
 pkgrel=0
 pkgdesc="Proxy for using W3C WebDriver compatible clients to interact with Gecko-based browsers."
 url="https://github.com/mozilla/geckodriver"
@@ -24,5 +24,5 @@ package() {
 }
 
 sha512sums="
-e26203662bf7c7d0fe7567f13d6614a74feeaa6f4d976b62ea02373b0acc8f5e7e957a2ff2ee190ca93557de247105c29f961b23b1989d9f1f87377647ea50df  geckodriver-0.36.0.tar.gz
+d941e69f9fae16091006e056683e800311c4a0341732e6894057d5ea845b4322c9d7799b6c0c0b4195aad99a08d59e35a33b4f1854b04d4d44bf5a539b17b65b  geckodriver-0.37.1.tar.gz
 "

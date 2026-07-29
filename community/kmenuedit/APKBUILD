@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kmenuedit
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Menu editor for Plasma Workspaces"
 # armhf blocked by qt6-qtdeclarative
@@ -47,5 +47,5 @@ package() {
 }
 
 sha512sums="
-d3f85ce65616ddd58302781fc9bcaaa9846a21a1957f5bd9e325d2a239902c377184215a5029b8f013bbf3b87f020410ada85ec5f56f28680d5247b797ba3954  kmenuedit-6.4.5.tar.xz
+32e908729b0a84454bcbca1061ab3c6721ced755636f393b5bcb97f85167d110bf79b5753d5cfa7db3ebaf51885629c48cb089ba4537f1f1a607016df5a8c642  kmenuedit-6.7.3.tar.xz
 "

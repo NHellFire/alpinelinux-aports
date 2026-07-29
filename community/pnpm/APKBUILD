@@ -1,8 +1,8 @@
 # Contributor: Hygna <hygna@proton.me>
 # Contributor: Fabricio Silva <hi@fabricio.dev>
-maintainer="Fabricio Silva <hi@fabricio.dev>"
+maintainer="Johannes Müller <alpinelinux@jogemu.at>"
 pkgname=pnpm
-pkgver=10.15.0
+pkgver=11.17.0
 pkgrel=0
 pkgdesc="Fast, disk space efficient package manager"
 url="https://pnpm.io"
@@ -42,7 +42,7 @@ prepare() {
 }
 
 check() {
-	./bin/pnpm.cjs --help
+	./bin/pnpm.mjs --help
 }
 
 package() {
@@ -58,16 +58,16 @@ package() {
 		"$pkgdir"/usr/share/fish/vendor_completions.d/$pkgname.fish
 
 	install -Dm644 package.json -t "$destdir"
-	install -Dm755 bin/pnpm.cjs bin/pnpx.cjs -t "$destdir"/bin
+	install -Dm755 bin/pnpm.mjs bin/pnpx.mjs -t "$destdir"/bin
 	cp -r dist "$destdir"/dist
 
 	mkdir -p "$pkgdir"/usr/bin
-	ln -sf ../share/node_modules/pnpm/bin/pnpm.cjs "$pkgdir"/usr/bin/pnpm
-	ln -sf ../share/node_modules/pnpm/bin/pnpx.cjs "$pkgdir"/usr/bin/pnpx
+	ln -sf ../share/node_modules/pnpm/bin/pnpm.mjs "$pkgdir"/usr/bin/pnpm
+	ln -sf ../share/node_modules/pnpm/bin/pnpx.mjs "$pkgdir"/usr/bin/pnpx
 }
 
 sha512sums="
-486ebc259d3e999a4e8691ce03b5cac4a71cbeca39372a9b762cb500cfdf0873e2cb16abe3d951b1ee2cf012503f027b98b6584e4df22524e0c7450d9ec7aa7b  pnpm-10.15.0.tgz
-f53903c506a676393dd8b31e1194b92612bfa877a8e17edc530e308921caf454248e181a3e620a17a941eba126349128963b2b0b1e48f8d927307c9cf335290e  0001-no-check-for-updates.patch
-5582d11fcd1782f40a4f9269b477af25057e3a3d60cddef8b64a8592fafdc7a572822c8267a7abf9e8bfa4b726dcb291885642070a838e360fc542cee10c9569  0002-no-self-update.patch
+cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72  pnpm-11.17.0.tgz
+fef905ddbf4a3d0472323b7fc8029eb565791e19fa625b0a33129723d10699fc277293778cd7bbea738c4a9b15b7a74e478d3cae16d7b8007aea7df7f119fcee  0001-no-check-for-updates.patch
+9c3011abf48dc0f13485d543f6a54a68078206048aefd00d6ad60f2bed135bc4af071a131f2184935be125785c8f708932e571881ff22d805c99cd8944f4dbc6  0002-no-self-update.patch
 "

@@ -1,7 +1,7 @@
 # Contributor: David Demelier <markand@malikania.fr>
 # Maintainer: David Demelier <markand@malikania.fr>
 pkgname=wesnoth
-pkgver=1.18.5
+pkgver=1.18.7
 _major=${pkgver%.*}
 pkgrel=0
 pkgdesc="turn-based strategy game in fantasy world"
@@ -46,5 +46,5 @@ package() {
 }
 
 sha512sums="
-43137cd90f0d64eab579d58aadbf3cff045ead5709040e84b8299e33d2515182b0c5c0747cc06f9d9a4155e160dbee59963a1165392dde0c3cdb85c9c70ebc0b  wesnoth-1.18.5.tar.bz2
+b1dfee47f44b0995718bf69df0a3d887cdeb761591ae7581604ad79f6143164f0b66d685a804889d0f8d59a3016b18ab13494c7c5ec5484ec08b0d7d57282af0  wesnoth-1.18.7.tar.bz2
 "

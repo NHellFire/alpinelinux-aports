@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdialog
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-ab5ba5d2591ce780b524b81cf90b1abf6cf0963b9064c45252e0ba04537270b938935df6307030d222d5f1f4403ed61fb3820dd94ff3f144cc35b7bf42fd149c  kdialog-25.08.0.tar.xz
+d4f64f550a3424f9576ab987fb828ff258ee841f6aa954a4a95fc5e3661a5eaa2d8c32d4482ef4e1f4c86f246aa0471416635fd8bd920e7832f068e01011895d  kdialog-26.04.3.tar.xz
 "

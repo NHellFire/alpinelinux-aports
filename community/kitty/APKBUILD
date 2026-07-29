@@ -2,13 +2,13 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=kitty
-pkgver=0.42.2
-pkgrel=2
+pkgver=0.48.1
+pkgrel=0
 pkgdesc="Modern, hackable, featureful, OpenGL based terminal emulator"
 url="https://sw.kovidgoyal.net/kitty/"
 arch="all"
 license="GPL-3.0-only"
-depends="less ncurses py3-pygments $pkgname-terminfo"
+depends="less ncurses py3-pygments kitty-terminfo kitty-kitten"
 checkdepends="font-dejavu py3-pytest font-nerd-fonts-symbols"
 makedepends="
 	dbus-dev
@@ -100,6 +100,6 @@ terminfo() {
 }
 
 sha512sums="
-77e1dcb9c7cccf995bb66a8cf2eb5133b2249758e9c91f7dcd49cb00cb3bb2d3716032e1aee28ffcb49b12177744f97922a48fcbf2a4135f5a31ad7ee0960f38  kitty-0.42.2.tar.gz
+8e229441367d7be9e4783ddbe5937fcb32f6e8b7d107c37ccc32ca58b5e728b0f4567a62b919a4bdf03ea0a8ade824d83a5ca62de9c2a36f5870f61608e63535  kitty-0.48.1.tar.gz
 a9c456c25b75a2223dcb0009076fe84231e078220592c920f81ca6d04a90e26705019ba004c2f5414f5dc545dafaf2eeefb8e0bcf45d12c4e1bd43c262b5fbbc  disable-docs.patch
 "

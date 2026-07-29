@@ -6,11 +6,11 @@
 # Contributor: Craig Andrews <candrews@integralblue.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=wine
-pkgver=10.7
+pkgver=11.0
 pkgrel=0
 pkgdesc="Compatibility layer for running Windows programs"
 url="https://www.winehq.org"
-arch="x86 x86_64"
+arch="aarch64 x86 x86_64"
 license="LGPL-2.0-or-later"
 depends="
 	libxi
@@ -42,7 +42,6 @@ makedepends="
 	libxrandr-dev
 	libxrender-dev
 	mesa-dev
-	mingw-w64-gcc
 	ncurses-dev
 	opencl-dev
 	pcsc-lite-dev
@@ -77,9 +76,15 @@ prepare() {
 }
 
 case "$CARCH" in
+aarch64)
+	makedepends="$makedepends clang lld llvm"
+	;;
 x86_64)
 	# also pull in 32-target, enabled with --enable-archs
-	makedepends="$makedepends i686-mingw-w64-gcc"
+	makedepends="$makedepends i686-mingw-w64-gcc mingw-w64-gcc"
+	;;
+x86)
+	makedepends="$makedepends mingw-w64-gcc"
 	;;
 esac
 
@@ -92,6 +97,12 @@ build() {
 	export LDFLAGS="${LDFLAGS/,-Wl,-z,pack-relative-relocs}"
 
 	case "$CARCH" in
+	aarch64)
+		export CC=clang
+		export CXX=clang++
+		export LDFLAGS="$LDFLAGS -fuse-ld=lld"
+		local win64="--enable-win64"
+		;;
 	x86_64)
 		local win64="--enable-win64"
 		local archs="--enable-archs=x86_64,i386"
@@ -126,6 +137,9 @@ package() {
 	make DESTDIR="$pkgdir" install
 
 	case "$CARCH" in
+	aarch64)
+		llvm-strip --strip-unneeded "$pkgdir"/usr/lib/wine/aarch64-windows/*.dll
+		;;
 	x86_64)
 		x86_64-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/x86_64-windows/*.dll
 		i686-w64-mingw32-strip --strip-unneeded "$pkgdir"/usr/lib/wine/i386-windows/*.dll
@@ -155,6 +169,6 @@ doc() {
 	rm -fr "$subpkgdir"/usr/share/man/*.UTF-8
 }
 sha512sums="
-a358f43cf95b9e6ad5028b081e851abfff2351b59710cc9bcd72289bc48169a5b09ee0fb3b711b3969ca92113991a2556ff89f8ee2049eaade176214d8876f39  wine-10.7.tar.xz
+a2c3db14f8cf0d19927466805c8f17c68ee7e93d1196d1162dd2279af497c21ec611a63f7a9de59953bbdfdb44c87d7bf55373c6533224a5d54e434c29428d1b  wine-11.0.tar.xz
 72f64ed66ce24cf51f278874edc351c9297ebbad22adedd3036f1ead5113b0a09660f7fff4034c7b6a05bd7c15d42d9d7d203e8bd8a7fe1027643b6f49470ff3  rpath.patch
 "

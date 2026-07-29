@@ -1,14 +1,21 @@
 # Contributor: River Dillon <oss@outerpassage.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=alex
 pkgver=3.5.4.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Lexical analyser generator for Haskell"
 url="https://www.haskell.org/alex/"
-arch="x86_64 aarch64" # limited by ghc
+arch="x86_64 aarch64 loongarch64" # limited by ghc
 license="BSD-3-Clause"
-makedepends="ghc libffi-dev"
+case "$CARCH" in
+loongarch64)
+	makedepends="ghc-loongarch-cmds"
+	options="!check"
+	;;
+*)	makedepends="ghc" ;;
+esac
+makedepends="$makedepends libffi-dev"
 subpackages="$pkgname-doc"
 source="https://hackage.haskell.org/package/alex-$pkgver/alex-$pkgver.tar.gz"
 

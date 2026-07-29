@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=emacs-magit
 pkgver=3.3.0
-pkgrel=0
+pkgrel=1
 _pkgreal=magit
 pkgdesc="Emacs interface for Git"
 url="https://magit.vc/"

@@ -2,7 +2,7 @@
 # Maintainer: lonjil <alpine@lonjil.xyz>
 pkgname=libqalculate
 # the pkgver must be kept in sync with: qalculate-gtk, qalculate-qt
-pkgver=5.7.0
+pkgver=5.11.0
 pkgrel=0
 pkgdesc="Library implementing a multi-purpose desktop calculator"
 url="https://qalculate.github.io/"
@@ -58,6 +58,6 @@ doc() {
 }
 
 sha512sums="
-224c0fcdb11aeeb686a351c9624eb8ea419fc63ab82d655ec6d69e9ec4b1300a64ff6d27885e19c4daf16b20d4408158b2ae2dc1356538502bfbf22821e84e86  libqalculate-5.7.0.tar.gz
+129b99b28740aa039360219526f99c77849fb10f07ebb1eec196aca36bcefbce84107f81cfcaad49d99850bd89e662acc08e2d3faf03a57d1b6b380bb5ad0c1f  libqalculate-5.11.0.tar.gz
 a44bb2d18b6ac9306587cfaeec21955aa526faa4abe5f639ab5912227331eb052ec900626619ff939c9f93fb0e7a25d0af134b645bcde5bc694f78af8f4b0af5  libqalculate.pc.in.patch
 "

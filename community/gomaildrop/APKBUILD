@@ -2,19 +2,17 @@
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=gomaildrop
 pkgver=0.1.2
-pkgrel=17
+pkgrel=25
 pkgdesc="deliver e-mail to local maildirs based on filters"
 url="https://gitlab.alpinelinux.org/kdaudt/gomaildrop"
 arch="all"
 license="MIT"
 makedepends="go redo gettext"
 source="https://gitlab.alpinelinux.org/kdaudt/gomaildrop/-/archive/v$pkgver/gomaildrop-v$pkgver.tar.gz"
+options="net" # go
 builddir="$srcdir/$pkgname-v$pkgver"
 
 export GOFLAGS="$GOFLAGS -modcacherw -mod=readonly"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	./configure --prefix /usr

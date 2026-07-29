@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=breeze-icons
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Breeze icon themes"
 arch="all"
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-200e4ac4c9caed9d748267dcc3e3881c82a39b087551464cae827e23788badb6af0483498c5fa988cee551524a9c4a9d4817f9ea8170a4caf0a7bbe8e325c88e  breeze-icons-6.17.0.tar.xz
+82e8c324903284c7eb9c14a4a3985532292e6125535c586433b8e8dbaeccea945fdea7a00355e50e791342614a510e17c461f710b5d4f13ef0a32c68e1d26891  breeze-icons-6.28.0.tar.xz
 "

@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kde-inotify-survey
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Tooling for monitoring inotify limits and informing the user when they have been or about to be reached"
 url="https://invent.kde.org/system/kde-inotify-survey"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-4d731dc387557b227e4fd1929bf75f9e08a141287d4d05e2501b5f3d9f079660041a983b2cc6348f7cbe656558ea7c6c74172bf0d7068428434b47eba136d15c  kde-inotify-survey-25.08.0.tar.xz
+77983802a85da79445cd7828d2766285897886ed4a1983290aa951be965372fe501a99387feef064bbe4bf809035391d3a8066fd24791228cd5c55b272e5eb04  kde-inotify-survey-26.04.3.tar.xz
 "

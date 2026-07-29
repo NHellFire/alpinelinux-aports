@@ -1,12 +1,12 @@
 # Contributor: Dominika Liberda <ja@sdomi.pl>
 # Maintainer: Dominika Liberda <ja@sdomi.pl>
 pkgname=yosys
-pkgver=0.42
-pkgrel=1
+pkgver=0.66
+pkgrel=0
 pkgdesc="Yosys Open SYnthesis Suite"
 url="https://yosyshq.net"
-# doesn't build
-arch="all !s390x !riscv64"
+# s390x: https://github.com/YosysHQ/yosys/issues/2645
+arch="all !s390x"
 license="ISC"
 depends="
 	abc
@@ -15,41 +15,46 @@ makedepends="
 	bash
 	bison
 	boost-dev
-	flex
+	flex-dev
 	gawk
 	graphviz-dev
 	libffi-dev
 	lld
 	protobuf-dev
+	py3-cxxheaderparser
+	py3-pybind11-dev
 	python3
 	readline-dev
 	tcl-dev
 	zlib-dev
 	"
 checkdepends="
+	gtest-dev
+	gtkwave
 	iverilog
 	"
 subpackages="$pkgname-dev py3-$pkgname:py3:noarch"
 source="
-	https://github.com/YosysHQ/yosys/archive/refs/tags/yosys-$pkgver.tar.gz
+	$pkgname-$pkgver.tar.gz::https://github.com/YosysHQ/yosys/releases/download/v$pkgver/yosys-src.tar.gz
+	fix-32-bit-oom.patch
+	fix-libyosys-python-link.patch
+	fix-pybind11-unused-parameter.patch
 	"
-builddir="$srcdir/$pkgname-$pkgname-$pkgver/"
+builddir="$srcdir"
 
 prepare() {
 	default_prepare
 
-	local pyver="$(python3 -c 'import sys; print(f"{sys.version_info.major}.{sys.version_info.minor}")')"
-
 	cat > Makefile.conf <<- EOF
 	CONFIG:=gcc
 	PREFIX:=/usr
-	ABCEXTERNAL:=abc
-	BOOST_PYTHON_LIB:=-lpython$pyver -lboost_python${pyver/./}
+	ABCEXTERNAL:=/usr/bin/abc
+	ENABLE_ABC:=1
 	ENABLE_LIBYOSYS:=1
 	ENABLE_NDEBUG:=1
 	ENABLE_PROTOBUF:=1
 	ENABLE_PYOSYS:=1
-	ENABLE_ABC:=1
+	PYOSYS_USE_UV:=0
 	EOF
 }
 
@@ -60,14 +65,7 @@ build() {
 }
 
 check() {
-	case "$CARCH" in
-	arm*|x86)
-		# remove tests failing on 32-bit platforms:
-		rm -f tests/simple/string_format.v
-		sed -i Makefile -e '/tests\/cxxrtl/d'
-		;;
-	esac
-	make CXX=g++ test
+	make CXX=g++ ABCEXTERNAL=/usr/bin/abc test
 }
 
 package() {
@@ -85,5 +83,8 @@ py3() {
 }
 
 sha512sums="
-2f85beeaf672a3cfd9dc0841d08265a518270e9929ac84cfd346330b460dfbdeec89f7c78b68d9dfbb598175c0beaee9f9c47bc04aaf8fdb719822fd5bd11dd2  yosys-0.42.tar.gz
+729b8b6cdaf52097894e54c9979fa4d3c606dc91270aa547fa473ba88999274bcbee6163c9c30352dae0eabaa804f9c2f1319a789705a257746138ff37ebd080  yosys-0.66.tar.gz
+b2f222d52dec65a2817b46c9b38732a8909530347d5912b7dd53c8fe3b8fd2120621342d88a6552372b7269c5a74f6506141e70584223a266cb1438ee343228b  fix-32-bit-oom.patch
+5393600b113312bee9b9be9972a6e635eb37d51918ecfce54f6ece6fd5d9c51e34c44aa853aa5979c93374b44130e5352053d968eb5eac29fcfd4a3ccf3b822f  fix-libyosys-python-link.patch
+d1b9db51f892126d83602d4c562e84e23e386fa82712f12d5bfe0d0e144cf8113e9c8226d072ec409ad1a269c1d9eed89c4f21b08719d805159ae0239625e4d3  fix-pybind11-unused-parameter.patch
 "

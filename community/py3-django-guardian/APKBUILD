@@ -2,15 +2,17 @@
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-django-guardian
 _pyname=django-guardian
-pkgver=3.1.0
+pkgver=3.3.1
 pkgrel=0
 arch="noarch"
 pkgdesc="Implementation of per object permissions on top of Django’s authorization backend"
 url="https://pypi.python.org/project/django-guardian"
 license="MIT"
+# py3-typing-extensions: dependency for <3.13
 depends="
 	py3-django
 	py3-django-environ
+	py3-typing-extensions
 	"
 makedepends="
 	py3-setuptools
@@ -32,7 +34,9 @@ build() {
 }
 
 check() {
-	pytest -v
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+	.testenv/bin/python3 -m pytest -v
 }
 
 package() {
@@ -41,5 +45,5 @@ package() {
 }
 
 sha512sums="
-b1c20547278b35511bcfd9d7b6ae452b08153845a3f39ace4a904708b32fc6f0d110ce58affe4822ebeaca5a64af497077c2236fa0a7cad92ebb2234671ef36c  py3-django-guardian-3.1.0.tar.gz
+d50bb219af262ea4a8b9421407b0ea8fe1c4267e93c6e20eb272dde60950e11518aef6890fecc58c2ffffd92ec37baabcc42e673882fdb3388d389464c13166d  py3-django-guardian-3.3.1.tar.gz
 "

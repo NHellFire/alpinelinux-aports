@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kcolorscheme
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Classes to read and interact with KColorScheme"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -51,5 +51,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 sha512sums="
-673a4dece16a69889edce71197476ae1a83f048c269d89780141be7a9e03746c7e03f6f4616c468353648186eba60e827a3a5ca476edf39edd37534310d15db7  kcolorscheme-6.17.0.tar.xz
+f92050ef149c3a1b78076fb1a50e80f241b652c8eeb4a1974b0c64fa37ad86c6b958aa61fa2ad421b14cfe6ad1c693df17f6bce16cfb44be0219d98cde533080  kcolorscheme-6.28.0.tar.xz
 "

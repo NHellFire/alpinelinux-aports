@@ -1,9 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=emacs-repology
 pkgver=1.2.4
 _gitrev=a6b41709525e60bdac807f153a3199003ee9d50f
-pkgrel=0
+pkgrel=1
 _pkgreal=repology
 pkgdesc="Repology API access via Elisp"
 url="https://elpa.gnu.org/packages/repology.html"

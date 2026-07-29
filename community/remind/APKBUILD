@@ -1,7 +1,7 @@
 # Contributor: Kaarle Ritvanen <kunkku@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=remind
-pkgver=06.00.01
+pkgver=06.02.08
 pkgrel=0
 pkgdesc="Sophisticated calendar and alarm program"
 url="https://dianne.skoll.ca/projects/remind/"
@@ -37,5 +37,5 @@ tkremind() {
 }
 
 sha512sums="
-1d35f3ed846e78add90ae23417775c6502b6c2cdfdeb62ba2c586c8551a34fb448308caa37c2813285c1f314ff7363cff7955e28723902e6cf5eff3f18549615  remind-06.00.01.tar.gz
+1a5696edb40387cea98b269143634a1738a7ec2d228bab6f8c866f65db4108c1d1bf7d686c0fa5a2e2edadd82d4d51136bc342b7a474a53997714ab58708137a  remind-06.02.08.tar.gz
 "

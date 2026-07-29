@@ -1,6 +1,6 @@
 maintainer="Paolo Barbolini <paolo.barbolini@m4ss.net>"
 pkgname=cargo-show-asm
-pkgver=0.2.51
+pkgver=0.2.62
 pkgrel=0
 pkgdesc="A cargo subcommand that displays the generated assembly of Rust source code"
 url="https://github.com/pacak/cargo-show-asm"
@@ -39,5 +39,5 @@ package() {
 }
 
 sha512sums="
-2e63094b643bf54b6e958fe84b4e55a74e42f15ba599a70f5889f3d5eaa84b1e5d1e26a268460d168742019ef15c3fa89f8a9e9aeaa9cfb5b066b65637165c4f  cargo-show-asm-0.2.51.tar.gz
+be35f9e89250ee59d59801931e1a36647471151b52050a5d86c241a64131827776d15e69931434e4e0f14389c96b9425851c37eb7e0cf2ab95888fff2b7ef0e4  cargo-show-asm-0.2.62.tar.gz
 "

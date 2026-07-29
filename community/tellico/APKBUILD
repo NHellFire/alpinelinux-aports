@@ -1,10 +1,11 @@
-maintainer="Bart Ribbers <bribbers@disroot.org>"
+maintainer="team/kde <bribbers@disroot.org>"
 pkgname=tellico
-pkgver=4.1.3
+pkgver=4.2.1
 pkgrel=0
 pkgdesc="Collection management software, free and simple"
-# armhf, x86, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !ppc64le !s390x !riscv64"
+# armhf, x86, s390x and riscv64 blocked by qt6-qtwebengine
+# armv7 blocked by test failure, 17 - documenttest (ILLEGAL)
+arch="all !armhf !x86 !s390x !riscv64 !armv7"
 url="https://tellico-project.org/"
 license="GPL-2.0-only"
 makedepends="
@@ -33,7 +34,7 @@ makedepends="
 	libcdio-dev
 	libkcddb-dev
 	libksane-dev
-	poppler-qt5-dev
+	poppler-qt6-dev
 	qt6-qtbase-dev
 	qt6-qtcharts-dev
 	qt6-qtwebengine-dev
@@ -43,8 +44,14 @@ makedepends="
 	taglib-dev
 	"
 checkdepends="xwayland-run"
-source="https://tellico-project.org/files/tellico-$pkgver.tar.xz"
-subpackages="$pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-doc
+	$pkgname-lang
+	"
+_repo_url="https://invent.kde.org/office/tellico.git"
+source="https://tellico-project.org/files/tellico-$pkgver.tar.xz
+	0001-Revert-Add-macro-check-for-POSIX_SOURCE.patch
+	"
 
 build() {
 	cmake -B build -G Ninja \
@@ -55,12 +62,13 @@ build() {
 }
 
 check() {
-	wlheadless-run -- ctest --test-dir build -E "(newstuff|htmlexporter|cite)test"
+	wlheadless-run -- ctest --test-dir build -E "(newstuff|htmlexporter|cite|fieldwidget|pdf|document)test"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-646560b933cd09f2ad7477c42684ae523b2a0abc0fd0d2192b128073ca545bdd0a104b6393d4d29f792d9d4437196a1601f33cc900995bafb89158927cce26aa  tellico-4.1.3.tar.xz
+6b104effe8263ff8062d8830b00d3c4953cbb8056d4d20746a9faa40d95887077ea4fb7168ed09eed5886980dd5baf64db4751741b099bbb57d0a7dcdd74db2f  tellico-4.2.1.tar.xz
+5be815d1d5fbbdf2af609d0b5215aa795e2af1fc970da45daf8dae45b9ac9bf9a218b0b0877c115cb952437129b7fb7c5a77bdd7e4eebbca8e6d72a05f364e54  0001-Revert-Add-macro-check-for-POSIX_SOURCE.patch
 "

@@ -1,11 +1,13 @@
 # Contributor: Rudolf Polzer <divVerent@gmail.com>
 # Maintainer: Rudolf Polzer <divVerent@gmail.com>
 pkgname=aaaaxy
-pkgver=1.6.288
-pkgrel=1
+pkgver=1.7.218
+pkgrel=0
 pkgdesc="A nonlinear puzzle platformer taking place in impossible spaces"
 url="https://divVerent.github.io/aaaaxy/"
-arch="all !s390x !armhf !armv7"
+# s390x: https://github.com/divVerent/aaaaxy/issues/633
+# x86: https://github.com/divVerent/aaaaxy/issues/632
+arch="all !s390x !x86"
 license="Apache-2.0"
 makedepends="
 	advancecomp
@@ -26,10 +28,6 @@ source="
 	https://github.com/divVerent/aaaaxy/releases/download/v$pkgver/sdl-gamecontrollerdb-for-aaaaxy-v$pkgver.zip
 "
 options="net"  # Needed for go mod download.
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare
@@ -62,6 +60,6 @@ package() {
 }
 
 sha512sums="
-9055224552ac808b6bb4b32cd0d387cc94006f3a575c65b1d6c72c94279b572fe3ec6fbd22edcd3080562f4af60c03cdadf6c7c3515f3b3e1769adfdf25aef63  aaaaxy-1.6.288.tar.gz
-79266939206647c198982199c4c18ed1e397d81839fe072599db20dbe64ae2e8049ebf3b5c079486adaa9147ac51a411008303107d85897b8a8cbc47f3f52278  sdl-gamecontrollerdb-for-aaaaxy-v1.6.288.zip
+6fbdf11c1e88ffd7c3775c83ef1aa3d44c05e99eef25f47f56de948971af330f252dfff04b12aafb4f241325d98f9518a2208f8004b8404fc9c031ef74a7391f  aaaaxy-1.7.218.tar.gz
+799bda02c636c81241c3b08e5a3568fbc8202a296a0565b9f6ed37b68ecc7d97fa57bb8560d1e8bd98dad3a70f3bc034dc5194e3e05da949e64df07253e4002f  sdl-gamecontrollerdb-for-aaaaxy-v1.7.218.zip
 "

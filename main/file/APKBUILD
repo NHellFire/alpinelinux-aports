@@ -1,7 +1,7 @@
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=file
-pkgver=5.46
+pkgver=5.47
 pkgrel=2
 pkgdesc="File type identification utility"
 url="https://www.darwinsys.com/file/"
@@ -9,8 +9,9 @@ arch="all"
 license="BSD-2-Clause"
 subpackages="libmagic-static $pkgname-dev $pkgname-doc libmagic"
 source="https://astron.com/pub/file/file-$pkgver.tar.gz
-	file-$pkgver-pr-579-net147-fix-stack-overrun.patch
-"
+	0001-softmagic-compare-FILE_GUID-values-in-wire-format.patch
+	0002-inliniac-revert-previous-and-always-offset.patch
+	"
 
 # secfixes:
 #   5.37-r1:
@@ -49,6 +50,7 @@ libmagic() {
 }
 
 sha512sums="
-a6cb7325c49fd4af159b7555bdd38149e48a5097207acbe5e36deb5b7493ad6ea94d703da6e0edece5bb32959581741f4213707e5cb0528cd46d75a97a5242dc  file-5.46.tar.gz
-bebada4d58c4b937f3c8a55e842402f3af334c2767652c8d1e1b1c2cc73f0b3125bdb4cf97265a4ec1f00d51a13d66b534ce2faa2103e463e6461e55736daf4d  file-5.46-pr-579-net147-fix-stack-overrun.patch
+a19c1f2b584bcfa70d4a02545667a90ff9e069523a5fc7b84d79b2b32cb7e59b73c555943784a13d56fa6d4618e18a254fd6102187def1a4a7d936b41ae7ce31  file-5.47.tar.gz
+8bbce3c08bd2fea98869c1e46241f3444436ec7c1e79824056459bd653c7607195e0bb0cf8bc8c6705ff35c450f8a90d70588a4f6a174e6c74e5670f2a0d41d7  0001-softmagic-compare-FILE_GUID-values-in-wire-format.patch
+2ecd48273dcff08cc2eb7ef68be2c0a02c8063053987ff9a87238560d9a78c57dd17c4896eee68fefad80f70a93788c49535c684eb98597e3ceecd52d24dea2c  0002-inliniac-revert-previous-and-always-offset.patch
 "

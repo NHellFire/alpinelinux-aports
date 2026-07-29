@@ -1,10 +1,11 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 # Maintainer: Julien Voisin <julien.voisin@dustri.org>
 pkgname=weechat
-pkgver=4.7.1
+pkgver=4.9.5
 pkgrel=0
 pkgdesc="Fast, light, extensible ncurses-based chat client"
 url="https://weechat.org"
+_lua="5.3"
 arch="all"
 options="!check" # test suite runs "sudo make install"
 license="GPL-3.0-or-later"
@@ -15,7 +16,7 @@ depends_dev="
 	gettext-dev
 	gnutls-dev
 	libgcrypt-dev
-	lua-dev
+	lua$_lua-dev
 	ncurses-dev
 	perl-dev
 	python3-dev
@@ -93,5 +94,5 @@ perl() {
 }
 
 sha512sums="
-39a98772c260abb831f70df3881942bcb65713c2f344acfd600c5d3828018e463793b1e1bac557a7726de43cec4161ba46a6927c9e615996a6353311c99c551f  weechat-4.7.1.tar.xz
+2370587fed19873ba22f50e947eaa7dbdd8d31fca09f425213b2a8e72cbc4eafcb51bdc7602c409e2eb63feb219c7e3b00152c04d53d4bf9418b33785f788e41  weechat-4.9.5.tar.xz
 "

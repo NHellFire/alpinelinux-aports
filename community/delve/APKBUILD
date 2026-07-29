@@ -1,29 +1,34 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Clayton Craft <clayton@craftyguy.net>
 pkgname=delve
-pkgver=1.25.2
-pkgrel=0
+pkgver=1.26.2
+pkgrel=2
 pkgdesc="Debugger for the Go programming language"
 url="https://github.com/go-delve/delve"
-arch="x86 x86_64 aarch64"
+arch="x86 x86_64 aarch64 loongarch64 riscv64"
 license="MIT"
 makedepends="go"
 options="net chmod-clean"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/go-delve/delve/archive/refs/tags/v$pkgver.tar.gz"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+case "$CARCH" in
+	loongarch64)
+		export GOFLAGS=" $GOFLAGS -tags=exp.linuxloong64"
+		;;
+	riscv64)
+		export GOFLAGS=" $GOFLAGS -tags=exp.linuxriscv64"
+		;;
+esac
 
 build() {
 	mkdir bin
-	go build -v -trimpath -o bin ./cmd/dlv/...
+	go build $GOFLAGS -v -trimpath -o bin ./cmd/dlv/...
 }
 
 check() {
 	# TestGeneratedDoc and TestBuild require a proper $GOPATH setup.
-	go test -run '!(^(TestGeneratedDoc|TestBuild)$)' ./cmd/dlv/...
+	go test $GOFLAGS -run '!(^(TestGeneratedDoc|TestBuild)$)' ./cmd/dlv/...
 }
 
 package() {
@@ -37,5 +42,5 @@ package() {
 }
 
 sha512sums="
-4696ad39625d1aa9866154ecb4ebb6bbfc58faa56db598324e224ca5f877193c4bb5124f3741c68ae1fc82b2ebc24cb4310651cfc83a944fbb2ef5edc3d115e7  delve-1.25.2.tar.gz
+3069737d236699866d3a9b3b043da92a0e71301b358b1ad7ef530088cfb9c146260e642ecb89c41feafc5ad98571c6a731911b1b2a068bb8c72ae8d798c9ad46  delve-1.26.2.tar.gz
 "

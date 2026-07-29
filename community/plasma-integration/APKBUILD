@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-integration
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Qt Platform Theme integration plugins for the Plasma workspace"
 # armhf blocked by qt6-qtdeclarative
@@ -14,6 +14,7 @@ depends="
 	font-noto
 	qqc2-breeze-style
 	qqc2-desktop-style
+	xdg-desktop-portal-kde
 	"
 makedepends="
 	breeze-dev
@@ -50,17 +51,18 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_DISABLE_FIND_PACKAGE_FontNotoSans=true \
-		-DCMAKE_DISABLE_FIND_PACKAGE_FontHack=true
+		-DCMAKE_DISABLE_FIND_PACKAGE_FontHack=true \
+		-DCMAKE_DISABLE_FIND_PACKAGE_XDGDesktopPortalKDE=true
 	cmake --build build
 }
 
 check() {
-	wlheadless-run -- ctest --test-dir build -E "(qmltests6|frameworkintegration-k(deplatformtheme|fontsettingsdata|filedialog|hintssettings|filedialogqml)_unittest6)"
+	wlheadless-run -- ctest --test-dir build -E "(qmltests6|frameworkintegration-k(deplatformtheme|fontsettingsdata|filedialog|hintssettings|filedialogqml|deplatformsystemtrayicon)_unittest6)"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-ca6a1305148be0bf51da9e621cbd067ce66f8edf163da6d3ef68f34bc9abd1863aab8c79e845917c9cc9ba2fe82c6f92aa7a385c9658cd32f255889a16ed80d6  plasma-integration-6.4.5.tar.xz
+6ed0d99839a49320edad4366734c8528ab323295665a415624154e27d0df100f558b7d47f1602f47fe0544787821df68c04f419be260fc162e24e9a00220589f  plasma-integration-6.7.3.tar.xz
 "

@@ -1,14 +1,14 @@
 # Maintainer: Simon Rupf <simon@rupf.net>
 pkgname=py3-flask-caching
 _pkgname=flask_caching
-pkgver=2.3.1
+pkgver=2.4.1
 pkgrel=0
 pkgdesc="Flask caching support"
 url="https://flask-caching.readthedocs.io/"
 arch="noarch"
 license="BSD-3-Clause"
 depends="python3 py3-cachelib py3-flask"
-makedepends="py3-gpep517 py3-installer py3-setuptools py3-wheel"
+makedepends="py3-gpep517 py3-flit-core"
 checkdepends="py3-asgiref py3-redis py3-pytest"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
@@ -33,5 +33,5 @@ package() {
 }
 
 sha512sums="
-ec591131746ee15f6e451b38af93194eeede1ff191b78042eafdf4fc9ab91eec6347372312cd9be8a92880679446af0c98be546b23845a12ef602e9593d48955  flask_caching-2.3.1.tar.gz
+9f76d73e37765035a39abb37bf0bb1266167b68d153f56b207b2b7f4626e60a55fee44c18ba2c687cef255aa8251c807b9abfb35488ea3bd8bb10692378ae9d2  flask_caching-2.4.1.tar.gz
 "

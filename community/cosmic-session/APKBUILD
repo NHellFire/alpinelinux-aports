@@ -1,0 +1,69 @@
+# Contributor: Clayton Craft <clayton@craftyguy.net>
+# Maintainer: Clayton Craft <clayton@craftyguy.net>
+pkgname=cosmic-session
+pkgver=1.4.0
+_upstreamver="${pkgver/_beta/-beta.}"
+_upstreamver="${_upstreamver/_p/.}"
+pkgrel=0
+pkgdesc="Session manager for the COSMIC Desktop Environment"
+url="https://github.com/pop-os/cosmic-session"
+# s390x: depends on cosmic-greeter and greetd
+# armv7,armhf: depends on cosmic-applets and cosmic-settings with std::bad_alloc <- deadly signal
+# riscv64: too slow to build
+# x86: DO NOT RE-ENABLE! missing many cosmic components
+arch="all !armv7 !armhf !s390x !riscv64 !x86"
+license="GPL-3.0-or-later"
+depends="
+	bash
+	cosmic-app-library
+	cosmic-applets
+	cosmic-bg
+	cosmic-comp
+	cosmic-files
+	cosmic-greeter
+	cosmic-icons
+	cosmic-idle
+	cosmic-launcher
+	cosmic-notifications
+	cosmic-osd
+	cosmic-panel
+	cosmic-randr
+	cosmic-screenshot
+	cosmic-settings
+	cosmic-settings-daemon
+	cosmic-workspaces
+	dbus
+	xwayland
+"
+makedepends="
+	cargo-auditable
+	dbus-dev
+	glib-dev
+	just
+	wayland-protocols
+"
+options="net !check"  # fetch dependencies, no tests
+subpackages="$pkgname-systemd"
+source="$pkgname-$pkgver.tar.gz::https://github.com/pop-os/cosmic-session/archive/refs/tags/epoch-$_upstreamver.tar.gz"
+builddir="$srcdir/$pkgname-epoch-$_upstreamver"
+
+prepare() {
+	default_prepare
+	cargo fetch --target="$CHOST" --locked
+}
+
+build() {
+	cargo auditable build --release --frozen
+}
+
+check() {
+	cargo test --frozen
+}
+
+package() {
+	just rootdir="$pkgdir" install
+}
+
+sha512sums="
+35bb24d5212a683619351bb3ab8015157bbd0f97dba8c39d11c3d50944cb836bfd389d1d8b5ef0341872dd78c56b113803a5417ff3d3504527d1fdadff5c1920  cosmic-session-1.4.0.tar.gz
+"

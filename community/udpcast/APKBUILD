@@ -1,9 +1,9 @@
 # Contributor: Jay Christopherson <jaychris@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=udpcast
 pkgver=20250223
-pkgrel=0
+pkgrel=1
 pkgdesc="Multicast file transfer tool"
 url="https://www.udpcast.linux.lu/"
 arch="all"

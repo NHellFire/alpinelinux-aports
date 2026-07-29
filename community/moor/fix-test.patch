@@ -1,6 +1,14 @@
 --- a/internal/pager_test.go
 +++ b/internal/pager_test.go
-@@ -187,13 +187,7 @@ func TestTabHandling(t *testing.T) {
+@@ -4,7 +4,6 @@ import (
+ 	"fmt"
+ 	"os"
+ 	"path"
+-	"runtime"
+ 	"strings"
+ 	"testing"
+ 
+@@ -207,13 +206,7 @@ func TestTabHandling_TabSize8(t *testing.T) {
  }
  
  func TestCodeHighlighting(t *testing.T) {

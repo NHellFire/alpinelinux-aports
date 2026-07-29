@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=solid
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Hardware integration and detection"
 arch="all"
@@ -60,5 +60,5 @@ package() {
 }
 
 sha512sums="
-0b0776539141dd6b6d99e065af2c1b680e2700a696b9ced7288b5fe60f53cc7fcd38a9ab4dfbadc20c73b82ed52625ebe90682593586159019c3a909880d82b0  solid-6.17.0.tar.xz
+a75ce5187a3e1f7db04dc57acb6a99ab427f383207466de059229e8535c68f802168eb64e6744d452f7ddf4c340a7a35c10c3baaf17f1b9ae401277abf868efc  solid-6.28.0.tar.xz
 "

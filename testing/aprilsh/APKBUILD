@@ -2,10 +2,10 @@
 # Maintainer: Wang Qi <ericwq057@qq.com>
 pkgname=aprilsh
 pkgver=0.7.12
-pkgrel=8
+pkgrel=16
 pkgdesc="Remote shell support intermittent or mobile network"
 url="https://github.com/ericwq/aprilsh"
-arch="all"
+arch="all !riscv64" # tests fails on riscv64
 license="MIT"
 depends="$pkgname-client=$pkgver-r$pkgrel $pkgname-server=$pkgver-r$pkgrel"
 makedepends="go protoc utmps-dev ncurses ncurses-terminfo musl-locales protoc-gen-go"
@@ -25,10 +25,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/ericwq/aprilsh/archive/refs/
 options="net" # go dependencies
 
 _build_tag="-tags utmps"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	go mod vendor
@@ -56,6 +52,10 @@ build() {
 }
 
 check() {
+	# hitting 145ms "get key timeout" in
+	# frontend/server/server.go:startChild on riscv64 builders; work around
+	# by running tests serially on rv64
+	case $CARCH in riscv64) export GOMAXPROCS=1 ;; esac
 	# shellcheck disable=2046
 	APRILSH_APSHD_PATH="$builddir/bin/apshd" \
 		go test $_build_tag $(go list ./... | grep -Ev '(data|protobufs)')

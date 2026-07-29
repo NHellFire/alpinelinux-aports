@@ -2,10 +2,10 @@
 # Maintainer: Martijn Braam <martijn@brixit.nl>
 pkgname=postprocessd
 pkgver=0.3.0
-pkgrel=5
+pkgrel=8
 pkgdesc="Queueing megapixels post-processor"
 url="https://git.sr.ht/~martijnbraam/postprocessd"
-arch="all !ppc64le !s390x" # No opencv
+arch="all !s390x" # No opencv
 license="GPL-3.0-only"
 subpackages="$pkgname-doc $pkgname-megapixels"
 source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~martijnbraam/postprocessd/archive/$pkgver.tar.gz"

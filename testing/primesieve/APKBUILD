@@ -1,7 +1,7 @@
 # Contributor: Curt Tilmes <Curt.Tilmes@nasa.gov>
 # Maintainer: Curt Tilmes <Curt.Tilmes@nasa.gov>
 pkgname=primesieve
-pkgver=12.9
+pkgver=12.13
 pkgrel=0
 pkgdesc="Program and library for generating prime numbers"
 url="http://primesieve.org"
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-80f6b0d733cc09d88c6a1fe654edb1a2200feee4a6ddbaa60c6a747e3c8f8e613545a1bb2aa0f477229d30690f15a373106c23b2238d6098f336d42e9814d045  primesieve-12.9.tar.gz
+ae1bb57cb0bbd71ad84068ee7f8279b5223942eb108408af44f5c728330907048e7adf2af7bababd3c38b7c8021703b3bdf157953187783d2ef66c8c72a92ea1  primesieve-12.13.tar.gz
 "

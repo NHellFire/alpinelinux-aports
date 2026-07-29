@@ -1,15 +1,19 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: mio <miyopan@e.email>
+maintainer="mio <miyopan@e.email>"
 pkgname=htop
-pkgver=3.4.1
-pkgrel=1
+pkgver=3.5.2
+pkgrel=0
 pkgdesc="Interactive process viewer"
 url="https://htop.dev/"
 arch="all"
 license="GPL-2.0-or-later"
-makedepends="ncurses-dev python3 linux-headers lm-sensors-dev"
+# lsof is needed for the "open files" screen (keybinding: l).
+# Without this dependency, this screen doesn't emit an error
+# as busybox provides lsof but its output format is incompatible.
+depends="lsof"
+makedepends="ncurses-dev linux-headers lm-sensors-dev"
 subpackages="$pkgname-doc"
 source="https://github.com/htop-dev/htop/releases/download/$pkgver/htop-$pkgver.tar.xz"
 options="!check" # no upstream/available test-suite
@@ -32,5 +36,5 @@ package() {
 }
 
 sha512sums="
-34c3ce18873c17ad865eb417a9dfd28e58e6e3b428f495bf2b4d08393c77ce69fcb32cde08d489c2fa6a1561dc738ee338b316ec14f327305b325de99a2a70b5  htop-3.4.1.tar.xz
+e9a813a205505b5b24fee51b2524137c785d08956defb1968a3b60d6114a605d92b9b916aefb0228424b2d0022a97ecd0b287cec348d6494b4dce9a023b2841c  htop-3.5.2.tar.xz
 "

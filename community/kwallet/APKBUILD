@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwallet
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Secure and unified container for user passwords"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -81,5 +81,5 @@ bin() {
 }
 
 sha512sums="
-2bdf569c2423b3198e5db21c4c74d1a617e65a5f06c7126337bcd135e7b0137fb1dbd7526902339a7f6390c20c77b0e99ace2a5b8ed977b827491b3db16bf9da  kwallet-6.17.0.tar.xz
+858ebebb4c9392dd95fc025a28ed6bb2aef823f6457f97b7bb268f0775c6687610b7d181f478f25ba129bc902621f93129e58391d1f69a72d25694cbb17daf86  kwallet-6.28.0.tar.xz
 "

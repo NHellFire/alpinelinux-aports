@@ -2,14 +2,14 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=fzf
-pkgver=0.65.2
-pkgrel=1
+pkgver=0.74.1
+pkgrel=0
 pkgdesc="A command-line fuzzy finder"
 url="https://github.com/junegunn/fzf"
 arch="all"
 license="MIT"
 makedepends="go bash"
-options="net chmod-clean"
+options="net"
 subpackages="
 	$pkgname-tmux::noarch
 	$pkgname-bash-plugin:_bash:noarch
@@ -24,10 +24,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/junegunn/fzf/archive/v$pkgve
 	$pkgname.plugin.sh
 	$pkgname.plugin.zsh
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -ldflags "-X main.version=$pkgver -X main.revision=AlpineLinux"
@@ -125,7 +121,7 @@ nvim() {
 }
 
 sha512sums="
-5d8a872ad041946f30a000361ae26dbfe66050bfba38462b816ffee54d63dfe1d99103e326193511204268dbc165ccb2efd7c5be1debbec82b5ba70e8d05365d  fzf-0.65.2.tar.gz
+f9ed7469d19de45a370dd0d24640760cf2e7c73ffaa7916ebe04b02b5c639cd30d2abd7c1cf09c4b33c7d20264896e0413de5c43168b36e32f6b6bec40507a49  fzf-0.74.1.tar.gz
 a13ba25c08fe5b54231508be8d2f0a9f4d342630e6c31f2524cc6b8b99cead5b80daa2e2e37a581198f9ce79df2b00fdf81acf84fe1ad8043ee96e4db0870ee6  fzf.plugin.sh
 4ea4a5511704ef6fe57e7d3187739ba501ddb80d249738310d773edd9e2d08c26d27ec0c8976320e979aa8688984fe591b63a63b3c8589d5b80190e7d85d1c8b  fzf.plugin.zsh
 "

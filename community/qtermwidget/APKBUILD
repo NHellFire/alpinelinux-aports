@@ -2,7 +2,7 @@
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=qtermwidget
 _pkgname=qtermwidget6
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="Terminal widget for QTerminal"
 url="https://github.com/lxqt/qtermwidget"
@@ -36,5 +36,5 @@ lang() {
 }
 
 sha512sums="
-9ee03e542ed2942fb8b6f4a380e7748114b3e164ba6c18a60f0011ce2b5be27ebf249f0cba09a2bad0e1b0aa9676e73a0235db0166cf36025df0dafa0a004edf  qtermwidget-2.2.0.tar.xz
+bfb4a4b670e9b6ec70656f5ff860bae99dc1e02014a179518b044df32fc6e9d7fbba524d18e257a1bc37531533a34edc457e1f38a116cce7ba385178a5b38c2a  qtermwidget-2.4.0.tar.xz
 "

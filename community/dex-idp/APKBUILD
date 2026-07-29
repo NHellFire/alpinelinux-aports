@@ -1,20 +1,20 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=dex-idp
-pkgver=2.44.0
-pkgrel=1
+pkgver=2.45.1
+pkgrel=4
 pkgdesc="OpenID Connect (OIDC) identity and OAuth 2.0 provider with pluggable connectors"
 url="https://dexidp.io/"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
-checkdepends="tzdata"
+checkdepends="curl tzdata"
 install="$pkgname.pre-install"
 subpackages="$pkgname-bash-completion $pkgname-fish-completion $pkgname-openrc $pkgname-zsh-completion"
 source="$pkgname-$pkgver.tar.gz::https://github.com/dexidp/dex/archive/refs/tags/v$pkgver.tar.gz
 	dex-idp.initd
 	"
 builddir="$srcdir/dex-$pkgver"
-options="net" # go dependencies
+options="net !check" # go dependencies, check fails on builders
 
 build() {
 	make
@@ -43,6 +43,6 @@ package() {
 }
 
 sha512sums="
-65dfca65501e601c6e8425cbfee65a64db7ad5cd9b759badca694be51a6b03d2a5f78883532dfd88590ceced55c7c5da5bc0f35d75f3bc7c9339c54f589380fc  dex-idp-2.44.0.tar.gz
+3cc6d0e7a418c48468adee3f484210002bb4da57cd4438b816294c3d241df53f001714b96f111c071253d81e2daa7e280d2acc8a078be5f856b53a8fb4f0a92f  dex-idp-2.45.1.tar.gz
 680d42305761e04f7cce8a22e4560d8d4bde314aa119a861d461879b8b2e00a844159d99365b424162cb976a8c8fe982f0b4012379b06d4cf05889ba2924b760  dex-idp.initd
 "

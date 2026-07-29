@@ -1,12 +1,10 @@
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=ty
-pkgver=0.0.1_alpha19
-_pkgver=${pkgver/_alpha/-alpha.}
+pkgver=0.0.63
 pkgrel=0
 pkgdesc="Extremely fast Python type checker"
 url="https://github.com/astral-sh/ty"
-# loongarch64: rustix: https://github.com/bytecodealliance/rustix/issues/1502
-arch="all !loongarch64"
+arch="all !s390x"
 license="MIT"
 makedepends="
 	cargo
@@ -20,7 +18,7 @@ subpackages="
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
-source="ty-$pkgver.tar.gz::https://github.com/astral-sh/ty/releases/download/$_pkgver/source.tar.gz"
+source="ty-$pkgver.tar.gz::https://github.com/astral-sh/ty/releases/download/$pkgver/source.tar.gz"
 builddir="$srcdir/"
 options="!check net" # no tests, fetch dependencies
 
@@ -39,5 +37,5 @@ package() {
 }
 
 sha512sums="
-9650cb4b745c7f6a63093a18734c188a18a2583d9efcf715b6d7c0f7a7f401e6c8e3e3201b406eddbd9597a4a97deab34329378a6bdab8bb08a6248d257f81e1  ty-0.0.1_alpha19.tar.gz
+407f35abdfabfea3b171c76bd143e4bbc3d7e5bddb9d3654382d69d8dbd4c3d330c9ea14d6bbcf7c070be7801482bfd0d23d471c5090020b29d0c90fbb7d8a0e  ty-0.0.63.tar.gz
 "

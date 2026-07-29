@@ -1,7 +1,8 @@
 # Maintainer: Andy Postnikov <apostnikov@gmail.com>
 pkgname=php84-pecl-swoole
 _extname=swoole
-pkgver=6.0.2
+pkgver=6.2.1
+_pkgver=${pkgver/_rc/RC}
 pkgrel=0
 pkgdesc="Event-driven asynchronous and concurrent networking engine with high performance for PHP 8.4 - PECL"
 url="https://pecl.php.net/package/swoole"
@@ -28,8 +29,8 @@ makedepends="$_php-dev
 	openssl-dev
 	sqlite-dev
 	"
-source="php-pecl-$_extname-$pkgver.tgz::https://pecl.php.net/get/$_extname-$pkgver.tgz"
-builddir="$srcdir"/$_extname-$pkgver
+source="php-pecl-$_extname-$_pkgver.tgz::https://pecl.php.net/get/$_extname-$_pkgver.tgz"
+builddir="$srcdir"/$_extname-$_pkgver
 subpackages="$pkgname-dev"
 
 case "$CARCH" in
@@ -71,5 +72,5 @@ package() {
 }
 
 sha512sums="
-87f09ac0b10a372f9867bd2a5f34db20e6e210dd2de8463fd67783b757bfa95c53b0983c75979a2d9df28787bcb2c8a667faac45597c60ef8b8edac2fa57a952  php-pecl-swoole-6.0.2.tgz
+756bf8501e95986f271d6b4b68861e90bbcf8d3604201e34d10de33e24bcc3bebfee009fc488fc7e4ba34aed3f202db55643def164e6e0d086a4e8b98ef74c6b  php-pecl-swoole-6.2.1.tgz
 "

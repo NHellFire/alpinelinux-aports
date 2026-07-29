@@ -1,8 +1,8 @@
 # Contributor: Henrik Riomar <henrik.riomar@gmail.com>
 # Maintainer: Henrik Riomar <henrik.riomar@gmail.com>
 pkgname=nats-server
-pkgver=2.11.9
-pkgrel=0
+pkgver=2.14.3
+pkgrel=1
 pkgdesc="High-Performance server for NATS.io"
 url="https://github.com/nats-io/nats-server"
 arch="all !riscv64" # limited by failing check()
@@ -14,15 +14,24 @@ source="https://github.com/nats-io/nats-server/archive/v$pkgver/nats-server-$pkg
 	"
 
 # secfixes:
+#   2.12.6-r0:
+#     - CVE-2026-33216
+#     - CVE-2026-33217
+#     - CVE-2026-33215
+#     - CVE-2026-33246
+#     - CVE-2026-33218
+#     - CVE-2026-33219
+#     - CVE-2026-33223
+#     - CVE-2026-33222
+#     - CVE-2026-33248
+#     - CVE-2026-33247
+#     - CVE-2026-33249
 #   2.10.27-r0:
 #     - CVE-2025-30215
 #   2.10.4-r0:
 #     - CVE-2023-46129
 
 export GOFLAGS="$GOFLAGS -modcacherw"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build
@@ -46,6 +55,6 @@ package() {
 }
 
 sha512sums="
-8e4a576a35f06c9223ff422b1f4f244c17427af49a660c2f7df5cf6f2b73ea1818dd9019200369e3c91be6b486ba847317d3a9824520f4592500d4e4ce8d5bb3  nats-server-2.11.9.tar.gz
-45c5134c126eea0905ad30bbc3ed3369130a7b23addd3dfba66d5fed76b1a4d21ac001d01e78ad40610021146dc58940ff4de8e6a2c87f1c828a595547e76f15  make-tests-more-forgiving-on-timings.patch
+4fee9b2b2ca8efbe9cba1efda7389ae3e3b86e1fde2891a5cb44a8eb4d80f71eb45e11aa130b217e217d8e2cec769500e57442d203c89f03eb4f05b9d3b0b199  nats-server-2.14.3.tar.gz
+c99d5643509eed91d305606c8521db148f1bf1fbe9da3ace52da98aee5f24401640bf6540203fe4e560b2a3cd406f6263fa10024f0eaaa416b1fe27098c9b7a9  make-tests-more-forgiving-on-timings.patch
 "

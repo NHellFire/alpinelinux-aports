@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=falkon
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Cross-platform Qt Web Browser"
 url="https://github.com/KDE/falkon"
-# armhf, x86, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !ppc64le !s390x !riscv64"
+# armhf, armv7, x86, s390x and riscv64 blocked by qt6-qtwebengine
+arch="all !armhf !armv7 !x86 !s390x !riscv64"
 license="GPL-3.0-or-later"
 depends="qt6-qtbase-sqlite"
 makedepends="
@@ -33,9 +33,20 @@ checkdepends="
 	dbus
 	xwayland-run
 	"
-subpackages="$pkgname-lang $pkgname-bash-completion:bashcomp:noarch"
+subpackages="
+	$pkgname-lang
+	$pkgname-bash-completion:bashcomp:noarch
+	$pkgname-dbg
+	"
 _repo_url="https://invent.kde.org/network/falkon.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/falkon-$pkgver.tar.xz"
+
+case "$CARCH" in
+	ppc64le)
+		# Tests are SIGTRAPing
+		options="!check"
+		;;
+esac
 
 build() {
 	cmake -B build -G Ninja \
@@ -88,5 +99,5 @@ bashcomp() {
 }
 
 sha512sums="
-1ee956303bc54453e127ad9c54f7bf2f7d643c1e5778f64a8f5244f8257076da4a41f4a79a8279deafa285bbd4d39d807a1c268b699c493fe92480273a375356  falkon-25.08.0.tar.xz
+d741386e6a321587d96a224441418af0297c31a9f821eaf83149217f145bcee1373b828195b59e5e2b9ee1f46e2a8672db5eff335df192fa48ca0646bb0bdf33  falkon-26.04.3.tar.xz
 "

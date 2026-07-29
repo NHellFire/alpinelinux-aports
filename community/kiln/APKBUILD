@@ -1,21 +1,17 @@
 # Maintainer: Willow Barraco <contact@willowbarraco.fr>
 pkgname=kiln
 pkgver=0.4.1
-pkgrel=8
+pkgrel=16
 pkgdesc="Simple static site generator for Gemini sites"
 url="https://git.sr.ht/~adnano/kiln"
 arch="all"
 license="GPL-3.0-only"
 makedepends="go scdoc"
 subpackages="$pkgname-doc"
-options="!check"
+options="!check net" # go
 source="
 	$pkgname-$pkgver.tar.gz::https://git.sr.ht/~adnano/kiln/archive/$pkgver.tar.gz
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make VERSION=$pkgver GOFLAGS="$GOFLAGS"

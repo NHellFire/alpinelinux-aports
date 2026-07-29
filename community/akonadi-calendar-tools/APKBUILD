@@ -2,10 +2,10 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=akonadi-calendar-tools
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-# x86, ppc64le, s390x, riscv64 and armv7 blocked by akonadi-calendar -> qt6-qtwebengine
-arch="all !x86 !armhf !ppc64le !s390x !riscv64 !armv7"
+# x86, s390x, riscv64 and armv7 blocked by akonadi-calendar -> qt6-qtwebengine
+arch="all !x86 !armhf !s390x !riscv64 !armv7"
 url="https://kontact.kde.org/"
 pkgdesc="CLI tools to manage akonadi calendars"
 license="GPL-2.0-or-later AND GFDL-1.2-only"
@@ -39,5 +39,5 @@ package() {
 }
 
 sha512sums="
-e04f3133fbd3f367800c6ff3c1183999674b41d4544207d71b43ab2b3009014714d10407320bf2f460397ec36d697c24ffeb8eefb94efd69bd7858bcd90f2236  akonadi-calendar-tools-25.08.0.tar.xz
+385e0b78b1f70d321f9298885d853337be7ca62989fed30d03be50eb4e728b9dc928605bd54afd50ad2a6cdc6813567926828874fbb1c3982ddd8025060eccfc  akonadi-calendar-tools-26.04.3.tar.xz
 "

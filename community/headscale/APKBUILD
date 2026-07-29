@@ -1,13 +1,15 @@
 # Contributor: Patrycja Rosa <alpine@ptrcnull.me>
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=headscale
-pkgver=0.26.1
-pkgrel=3
+pkgver=0.28.0
+pkgrel=1
 pkgdesc="Open source, self-hosted implementation of the Tailscale control server"
 url="https://github.com/juanfont/headscale"
-# ppc64le, riscv64: go build fails
+# riscv64: go build fails
 # armhf, armv7: tests fail on sqlite read ("database disk image is malformed")
-arch="all !ppc64le !riscv64 !armhf !armv7"
+# loongarch64: go test fails (juanfont/headscale/issues/3125 "registration timed out")
+# x86, ppc64le: test keeps failing continously for unknown reasons
+arch="all !riscv64 !armhf !armv7 !loongarch64 !x86"
 license="BSD-3-Clause"
 pkgusers="headscale"
 pkggroups="headscale"
@@ -20,14 +22,10 @@ subpackages="
 	$pkgname-zsh-completion
 	"
 install="$pkgname.pre-install"
-source="https://github.com/juanfont/headscale/archive/v$pkgver/headscale-$pkgver.tar.gz
+source="headscale-$pkgver-1.tar.gz::https://github.com/juanfont/headscale/archive/v$pkgver/headscale-$pkgver.tar.gz
 	headscale.initd
 	"
 options="net" # fetch dependencies
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare
@@ -65,6 +63,6 @@ package() {
 }
 
 sha512sums="
-b388ec44f4df3eaea2014673ac9f9fa9a70db9f5f9267b57b65f27180f6a54fc2039f4a5ffbb9b4a4c630eec10083d8e1c6b3dd67d44fb0c4c4c15f95a4db6bb  headscale-0.26.1.tar.gz
+5e62038be96a47689c70f4cc612eeaad88e5e2b51d319c1275b5edae47daed7b6a29b80b862e9f210e487e135aa8456ba0c8f1b710cc2f6e8e61b6afdcd9bd4a  headscale-0.28.0-1.tar.gz
 0800829bfc087af283afc117406324a0129b30b587c8cc5df85e147ac09fc879d726fc2d0b62ed545fb0190ed887641f07256745da9dea56932dd2d90aa41625  headscale.initd
 "

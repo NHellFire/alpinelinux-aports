@@ -2,7 +2,7 @@
 pkgname=perl-image-exiftool
 # Bump only to versions that are marked as "production release" on
 # https://exiftool.org/history.html.
-pkgver=13.36
+pkgver=13.55
 pkgrel=0
 pkgdesc="Perl module for editing exif metadata in files"
 url="https://exiftool.org/"
@@ -10,7 +10,7 @@ arch="noarch"
 license="Artistic-1.0-Perl GPL-1.0-or-later"
 depends="perl"
 subpackages="$pkgname-doc exiftool"
-source="https://exiftool.org/Image-ExifTool-$pkgver.tar.gz"
+source="https://downloads.sourceforge.net/project/exiftool/Image-ExifTool-$pkgver.tar.gz"
 builddir="$srcdir/Image-ExifTool-$pkgver"
 
 # secfixes:
@@ -44,5 +44,5 @@ exiftool() {
 }
 
 sha512sums="
-8ac8afe9d384a047e5c53eec12aabe38f4cc4ce90bf61ff72f5f153bbf92f12ff16d59c2b84eab5c73d7e0d08f944417322df7ed77237a3c5504add84bbabf52  Image-ExifTool-13.36.tar.gz
+0f1f671ea64344e0b4b73ad7845ef785984b2fc905ba80d6478dfc045865dd31f69838bdf53f24f69578a7791f277f4cc8388e2cb31037e8875ad9845fb12fdc  Image-ExifTool-13.55.tar.gz
 "

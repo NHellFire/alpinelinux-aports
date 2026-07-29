@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kunifiedpush
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -29,6 +29,7 @@ subpackages="
 	$pkgname-dev
 	$pkgname-libs
 	$pkgname-lang
+	$pkgname-systemd
 	"
 _repo_url="https://invent.kde.org/libraries/kunifiedpush.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/kunifiedpush-$pkgver.tar.xz"
@@ -50,5 +51,5 @@ package() {
 }
 
 sha512sums="
-699ec501f40853d20d139f8a7eba96e32a607a2f688e774c2b2b817df6121b4aad4de6f4c9209162cb4c4b2a44153d2323e5c64ce171d1426656ec8e85a968bb  kunifiedpush-25.08.0.tar.xz
+8a321a5b5b3cd18b4cc7eda40a3f99df87cb4971cd4596faf51099ae8cd70e36d94b67f57e0b8b428cdbce3557f1908c3929d906b16f04f333ec0c83a5ccfc35  kunifiedpush-26.04.3.tar.xz
 "

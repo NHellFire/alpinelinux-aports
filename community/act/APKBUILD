@@ -1,8 +1,8 @@
 # Contributor: Meng Zhuo <mengzhuo@iscas.ac.cn>
 # Maintainer: Meng Zhuo <mengzhuo@iscas.ac.cn>
 pkgname=act
-pkgver=0.2.80
-pkgrel=2
+pkgver=0.2.83
+pkgrel=6
 pkgdesc="Run your GitHub Actions locally"
 url="https://github.com/nektos/act"
 arch="all"
@@ -13,15 +13,6 @@ options="net" # go build requires
 subpackages="$pkgname-doc"
 
 source="$pkgname-$pkgver.tar.gz::https://github.com/nektos/act/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir/go-tmp"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go-mod"}"
-
-default_prepare() {
-	mkdir -p $GOTMPDIR
-	go fmt ./...
-}
 
 build() {
 	go build -ldflags "-X main.version=$pkgver" -o act main.go
@@ -37,5 +28,5 @@ package() {
 }
 
 sha512sums="
-9158064cd656a39e1d12cf5a4ada79955a637d06cd00b9c6ee431c78dd9a8f627cce6427bbd258f0ecc4c5ed122ac2346b1ece55dbb6cf087309e948ea3344cc  act-0.2.80.tar.gz
+a55cffd62967155af987117b8c9aff3876cdeec7375e7042e11937ba10352e217e3116354e8e5397eac1a3ec78170e1d853a8de0cbdea65402710a13248c243c  act-0.2.83.tar.gz
 "

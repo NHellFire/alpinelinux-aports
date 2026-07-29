@@ -1,7 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Daniel Néri <dne+alpine@mayonnaise.net>
+maintainer="Daniel Néri <dne+alpine@mayonnaise.net>"
 _pkgname=erlang
-pkgver=28.1
+pkgver=28.5.0.3
 pkgrel=0
 _pkgver=${pkgver/_rc/-rc}
 _majorver=${pkgver%%.*}
@@ -10,7 +11,7 @@ pkgname=$_pkgname$_majorver
 pkgdesc="General-purpose programming language and runtime environment, version $_majorver"
 url="https://www.erlang.org/"
 license="Apache-2.0"
-arch="all"
+arch="all !riscv64"
 depends_dev="$pkgname=$pkgver-r$pkgrel"
 makedepends="
 	autoconf
@@ -162,5 +163,5 @@ _default_provide() {
 }
 
 sha512sums="
-045c7f5d1dd926c277b344ca396d12ff61fb01e0c3419a3171307faa0ecb252e8fe8d67922361d34cda59e30da45b17c347a776c7dc7b4d218f94bdd9764bfaa  otp_src_28.1.tar.gz
+a4198864ad47d2335dbcf47222459d35324fbc26ba335cbfda0ad634df27178b9e3ce61f66dbedc44152aaeb1c8589c30fccd558e3b25c082cd064f5b1b92aa0  otp_src_28.5.0.3.tar.gz
 "

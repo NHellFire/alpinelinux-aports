@@ -1,8 +1,8 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Contributor: Pablo Correa Gomez <pabloyoyoista@postmarketos.org>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=gnome-control-center
-pkgver=49.0
+pkgver=50.3
 pkgrel=0
 pkgdesc="GNOME control center"
 url="https://gitlab.gnome.org/GNOME/gnome-control-center"
@@ -17,8 +17,8 @@ depends="
 	setxkbmap
 	"
 makedepends="
-	blueprint-compiler
 	accountsservice-dev
+	blueprint-compiler
 	cairo-dev
 	colord-dev
 	colord-gtk-dev
@@ -27,6 +27,7 @@ makedepends="
 	docbook-xsl
 	gcr4-dev
 	glib-dev
+	gmobile-dev
 	gnome-bluetooth-dev
 	gnome-desktop-dev
 	gnome-online-accounts-dev
@@ -45,6 +46,7 @@ makedepends="
 	libwacom-dev
 	libxml2-utils
 	libxslt
+	malcontent-dev
 	meson
 	modemmanager-dev
 	networkmanager-dev
@@ -67,6 +69,7 @@ build() {
 		-Db_lto=true \
 		-Dibus=true \
 		-Dlocation-services=enabled \
+		-Dmalcontent=true \
 		. output
 
 	meson compile -C output
@@ -87,6 +90,6 @@ package() {
 }
 
 sha512sums="
-a94d83cabc54dc9edfad02bfea0c312ca40649b53c29971d8a20e910942fee799d507db15668c8115eb1d9643c603c30a5a444fcc6fe3a18edd839f6e0e1a2f2  gnome-control-center-49.0.tar.xz
+a5e27247ba6ea5d07a2424cc892468da608159b6d34a26258bde5b2e016a437b0a61517e4e673f7020eb6af194920439bdc7f7874872f1603fa7c84849c93c2b  gnome-control-center-50.3.tar.xz
 350aa443149c71851ad4de0976c7fc5cb626ba0c57a8d41e6ef80da1c65ed84a4dfa2483ae92630a3b611c4bfa9360ded82b55e8cd0e3907294c025e4f6b1671  README.alpine
 "

@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=knotifyconfig
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Configuration system for KNotify"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -49,5 +49,5 @@ package() {
 }
 
 sha512sums="
-5bfe73eefce2be0f946eacb049bbad43ae82436e1a7c07aed95b5fc4a62f78595fbac67c46c50023113c74648e573516e8d1799f5cd22d74a0c4a25df7c1b6ff  knotifyconfig-6.17.0.tar.xz
+e0a955fd48ceed665e6de30156bb2f650e3da62a19025170670afe602c42f3c11c3d567107605768c843531111f5e67bfb6456897f7f824257820f7f14edc02c  knotifyconfig-6.28.0.tar.xz
 "

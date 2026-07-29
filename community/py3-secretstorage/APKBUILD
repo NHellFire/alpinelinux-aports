@@ -1,32 +1,40 @@
 # Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 # Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 pkgname=py3-secretstorage
-_pkgname=SecretStorage
-pkgver=3.3.3
-pkgrel=3
+pkgver=3.5.0
+pkgrel=1
 pkgdesc="Python bindings to Freedesktop.org Secret Service API"
 url="https://github.com/mitya57/secretstorage"
 arch="noarch"
 license="BSD-3-Clause"
 depends="python3 py3-cryptography py3-jeepney"
-makedepends="py3-setuptools"
+makedepends="
+	py3-gpep517
+	py3-setuptools
+	"
 subpackages="$pkgname-pyc"
-source=" https://files.pythonhosted.org/packages/source/S/SecretStorage/SecretStorage-$pkgver.tar.gz"
-builddir="$srcdir"/$_pkgname-$pkgver
+source="$pkgname-$pkgver.tar.gz::https://github.com/mitya57/secretstorage/archive/refs/tags/$pkgver.tar.gz"
+builddir="$srcdir"/${pkgname#py3-}-$pkgver
 
 build() {
-	python3 setup.py build
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 check() {
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+
 	# can't run gnome keyring during build, so at least check importing
-	PYTHONPATH=build/lib python3 -c "import secretstorage"
+	.testenv/bin/python3 -c "import secretstorage"
 }
 
 package() {
-	python3 setup.py install --skip-build --root="$pkgdir"
+	python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
 }
 
 sha512sums="
-9a048c8245cfb01babebdd85dbbe84f9634b9b28188f7d11d3abad841109cfa307861de05e529199e409e595864ff3e097fcc961fcff210040d214a50f932f6e  SecretStorage-3.3.3.tar.gz
+8a5ec3dcf5212fb1e8c431eaa424f83a50fd75a91368abf32e2210cb42a6fb041c0e235e8ef008eb9fc761931a2def5925d8a0e59a05d2b4f6cbcf32b7af6fbf  py3-secretstorage-3.5.0.tar.gz
 "

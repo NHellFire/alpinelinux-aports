@@ -4,9 +4,9 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kde-applications
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-arch="noarch !ppc64le !s390x" # Limited by edu, network, umbrello and pim
+arch="noarch !s390x" # Limited by edu, network, umbrello and pim
 url="https://kde.org/applications/"
 pkgdesc="KDE Applications meta package"
 license="GPL-3.0-or-later"
@@ -39,6 +39,7 @@ depends="
 	$pkgname-webdev
 	"
 options="!check" # Meta package
+builddir="$srcdir"
 
 package() {
 	mkdir -p "$pkgdir"
@@ -173,7 +174,6 @@ pim() {
 
 sdk() {
 	depends="
-		cervisia
 		dolphin-plugins
 		kde-dev-scripts
 		kde-dev-utils

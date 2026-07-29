@@ -2,11 +2,9 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdenlive
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-# ppc64le mlt uses 64bit long double while libgcc uses 128bit long double
-# ppc64le, s390x and riscv64 blocked by qt6-qtwebengine -> purpose
-arch="all !armhf !ppc64le !s390x !riscv64"
+arch="all !armhf !s390x !riscv64"
 url="https://kdenlive.org"
 pkgdesc="An intuitive and powerful multi-track video editor, including most recent video technologies"
 license="GPL-2.0-or-later"
@@ -17,6 +15,7 @@ depends="
 	"
 makedepends="
 	extra-cmake-modules
+	kddockwidgets-dev
 	kdeclarative-dev
 	kdoctools-dev
 	kfilemetadata-dev
@@ -24,6 +23,7 @@ makedepends="
 	knotifyconfig-dev
 	kxmlgui-dev
 	mlt-dev
+	opentimelineio-dev
 	purpose-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
@@ -60,5 +60,5 @@ package() {
 }
 
 sha512sums="
-7308217cf455411b58b9e5e9db8d16cd179cdb808d6047910ccf4fed58121aa797c187ddb5af42bbf123990905c42db53c04b4b6281309b7c8dede8a3cdd0ea4  kdenlive-25.08.0.tar.xz
+b549d87593a07bb5ffafc0d08b90e628fd36589d19055244021fb95b5f2cc9f650990b93ceed57ff9bb5f59c0c436893a59ef11d474b0b19b3e6b8360054de9c  kdenlive-26.04.3.tar.xz
 "

@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-nm
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Plasma applet written in QML for managing network connections"
 # armhf blocked by qt6-qtdeclarative
@@ -11,6 +11,7 @@ url="https://kde.org/plasma-desktop/"
 license="(LGPL-2.1-only OR LGPL-3.0-only) AND LGPL-2.0-or-later"
 depends="
 	kirigami
+	kirigami-addons
 	networkmanager
 	"
 makedepends="
@@ -40,13 +41,14 @@ makedepends="
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qtdeclarative-private-dev
+	qtkeychain-dev
 	samurai
 	solid-dev
 	"
-
+checkdepends="xwayland-run"
 # openconnect VPN plugin
 case "$CARCH" in
-	s390x|riscv64|ppc64le|loongarch64) ;; # missing qt6-qtwebengine-dev
+	s390x|riscv64|loongarch64) ;; # missing qt6-qtwebengine-dev
 	x86|armv7) ;; # missing Qt6WebEngineWidgetsConfig.cmake
 	*) makedepends="$makedepends qt6-qtwebengine-dev openconnect-dev";;
 esac
@@ -69,7 +71,8 @@ build() {
 }
 
 check() {
-	ctest --test-dir build -E "mobileproviderstest"
+	# smoketests fail to find their own QML modules
+	wlheadless-run -- ctest --test-dir build -E "mobileproviderstest|kcm_(cellular_network|mobile_(hotspot|wifi|wired))_smoketest"
 }
 
 package() {
@@ -85,5 +88,5 @@ mobile() {
 }
 
 sha512sums="
-0835ad89efa712fa205bf221246104b1f43601fad86879dd05a54ec8611083f5d91c23941cf27ccd2be66eb1f86304b52429d6c7a44453e4556c44d78eb2b299  plasma-nm-6.4.5.tar.xz
+81964fd7643ad3647a8aff260dd6b32904e36fc4a62f75688138c9791be1d0fc1f319de1579cea5da9d3dcc58bdb44bf95d2f247c2a0d5852ece004846050fe8  plasma-nm-6.7.3.tar.xz
 "

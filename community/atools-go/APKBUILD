@@ -1,8 +1,8 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=atools-go
-pkgver=0.5.0
-pkgrel=2
+pkgver=0.6.1
+pkgrel=5
 pkgdesc="APKBUILD linter that parses APKBUILD files to provide fast and accurate checks"
 url="https://gitlab.alpinelinux.org/alpine/infra/atools-go"
 arch="all"
@@ -32,5 +32,5 @@ package() {
 }
 
 sha512sums="
-b2f939e950b054982ded3bd6a9c85f152122caaccdf8931826a7249cff638259fbab3b7950495a0b43d6f93450381e2eb63dd84094d5590d83be7d9dfb206e30  atools-go-v0.5.0.tar.gz
+be4addb408fec9e43fe2fdfdb0db6f3c682bfea1394628352e74e148c947378a0dcbfd61ee278887e8f792958d1f8a57f9f7462d1e901167359534f8679d4455  atools-go-v0.6.1.tar.gz
 "

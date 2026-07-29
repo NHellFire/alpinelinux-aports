@@ -1,0 +1,69 @@
+# Contributor: Anjandev Momi <anjan@momi.ca>
+# Maintainer: Anjandev Momi <anjan@momi.ca>
+pkgname=river-classic
+pkgver=0.3.17
+pkgrel=0
+pkgdesc="river 0.3.x forever!"
+url="https://codeberg.org/river/river-classic"
+arch="x86_64 aarch64" # limited by zig aport
+license="GPL-3.0-only"
+makedepends="
+	libevdev-dev
+	libxkbcommon-dev
+	pixman-dev
+	scdoc
+	wayland-dev
+	wayland-protocols
+	wlroots0.20-dev
+	zig
+	"
+depends="xwayland seatd"
+subpackages="
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-bash-completion
+	$pkgname-fish-completion
+	$pkgname-zsh-completion
+	"
+options="net"
+source="
+	https://codeberg.org/river/river-classic/releases/download/v$pkgver/river-classic-$pkgver.tar.gz
+	"
+
+# backward compatibility
+provides="river=$pkgver-r$pkgrel"
+
+_buildzigflags="-Dpie -Dxwayland -Dllvm -Dcpu=baseline"
+
+build() {
+	# This installs it to $builddir/out
+	DESTDIR="$builddir/out" zig build \
+		-Doptimize=ReleaseSafe \
+		$_buildzigflags \
+		--prefix /usr install
+}
+
+check() {
+	zig build test $_buildzigflags
+}
+
+package() {
+	mkdir -p "$pkgdir"
+	cp -r out/* "$pkgdir"
+
+	# Fix location of pkgconfig files, must be fixed upstream
+	mkdir -p "$pkgdir"/usr/lib
+	mv "$pkgdir"/usr/share/pkgconfig "$pkgdir"/usr/lib
+
+	# Install example configuration
+	install -Dm0644 example/init -t "$pkgdir"/usr/share/doc/river/examples
+}
+
+dev() {
+	default_dev
+	amove usr/share/river-protocols
+}
+
+sha512sums="
+e3fe02f2906052476d61b40f6543accc7573e0ded0f9e39fb4650717f8d98cfbaf681bd3dd62e2dc726ecd3208201fdd5263c4acd3e59a379133e0c80df3b208  river-classic-0.3.17.tar.gz
+"

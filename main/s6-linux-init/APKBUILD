@@ -1,27 +1,25 @@
 # Maintainer: Laurent Bercot <ska-devel@skarnet.org>
 pkgname=s6-linux-init
-pkgver=1.1.3.0
+pkgver=1.2.0.2
 pkgrel=0
 pkgdesc="Set of tools to create and run an s6-based init system"
-url=https://skarnet.org/software/s6-linux-init/
+url="https://skarnet.org/software/s6-linux-init/"
 arch="all"
 license="ISC"
 options="!check"
-_skalibs_version=2.14.4
-_execline_version=2.9.7
-_s6_version=2.13.2
-depends="execline>=$_execline_version s6>=$_s6_version"
-makedepends="skalibs-dev>=$_skalibs_version execline-dev>=$_execline_version s6-dev>=$_s6_version linux-headers"
+depends="execline s6"
+makedepends="skalibs-dev execline-dev s6-dev linux-headers"
 subpackages="$pkgname-static $pkgname-libs $pkgname-dev $pkgname-doc"
 source="https://skarnet.org/software/s6-linux-init/s6-linux-init-$pkgver.tar.gz"
 
 build() {
 	./configure \
+		--prefix=/usr \
+		--sysconfdir=/etc \
+		--libexecdir="/usr/libexec/$pkgname" \
+		--skeldir=/etc/s6-linux-init/skel \
 		--enable-shared \
 		--disable-allstatic \
-		--prefix=/usr \
-		--libexecdir=/usr/lib/s6-linux-init \
-		--skeldir=/etc/s6-linux-init/skel \
 		--with-pkgconfig \
 		--enable-pkgconfig
 	make
@@ -34,5 +32,5 @@ package() {
 }
 
 sha512sums="
-671f0532f708f570b307510d76eefabfecf0fb989491b2bb02dfccc1043ed80761367c2f7a56821aa44d159b57b4c1eca739b50362ec56f2be3b498df6f9a34a  s6-linux-init-1.1.3.0.tar.gz
+e319301ec85738f0cf30c6970bd2df8ccea841fb847e1ffbd1353f599a330b438f300c25d447f6ebecac5223774b3d86cfb930e9a3f19481643ff880419ba67d  s6-linux-init-1.2.0.2.tar.gz
 "

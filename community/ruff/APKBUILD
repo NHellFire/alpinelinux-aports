@@ -1,12 +1,12 @@
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=ruff
-pkgver=0.12.7
+pkgver=0.15.22
 pkgrel=0
 pkgdesc="Extremely fast Python linter"
 url="https://github.com/astral-sh/ruff"
 arch="all"
 license="MIT"
-makedepends="py3-gpep517 py3-maturin cargo py3-installer"
+makedepends="py3-gpep517 py3-maturin cargo py3-installer git jemalloc-dev"
 subpackages="
 	$pkgname-pyc
 	$pkgname-bash-completion
@@ -14,11 +14,20 @@ subpackages="
 	$pkgname-zsh-completion
 	py3-$pkgname:_python:noarch
 	"
-source="https://github.com/astral-sh/ruff/archive/$pkgver/ruff-$pkgver.tar.gz"
+source="https://github.com/astral-sh/ruff/archive/$pkgver/ruff-$pkgver.tar.gz
+	0001-Enable-system-jemalloc-on-all-architectures.patch
+	"
 # net: cargo
 options="net"
-[ "$CARCH" = "riscv64" ] && options="$options !check" # No file descriptors available (os error 24) on build-edge-riscv64
+case "$CARCH" in
+# No file descriptors available (os error 24) on build-edge-{aarch64,arm*,riscv64}
+aarch64|arm*|riscv64) options="$options !check" ;;
+esac
 
+case "$CARCH" in
+# Avoid OOM
+arm*) export CARGO_PROFILE_RELEASE_LTO="thin" ;;
+esac
 export CARGO_PROFILE_RELEASE_OPT_LEVEL=2
 
 prepare() {
@@ -29,6 +38,11 @@ prepare() {
 
 	# Avoid downloading a different toolchain on systems with rustup installed.
 	rm rust-toolchain.toml
+
+	cat >> .cargo/config.toml <<-EOF
+		[target.$CHOST]
+		jemalloc = { rustc-link-lib = ["jemalloc"] }
+	EOF
 
 	cargo fetch --locked
 }
@@ -50,16 +64,12 @@ build() {
 
 check() {
 	unset CI_PROJECT_DIR
-
 	ulimit -n 4096
 
-	# See: https://github.com/astral-sh/ruff/pull/19652
-	case "$CARCH" in
-	x86|armv7|armhf) skip_tests="--skip test_multi_file_function_references" ;;
-	*) skip_tests="" ;;
-	esac
+	cargo test --frozen --workspace --exclude ruff_benchmark --exclude ty_server
 
-	cargo test --frozen --workspace --exclude ruff_benchmark -- $skip_tests
+	# Confirm that we're using the system jemalloc.
+	ldd ./target/release/ruff | grep libjemalloc.so
 }
 
 package() {
@@ -75,9 +85,10 @@ package() {
 }
 
 _python() {
-	amove usr/lib/python3.12/site-packages/
+	amove usr/lib/python*/site-packages/
 }
 
 sha512sums="
-86ad98d27f3ccf39b2a66d01b4ac523806ead5e92c2701ca07cdfdf8c352c6d7216e6ace1480639385abf8bfc6d168f07a49a72e5c0b64d22dfe138974cc9e1f  ruff-0.12.7.tar.gz
+eb76b898d49e8299e67df695d5329e39352fd7c90aeebdb6ff6b5867d5ef675448296a0207376adb53f9d51de22316c3b96d58e990be72c30a10047b7db0ea7d  ruff-0.15.22.tar.gz
+0738a1cb01287d825568cbf5deefe77dd97725102c34826009167f348015fd705cd905d399d3c826d7d543638e3dff5070e6936c1ff6d71e126553726caad578  0001-Enable-system-jemalloc-on-all-architectures.patch
 "

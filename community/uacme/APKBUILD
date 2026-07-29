@@ -1,8 +1,9 @@
 # Contributor: Eivind Uggedal <eu@eju.no>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=uacme
-pkgver=1.7.6
+pkgver=1.8.1
 pkgrel=0
 pkgdesc="Lightweight client for the RFC8555 ACMEv2 protocol"
 url="https://github.com/ndilieto/uacme"
@@ -38,5 +39,5 @@ package() {
 }
 
 sha512sums="
-c9d901ef2207ec91574eb76327320047529b11e35cc383d63b1cae9a8f57266deb9042fb9ca8e0d54369499c843c390436cec37126bc38f7d8ac2ab03940d784  uacme-upstream-1.7.6.tar.gz
+811771a613ff502439c8227a22d099108c131430c768205db4d7edc9b266822058896830033f3a56206395eb6958904988a8aeef4e6bb9c4452783d3e002666b  uacme-upstream-1.8.1.tar.gz
 "

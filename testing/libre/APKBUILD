@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=libre
-pkgver=3.23.0
+pkgver=4.10.0
 pkgrel=0
 pkgdesc="Portable library for real-time communications"
 url="https://github.com/baresip/re"
@@ -9,7 +9,8 @@ arch="all"
 license="BSD-3-Clause"
 makedepends="openssl-dev zlib-dev cmake linux-headers samurai"
 subpackages="$pkgname-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/baresip/re/archive/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/baresip/re/archive/v$pkgver.tar.gz
+disable-udp-test.patch"
 
 builddir="$srcdir/re-$pkgver"
 
@@ -28,5 +29,6 @@ package() {
 }
 
 sha512sums="
-460ebb7fee54d26dff7aab6420455073c3c90708eff8ef3a9a2cdc6922deeeb6b950d3791bc17d773bb1955513b2f300428fb364d13130d51536b6ef07aa7e9c  libre-3.23.0.tar.gz
+a0da0078662f6d46ad6cfc981fe3ecdee02f9b82e7902691cf164b71002f37694142a5d484ed8c6d5428f16599da9ef2fc4bcf1792818a534e76f3dd72c739ed  libre-4.10.0.tar.gz
+00c32f980ff9ba5e8da9d46abcfd31ec59880acd1ea88ef3a61b3c71f1929cc47da046427e9bac0d398091401de48522705d0754b92e4f03fde36bd4fd5d5c81  disable-udp-test.patch
 "

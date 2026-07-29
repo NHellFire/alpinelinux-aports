@@ -1,7 +1,7 @@
 # Maintainer: mio <miyopan@e.email>
 maintainer="mio <miyopan@e.email>"
 pkgname=libgedit-gtksourceview
-pkgver=299.5.0
+pkgver=299.7.1
 pkgrel=0
 pkgdesc="Gedit Technology — source code editing widget"
 url="https://gitlab.gnome.org/World/gedit/libgedit-gtksourceview"
@@ -12,6 +12,8 @@ makedepends="
 	gobject-introspection-dev
 	gtk-doc
 	gtk+3.0-dev
+	libgedit-amtk-dev
+	libgedit-gfls-dev
 	meson
 	"
 checkdepends="xvfb-run"
@@ -36,5 +38,5 @@ package() {
 }
 
 sha512sums="
-d8c782ce097d121df2158043ff34fd0e6b4f43391ad27fa3e2346482b460be6001137f2462f6df846124612a8a8e97aef7753c14cc9bf6ba2cdbe1d32db6a3f8  libgedit-gtksourceview-299.5.0.tar.gz
+b4c778e3713afecc758d216f87267e28b302be26206ef150b9515f399d0eb78ea0fe6fef1dbbde933c8b6382c51603bfe88458c5dff407a98f9f8b53bdfd7b36  libgedit-gtksourceview-299.7.1.tar.gz
 "

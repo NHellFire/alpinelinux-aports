@@ -1,14 +1,12 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kgpg
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
-# ppc64le, s390x and riscv64 blocked by qt5-qtwebengine -> akonadi-contacts
-arch="all !armhf !ppc64le !s390x !riscv64"
+# s390x and riscv64 blocked by qt6-qtwebengine -> akonadi-contacts
+arch="all !armhf !s390x !riscv64"
 url="https://kde.org/applications/utilities/org.kde.kgpg"
 pkgdesc="A simple interface for GnuPG, a powerful encryption utility"
 license="GPL-2.0-or-later"
@@ -54,7 +52,7 @@ check() {
 	# kgpg-encrypt and kgpg-export are broken
 	# del-key fails randomly
 	# genkey fails on arm on builders
-	ctest --test-dir build -E "kgpg-(genkey|import|encrypt|export|del-key)" -j1
+	ctest --test-dir build -E "kgpg-(genkey|import|encrypt|export|del-key|change-trust)" -j1
 }
 
 package() {
@@ -62,5 +60,5 @@ package() {
 }
 
 sha512sums="
-0b800479cbd8a0ec5587fcd144666ec5d4dcb3dec6b4980576c463532f5e7e90359de12dd132eb0fb7f01579d8f53290c55b934ace62cf161816272bf41c2a3c  kgpg-25.08.0.tar.xz
+4fed4d935c79ec5cf3268eda93c456a3278efd45ca589f30b8c21252261e92eadae7387eaf9d288521e15b9cf28f1b58b74dcad911f44ecf23a0c8dbc36a5062  kgpg-26.04.3.tar.xz
 "

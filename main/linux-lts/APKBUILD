@@ -1,8 +1,8 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 
-_flavor=lts
+_flavor=${FLAVOR:-lts}
 pkgname=linux-$_flavor
-pkgver=6.12.47
+pkgver=6.18.40
 _kernver=${pkgver%.*}
 pkgrel=0
 pkgdesc="Linux lts kernel"
@@ -10,16 +10,16 @@ url="https://www.kernel.org"
 depends="initramfs-generator"
 _depends_dev="perl gmp-dev mpc1-dev mpfr-dev elfutils-dev bash flex bison zstd"
 makedepends="$_depends_dev sed installkernel bc linux-headers linux-firmware-any openssl-dev>3 mawk
-	diffutils findutils zstd pahole python3 gcc>=13.1.1_git20230624"
+	diffutils elfutils findutils zstd pahole python3 gcc>=13.1.1_git20230624 bpftool"
 options="!strip !check"
-_config=${config:-config-lts.${CARCH}}
 source="https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/linux-$_kernver.tar.xz
 	0001-powerpc-boot-wrapper-Add-z-notext-flag-for-ppc64le.patch
 	0002-x86-Compress-vmlinux-with-zstd-19-instead-of-22.patch
 	0003-kexec-add-kexec_load_disabled-boot-option.patch
 	0004-objtool-respect-AWK-setting.patch
 	0005-powerpc-config-defang-gcc-check-for-stack-protector-.patch
-	0007-libbpf-gcc15.patch
+	0001-x86-CPU-AMD-avoid-printing-reset-reasons-on-Xen-domU.patch
+	sophgo-fixes.patch
 
 	lts.aarch64.config
 	lts.armv7.config
@@ -36,11 +36,23 @@ source="https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/linux-$_kernver
 	virt.x86.config
 	virt.x86_64.config
 	"
+
+# Allow adding custom flavor config via FLAVOR var
+# The config file should be named ${FLAVOR}.${CARCH}.config
+if [ -n "$FLAVOR" ]; then
+	source="$source
+	${FLAVOR}.${CARCH}.config"
+fi
+
 subpackages="$pkgname-dev:_dev:$CBUILD_ARCH $pkgname-doc"
 for _i in $source; do
 	case $_i in
 	*.$CARCH.config)
 		_f=${_i%."$CARCH".config}
+		if [ -n "$FLAVOR" ] && [ "$_f" != "$FLAVOR" ]; then
+			# skip flavors that don't match
+			continue
+		fi
 		_flavors="$_flavors $_f"
 		if [ "linux-$_f" != "$pkgname" ]; then
 			subpackages="$subpackages linux-$_f::$CBUILD_ARCH linux-$_f-dev:_dev:$CBUILD_ARCH"
@@ -201,6 +213,17 @@ build() {
 			CC="${CC:-gcc}" \
 			AWK="${AWK:-mawk}" \
 			KBUILD_BUILD_VERSION="$((pkgrel + 1 ))-Alpine"
+
+		if grep -q '^CONFIG_DEBUG_INFO_BTF=y' .config; then
+			# Generate vmlinux.h
+			bpftool btf dump file vmlinux format c > vmlinux.h
+
+			if [ "$CARCH" = "ppc64le" ]; then
+				# ppc64le installs the uncompressed vmlinux, which is extremely
+				# large with BTF debuginfo unless stripped
+				eu-strip --remove-comment vmlinux
+			fi
+		fi
 	done
 }
 
@@ -238,18 +261,8 @@ _package() {
 	install -D -m644 include/config/kernel.release \
 		"$_outdir"/usr/share/kernel/$_buildflavor/kernel.release
 
-	case "$CARCH" in
-	loongarch64)
-		mv  "$_outdir"/boot/vmlinuz-$_abi_release \
-			"$_outdir"/boot/vmlinuz-$_buildflavor
-
-		mv  "$_outdir"/boot/config-$_abi_release \
-			"$_outdir"/boot/config-$_buildflavor
-
-		mv  "$_outdir"/boot/System.map-$_abi_release \
-			"$_outdir"/boot/System.map-$_buildflavor
-		;;
-	esac
+	ln -sf /boot/vmlinuz-"$_buildflavor" \
+		"$_outdir"/lib/modules/"$_abi_release"/vmlinuz
 }
 
 # main flavor installs in $pkgdir
@@ -265,7 +278,7 @@ package() {
 	# remove files that aren't part of the documentation itself
 	for nondoc in \
 		.gitignore conf.py docutils.conf \
-		dontdiff Kconfig Makefile
+		Kconfig Makefile
 	do
 		rm "$pkgdir"/usr/share/doc/linux-doc-"$pkgver"/"$nondoc"
 	done
@@ -302,6 +315,11 @@ _dev() {
 		"$dir"/
 
 	install -D -t "$dir"/certs "$_builddir"/certs/signing_key.x509 || :
+
+	# Install vmlinux.h
+	if grep -q '^CONFIG_DEBUG_INFO_BTF=y' "$_builddir"/.config; then
+		install -Dm644 "$_builddir"/vmlinux.h -t "$dir/"
+	fi
 
 	make -C "$builddir" \
 		O="$dir" \
@@ -344,25 +362,26 @@ _dev() {
 }
 
 sha512sums="
-19bb9e9e235fa408e3b37dd6fe475f1dc7690bd09274dcdcb722ccc9733da9169dbaa97dffb15e0b32da6a62cd89b2da8cad32b4d2f16f2fbbd9d023b5ebae9b  patch-6.12.47.patch.xz
-a37b1823df7b4f72542f689b65882634740ba0401a42fdcf6601d9efd2e132e5a7650e70450ba76f6cd1f13ca31180f2ccee9d54fe4df89bc0000ade4380a548  linux-6.12.tar.xz
+cf265aed22e83bcd8f34d3c0da2a8307654b16338c8be383784632105e21f0d9dc5b73c3732e415230c4164b2b2c9e5915808335e2f10e28207aeed4d773ca56  patch-6.18.40.patch.xz
+88599ffdec96d150c1feb9b261ba93bb0301a9d0e1ad6bef7aeab1f5372cbfc57d8b43c7e902bd8f76921d1dbd8189663c142ea869e51d0e2b483b150ee00fe0  linux-6.18.tar.xz
 b296717ef0cd63978142b4d47b3bc49faa04daf77e115e702ba611cc254a6e782cdab7d5639e724cd5f029cfb6a3dc33c3036f346d681d1fdfe0df723c7e0321  0001-powerpc-boot-wrapper-Add-z-notext-flag-for-ppc64le.patch
 055e10e7b3e00bb3621389315d5206a8feb5022a1f0dc51c3aa107facfe83d191da05a502a0c62488be7299677a63c1da84f87c42cbf3125788c56db67e810ee  0002-x86-Compress-vmlinux-with-zstd-19-instead-of-22.patch
-7e066473fd0e234a279280eee0351bf9c3efab1e7ad0e1a85cb62193e63df06a7641015229445aaab6f68019c4852e6731b2cb3c4a54c0dbe405fac12b365873  0003-kexec-add-kexec_load_disabled-boot-option.patch
+e1d2d5358f5b8189236108973395f00eafce8db6d5baaf55025b1360f08ab7cffc930d3818719f220b98e7e8541cc8a7f056611b6e290f224a102c1addbe34ac  0003-kexec-add-kexec_load_disabled-boot-option.patch
 28c83be4c97152001381cd5e3a8acb8552a42d9dac9aaec8f096e3762b7944035aa5a4363fb4602f9bb427c4f72cfd2f996a0a725f7f9e07ab250317985aff9e  0004-objtool-respect-AWK-setting.patch
 5ce79416f8f111c36393718656e3eeb4cb0adccd117dcf661876d1564010e5c58b6351cc4116d187d0a9a838bcca0fecc236d81ac71afb940b89ccb14f21e179  0005-powerpc-config-defang-gcc-check-for-stack-protector-.patch
-26c3f5fcf48cae17a618443df323e51553044286dc9365382c7bd3d2c9a3094930823e155017fbc838f8571449b543596b3febe943118068cfa1b4ee12721698  0007-libbpf-gcc15.patch
-0cec2ef822c739d98ebe0700f4b3d8a0d9a59939111cf2194870a8d945eb632bed2ec44af517540cabcf0241f0f11ea8c88ba1a5a1d3331ce16d386db4382cde  lts.aarch64.config
-bdd1f168e9cea483accd4605ce7d3f9765dea36d18832ee665da8dcf2a5a8000ddbf038fbc7e658577f774985e012e224aaa67ad0d07406970011c0cb19cbe6a  lts.armv7.config
-6f2035e1b3e966c35b183490391fe8dbdfb0fa6c2bb1dc58453d31b0f3b5f84e58d4179d1675d5e96f120bd6ba02f2c363a179d4eed58a9a2e79a068ec1b4789  lts.loongarch64.config
-9e40476a9e484b9dcded7f130c0cf8c99062daca83385f0c30827a064123ad8a39a3a315aecdc03c39dc844f798deacdfb0807522dd38822232c81fe8a311585  lts.ppc64le.config
-0470b5bc8229715436aa53259704be47155edf3f12a1e42d9ce110f555c28ff2bf543f2239bab17b138ffcdcb70373cdc5fd795bc34e07d770bd3fd37ab6e5d3  lts.riscv64.config
-1beffd66489287aa0a662b845d2f40e3b8ff2587ae31c62669acd26f795d876bd2f0f0cf118396978e9ca5c553423cb4b32a4921868a230f63b226a4bd4f0dc6  lts.s390x.config
-69e64967a9fdbe71a70beed94dd0c7c3a833f1ed8402e780e01eea7c72928ef9ff9cf84a5692794e40eaac853bbf186dea2a2cc6b7b17f130b5748c5887ed936  lts.x86.config
-8645819be3ca70994fb055ce9543b7e2eb40d6a5bd2f14553d37c3cc9c2ea3c08a67a8a6d66987ec4f436f11cd00193fe5e1f374f015d152213c88ceed5ec002  lts.x86_64.config
-0601435e6275ac2ce4c796a5626899082adb54fa14b15d77819c1cc698e7a8f71667a9d149334048bbe4bad93a5a1ec8cf9b8e06763086e0d7ead14c1623adab  virt.aarch64.config
-dc9bf1b2687f436e9f75ee53c4e864cb9a5e4b62595e77bc00be341d2b224cc73b8e1718209d7cfb4376b3fb0c8f43d368e8f660d032aef45b8dbc0e6fc67956  virt.armv7.config
-49fccd2169e185ab7f3dc787b8bdb0b22c7b9ad8264dacc54f1a1eb91600a5bd420c13b6e83d5ba914004597eb9e63860fdb11eeb52482219436c58844b6c3cd  virt.ppc64le.config
-8d94d29526e376b20a0e28e876a9fd561adc0023e7f3d5f774db61ce413f4a779dd1d2894f714b9b25feb41f3b35c00767dde1eea3e12a44421b1394ef5a6570  virt.x86.config
-8749d34f17db7bd4c578e4fa6946e98dc070576b378d45e34c6a9cf2b972ad03b228402e0755132ee689ec6319d2f0c19055672d8d1703e571ae829b1e518224  virt.x86_64.config
+4e72af8e77a555d2a850837b64a525a51d5d118048584dc3ea0d0e8620bb56bf56b69a94aa67dac879b841c9ba033e33d94610da0028fde7b6602ad2fe63f02f  0001-x86-CPU-AMD-avoid-printing-reset-reasons-on-Xen-domU.patch
+855522b816bbb2b0738251cf24714c2566c7aacad39aaf6adcebd0a256d11f64ff2762ecdace0ab1bac38db87fd579863f852f799356a368f057c166e4deb03c  sophgo-fixes.patch
+74fc8a814775a091705f3285f6a4f055856c72b2ae49b62287bf0d7f4c4a3ed53fde7f8057aa3ccf76554f08352f2e147f262b17a440524889e33c30bfe362cc  lts.aarch64.config
+beac169b89952b4650ca31fd27f2f65e2566ce1e2828ba0c57cc0b9f89df30be190ea5a96f48722989f6c8276de2be8bdeea7732be4b6b93a0ddc04110e12c16  lts.armv7.config
+5cb3d99f14cd55d465d766b5789e7d4aae5cf9e045a131b3e57e09d0cba4400158e2f9085442a7d69d7fa95b1b31a49503fa129e171eeecf1c6a6bbc03cfc12e  lts.loongarch64.config
+66ce205980f773cb5fd5de1bc48a66afa8cc284e6183f7cd9687e42801ac0ad822f6b2e4e87fda852e759468d3e307b6f1b254ea9a2aac8f650a526e6be556c5  lts.ppc64le.config
+9dea5da8078bb3cd8b95bdc5bf780617b630b0d848833add9475c476f793058adb0989d46b2f9d34fdc367458df4ab00495eb4ed0ba61a6826ff8b0713248de5  lts.riscv64.config
+34622b02baf05ac9f9dfa3cbcd817368b9ea0bc2056a55e4cab770e0e0100f8cdc9ddb0b68bbdfe381f6f3d8b1a81bbd55f56db43a824b691f8788907ed6fa23  lts.s390x.config
+e14d7c8545808792f34d288fdbd792295af203ab5fadfd18bc61414e97ebf6df4e53d63ddc39b0054838ad4ce996e13aa6d8095ae50d8dda4262d0faeb474823  lts.x86.config
+9dfceff11bf4a9e6f22da1c98a36fa63aa1562c8791328c193c644c4b4014058e7add87e7293780bf07885ced244c31da76c309ac07f98432c8d98b0c3f4121a  lts.x86_64.config
+21fdc54e1e2fe9e974a7edb27bb3a8425256040557086d6aeaef79bc1f435f52accbab7f8512e5cf7789718fea8deb63ffa7707cf3d6f471ea3b6766a839884b  virt.aarch64.config
+12880a3077aeb6209fb1b31ec800704e7c3a7982d865113a527643f96b47ec27a783edd2cf823bc052c5da4735752d67997c93a1a9c797e2e7bef1e59cccfe26  virt.armv7.config
+79bf9534d9f4c1de468b3b3c5e23c8b037d04c66a374649f761f6525dabada851e573d623b47ca8f0e8f4921380bf77219343215e292ec4afb5e18902643b813  virt.ppc64le.config
+f5738b5cb89ddf7045846b9b61e0aa33f7fc2fc25452764dd97ace2c48328a5d7e66a6a4d1032d411836960eba786ae38875b4082472fa30d8375c7261eeba3d  virt.x86.config
+d48786028c6a7b499001d8431fcab98852996281b01f216be10707b25846996c7523530bd2e0f94e9a2d75f2f5e5ee4d0da747de30c42dc96a1e5b9eaa5bb9fe  virt.x86_64.config
 "

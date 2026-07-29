@@ -1,9 +1,9 @@
 # Contributor: Sascha Paunovic <azarus@posteo.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=spectrwm
 pkgver=3.7.0
-pkgrel=0
+pkgrel=1
 _gittag="SPECTRWM_${pkgver//./_}"
 pkgdesc="Dynamic, configurable tiling window manager for X11"
 url="https://github.com/conformal/spectrwm"

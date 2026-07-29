@@ -1,8 +1,8 @@
 # Contributor: Marc Vertes <mvertes@free.fr>
 # Maintainer: Mikael Jenkler <mikael@jenkler.com>
 pkgname=mongodb-tools
-pkgver=100.12.0
-pkgrel=3
+pkgver=100.14.1
+pkgrel=4
 pkgdesc="The MongoDB tools provide import, export, and diagnostic capabilities."
 url="https://github.com/mongodb/mongo-tools"
 arch="all"
@@ -14,10 +14,6 @@ makedepends="
 source="$pkgname-$pkgver.tar.gz::https://github.com/mongodb/mongo-tools/archive/$pkgver.tar.gz"
 builddir="$srcdir/mongo-tools-$pkgver"
 options="!check"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	mkdir -p bin
@@ -44,5 +40,5 @@ package() {
 }
 
 sha512sums="
-fe56f76ee7189fecc537845d7ee4dd235542059ea73480285235a0ca38a2a2e498ba7f07cfcb8759cbcaf2a6d3d650d1d69aef7ecf8b502d0bbab7ece38aadfb  mongodb-tools-100.12.0.tar.gz
+780e0ae82aaec98b6e2661fbb21d45971f593458b99f4baedd3f50002df01bcaa297d725b337f58f2fb272e2904adfa5e65b34ca4213eea249b9eec58c59ba64  mongodb-tools-100.14.1.tar.gz
 "

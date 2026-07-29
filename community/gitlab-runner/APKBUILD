@@ -2,8 +2,8 @@
 # Contributor: Rasmus Thomsen <oss@cogitir.dev>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=gitlab-runner
-pkgver=18.3.0
-pkgrel=1
+pkgver=19.1.1
+pkgrel=0
 pkgdesc="GitLab runner for CI/CD jobs"
 url="https://docs.gitlab.com/runner/"
 arch="all"
@@ -17,7 +17,6 @@ source="https://gitlab.com/gitlab-org/gitlab-runner/-/archive/v$pkgver/gitlab-ru
 	$pkgname-$pkgver-tags.json::https://gitlab.com/api/v4/projects/250833/repository/tags/v$pkgver
 	syslog-log-format.patch
 	use-logrus-syslog-hook.patch
-	update-go-mod.patch
 	$pkgname.initd
 	$pkgname.confd
 	$pkgname.logrotate
@@ -26,10 +25,6 @@ builddir="$srcdir/$pkgname-v$pkgver"
 # check: need to be run in a git repo
 # net: required for pulling dependencies
 options="!check net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 # secfixes:
 #   15.10.0-r0:
@@ -74,11 +69,10 @@ helper() {
 }
 
 sha512sums="
-111a34ed1738b9c72634065f38e7e548f74a179a5bcbf6034058fdbccb28c2be2e1df28fbdd6173722886c2791d2d9e521f5841ff7b33a0f767205ee30a0696a  gitlab-runner-v18.3.0.tar.gz
-9197e848c47484e75748152b20a8915619e1feec8b74c06d8f2bc256078e12ec041e421f86dfc59a3a621b5fb17aec05aaebf8aab02676d11c714465a8897dc6  gitlab-runner-18.3.0-tags.json
-c2e2d36714d1f8fc49ed2de6b411a879183b40356af366e9e89e0ee246d0b5400ebbfc598f747e30dec813c8d89399d80a1e8218890baed525136a734e1ca626  syslog-log-format.patch
-30726c362476b9f93b44c44435cd04e8210f04b25f878302c7edeca387094a616af7aa20ece6eb6dcf329a2702ef2079dcc002779deef09d78ecb447253f87bf  use-logrus-syslog-hook.patch
-e3b82ae334c935f50b96bed6949b8c7a1dec9460a02a36b17dcb0aab3bbd4e8e1ae72b3a135e001bebda86e5a313082b66b572035bd38c4966786ca5938721a9  update-go-mod.patch
+4390e8ea1008540cd7360aef2a224e6c5194b881eb273627cc6f62b0bc664759044dba8c312ac2c35744b5703166497f34cf3d33f23b3107b5c6c0e149a10133  gitlab-runner-v19.1.1.tar.gz
+e5541c54826a7c0f7d6069d97800502579d27bc8d9f7a0139205e7724fd62956d1de6c1fcd6b8e6e1498c74336be401785fd697613199cf1266100a74174b4b2  gitlab-runner-19.1.1-tags.json
+413aebe6ab49f3e466ac8433155a120991f77f5d544f03f28a69ba261a1a2d88a0fc8ab112d9c16cceeb4a9df70a3134b10f4efe6b8bcbbacd83e3a574a54289  syslog-log-format.patch
+0ee24a9e2d8d21c041f83b72d1fe2747283fc80881f94acb2be121ac21047b29abbb26011bf9a991662714b297105a3308223f0dddec1e77dec407a168cc1f2b  use-logrus-syslog-hook.patch
 8cdcea1e07b30b720d0e18a12f06fff69f2a7804d0038b2bfd6a880a5c99eb4b2b06dd8ccd21edc501a2205d89decb176b725211a03253068fa45b6861e75f11  gitlab-runner.initd
 45c3727a4b2544c59db50b3a93d917bbce14441453ebd0b81c981568ccc71338e564213f7bed449f0712fbcfb96ce6e51ac5759d5bde82e3986265e26d9db315  gitlab-runner.confd
 2ddd42622b72135a95ac1c09061b61e73c4f89d4f0a86d1a3c902760d4a5f2c749a04f2d81568c973c83b1aae60ada71360a6bf74a31f8e5d9b10b90af4cdcfe  gitlab-runner.logrotate

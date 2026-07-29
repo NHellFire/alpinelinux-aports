@@ -1,10 +1,10 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=pv
-pkgver=1.9.34
+pkgver=1.11.0
 pkgrel=0
-pkgdesc="CLI tool for monitoring the progress of data through a pipeline"
+pkgdesc="Monitor the progress of data through a pipeline"
 url="https://www.ivarch.com/programs/pv.shtml"
 arch="all"
 license="Artistic-2.0"
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-c590e376d33f49d8bb0d4463a54bb8c5a8dd25737f2d413f83c53c64cf6cb6d5ad977ff907fb6a8d8004ee371d35de08d3a5fb312b07a6c7237565e0bc55a104  pv-1.9.34.tar.gz
+d931ba3115426f962bd7bc74b6cdbd7e798e03cd9fb5994ac73a93cc9f8a2f43e8f28474c2baf1b8132199282a616858edb4ddd2009dadbf86e6e624a7028671  pv-1.11.0.tar.gz
 "

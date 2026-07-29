@@ -1,10 +1,10 @@
 # Contributor: Grigory Kirillov <txgk@bk.ru>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=fast_float
-pkgver=8.0.2
+pkgver=8.2.10
 pkgrel=0
-_tests=97a0b2e638feb479387554cf253e346500541e7e
+_tests=088643e8d5010bd3d1540fe48685601b43b9a3e5
 pkgdesc="Fast implementation of the C++ from_chars functions for float and double types"
 url="https://github.com/fastfloat/fast_float"
 arch="noarch"
@@ -43,6 +43,6 @@ package() {
 }
 
 sha512sums="
-0475d4a9100fda4cf0ba3a5f90090d2b86f4a472dbc125db57101b75555a05148965432d8258dd2a0cdffe97c10b27efe45baf9a8fe129f71d7a58b0dc705b4e  fast_float-8.0.2.tar.gz
-f2714a5d406c4e1f7a6e180a95d795edaa9033e6988955b76143884c020a9c379754474aa92f739a7f1feb9ac2d6c8d3bdb4ebe8bd23ab4b352ab809821eb43a  fast_float-tests-97a0b2e638feb479387554cf253e346500541e7e.tar.gz
+eec563358117b593e882a9069074a269d811e8989457a0d57e50c5d2f4d534b6820308082bb70c0a8a8388513e92b64f12c5213389eff726ad0483eacba961ff  fast_float-8.2.10.tar.gz
+34d7c01cb036f5317507fac72f5c7d41f11aacc3d87c102068fbc849e77637a1955c2313a02347dfebc60b85cf831a3274af5639919d7683bd8e19ef5c66a86c  fast_float-tests-088643e8d5010bd3d1540fe48685601b43b9a3e5.tar.gz
 "

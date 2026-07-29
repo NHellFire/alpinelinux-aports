@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtlocation
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Helps you create viable mapping solutions using the data available from some of the popular location services"
 url="https://qt.io/"
@@ -61,5 +61,5 @@ dev() {
 }
 
 sha512sums="
-7e1d40249798200e4a938277e1cab02ab07a08a4f28db11abdee3f8d9d6a33f536ab3b0ec1e67d8e99287fe247235c99aa9c4169f98419e40a308fd432d43924  qtlocation-everywhere-src-6.9.2.tar.xz
+3b08b74531acf0a8d35070a0716d6b452d9fea2b9eeecec5f80a5d4a79ead83d4f63c1b1d959ba53725f4ae03ac451d5c8c4fbdd49527054f1afb9fd6ab3bbba  qtlocation-everywhere-src-6.11.1.tar.xz
 "

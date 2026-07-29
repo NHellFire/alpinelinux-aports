@@ -1,9 +1,9 @@
 # Contributor: Roberto Oliveira <robertoguimaraes8@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=wordgrinder
 pkgver=0.8
-pkgrel=2
+pkgrel=3
 pkgdesc="Simple Unicode-aware word processor that runs on the console"
 url="https://cowlark.com/wordgrinder/"
 arch="all"

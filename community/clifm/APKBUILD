@@ -1,8 +1,7 @@
-# Contributor: Sodface <sod@sodface.com>
-# Maintainer: Sodface <sod@sodface.com>
+# Maintainer:
 pkgname=clifm
-pkgver=1.26
-pkgrel=0
+pkgver=1.28
+pkgrel=1
 pkgdesc="CLI file manager"
 url="https://github.com/leo-arch/clifm"
 arch="all"
@@ -17,9 +16,7 @@ makedepends="
 	"
 options="!check" # no test suite
 subpackages="$pkgname-doc $pkgname-bash-completion $pkgname-zsh-completion $pkgname-fish-completion"
-source="https://github.com/leo-arch/clifm/releases/download/v$pkgver/clifm-$pkgver.tar.gz
-	begin-decls.patch
-	"
+source="https://github.com/leo-arch/clifm/releases/download/v$pkgver/clifm-$pkgver.tar.gz"
 
 build() {
 	make
@@ -30,6 +27,5 @@ package() {
 }
 
 sha512sums="
-425ac4c2cf64f1f0980ebbe5d77543020e6b7f734976b764f07e09a1b719bf93978096019568e0ffc3ba07d1e4f9e4139a80e6630fb51ac186bb2bb62c9a256e  clifm-1.26.tar.gz
-3a7292195562e4bb2b41d7d3179c3038b89fd4b5db742f6c6032e49e9646790a0a738cfa8f42b83c3b0b0ad0c73b0832fa8fdf07b3236367e8f52f494901579b  begin-decls.patch
+ab54e090a2a17aca304cf39ea3e2a52b86ec074f370e2e09648a4319ae11ea31cf930d9642459ce539588b167d01c75f03464fd23dbdbab5c35fac43a2bcaab0  clifm-1.28.tar.gz
 "

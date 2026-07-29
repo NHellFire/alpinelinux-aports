@@ -1,7 +1,7 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-pytelegrambotapi
-pkgver=4.29.1
+pkgver=4.33.0
 # sometimes upstream forgets to tag pypi releases
 _gittag=$pkgver
 pkgrel=0
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-7cb76aad190fc8d1443ba46f10ed0b789c739cfbf0b4f370032fd21d5cb96c407e35f67fd8a2beba7ab94f0c1f2de1571fdbc30efae9996827816e4055138095  py3-pytelegrambotapi-4.29.1.tar.gz
+74496da598ac37d11523855bb9695f85c3d495fdaacb32736107c6e97cd4915612f811f2c9c119586c72e6c40782d99311eceeb60d5c6d89d68391bf3293dc98  py3-pytelegrambotapi-4.33.0.tar.gz
 "

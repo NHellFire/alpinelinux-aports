@@ -1,6 +1,6 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=melange
-pkgver=0.31.4
+pkgver=0.56.4
 pkgrel=0
 pkgdesc="Build apk packages using declarative pipelines"
 url="https://github.com/chainguard-dev/melange"
@@ -14,6 +14,7 @@ subpackages="
 	$pkgname-zsh-completion
 	"
 source="https://github.com/chainguard-dev/melange/archive/v$pkgver/melange-$pkgver.tar.gz"
+options="net" # go
 
 build() {
 	mkdir build
@@ -37,5 +38,5 @@ package() {
 }
 
 sha512sums="
-ac08ccf2216d1e04a683bf45cbd144d3ae3aebfbe08290a6abadb533539c2e6148e9c1915767a91698f6e2cccb4c6d2dbfe168012ae0e1202da514e2f9d89e19  melange-0.31.4.tar.gz
+e75876390c06742ae1e1d2081eafb18a1515980f8fb6849a5e4a6ce32946b76e40ac85491c52e61c956e52d4452c94d2af9288971082676181db92abf46f04aa  melange-0.56.4.tar.gz
 "

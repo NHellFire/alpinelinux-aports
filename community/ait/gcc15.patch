@@ -1,0 +1,12 @@
+--- a/header.h
++++ b/header.h
+@@ -2,7 +2,9 @@
+    Derived from: Atto January 2017
+    Derived from: Anthony's Editor January 93
+ */
++#ifndef _XOPEN_SOURCE
+ #define _XOPEN_SOURCE
++#endif
+ #define __USE_XOPEN
+ #include <stdlib.h>
+ #include <stdarg.h>

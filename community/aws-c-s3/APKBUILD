@@ -1,12 +1,11 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=aws-c-s3
-pkgver=0.8.7
+pkgver=0.13.1
 pkgrel=0
 pkgdesc="AWS C99 library implementation for communicating with the S3 service"
 url="https://github.com/awslabs/aws-c-s3"
-# s390x: aws-c-common
-arch="all !s390x"
+arch="all"
 license="Apache-2.0"
 makedepends="
 	aws-c-auth-dev
@@ -51,5 +50,5 @@ package() {
 }
 
 sha512sums="
-aaaad545ad9dab72fd474e12dac67bba5bde7881960ab6c3194b6fa78e1ca405661974a8e16df016fc9bf07ba4daf4753685325f90938bd1b0a31ee734a63d70  aws-c-s3-0.8.7.tar.gz
+08d7df6a9c01cbc6b1d14aa9f22a9b93b1b9d7fd10d4379be82a438f7709a1c4553f0bb0328ea52670897fb87c0c81d7fdf3cfeee9f499745f49597a93a7613b  aws-c-s3-0.13.1.tar.gz
 "

@@ -2,7 +2,7 @@
 # Maintainer: mio <miyopan@e.email>
 maintainer="mio <miyopan@e.email>"
 pkgname=gedit-plugins
-pkgver=48.2
+pkgver=50.0
 pkgrel=0
 pkgdesc="Collection of plugins for the gedit text editor"
 url="https://gitlab.gnome.org/World/gedit/gedit/blob/master/plugins/list-of-gedit-plugins.md"
@@ -56,5 +56,5 @@ pyc() {
 }
 
 sha512sums="
-bbe1ed7c9a727307be639916d238a1c7e5c8203c2e35a6376e97b6f00bf21e02a30cb1bbd71a9202d26d04a25cbea337a4b3a8031b05fec8fafdfc7917608a4f  gedit-plugins-48.2.tar.gz
+fc6afcf0122460d6816074aaef796cba2e5e984dd146c866c243b00add33981eba5c9b85fe37adfcd88c96d0d651ffd23d8c5c73df36d9f39d9ef9fc5e715f61  gedit-plugins-50.0.tar.gz
 "

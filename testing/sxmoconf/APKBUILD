@@ -1,0 +1,32 @@
+# Maintainer: Willow Barraco <contact@willowbarraco.fr>
+pkgname=sxmoconf
+pkgver=0.4.0
+pkgrel=0
+pkgdesc="A general purpose configuration center"
+url="https://git.sr.ht/~stacyharper/sxmo-config/"
+arch="x86_64 aarch64 riscv64" # hare
+license="AGPL-3.0-or-later"
+makedepends="hare hare-scfg hare-getopt-completion scdoc haredo"
+subpackages="$pkgname-doc $pkgname-dev $pkgname-bash-completion"
+source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~stacyharper/sxmo-config/archive/$pkgver.tar.gz"
+builddir="$srcdir/sxmo-config-$pkgver"
+
+build() {
+	haredo -j1
+}
+
+check() {
+	haredo check
+}
+
+package() {
+	DESTDIR="$pkgdir" PREFIX="/usr" haredo install
+}
+
+dev() {
+	amove usr/src
+}
+
+sha512sums="
+d1ae48fc8328068765283c093d0ecef3397b73a5bccc45760a8e250f74619495b4033ba3ef7b3d9f8face13fb0b205299231449e6f004edfd4d9fb8ef59b6511  sxmoconf-0.4.0.tar.gz
+"

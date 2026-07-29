@@ -2,20 +2,16 @@
 # Maintainer: Olliver Schinagl <oliver@schinagl.nl>
 pkgname=gitlab-release-cli
 pkgver=0.24.0
-pkgrel=3
+pkgrel=11
 pkgdesc="GitLab Release command-line tool"
 url="https://gitlab.com/gitlab-org/release-cli"
 license="MIT"
 arch="all"
 makedepends="go"
-options="!check"  # No selftest available
+options="!check net"  # No selftest available, go
 subpackages="$pkgname-doc"
 source="https://gitlab.com/gitlab-org/release-cli/-/archive/v$pkgver/release-cli-v$pkgver.tar.bz2"
 builddir="$srcdir/${pkgname##gitlab-}-v$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

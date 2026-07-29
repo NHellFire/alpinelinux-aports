@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=py3-flake8-polyfill
 pkgver=1.0.2
-pkgrel=5
+pkgrel=6
 pkgdesc="compatibility helpers for Flake8 plugins that intend to support Flake8 2.x and 3.x simultaneously"
 url="https://gitlab.com/pycqa/flake8-polyfill"
 arch="all"
@@ -21,7 +21,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m unittest discover
 }
 

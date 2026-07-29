@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=threadweaver
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="High-level multithreading framework"
 # armhf blocked by qt6-qtdeclarative
@@ -49,5 +49,5 @@ package() {
 }
 
 sha512sums="
-de5002af611eb9dfcc44fb977233f3e32f09f5f28718cf12b70c9889d38a86dfbd85d88bc8a51f2507cd596532630a7e1c0d9f0acc45179771e8fc8596dbf92f  threadweaver-6.17.0.tar.xz
+1ef6b51ae3cb89f84bdefca929b289c66cdf2e2de951dd04e369774c52fcea33e172201b66d41ceb147bdd9d62211e34d35cead581b07586754827751ec9d343  threadweaver-6.28.0.tar.xz
 "

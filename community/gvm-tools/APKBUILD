@@ -2,17 +2,17 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=gvm-tools
 # follow the same version of py3-gvm
-pkgver=25.3.3
+pkgver=26.0.6
 pkgrel=0
 pkgdesc="Collection of tools for remote controlling a OpenVAS / Greenbone"
 url="https://github.com/greenbone/gvm-tools"
 arch="noarch"
 license="GPL-3.0-or-later"
 depends="python3 py3-gvm py3-lxml"
-makedepends="py3-gpep517 py3-installer py3-poetry-core py3-wheel"
+makedepends="py3-gpep517 py3-installer py3-poetry-core py3-wheel py3-hatchling"
 checkdepends="py3-gvm py3-pytest"
 subpackages="$pkgname-pyc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/greenbone/gvm-tools/archive/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/greenbone/gvm-tools/archive/refs/tags/v$pkgver.tar.gz"
 
 build() {
 	gpep517 build-wheel \
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-af7ceed2be43fe9cd3aa269f93d2d4dd07adc3dc5f5f06b3d457382b24780cda162ac188a9177d95cc93de0a664b0d722043acb96017e5e4e363e3d54a435b5d  gvm-tools-25.3.3.tar.gz
+886863e183eb904fc020491d094d27a90738d4ece235677c0ac82e1f6c384c7441cb6793c4292f2217cba4aa62198edd5ba72954a9a17595d0c7d8fc0372d70d  gvm-tools-26.0.6.tar.gz
 "

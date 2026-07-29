@@ -1,32 +1,41 @@
 # Contributor: Matthias Ahouansou <matthias@ahouansou.cz>
-maintainer="Matthias Ahouansou <matthias@ahouansou.cz>"
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=oo7
-pkgver=0.5.0
+pkgver=0.6.0_git20260709
+_commit=e45b2e806d7d92f960ac7df0e441ed95b3bb28c9
 pkgrel=0
 pkgdesc="CLI application to interact with the system keyring"
-url="https://bilelmoussaoui.github.io/oo7/oo7/"
+url="https://github.com/linux-credentials/oo7"
 arch="all"
 license="MIT"
-depends="dbus"
+depends="
+	$pkgname-cli
+	$pkgname-pam
+	$pkgname-portal
+	$pkgname-server
+	"
 makedepends="
 	cargo-auditable
 	meson
 "
 subpackages="
+	$pkgname-cli
 	$pkgname-doc
+	$pkgname-pam
 	$pkgname-portal
 	$pkgname-portal-openrc:portal_openrc
+	$pkgname-portal-systemd:portal_systemd
 	$pkgname-server
 	$pkgname-server-openrc:server_openrc
+	$pkgname-server-systemd:server_systemd
 	cargo-credential-$pkgname:cred
 "
-source="
-	$pkgname-$pkgver.tar.gz::https://github.com/bilelmoussaoui/oo7/archive/refs/tags/$pkgver.tar.gz
+source="$pkgname-$_commit.tar.gz::https://github.com/linux-credentials/oo7/archive/$_commit.tar.gz
 	oo7-portal.initd
 	oo7-server.initd
-	no-meson-cargo-build.patch
 "
 options="net !check" # cargo crates, no tests for the binaries
+builddir="$srcdir/$pkgname-$_commit"
 
 prepare() {
 	default_prepare
@@ -36,59 +45,109 @@ prepare() {
 build() {
 	cargo auditable build --release --frozen
 
-	for i in portal server
-	do
-		abuild-meson $i $i/output
-		meson compile -C $i/output
-	done
+	abuild-meson \
+		-Dsystemduserunitdir=/usr/lib/systemd/user \
+		portal portal-output
+	meson compile -C portal-output
+
+	abuild-meson \
+		-Dsystemduserunitdir=/usr/lib/systemd/user \
+		server server-output
+	meson compile -C server-output
+
+	abuild-meson \
+		pam pam-output
+	meson compile -C pam-output
 }
 
 package() {
-	install -Dm 755 target/release/oo7-cli "$pkgdir"/usr/bin/oo7-cli
+	cargo install --frozen --root "$pkgdir"/usr --path cargo-credential
+	cargo install --frozen --root "$pkgdir"/usr --path cli
+	rm -r "$pkgdir"/usr/.crates*
 
-	install -Dm 644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
+	DESTDIR="$pkgdir" meson install --no-rebuild -C pam-output
+	DESTDIR="$pkgdir" meson install --no-rebuild -C portal-output
+	DESTDIR="$pkgdir" meson install --no-rebuild -C server-output
+
+	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+
+	install -Dm755 "$srcdir"/oo7-portal.initd "$pkgdir"/etc/user/init.d/oo7-portal
+	install -Dm755 "$srcdir"/oo7-server.initd "$pkgdir"/etc/user/init.d/oo7-server
+
+}
+
+cli() {
+	pkgdesc="CLI application to interact with the system keyring"
+	depends=""
+
+	amove usr/bin/oo7-cli
 }
 
 portal() {
 	pkgdesc="An implementation of org.freedesktop.impl.portal.Secret"
+	depends="dbus"
 
-	install -Dm 755 "$builddir"/target/release/oo7-portal "$subpkgdir"/usr/libexec/oo7-portal
-	DESTDIR="$subpkgdir" meson install --no-rebuild -C "$builddir"/portal/output
+	amove usr/libexec/oo7-portal
+	amove usr/share/applications/oo7-portal.desktop
+	amove usr/share/dbus-1/services/org.freedesktop.impl.portal.desktop.oo7.service
+	amove usr/share/xdg-desktop-portal/portals/oo7-portal.portal
 }
 
 portal_openrc() {
 	pkgdesc="An implementation of org.freedesktop.impl.portal.Secret (OpenRC init scripts)"
-	depends="openrc $pkgname-portal=$pkgver-r$pkgrel"
-	install_if="openrc $pkgname-portal=$pkgver-r$pkgrel"
-	
-	install -Dm 755 "$srcdir"/oo7-portal.initd "$subpkgdir"/etc/user/init.d/oo7-portal
+	install_if="openrc ${subpkgname%-openrc}=$pkgver-r$pkgrel"
+
+	amove etc/user/init.d/oo7-portal
+}
+
+portal_systemd() {
+	pkgdesc="An implementation of org.freedesktop.impl.portal.Secret (systemd files)"
+	install_if="systemd ${subpkgname%-systemd}=$pkgver-r$pkgrel"
+
+	amove usr/lib/systemd/user/dbus-org.freedesktop.impl.portal.desktop.oo7.service
+	amove usr/lib/systemd/user/oo7-portal.service
 }
 
 server() {
 	pkgdesc="D-Bus Secret Service provider"
+	depends="dbus"
+	provides="dbus:org.freedesktop.Secrets"
+	provider_priority=40
 
-	install -Dm 755 "$builddir"/target/release/oo7-daemon "$subpkgdir"/usr/libexec/oo7-daemon
-	DESTDIR="$subpkgdir" meson install --no-rebuild -C "$builddir"/server/output
+	amove usr/libexec/oo7-daemon
 }
 
 server_openrc() {
 	pkgdesc="D-Bus Secret Service provider (OpenRC init scripts)"
-	depends="openrc $pkgname-portal=$pkgver-r$pkgrel"
-	install_if="openrc $pkgname-server=$pkgver-r$pkgrel"
-	
-	install -Dm 755 "$srcdir"/oo7-server.initd "$subpkgdir"/etc/user/init.d/oo7-server
+	install_if="openrc ${subpkgname%-openrc}=$pkgver-r$pkgrel"
+
+	amove etc/user/init.d/oo7-server
+}
+
+server_systemd() {
+	pkgdesc="D-Bus Secret Service provider (systemd files)"
+	install_if="systemd ${subpkgname%-systemd}=$pkgver-r$pkgrel"
+
+	amove usr/lib/systemd/user/dbus-org.freedesktop.secrets.service
+	amove usr/lib/systemd/user/oo7-daemon.service
+}
+
+pam() {
+	pkgdesc="PAM integration for the server implementation"
+	depends="$pkgname-server"
+
+	amove usr/lib/security/pam_oo7.so
 }
 
 cred() {
-	pkgdesc="cargo credential provider built using oo7 instead of libsecret"
+	pkgdesc="Cargo credential provider built using oo7 instead of libsecret"
 	depends="cargo"
 
-	install -Dm 755 "$builddir"/target/release/cargo-credential-oo7 "$subpkgdir"/usr/bin/cargo-credential-oo7
+	amove usr/bin/cargo-credential-oo7
 }
 
 sha512sums="
-8d8e8335aac9cbba29f28fe94451c58617bdc2290c8d5d183bc2af515fb18c2a10a9432318b2f6b737a4fdb00df1c556a5248fc05ee667d7db02bf8d9ee50b4c  oo7-0.5.0.tar.gz
+564402991a7db6b1618d7e75eb67cfecc3cf0dd97622b89daacbcc5e7eeb679c276f1619e41f779193a0c32ec5d5d7f3bd8b76aa27165e61fb7c704f22fc90bb  oo7-e45b2e806d7d92f960ac7df0e441ed95b3bb28c9.tar.gz
 91c65717249d1db20c31aec41416ec2fdac54d7d7f39136c333a15d1ca528834ef99e6c76c016bd85b947c259956e1b614814859bf9bef1b81d24bd879cbe905  oo7-portal.initd
 c6459d144dab00b779f99047bdc5d84297a38656f3c059d8df0aa139f658a3fccf7ad0b5ea3e21a1bee9af1ef0c4eae88a61ce90a6e2241ea864ac7cb2f467dd  oo7-server.initd
-1f66bd1043f6559970015c19d093fa0f0fcff7a07bb6d368f435b00ca30e781fc664909b0ad0f5fe23e55aac73058420b6e6d07f19807adc8e317e2f082ea558  no-meson-cargo-build.patch
 "

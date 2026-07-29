@@ -1,0 +1,25 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=selinux-dbus
+pkgver=3.11
+pkgrel=0
+pkgdesc="D-Bus-based service and configuration for managing SELinux"
+url="https://github.com/SELinuxProject/selinux"
+arch="noarch"
+license="GPL-2.0-or-later"
+source="https://github.com/SELinuxProject/selinux/releases/download/$pkgver/selinux-dbus-$pkgver.tar.gz"
+
+build() {
+	make
+}
+
+check() {
+	make test
+}
+
+package() {
+	make DESTDIR="$pkgdir" SBINDIR=/usr/sbin install
+}
+
+sha512sums="
+8583922c72afd8374c04fbfbcda2bba8dfaf5dc3d049b55bdfff79cee6dd2a24586891cdd57b16cd25fb9b8484e400c0893d605a9853652fdd1a9b7e676e7ecc  selinux-dbus-3.11.tar.gz
+"

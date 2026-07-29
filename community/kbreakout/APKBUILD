@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kbreakout
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="A Breakout-like game"
 url="https://kde.org/applications/games/kbreakout/"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-c4ac8073712c519191664c0883f54ffb46f1463f102577eec985c0fc2e923ef0b2cec46597b04b585b85a38ed299ecaa296f1a161c7bad202bc56bb1301bfd5c  kbreakout-25.08.0.tar.xz
+ec33b1c525fbd4de0bc64af65ccd337eb61a68ae5144d9efa786dbdfee421bd8ed1ab54d52615eefe7e0234f112f8cafc363b5594b20f104849f78622006363f  kbreakout-26.04.3.tar.xz
 "

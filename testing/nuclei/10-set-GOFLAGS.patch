@@ -1,0 +1,20 @@
+--- a/Makefile
++++ b/Makefile
+@@ -36,7 +36,7 @@ go-build:
+        CGO_ENABLED=0 $(GOBUILD) -trimpath $(GOFLAGS) -ldflags '${LDFLAGS}' $(GOBUILD_ADDITIONAL_ARGS) \
+                 -o '${GOBUILD_OUTPUT}${GOBUILD_OUTPUT_EXT}' $(GOBUILD_PACKAGES)
+ 
+-build: GOFLAGS = -pgo=auto
++build: GOFLAGS += -pgo=auto
+ build: GOBUILD_OUTPUT = ./bin/nuclei
+ build: GOBUILD_PACKAGES = cmd/nuclei/main.go
+ build: go-build
+@@ -86,7 +86,7 @@ syntax-docs:
+ # the race variant on a single OS and passes RACE= elsewhere, since data races are
+ # OS-independent and the detector costs ~2-3x build+run time on every runner.
+ RACE ?= -race
+-test: GOFLAGS = $(RACE) -v -timeout 1h -count 1
++test: GOFLAGS += $(RACE) -v -timeout 1h -count 1
+ test:
+        $(GOTEST) $(GOFLAGS) ./...
+ 

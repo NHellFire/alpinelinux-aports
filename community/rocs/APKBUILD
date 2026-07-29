@@ -2,31 +2,31 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=rocs
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="An educational Graph Theory IDE"
-# armhf blocked by qt5-qtdeclarative
+# armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
 url="https://kde.org/applications/education/org.kde.rocs"
 license="GPL-2.0-or-later AND (LGPL-2.1-only OR LGPL-3.0-only) AND GFDL-1.2-only"
 makedepends="
 	boost-dev
 	extra-cmake-modules
-	grantlee-qt5-dev
-	karchive5-dev
-	kconfig5-dev
-	kcoreaddons5-dev
-	kcrash5-dev
-	kdeclarative5-dev
-	kdoctools5-dev
-	ki18n5-dev
-	kitemviews5-dev
-	ktexteditor5-dev
-	kxmlgui5-dev
-	qt5-qtbase-dev
-	qt5-qtdeclarative-dev
-	qt5-qtsvg-dev
-	qt5-qtxmlpatterns-dev
+	grantlee-dev
+	karchive-dev
+	kconfig-dev
+	kcoreaddons-dev
+	kcrash-dev
+	kdeclarative-dev
+	kdoctools-dev
+	ki18n-dev
+	kitemviews-dev
+	ktexteditor-dev
+	ktexttemplate-dev
+	kxmlgui-dev
+	qt6-qtbase-dev
+	qt6-qtdeclarative-dev
+	qt6-qtsvg-dev
 	samurai
 	"
 checkdepends="xwayland-run"
@@ -51,5 +51,5 @@ package() {
 }
 
 sha512sums="
-dc64d4070fb421bc66cbe3aa000b6c38b61029c01aee66d9a661e15d4ea7477f02aa10108b18e6973e8b71105a1521ab5bc863f4a105e20519232e99f3381b0c  rocs-25.08.0.tar.xz
+5edbab1a03bc9c0253584231afff19b7f48074e4b605261432d12910438af80768146bd9b0bf4414437db6c992fd16f0ee0a9f0f98af9103d64d1b944d0c859a  rocs-26.04.3.tar.xz
 "

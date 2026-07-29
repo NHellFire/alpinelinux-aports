@@ -1,9 +1,9 @@
 # Contributor: Alex Yam <alex@alexyam.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=hexdiff
 pkgver=0.0.53
-pkgrel=3
+pkgrel=4
 pkgdesc="ncurses hex editor with diff mode for binary file comparison"
 url="http://tboudet.free.fr/hexdiff/"
 arch="all"

@@ -2,7 +2,7 @@
 # Maintainer: Thomas Kienlen <kommander@laposte.net>
 pkgname=tty-share
 pkgver=2.4.0
-pkgrel=21
+pkgrel=29
 pkgdesc="Share your terminal over the Internet"
 url="https://tty-share.com/"
 arch="all"
@@ -12,10 +12,6 @@ source="https://github.com/elisescu/tty-share/archive/v$pkgver/tty-share-$pkgver
 	update-go-mod.patch
 	"
 options="chmod-clean !check" # no test suite
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

@@ -3,8 +3,8 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-websockets
 _pkgname=websockets
-pkgver=15.0.1
-pkgrel=1
+pkgver=16.1.1
+pkgrel=0
 pkgdesc="An implementation of the WebSocket Protocol (RFC 6455)"
 url="https://websockets.readthedocs.io/"
 arch="all"
@@ -42,6 +42,6 @@ package() {
 }
 
 sha512sums="
-878a5c19e393b4f5994bbe7a4c9d1266d97eaa02e2610f307a62ee9af2386a1210387d2cb81c19b4795ab76b80de4e9e2bfcad89e0bca3f7b9db76ce0a148ebb  py3-websockets-15.0.1.tar.gz
+7eeff69ebf0b92c93149ce030fd92440787c3d3b9007b5b0669f0f37cc4c297bb2a207a7742e0450e3ecf1b973fe0306ac9e5dcb96c0d2d907956279c41b6cbd  py3-websockets-16.1.1.tar.gz
 0849fa337f6a00297774cc3a3dd61497bbc99dc3b12632a385056a82e50fd04bf057068eeef6f9b705c257e3017b127ee38183461615d09549145889767bdc0b  skip-reconnect-test.patch
 "

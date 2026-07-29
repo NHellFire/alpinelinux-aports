@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=conky
-pkgver=1.22.2
+pkgver=1.24.2
 pkgrel=0
 pkgdesc="Advanced, highly configurable system monitor for X based on torsmo"
 url="https://github.com/brndnmtthws/conky"
@@ -65,5 +65,5 @@ package() {
 }
 
 sha512sums="
-7aadbaf2a41c3bb4315870c670633a903992ad71fb1eedf1ee23f9d12739129f5adb11571290e5b281690d9940b917251527b89bbd4575634815d51d3da86fa1  conky-1.22.2.tar.gz
+3146afd8facb2e358ac6b69b16c6e5ff73b75580d4bb76640448b0dc16ea85117bc77818f1fc472a590516af6c04117ff7b44c41285918dd275555ea3b9e5a35  conky-1.24.2.tar.gz
 "

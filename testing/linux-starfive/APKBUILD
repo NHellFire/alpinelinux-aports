@@ -2,7 +2,7 @@
 
 _flavor=starfive
 pkgname=linux-${_flavor}
-pkgver=6.16.3
+pkgver=7.1.3
 _kernver=${pkgver%.*}
 pkgrel=0
 pkgdesc="starfive (development kernel)"
@@ -17,7 +17,6 @@ makedepends="$_depends_dev
 	linux-headers
 	linux-firmware-any
 	openssl-dev
-	python3
 	sed
 	xz"
 
@@ -157,18 +156,15 @@ _dev() {
 
 	echo "Installing headers..."
 	cp -t $dir -a include
-echo "**********"
 	install -Dt $dir -m644 Makefile
 	install -Dt $dir -m644 Module.symvers
 	install -Dt $dir -m644 System.map
 	cp -t $dir -a scripts
 
-echo "***********************************"
 	install -Dt "${dir}/arch/${_carch}" -m644 arch/${_carch}/Makefile
 	install -Dt "${dir}/arch/${_carch}/kernel" -m644 arch/${_carch}/kernel/asm-offsets.s
 	cp -t "${dir}/arch/${_carch}" -a arch/${_carch}/include
 
-echo "***********************************"
 	install -Dt "$dir/drivers/md" -m644 drivers/md/*.h
 	install -Dt "$dir/net/mac80211" -m644 net/mac80211/*.h
 
@@ -225,7 +221,7 @@ echo "***********************************"
 }
 
 sha512sums="
-b4ca71e98add9b84a0f3aad3fdc994d225bf051d033290ebbfde208eb8044d5904278871863a3ffe927b6f2b45a82284dfb036b0198bc8d120530a64b4b6844d  patch-6.16.3.patch.xz
-55a00f89ad6db6db2e26ff5dc5cfc96bbf6654e5bd5d17d2a3b944a47640367e54139716d230923187bebc6cb7756edc9511a620fb8abc6f32c50a658a734784  linux-6.16.tar.xz
-2f1b668d93a309ebe90d757fef1c702d01f04e1c549c644dc20b11e9030506fcc80e30838c4eea63554b355ec68286ca1af67842d051440dd3d164bd069db0bc  config-starfive.riscv64
+0dc615d978425ae4a5cc57d61b81a6b648a30b3d7cde0a3efb1244660ef572bb2f3d2292642346194fcb549a22cde2d2b9af6fe237b22b8eefc1ca905f6e14cb  patch-7.1.3.patch.xz
+d4d9c45261813559341c67ea53d4a47f5a04d1ad15e3c2b8222a09b5483380d2bfd31b8c675e144db2eb91f560d6cb28f66187a5ea4f24f6dfb82a4ad48064cc  linux-7.1.tar.xz
+090c0d41f2bf887e3ba0ec8e0d2de555ff87b1f97b20fa5ce4cf18fccc3bb85105e88b0cecbba1e854ba9e2a0753d9ff34ea0f5c6c49b5f109e1433954325446  config-starfive.riscv64
 "

@@ -6,10 +6,15 @@ profile_standard() {
 	profile_base
 	profile_abbrev="std"
 	image_ext="iso"
-	arch="aarch64 armv7 x86 x86_64 ppc64le s390x loongarch64"
+	arch="aarch64 armv7 x86 x86_64 ppc64le s390x loongarch64 riscv64"
 	output_format="iso"
 	kernel_addons="xtables-addons"
 	case "$ARCH" in
+	riscv64)
+		# xtables-addons-lts doesn't support riscv64
+		kernel_addons=
+		initfs_features="$initfs_features kms"
+		;;
 	s390x)
 		apks="$apks s390-tools"
 		initfs_features="$initfs_features dasd_mod qeth zfcp"
@@ -38,7 +43,7 @@ profile_extended() {
 		coreutils ethtool hwids doas
 		logrotate lsof lm_sensors lxc lxc-templates nano
 		pciutils strace tmux
-		usbutils v86d vim xtables-addons curl
+		usbutils v86d xtables-addons curl
 
 		acct arpon arpwatch awall bridge-utils bwm-ng
 		ca-certificates conntrack-tools cutter cyrus-sasl

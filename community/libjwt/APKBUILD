@@ -1,6 +1,6 @@
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=libjwt
-pkgver=3.2.1
+pkgver=3.3.3
 pkgrel=0
 pkgdesc="The C JSON Web Token Library +JWK +JWKS"
 url="https://github.com/benmcollins/libjwt"
@@ -37,7 +37,7 @@ build() {
 		-DWITH_GNUTLS=OFF \
 		-DWITH_MBEDTLS=OFF \
 		-DWITH_LIBCURL=OFF \
-		-DWITH_TESTS=$(want_check && echo ON || echo OFF) \
+		-DWITH_TESTS="$(want_check && echo ON || echo OFF)" \
 		$crossopts
 	cmake --build build
 }
@@ -57,5 +57,5 @@ tools() {
 }
 
 sha512sums="
-60dd921a3f08e05ebf11458c0941fb7f03bff41d20aa1ba501edfe96db6469d125f754a6737b87a21e6bff3b487f345a9494dcf5a99aaa8bc5418f4eb726ec8f  libjwt-3.2.1.tar.gz
+d26b5f00b3ec612cb8c0511efad678cca6331c76b22431b65ccc0b2b784b52e3326e139b9298a3f0f2849fbc04997f0c947f480edb369ad7f0e342800d21ce1c  libjwt-3.3.3.tar.gz
 "

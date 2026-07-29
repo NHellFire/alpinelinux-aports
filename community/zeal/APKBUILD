@@ -1,11 +1,11 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=zeal
-pkgver=0.7.2
-pkgrel=1
+pkgver=0.8.1
+pkgrel=0
 pkgdesc="Offline documentation browser inspired by Dash"
 url="https://zealdocs.org/"
-arch="all !armhf !ppc64le !s390x !riscv64"  # blocked by qt6-qtwebengine
+arch="all !armhf !armv7 !s390x !riscv64 !x86"  # blocked by qt6-qtwebengine
 license="GPL-3.0-only"
 depends="hicolor-icon-theme"
 makedepends="
@@ -19,7 +19,7 @@ makedepends="
 	sqlite-dev
 	xcb-util-keysyms-dev
 	"
-source="$pkgname-$pkgver.tar.gz::https://codeload.github.com/zealdocs/zeal/tar.gz/refs/tags/v$pkgver"
+source="https://github.com/zealdocs/zeal/archive/refs/tags/v$pkgver/zeal-$pkgver.tar.gz"
 options="!check"  # no tests provided
 
 build() {
@@ -40,5 +40,5 @@ package() {
 }
 
 sha512sums="
-46a0a15a5dd8f1ee18c6b02f2b9c6fbc7cc2f2ddc24d668932d6cbd4bab39228c1f49b58cb6838ba37e92e5fa8f8ab353f5f2ac7083007843940ad075be71919  zeal-0.7.2.tar.gz
+fcca8b5e84801bbbab43832d60347bb3d17f3e83d35893cedd3f3ca98588ea7b91fad8c9602edd96bebaa56ceedbc2146f48b3c394b69e5028a200162ee2787c  zeal-0.8.1.tar.gz
 "

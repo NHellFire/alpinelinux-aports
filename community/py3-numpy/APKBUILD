@@ -3,7 +3,7 @@
 # Contributor: Martell Malone <martellmalone@gmail.com>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-numpy
-pkgver=2.3.2
+pkgver=2.5.1
 pkgrel=0
 pkgdesc="Scientific tools for Python"
 url="https://www.numpy.org/"
@@ -18,7 +18,6 @@ makedepends="
 	openblas-dev
 	py3-gpep517
 	py3-meson-python
-	py3-nose
 	py3-setuptools
 	py3-wheel
 	python3-dev
@@ -47,8 +46,22 @@ prepare() {
 }
 
 build() {
+	case "$CARCH" in
+		riscv64)
+		export CFLAGS="${CFLAGS/-Os/-O3} -fno-lto"
+		export CXXFLAGS="${CXXFLAGS/-Os/-O3} -fno-lto"
+		;;
+	esac
+
+	# Since release 2.4.0 numpy uses SSE4.1/SSE4.2 x86_64 instructions by
+	# default causing it to crash with "Illegal Instruction" on older CPUs.
+	# By setting `cpu-baseline=none` we can force it not to use these
+	# instructions. Thus trading a little bit of performance for compatibility.
+	#
+	# See https://github.com/numpy/numpy/issues/30492
 	gpep517 build-wheel \
 		--wheel-dir .dist \
+		--config-json '{"setup-args": ["-Dcpu-baseline=none", "-Dcpu-dispatch=none"]}' \
 		--output-fd 3 3>&1 >&2
 }
 
@@ -73,7 +86,7 @@ tests() {
 }
 
 sha512sums="
-8f315a681704f1a18712828b5b9d5cd602576230fb08ff00c293ce129656faa49c9e01a446989dbd4d678166975432b531915e4838be66655ead1f0fc05be861  numpy-2.3.2.tar.gz
+cbb1f844bc7feb845de24c4951bc378b0d4d96a1ac7eaa9fe1f615aaf470f33c81e94fddbbd83f555b7d9248b5db60b641a4582b9f39b0f6d906f7a8acdd7add  numpy-2.5.1.tar.gz
 34ae8b1c620771517971a563e9326d9d065223058843ebd28f09c8728e8abed20c9d88d20d240bc531738d351a19e222b8ae4d4e41a6f8ba658956bd3c5fcf82  numpy-musl.patch
 3540b5a37a8ea1a09001e1627bee53cf847800f67a24214636f18be43e20a080b0de97ce1036db2ea05e166fd302cc137d632967c443ae422f7dce6dca67c264  site.cfg
 "

@@ -1,8 +1,8 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@whynothugo.nl>
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=keepassxc-browser
-pkgver=1.9.7
-pkgrel=1
+pkgver=1.10.3
+pkgrel=0
 pkgdesc="KeePassXC Browser Extension"
 url="https://github.com/keepassxreboot/keepassxc-browser/"
 arch="noarch"
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-0c934b320e9ca9e7d3e7e50caa57998382acb23f562abcb083f85f06fcafff1229198383c45f741b8880a55d8c8bd7181d520c5f4a6aa3667890c666d1426206  keepassxc-browser-1.9.7.tar.gz
+bb1027cd3e2927b68cf3082226976535d82350a56acafba797b96ea84913e9e5cab6f089c9e97e5d5c7751b21f89724ed2d6f8b960a8bc55030df50cc8da3569  keepassxc-browser-1.10.3.tar.gz
 "

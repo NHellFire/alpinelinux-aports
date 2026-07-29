@@ -2,7 +2,7 @@
 # Maintainer: Iztok Fister, Jr. <iztok@iztok-jr-fister.eu>
 pkgname=py3-pymoo
 _pkgorig=pymoo
-pkgver=0.6.1.5
+pkgver=0.6.2
 pkgrel=0
 pkgdesc="Multi-objective Optimization in Python"
 url="https://pymoo.org/"
@@ -61,5 +61,5 @@ package() {
 }
 
 sha512sums="
-cbf01e615d797092df3b6a8e9041b097fa8a551790bb33b56f201dffd76576eb7cc30f3f4f8220ca846305c2cf3fd4ce47df9962844a73b4a0937de3bc4a6a7a  pymoo-0.6.1.5.tar.gz
+f30b970bd4102c74c895424866d79deb0b4938978424bf8cba917d4c266ce8ea26242f06c754715027377fabe04fa0e12b0c9a92c2a9bbb4750139ce7f516b35  pymoo-0.6.2.tar.gz
 "

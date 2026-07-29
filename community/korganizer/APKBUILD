@@ -2,11 +2,11 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=korganizer
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
-# x86, ppc64le, s390x, riscv64 and armv7 blocked by qt6-qtwebengine -> kmailtransport
-arch="all !armhf !x86 !ppc64le !s390x !riscv64 !armv7"
+# x86, s390x, riscv64 and armv7 blocked by qt6-qtwebengine -> kmailtransport
+arch="all !armhf !x86 !s390x !riscv64 !armv7"
 url="https://apps.kde.org/korganizer/"
 pkgdesc="The calendar and scheduling component of Kontact"
 license="GPL-2.0-or-later"
@@ -64,7 +64,9 @@ checkdepends="
 	"
 subpackages="$pkgname-doc $pkgname-lang"
 _repo_url="https://invent.kde.org/pim/korganizer.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/korganizer-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/korganizer-$pkgver.tar.xz
+	0001-korganizer-KMime-from-KF6.patch
+	"
 
 replaces="kdepim-addons<=24.05.2-r0"
 
@@ -85,5 +87,6 @@ package() {
 }
 
 sha512sums="
-8d20e5839b75bb1c73bac0391c323270c5d148fc98a539d97e2d70c85033eacaf355ebd155a74ee688b1e80edbb466905e1ee4dad38708c246d664e138a430cf  korganizer-25.08.0.tar.xz
+a852a946c83029b6cb9a7e9a51af24c0f6f887b6ba91259876ba1d1229455bd341f9e6bca8290db33b95728caaaf5ca3a1f492e5afc38c14cedc4ffb71ed5de7  korganizer-26.04.3.tar.xz
+ada6f8feb04c9f2706d8e14a50c9bdcc71b3769c2ef607f207540ef55444764bad148931df6ca3b66aa302eef93c133674a4e5c8dbfbeb3cbadba179f448e658  0001-korganizer-KMime-from-KF6.patch
 "

@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=libevdev
-pkgver=1.13.3
+pkgver=1.13.6
 pkgrel=0
 pkgdesc="Kernel Evdev Device Wrapper Library"
 url="https://www.freedesktop.org/wiki/Software/libevdev"
@@ -37,5 +37,5 @@ tools() {
 }
 
 sha512sums="
-24330c7f6f003c95da97dcb66fcc750437db59ac9049415c35cbcaa1612845363a59180da6b3120c81d7d3f969adb139fa023ed765223e185fb68465d45a0fd2  libevdev-1.13.3.tar.xz
+367081bf587dd63845086714e0b51ec0f9eb107d4c32cc387cf60d3c41ad3cb31a64b1c74e25116b5bc900d6c34e82694697e942bb646f7161b0670b70d1b54d  libevdev-1.13.6.tar.xz
 "

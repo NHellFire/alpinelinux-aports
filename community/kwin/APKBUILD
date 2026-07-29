@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwin
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="An easy to use, but flexible, composited Window Manager"
 # armhf blocked by qt6-qtdeclarative
@@ -17,7 +17,7 @@ depends="
 	qt6-qtwayland
 	xwayland
 	"
-depends_dev="$pkgname
+depends_dev="
 	breeze-dev
 	eudev-dev
 	fontconfig-dev
@@ -35,6 +35,7 @@ depends_dev="$pkgname
 	kidletime-dev
 	kio-dev
 	knewstuff-dev
+	knighttime-dev
 	knotifications-dev
 	kpackage-dev
 	krunner-dev
@@ -48,6 +49,7 @@ depends_dev="$pkgname
 	kxmlgui-dev
 	lcms2-dev
 	libdrm-dev
+	libei-dev
 	libepoxy-dev
 	libinput-dev
 	libplasma-dev
@@ -67,6 +69,10 @@ depends_dev="$pkgname
 	xcb-util-image-dev
 	xcb-util-wm-dev
 	"
+case "$CARCH" in
+	armv7|x86) ;;
+	*) depends_dev="$depends_dev libevdev-dev" ;;
+esac
 makedepends="$depends_dev
 	extra-cmake-modules
 	kglobalacceld-dev
@@ -80,7 +86,12 @@ makedepends="$depends_dev
 	"
 checkdepends="xwayland-run"
 
-subpackages="$pkgname-dbg $pkgname-dev $pkgname-lang"
+subpackages="
+	$pkgname-systemd
+	$pkgname-dbg
+	$pkgname-dev
+	$pkgname-lang
+	"
 
 case "$CARCH" in
 	x86|armv7) ;;
@@ -124,10 +135,7 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 sha512sums="
-f753f94edd2c968b713320e40dd01ccd6bdac3d7e7481e0ba56e38b01d00e8ddc8f3c7f21de00ba4849f0c106595a246010dbaa8f67151557bca6475105eddcc  kwin-6.4.5.tar.xz
+f499ce2a6941a0a62aa0d65343cc20742b7b893b12a363498f05afc662b9f41e961faf64af43dba7f721b6d8209e558b5413e44f31924d1ac816b17e3088c184  kwin-6.7.3.tar.xz
 "

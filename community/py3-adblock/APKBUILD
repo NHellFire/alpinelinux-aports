@@ -3,7 +3,7 @@
 pkgname=py3-adblock
 _pkgname=python-adblock
 pkgver=0.6.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Python wrapper for Brave's adblocking library"
 url="https://github.com/ArniDagur/python-adblock"
 # loongarch64: build failure
@@ -38,7 +38,7 @@ build() {
 	gpep517 build-wheel \
 		--wheel-dir .dist \
 		--config-json '{"build-args": "--frozen --all-features"}' \
-		--output-fd 3 3>&1 >&2}
+		--output-fd 3 3>&1 >&2
 }
 
 check() {

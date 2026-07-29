@@ -1,8 +1,8 @@
 # Contributor: Aiden Grossman <agrossman154@yahoo.com>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=jupyter-notebook
-pkgver=7.4.4
-pkgrel=1
+pkgver=7.5.6
+pkgrel=0
 pkgdesc="Jupyter interactive notebook"
 url="https://github.com/jupyter/notebook"
 # armhf, armv7, x86, loongarch64, riscv64, s390x: blocked by jupyterlab
@@ -15,7 +15,6 @@ depends="
 	jupyter-nbformat
 	py3-argon2-cffi
 	py3-ipykernel
-	py3-ipython_genutils
 	py3-jinja2
 	py3-jupyter_client
 	py3-jupyter_core
@@ -44,6 +43,9 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/jupyter/notebook/archive/ref
 builddir="$srcdir/notebook-$pkgver"
 
 # secfixes:
+#   7.5.6-r0:
+#     - CVE-2026-40171
+#     - CVE-2026-42557
 #   6.4.12-r0:
 #     - CVE-2022-29238
 #   6.4.10-r0:
@@ -68,5 +70,5 @@ package() {
 }
 
 sha512sums="
-ea57a8d1181c0668f6ac40e8bdcdcebca74598bdcb5a46815b814e711802235d2e855182d75829db52858399dabef27c66e02cc0ef4adb7e348c654c0d686d89  jupyter-notebook-7.4.4.tar.gz
+530657dea059a244dd350f1b0843635e9b67e4080f427279aad0d0d023c3c4f110f3595f1bde6f20d416b41197a4a98c86c0b25c8327f216ab51b386be8da953  jupyter-notebook-7.5.6.tar.gz
 "

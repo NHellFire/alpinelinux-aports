@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=extra-cmake-modules
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Extra CMake modules"
 url="https://invent.kde.org/frameworks/extra-cmake-modules"
@@ -11,6 +11,7 @@ license="BSD-3-Clause"
 depends="cmake"
 makedepends="
 	py3-sphinx
+	qt6-qttools-dev
 	samurai
 	"
 checkdepends="
@@ -21,7 +22,7 @@ case "$CARCH" in
 	armhf) ;;
 	*)
 		checkdepends="$checkdepends
-			qt6-qtdeclarative-dev
+			qt5-qtdeclarative-dev
 			qt6-qtdeclarative-dev
 			"
 		;;
@@ -53,6 +54,7 @@ check() {
 		ecm_setup_version-old_version_file_anynewer
 		ecm_setup_version-old_version_file_exact
 		ecm_setup_version-old_version_file_samemajor
+		ExecuteCoreModules
 		"
 	for test in $tests; do
 		skipped_tests="$skipped_tests|$test"
@@ -65,5 +67,5 @@ package() {
 }
 
 sha512sums="
-78012d4e8f39b35f4d828ac6c91e3c9c70d0514934d744deb14ae115e10d4ab21ade7848045a069caa7573a9bbe5bc5ca253b5eb4fb335f1fee88933efbf9704  extra-cmake-modules-6.17.0.tar.xz
+baae125340e3c7dfde655825f97011e0a07a2369b172a56ac73f3379b5ac67bbcb37342a528527bbf8271421506c2a683a8d5bd106502bc48a18d28a8dcd21af  extra-cmake-modules-6.28.0.tar.xz
 "

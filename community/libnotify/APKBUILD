@@ -1,7 +1,7 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
-# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=libnotify
-pkgver=0.8.6
+pkgver=0.8.8
 pkgrel=0
 pkgdesc="Desktop notification library"
 url="https://gitlab.gnome.org/GNOME/libnotify"
@@ -39,5 +39,5 @@ package() {
 }
 
 sha512sums="
-6e566f5907cfd7d623d58f5aa22d547271feb7e52bf28e463ecb98a763d6f7ad38cacc473d65e6f4a7e44c0514ab008078042e56a8b61edb719b9a1d192c2e34  libnotify-0.8.6.tar.xz
+0fedd230d3c8b9bd3c783794e690752cf6388fc178854267effe3ba26aaa9248415cdf0ab994f596ace8bef59e0c1e41196f42a225221d7f0e1efc54683c310a  libnotify-0.8.8.tar.xz
 "

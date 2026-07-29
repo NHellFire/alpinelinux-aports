@@ -1,18 +1,23 @@
 # Contributor: Nathan Johnson <nathan@nathanjohnson.info>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: Daniel Néri <dne+alpine@mayonnaise.net>
+maintainer="Daniel Néri <dne+alpine@mayonnaise.net>"
 pkgname=rabbitmq-server
-pkgver=4.1.4
+pkgver=4.3.4
 pkgrel=0
-pkgdesc="open source multi-protocol messaging broker"
+_pkgver="${pkgver/_beta/-beta.}"
+_pkgver="${_pkgver/_rc/-rc.}"
+pkgdesc="Feature-rich multi-protocol messaging and streaming broker"
 url="https://www.rabbitmq.com/"
 arch="noarch"
 license="MPL-2.0"
-depends="erlang"
+# only Erlang 27.x and 26.x are fully supported
+# https://www.rabbitmq.com/docs/which-erlang
+depends="erlang27"
 makedepends="
 	7zip
 	elixir
-	erlang-dev
+	erlang27-dev
 	gawk
 	grep
 	libxslt
@@ -26,7 +31,7 @@ install="$pkgname.pre-install $pkgname.post-deinstall"
 pkgusers="rabbitmq"
 pkggroups="rabbitmq"
 subpackages="$pkgname-doc $pkgname-openrc"
-source="https://github.com/rabbitmq/rabbitmq-server/releases/download/v$pkgver/rabbitmq-server-$pkgver.tar.xz
+source="https://github.com/rabbitmq/rabbitmq-server/releases/download/v$_pkgver/rabbitmq-server-$_pkgver.tar.xz
 	rabbitmq-server.initd
 	rabbitmq-server.logrotate
 	"
@@ -74,8 +79,8 @@ package() {
 
 	install -Dvm755 scripts/rabbitmq-script-wrapper \
 		"$pkgdir"/usr/sbin/rabbitmqctl
-	local script; for script in rabbitmq-server rabbitmq-plugins; do
-		ln -s rabbitmqctl "$pkgdir"/usr/sbin/$script
+	local _script; for _script in server plugins diagnostics queues upgrade streams; do
+		ln -s rabbitmqctl "$pkgdir"/usr/sbin/rabbitmq-"$_script"
 	done
 
 	install -Dvm644 LICENSE* -t "$pkgdir"/usr/share/licenses/$pkgname/
@@ -86,7 +91,7 @@ package() {
 }
 
 sha512sums="
-31ed45d4a9604e280f3d06123f72d1471916a26d2b7972e7971924d87015ea3bd894505edd016ed508c316cc7a13322fc78b847e486ddb4788830b3b3b328e3a  rabbitmq-server-4.1.4.tar.xz
+40696f983daf63e5ccb6e2dbf99ac13439551823f7d0e6f8af14c427bdba5cb0cefce5c343c4cab1350bc0bbf3f8c2d5c7bc209a9ddd4610397fde8d6fcab14c  rabbitmq-server-4.3.4.tar.xz
 52413e264ae13a607262f17068ea9b9e65cc23e348d4baf45635473893758ee4571fe1b47989b1c0e69d82ec653e013955719465d37474d3e3e29c21808403f5  rabbitmq-server.initd
 b8655cb048ab3b32001d4e6920bb5366696f3a5da75c053605e9b270e771c548e36858dca8338813d34376534515bba00af5e6dd7b4b1754a0e64a8fb756e3f3  rabbitmq-server.logrotate
 "

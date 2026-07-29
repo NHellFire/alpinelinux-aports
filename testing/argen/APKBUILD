@@ -1,0 +1,44 @@
+# Contributor: Amelia Clarke <selene@perilune.dev>
+# Maintainer: Amelia Clarke <selene@perilune.dev>
+pkgname=argen
+pkgver=0.1.2
+pkgrel=0
+pkgdesc="Task-oriented tiling window manager for the River Wayland compositor"
+url="https://codeberg.org/pkap/argen"
+arch="aarch64 x86_64" # limited by zig aport
+license="GPL-3.0-only"
+depends="python3"
+makedepends="
+	fcft-dev
+	libevdev-dev
+	libxkbcommon-dev
+	pixman-dev
+	scdoc
+	wayland-dev
+	wayland-protocols
+	zig
+	"
+subpackages="$pkgname-doc"
+source="$pkgname-$pkgver.tar.gz::https://codeberg.org/pkap/argen/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname"
+# !check: no test suite
+# net: zig dependencies
+options="!check net"
+
+build() {
+	DESTDIR="$builddir/zig-out" zig build \
+		-Doptimize=ReleaseSafe \
+		--prefix /usr install
+}
+
+package() {
+	mkdir -p "$pkgdir"
+	cp -R zig-out/* "$pkgdir"
+
+	install -Dm644 -t "$pkgdir"/usr/share/doc/"$pkgname" README.md
+	install -Dm644 -t "$pkgdir"/usr/share/doc/"$pkgname"/examples example/init
+}
+
+sha512sums="
+527af144ff4b65f9b6ddb0c4f0cf0edbd0a477dc1f2341eba96c377ccc2977e97e8c5859ef6d79d5a6ac9f3e6305083e66b8c055656aea38faa5313de7896054  argen-0.1.2.tar.gz
+"

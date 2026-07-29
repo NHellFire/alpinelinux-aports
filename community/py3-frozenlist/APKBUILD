@@ -1,8 +1,8 @@
 # Maintainer: Donoban <donoban@riseup.net>
 pkgname=py3-frozenlist
 _pkgname=frozenlist
-pkgver=1.6.2
-pkgrel=0
+pkgver=1.8.0
+pkgrel=2
 pkgdesc="immutable list"
 url="https://github.com/aio-libs/frozenlist"
 arch="all"
@@ -17,7 +17,8 @@ makedepends="
 	"
 checkdepends="py3-pytest-cov"
 subpackages="$pkgname-pyc"
-source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz"
+source="https://files.pythonhosted.org/packages/source/${_pkgname:0:1}/$_pkgname/$_pkgname-$pkgver.tar.gz
+	0001-fix-tests-under-python-3.14.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
@@ -38,5 +39,6 @@ package() {
 }
 
 sha512sums="
-1b7d0878d33c94c0cec68a712c7d5b355bcaa3d6859394242bef3f3cd8f42b523ab32fa57ac0f1304df1e98b9c1f25690239c3496429d001fc180c696de6e845  frozenlist-1.6.2.tar.gz
+2d2bf6bdac55d0571422c2c7959abc0a45028015e6eb4777ec7451c45c25db8a0113f979ffc15d613f46ad7fcd53f8d59743f370f39be411695957dbe24c173c  frozenlist-1.8.0.tar.gz
+1812395f9d20d78f5393cb2908d4df5bdd319075292c1d35fe718ed887e03f58eeeecddeaf4e83faa81922d31f9a673357b064b830b27c1a10007478cd25283a  0001-fix-tests-under-python-3.14.patch
 "

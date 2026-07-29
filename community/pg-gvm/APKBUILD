@@ -1,9 +1,9 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=pg-gvm
-pkgver=22.6.11
+pkgver=22.6.18
 # PostgreSQL version
-_pgver=17
+_pgver=18
 pkgrel=0
 pkgdesc="Greenbone Library for helper functions in PostgreSQL"
 url="https://github.com/greenbone/pg-gvm"
@@ -27,5 +27,5 @@ package() {
 }
 
 sha512sums="
-2d47d28fd51455b61f908450f2789c7d6493cd1c53643d16cfe8bf5b98e792bba3f42de6c52428fa67b1aaa874646ee8bf6c14870b7a6713d381b78ad0edf3c9  pg-gvm-22.6.11.tar.gz
+1dc589a4573ec7e7a36a991ec29ae6faa57d0654126b734ca3d4ddb5ff877711b838ba7fd4fb5937e4fb92e5bdf62755b4871a0e7a78e50511b865b1fb19e7d1  pg-gvm-22.6.18.tar.gz
 "

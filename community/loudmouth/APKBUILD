@@ -1,9 +1,9 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=loudmouth
 pkgver=1.5.4
-pkgrel=3
+pkgrel=4
 pkgdesc="A lightweight Jabber client library"
 url="http://groups.google.com/group/loudmouth-dev"
 arch="all"

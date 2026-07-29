@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=zanshin
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="A Getting Things Done application which aims at getting your mind like water"
 # armhf blocked by qt6-qtdeclarative
-# x86, armv7, ppc64le and s390x blocked by qt6-qtwebengine -> akonadi-calendar
-arch="all !armhf !x86 !armv7 !ppc64le !s390x !riscv64 !aarch64"
+# x86, armv7 and s390x blocked by qt6-qtwebengine -> akonadi-calendar
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://zanshin.kde.org/"
 license="(GPL-2.0-only OR GPL-3.0-only) AND LGPL-2.0-or-later"
 makedepends="
@@ -56,5 +56,5 @@ package() {
 }
 
 sha512sums="
-9b802da5b32f7491896f011234eabc95f945f0422219362372b57b434a8ee03045eba9b92637bc8d956624d1684f24811ad9c39719e73a389b5ed24cd4f8812f  zanshin-25.08.0.tar.xz
+06deab9bb469b9d3f35b19443ce9c05b9f8d5b3a6c4f5d6bfbb75d48c431e204ef6766ce15fc385b9adba08b75c25b569042b428683e67c0eea96f1cc5f65e9a  zanshin-26.04.3.tar.xz
 "

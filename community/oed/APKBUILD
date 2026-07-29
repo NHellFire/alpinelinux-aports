@@ -1,9 +1,9 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: mio <miyopan@e.email>
+maintainer="mio <miyopan@e.email>"
 pkgname=oed
 pkgver=7.4
-pkgrel=0
+pkgrel=1
 pkgdesc="Portable version of the OpenBSD ed text editor"
 url="https://github.com/ibara/oed"
 arch="all"

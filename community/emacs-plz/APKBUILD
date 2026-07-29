@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=emacs-plz
 pkgver=0.9.1
-pkgrel=0
+pkgrel=1
 _pkgreal=plz
 pkgdesc="HTTP library with curl as backend"
 url="https://github.com/alphapapa/plz.el"

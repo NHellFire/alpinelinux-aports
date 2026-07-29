@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=knotifications
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Abstraction for system notifications"
 # armhf blocked by qt6-qtdeclarative
@@ -14,7 +14,6 @@ depends_dev="
 	kcoreaddons-dev
 	kwindowsystem-dev
 	libcanberra-dev
-	phonon-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qtspeech-dev
@@ -69,5 +68,5 @@ _py3() {
 }
 
 sha512sums="
-262e2d8478474a82c1a27adffbddff8ba952dd598fa34308f2e3597cd81f0b7469247386a8e459ce8f7b4a790f8b5e0e5f0ca5110f54e951161c44ac6e3559b6  knotifications-6.17.0.tar.xz
+60d626d7674085ce2b412903fcf344b4b4c2a91c80b53a0bbec27ca2fe0fe4f5d79a8c7df15ac643a924c5d4104b7214010d2722f2bd8487e9261d7bdb2027d0  knotifications-6.28.0.tar.xz
 "

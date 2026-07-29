@@ -1,7 +1,7 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@whynothugo.nl>
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=ublock-origin
-pkgver=1.66.4
+pkgver=1.72.2
 pkgrel=0
 # to update asset commits, run `abuild _update_assets`
 pkgdesc="Efficient blocker add-on for Firefox"
@@ -12,8 +12,8 @@ makedepends="git python3 zip bash strip-nondeterminism"
 # Upstream's build script pulls latest master for uAssets.
 # Pin the versions we use so we don't need network at built-time and the package
 # sources are deterministic.
-_uassets_master=95b7ab4cb0673ea47c3ec58198aed2d5d2da9887
-_uassets_ghpages=7e79de47c4ad8347c61c0958cad21c27cd63e830
+_uassets_master=e6a28189757f8887b99445e0a4977ad643f6519f
+_uassets_ghpages=3fe82cc145e0b71c78d5a5a130e842114e147640
 source="ublock-origin-$pkgver.tar.gz::https://github.com/gorhill/uBlock/archive/refs/tags/$pkgver.tar.gz
 	uAssets-$_uassets_master.tar.gz::https://github.com/uBlockOrigin/uAssets/archive/$_uassets_master.tar.gz
 	uAssets-$_uassets_ghpages.tar.gz::https://github.com/uBlockOrigin/uAssets/archive/$_uassets_ghpages.tar.gz
@@ -24,8 +24,8 @@ options="!check" # no tests
 _update_assets() {
 	msg "Updating assets for $APKBUILD..."
 
-	new_uassets=$(git ls-remote https://github.com/uBlockOrigin/uAssets master | cut -f0)
-	new_pages=$(git ls-remote https://github.com/uBlockOrigin/uAssets gh-pages | cut -f0)
+	new_uassets=$(git ls-remote https://github.com/uBlockOrigin/uAssets master | awk '{print $1}')
+	new_pages=$(git ls-remote https://github.com/uBlockOrigin/uAssets gh-pages | awk '{print $1}')
 
 	sed -i \
 		-e "s|^_uassets_master=.*|_uassets_master=$new_uassets|" \
@@ -51,7 +51,7 @@ package() {
 }
 
 sha512sums="
-13d8ea19077e68d1a50c057303784259498295089b5db21b125df09c5e1c715b34067f580107655f13fa85427a49d0e2b5760adc6851e90ea8da4a3d30a0ad60  ublock-origin-1.66.4.tar.gz
-163d7276fed4352fb5086d636c43196aed370d2176d85c1e9f4a047cfac3a80c70c23d98fed388dc09819a599b5c8e3257e8b5eabbacb55fd717edd4056c3acd  uAssets-95b7ab4cb0673ea47c3ec58198aed2d5d2da9887.tar.gz
-7c5ab2ddece00ab81b2190a56431c70513b83411d5eacd07e9f3cb8f59346e3d68cddc21ba9fa369d65185e05f4f468695a9cb6ee8ebd9e8c5880b9fbdc1880d  uAssets-7e79de47c4ad8347c61c0958cad21c27cd63e830.tar.gz
+3e6fa114144d65fec7e22f29c64d37c9df626b70ed773166ad6ca3d43eac2394d6ce3e81248b965609f83d5dc490113c291c0190e174e6884b3d4e90875b2eea  ublock-origin-1.72.2.tar.gz
+26ec5189d9566a8893a4d048c1832ce1a3a6815dc76a8a0e21628966c3ceeaa7459793eaf250e2b2ebb0b5a426e1685b742330b2ee57e44605d1845791b3e70a  uAssets-e6a28189757f8887b99445e0a4977ad643f6519f.tar.gz
+8c9b8d58973bc4cb4b36db41e784528d46eb433670a79fc8403618e77c54188f4594388d88f99ff4f09357d8fba623778d69a983306bb55d4748ef08d11114a3  uAssets-3fe82cc145e0b71c78d5a5a130e842114e147640.tar.gz
 "

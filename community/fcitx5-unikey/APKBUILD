@@ -1,7 +1,7 @@
 # Contributor: Lindsay Zhou <i@lin.moe>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-unikey
-pkgver=5.1.7
+pkgver=5.1.11
 pkgrel=0
 pkgdesc="Unikey Wrapper for Fcitx"
 url="https://github.com/fcitx/fcitx5-unikey"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-5db6cd53099a36b9aaf1df0ff16d0b80c59baac7c231e30b53e6a9286cf9c8726cd0184369ab12ea94c2a5266373a21dede1b6112cc6f2e66fd864b4e076528f  fcitx5-unikey-5.1.7.tar.gz
+21dfb49e28060e50c4bc80750eb32ff0f8e7362fd5151576d51535d3f2a1fb9259164af101ab0274598387bb8f020c123a42b3069ec2c3e60098350d00724811  fcitx5-unikey-5.1.11.tar.gz
 "

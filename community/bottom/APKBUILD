@@ -1,7 +1,7 @@
 # Contributor: guddaff <guddaff@protonmail.com>
 # Maintainer: guddaff <guddaff@protonmail.com>
 pkgname=bottom
-pkgver=0.10.2
+pkgver=0.14.7
 pkgrel=0
 pkgdesc="Graphical process/system monitor with a customizable interface"
 url="https://github.com/ClementTsang/bottom"
@@ -26,7 +26,8 @@ build() {
 }
 
 check() {
-	CARGO_HUSKY_DONT_INSTALL_HOOKS=true cargo test --frozen
+	# Integration tests spawn btm in PTYs; parallel runs segfault on builders.
+	CARGO_HUSKY_DONT_INSTALL_HOOKS=true cargo test --frozen -- --test-threads=1
 }
 
 package() {
@@ -41,5 +42,5 @@ package() {
 }
 
 sha512sums="
-79359181d04434bd85496392dd15eb737bc33441a0d8984b15c3caf26e60efb08d93769e499b56732f7c76a0bdb2e0ea946eee7e799de32e80e8ce0ddf4d8945  bottom-0.10.2.tar.gz
+f6bd17f16680a78438ab25a049b4aba3083ceaccc496c8c4b03fae891bb0b9f9cf2a94c5e41cb778d9d55a7f2993fe6f3731207ce98715720a73e06a455fa3b3  bottom-0.14.7.tar.gz
 "

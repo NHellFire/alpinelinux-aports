@@ -1,19 +1,18 @@
 # Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 # Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 pkgname=c2rust
-pkgver=0.20.0
+pkgver=0.22.1
 pkgrel=0
 pkgdesc="Transpile C99-compliant code to (unsafe) Rust code"
 url="https://github.com/immunant/c2rust"
-# riscv64, loongarch64: libc crate sup
+# loongarch64, ppc64le: limited by tinycbor
 # s390x: missing big endian support in c2rust-bitfields-derive
-# ppc64le: tinycbor not packaged due to segfault in unit tests
-arch="all !riscv64 !s390x !ppc64le !loongarch64"
+arch="all !loongarch64 !ppc64le !s390x"
 license="BSD-3-Clause"
 # Note: LLVM's CMake hooks check for presence of static libs and tools and
-# failif they are missing. So they are needed for building even when linking
+# fail if they are missing. So they are needed for building even when linking
 # dynamically
-_llvmver=20
+_llvmver=21
 makedepends="
 	cargo
 	cargo-auditable
@@ -28,6 +27,7 @@ makedepends="
 	ncurses-dev
 	openssl-dev
 	rust
+	samurai
 	tinycbor-dev
 	"
 checkdepends="
@@ -40,7 +40,6 @@ source="
 	$pkgname-$pkgver.tar.gz::https://github.com/immunant/c2rust/archive/refs/tags/v$pkgver.tar.gz
 	0001-link-clang-dynamic.patch
 	0002-use-system-tinycbor.patch
-	0003-fix-compilation-with-llvm20.patch
 	"
 
 # Unit tests all fail using rust 1.86.0 with:
@@ -54,14 +53,10 @@ source="
 # Eventually, unit tests should also run on stable rust
 options="!check"
 
-export CARGO_PROFILE_RELEASE_LTO="true"
-export CARGO_PROFILE_RELEASE_PANIC="abort"
-export CARGO_PROFILE_RELEASE_OPT_LEVEL="s"
-
 prepare() {
 	default_prepare
 
-	cargo fetch --target="$CTARGET" --locked
+	cargo fetch --target="$CHOST" --locked
 }
 
 build() {
@@ -81,8 +76,7 @@ package() {
 }
 
 sha512sums="
-96d045da1856fb0d2d8475763dde11886ed25713c56ee16aa43e07b6a830472d83297fb87ae5749d0b07085a0c3d1d877b0b467052f7330075fe065c76af34fc  c2rust-0.20.0.tar.gz
-423079102d0a350a2b2ba80e6f3f2c70f76db2d5d062d7308d217ea9a2608a521ae11b10b85733d12824284971a65af5fc598eedb29b4796f44ec689e5a553b1  0001-link-clang-dynamic.patch
-be29e0f4576301b64f5fc38684ddb90e469526be4ce8ef428feee0d5962748c428045dcb81635ff92e132daebb1fa1b338a81ce1ea13d02b802ec057d0653b93  0002-use-system-tinycbor.patch
-c4e7d0d837087b0adaa0ce740e101c9e0128590d2705020241495bca1e56ed1d551f75ccc4d73bfec4ed485ef06b2017c3e5060ee76f0079070fa41e10b1a72f  0003-fix-compilation-with-llvm20.patch
+6e587174b80043c9086eb22c6c61b40bbf56c1db64a490779426e83bde79a015f785a1166efc072b99ac98656dd22e1fda44504b8a31aa369e36f01c5807fdc7  c2rust-0.22.1.tar.gz
+04f9261b999b5be462ac395629319fabe5d0ec01e22334781f9fc7609065c8f4732490137327f63a33e2ba1e4d3a15a57e582c5a57197f9b1893416b3a169048  0001-link-clang-dynamic.patch
+3aeaf269cb940fed83da0b90823fb379b4d0f9031786865b3f7b6268cadf932693a9ff3ac7679435d2ce029b9a4b4bfc7ca8328d3bb2387e797dc3b10606eab5  0002-use-system-tinycbor.patch
 "

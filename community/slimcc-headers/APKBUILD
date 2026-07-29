@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=slimcc-headers
-pkgver=0_git20250910
-_gitrev=764e1d4e51ad51038d71ca17fc9f1a8f37f7d96a
+pkgver=0_git20260406
+_gitrev=ab97186e6698364e91f6bb42f60507131ca55c69
 pkgrel=0
 pkgdesc="C11 compiler with C23/C2y/GNU extensions (header files)"
 url="https://github.com/fuhsnn/slimcc"
@@ -24,5 +24,5 @@ package() {
 }
 
 sha512sums="
-e9f0e64f3fabeeb05ddc2ec06e7b66c947f1d593c14424c1fa78c361bb2cbb10fa6f6bc3bc0802c00ba0efac58620b3672a19fcf1acd6753803635216163da74  slimcc-764e1d4e51ad51038d71ca17fc9f1a8f37f7d96a.tar.gz
+aedd6c75d4bd944c1cc51433bb321ace3236e8aefb4451cdfa290355743e9d44e92d16a9d42356969789f905f6784852b4a20a5c924c82f3021a379ce42a912a  slimcc-ab97186e6698364e91f6bb42f60507131ca55c69.tar.gz
 "

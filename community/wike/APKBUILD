@@ -1,8 +1,8 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=wike
 _pkgname=Wike
-pkgver=3.1.1
-pkgrel=1
+pkgver=3.2.1
+pkgrel=0
 pkgdesc="Wikipedia Reader for the GNOME Desktop"
 url="https://apps.gnome.org/Wike"
 arch="noarch"
@@ -37,5 +37,5 @@ package() {
 }
 
 sha512sums="
-8d5917914f64e199dae4fabca8caff71c5986982fe2f1000e4250e60f9f0973b23fa2ef191f34d7dfff6547bdaf7e9b718c7fef7ecff31a81dd28d781185f1c6  wike-3.1.1.tar.gz
+562f97396e05c1e679f9977305eff6b75e8918fc87b0e567f9e09ff1bafcf2858cc9e376cbab558095438729854cbb76597f0fca65de42c683234590a2b04b9e  wike-3.2.1.tar.gz
 "

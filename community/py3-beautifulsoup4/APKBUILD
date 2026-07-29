@@ -2,7 +2,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-beautifulsoup4
 _pkgname=beautifulsoup4
-pkgver=4.13.5
+pkgver=4.15.0
 pkgrel=0
 pkgdesc="A Python HTML/XML parser"
 url="https://www.crummy.com/software/BeautifulSoup/index.html"
@@ -37,5 +37,5 @@ package() {
 }
 
 sha512sums="
-81c0be4e2f228ea11c78540d850ba11e74ebf784460188680d351fbe0f54f4fb9f94e0e7a1a1bfb9e6e5222be6203fbd777aa3483902942dbf9319227ff112bf  beautifulsoup4-4.13.5.tar.gz
+ccf07cac23ca52f50802b3d6271b42c1367022e2bc409b1be2924bbbd274cebce3b5afde1c1c4f253802b7a58f907cb60a29d347ae2765c33ce85bec9dcc473c  beautifulsoup4-4.15.0.tar.gz
 "

@@ -1,7 +1,7 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=pass-git-helper
-pkgver=4.0.0
+pkgver=4.3.0
 pkgrel=0
 pkgdesc="git credential helper interfacing with pass, the standard unix password manager."
 url="https://github.com/languitar/pass-git-helper"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-ed3165e684daeff1de7d1f7c9ac0a729bd87028ebdb4f8694ed0ee85d3d9d59c586e22b91da0c12b4469369278e3bfca737e6fc3b6fb2303fd6638749d85e156  pass-git-helper-4.0.0.tar.gz
+d4b08adb36aa30173c0daef5f8143ea7a236961b3a28066ffb6bb45bc49407d4067229056d7d2d9f26462fd52dd45f4f7312999610b89e82f632c10569e0c15f  pass-git-helper-4.3.0.tar.gz
 "

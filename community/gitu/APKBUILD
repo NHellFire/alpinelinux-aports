@@ -1,0 +1,42 @@
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
+pkgname=gitu
+pkgver=0.43.0
+pkgrel=0
+pkgdesc="TUI Git client inspired by Magit"
+url="https://github.com/altsem/gitu"
+# s390x: nix crate, riscv64: fails in CI, 32-bit: tests fail
+arch="all !s390x !riscv64 !armhf !armv7 !x86"
+license="MIT"
+depends="git"
+makedepends_build="cargo cargo-auditable"
+makedepends_host="libgit2-dev"
+subpackages="$pkgname-doc"
+source="https://github.com/altsem/gitu/archive/refs/tags/v$pkgver/gitu-$pkgver.tar.gz"
+
+prepare() {
+	default_prepare
+
+	cargo fetch --target="$CHOST" --locked
+}
+
+build() {
+	cargo auditable build --frozen --release
+}
+
+check() {
+	cargo test --frozen
+}
+
+package() {
+	local targetdir="target/${CARGO_BUILD_TARGET:+$CARGO_BUILD_TARGET/}"
+
+	install -Dvm755 $targetdir/release/gitu -t "$pkgdir"/usr/bin/
+
+	install -Dvm644 README.md -t "$pkgdir"/usr/share/doc/$pkgname/
+	install -Dvm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+sha512sums="
+69b0c3f7df9a8b9d9c57f86cbbefefba68047c9f373afed732413dc228afceb46e7c24faa83022ce3063db1de14901a60208e7c6a56fd9966ed08c10dfe27484  gitu-0.43.0.tar.gz
+"

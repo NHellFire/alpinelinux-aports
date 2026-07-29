@@ -2,7 +2,7 @@
 # Maintainer: Michał Polański <michal@polanski.me>
 pkgname=cfssl
 pkgver=1.6.5
-pkgrel=8
+pkgrel=16
 pkgdesc="Cloudflare PKI and TLS toolkit"
 url="https://cfssl.org/"
 license="BSD-2-Clause"
@@ -12,9 +12,6 @@ makedepends="go sqlite-dev"
 source="https://github.com/cloudflare/cfssl/archive/v$pkgver/cfssl-$pkgver.tar.gz"
 
 export GOFLAGS="$GOFLAGS -trimpath -modcacherw -mod=vendor -tags=libsqlite3"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build \

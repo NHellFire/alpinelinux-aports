@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=samba
-pkgver=4.21.6
-pkgrel=2
+pkgver=4.23.8
+pkgrel=0
 pkgdesc="Tools to access a server's filespace and printers via SMB"
 url="https://www.samba.org/"
 arch="all"
@@ -10,6 +10,7 @@ options="!check" # fixme: missing dependencies for '--enable-selftest'
 subpackages="
 	$pkgname-dev
 	$pkgname-doc
+	$pkgname-nftrules
 	$pkgname-server-openrc
 	libwbclient
 	$pkgname-util-libs:_util_libs
@@ -111,16 +112,26 @@ source="
 	ldb-tests.patch
 	musl_uintptr.patch
 	default-config.patch
-	s3-notifyd.patch
 	sys-types-h.patch
 
 	$pkgname.initd
 	$pkgname.confd
+	$pkgname.nft
 	$pkgname.logrotate
 	"
 pkggroups="winbind"
 
 # secfixes:
+#   4.23.8-r0:
+#     - CVE-2026-1933
+#     - CVE-2026-2340
+#     - CVE-2026-3012
+#     - CVE-2026-3238
+#     - CVE-2026-4408
+#     - CVE-2026-4480
+#   4.21.9-r0:
+#     - CVE-2025-10230
+#     - CVE-2025-9640
 #   4.21.6-r0:
 #     - CVE-2025-0620
 #   4.18.9-r0:
@@ -276,6 +287,7 @@ package() {
 
 	install -Dm755 "$srcdir/$pkgname.initd" "$pkgdir/etc/init.d/$pkgname"
 	install -Dm644 "$srcdir/$pkgname.confd" "$pkgdir/etc/conf.d/$pkgname"
+	install -Dm644 "$srcdir/$pkgname.nft" "$pkgdir/usr/share/nftables.avail/50_$pkgname.nft"
 
 	rm -r "$pkgdir"/run
 
@@ -781,17 +793,20 @@ libs() {
 		usr/lib/$pkgname/libmsrpc3-private-samba.so \
 		usr/lib/$pkgname/libndr-samba-private-samba.so \
 		usr/lib/$pkgname/libndr-samba4-private-samba.so \
+		usr/lib/$pkgname/libngtcp2-crypto-gnutls-private-samba.so \
+		usr/lib/$pkgname/libngtcp2-private-samba.so \
 		usr/lib/$pkgname/libnpa-tstream-private-samba.so \
+		usr/lib/$pkgname/libquic-private-samba.so \
 		usr/lib/$pkgname/libsamba-cluster-support-private-samba.so \
 		usr/lib/$pkgname/libsamba-modules-private-samba.so \
 		usr/lib/$pkgname/libsamba-security-private-samba.so \
+		usr/lib/$pkgname/libsamba-security-trusts-private-samba.so \
 		usr/lib/$pkgname/libsamba-sockets-private-samba.so \
 		usr/lib/$pkgname/libsamba3-util-private-samba.so \
 		usr/lib/$pkgname/libsamdb-common-private-samba.so \
 		usr/lib/$pkgname/libsecrets3-private-samba.so \
 		usr/lib/$pkgname/libserver-id-db-private-samba.so \
 		usr/lib/$pkgname/libserver-role-private-samba.so \
-		usr/lib/$pkgname/libsmb-transport-private-samba.so \
 		usr/lib/$pkgname/libsmbd-shim-private-samba.so \
 		usr/lib/$pkgname/libtalloc-report-printf-private-samba.so \
 		usr/lib/$pkgname/libtalloc-report-private-samba.so \
@@ -829,14 +844,14 @@ dev() {
 }
 
 sha512sums="
-58e6d6d44f551e4271bbaade81ea9f5488ce9c811cea1228eb55199a7852dd0a7eaf368287dc691fa47ff86132bc20633926504348c749fbba58337c3385c6ab  samba-4.21.6.tar.gz
+5a18e5ef52b2be2cdc9ef39ac5699698c0ed8a0cb3d43db801efbec79014e2e862511b124b3371846c39c5fbb1d53b3b7ed8b0adaf88f670d1ece5dc0b92b077  samba-4.23.8.tar.gz
 ef26ef5d6e45c40e8752739cc5a7968a4b9371bb17a7b76fd69cde0b163956a70c893a482c72dc17ab1dd55b695f229b9250195cdca8cd50f75ba02d48058cb5  disable-compile-error-test.patch
 102469afc438985809543bf906655ddcbdb059455ab9dca301f7a2254f4740adfde4f8eed69c6b7a18a080b622d0a317cd34ef13d49d772543848ec605263fab  ldb-tests.patch
 b7906d66fe55a980a54161ee3f311b51bcbce76b8d4c8cc1ba6d0c5bdf98232cb192b9d2c1aa7b3e2742f5b9848c6cf429347940eefe66c3e0eda1d5aac1bf93  musl_uintptr.patch
 14666954aec4a0bc7a6730ba3a9afdbd4e27c083a038d9a1f5a033e4f0a42bc8408906612ea51f74bf743ff8a225242e54b0a518367fe526b110639bfbfdd071  default-config.patch
-a07aaf2520e8f3f8938913c38ebfe3a518048f2d1b95413edbb194b071af678b5dd3853c4443f3ada1ad7f6f5ccef51cc634adce24f41476ed423795a47e2499  s3-notifyd.patch
-4c2d566300f4aaf57d5eadbc4aafeb8f4beafa3fc3ee345f0b7027ce8e6f098c23c9352a4c3fc5a19f3546307584c50da88d8d13fc62e771e60b1c4bb019e787  sys-types-h.patch
+6c4fccfc7d198f10b157a12c19309ee64494476de8f8c2060fa68232f5c773402803a0127c5938136045c6bfb59503e45268eb70eff4c9f8a4c98eac62cd810f  sys-types-h.patch
 fdd31d53cd96bf4f67f74abd770493d04f6330f31654ad445e69f4c445b97e211db30049ddf51591e3ab733c4b62bef3436725da89c566c5d8e17e1b26b1fb19  samba.initd
 e5a4022aad21be7ad6bd067d60dd7bf447ae7191aecdd4081ccf5f08565ee5e13f592777749bc460773a20a830ef59c47faa322c55253b6ce4160f8285f74c46  samba.confd
+bebfb2c00c70eccbdda394c36c286378be14dfecd4e02808c2ed6d24678f3dfbd66549ac6d28bf240d9c12a56de05f06742af095b5b469e70c49a49e9f59ef26  samba.nft
 ec6b47d452c53cdac973d0bdd926e5c07a4f8dafb04033ec1e778de8c2ca34525cd494cc00cf87492058a5fad014473abf37e9f6f3399bba165dfb67fcba877b  samba.logrotate
 "

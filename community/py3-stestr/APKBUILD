@@ -2,7 +2,7 @@
 # Maintainer: Bart Ribbers <bribbers@disroot.org>
 pkgname=py3-stestr
 pkgver=4.1.0
-pkgrel=1
+pkgrel=3
 pkgdesc="A parallel Python test runner built around subunit"
 url="http://stestr.readthedocs.io/en/latest/"
 arch="noarch"
@@ -23,8 +23,8 @@ makedepends="
 	py3-wheel
 	"
 checkdepends="
+	py3-extras
 	py3-ddt
-	py3-future
 	py3-pytest
 	"
 subpackages="$pkgname-pyc"

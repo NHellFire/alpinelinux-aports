@@ -2,13 +2,13 @@
 # Maintainer: Carlo Landmeter <clandmeter@alpinelinux.org>
 pkgname=umoci
 pkgver=0.4.7
-pkgrel=33
+pkgrel=41
 pkgdesc="umoci modifies Open Container images"
 url="https://umo.ci/"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
-options="!check" # has no check
+options="!check net" # has no check, go
 source="umoci-$pkgver.tar.gz::https://github.com/opencontainers/umoci/archive/v$pkgver.tar.gz
 	update-go-mod.patch"
 builddir="$srcdir/src/github.com/opencontainers/$pkgname"
@@ -18,9 +18,6 @@ builddir="$srcdir/src/github.com/opencontainers/$pkgname"
 #     - CVE-2021-29136
 
 export GOPATH="$srcdir"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	mkdir -p ${builddir%/*}

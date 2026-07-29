@@ -3,8 +3,8 @@
 # Contributor: Dermot Bradley <dermot_bradley@yahoo.com>
 maintainer="Wolfgang Fischer <wdev@posteo.org>"
 pkgname=step-cli
-pkgver=0.28.7
-pkgrel=2
+pkgver=0.30.6
+pkgrel=1
 pkgdesc="Zero trust swiss army knife that integrates with step-ca for automated certificate management"
 url="https://github.com/smallstep/cli"
 arch="all"
@@ -23,10 +23,6 @@ source="
 	"
 options="net"
 builddir="$srcdir"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make CGO_OVERRIDE= build
@@ -48,5 +44,5 @@ package() {
 }
 
 sha512sums="
-3550091362805914b7dac1e16804457b873da86950a22e9d605f77f4306f3156d82829c2a8179d5d639f08dbdf444f78012d9e06ad5753dd7fc0a7eebeaf417c  step-cli-0.28.7.tar.gz
+a12105a7d1afe1b49b2eac08241acef0c29a6fafa515a33e26b45f1775ee46b49f092ecd3676c41fe78150fc00e54e793acead6aefabc6c9f9c64eb620092fb9 step-cli-0.30.6.tar.gz
 "

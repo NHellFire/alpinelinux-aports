@@ -2,7 +2,7 @@
 # Maintainer: Oleg Titov <oleg.titov@gmail.com>
 pkgname=gx
 pkgver=0.14.3
-pkgrel=33
+pkgrel=41
 pkgdesc="Packaging tool build around the distributed, content addressed filesystem IPFS"
 url="https://github.com/whyrusleeping/gx"
 arch="all"
@@ -11,10 +11,6 @@ options="!check net" # Test suite issues
 makedepends="go"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/whyrusleeping/gx/archive/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

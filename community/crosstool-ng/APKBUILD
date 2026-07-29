@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=crosstool-ng
 pkgver=1.28.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Versatile tool for building (cross-)toolchains"
 url="https://crosstool-ng.github.io/"
 arch="all"

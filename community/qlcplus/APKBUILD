@@ -1,51 +1,59 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=qlcplus
-pkgver=4.14.3
-pkgrel=1
+pkgver=5.2.2
+pkgrel=0
 pkgdesc="The open DMX lighting desk software for controlling professional lighting fixtures"
 url="https://qlcplus.org/"
-arch="all"
+# armhf blocked by qt6-qtmultimedia, x86/armv7 build fails
+arch="all !armhf !x86 !armv7"
 license="Apache-2.0"
 makedepends="
 	alsa-lib-dev
 	bash
+	cmake
 	desktop-file-utils
 	fftw
 	libftdi1-dev
 	libmad-dev
 	libsndfile-dev
-	libudev-zero-dev
-	qt5-qtmultimedia-dev
-	qt5-qtscript-dev
-	qt5-qtserialport-dev
-	qt5-qttools-dev
-	qt5-qtwebsockets-dev
+	qt6-qt3d-dev
+	qt6-qtmultimedia-dev
+	qt6-qtserialport-dev
+	qt6-qttools-dev
+	qt6-qtwebsockets-dev
+	samurai
 	shared-mime-info
 	"
 checkdepends="py3-lxml"
-subpackages="$pkgname-doc $pkgname-libs"
-source="$pkgname-$pkgver.tar.gz::https://github.com/mcallegari/qlcplus/archive/QLC+_$pkgver.tar.gz
-	usr-udev-path.patch
-	"
+subpackages="$pkgname-udev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/mcallegari/qlcplus/archive/QLC+_$pkgver.tar.gz"
 builddir="$srcdir/qlcplus-QLC-_$pkgver"
-options="!check" # requires desktop environment
+options="!check" # currently failing
 
 build() {
-	./translate.sh ui
-
-	qmake-qt5
-	make
+	if [ "$CBUILD" != "$CHOST" ]; then
+		local crossopts="-DCMAKE_SYSTEM_NAME=Linux -DCMAKE_HOST_SYSTEM_NAME=Linux"
+	fi
+	export PATH="$PATH:/usr/lib/qt6/bin"
+	cmake -B build \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DBUILD_SHARED_LIBS=ON \
+		-DCMAKE_BUILD_TYPE=None \
+		-DUDEVRULESDIR=/usr/lib/udev/rules.d \
+		-Dqmlui=ON \
+		$crossopts
+	cmake --build build
 }
 
 check() {
-	make check
+	cmake --build build --target check
 }
 
 package() {
-	make INSTALL_ROOT="$pkgdir" install
+	DESTDIR="$pkgdir" cmake --install build
 }
 
 sha512sums="
-c379596197f6e7b7e7955dd718bb62af3511c7c856bd5967c44417785de2345f78f1bf0a65ed70ee0c8a084fa80471721e2ac6ebb00631ba6fedaa6ab4e140de  qlcplus-4.14.3.tar.gz
-3364109bbdb97930b055cc386e0692c25e17a8dcb8cda90f74b323cf1b50b9d5547c32f03304ea351fa089e88700a7c0d526b1a71100914607e11f0a55f0de84  usr-udev-path.patch
+3381269f784a867920bf0184edea2e06b74be6da35d1e95b2781dfaa40b6962cb81a28b3c8e0f3ce0de5334ae1e4311da0d93fc9ffe4feef088672a7fb1a5e16  qlcplus-5.2.2.tar.gz
 "

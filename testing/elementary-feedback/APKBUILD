@@ -1,7 +1,7 @@
 # Contributor: Angelo Verlain <hey@vixalien.com>
-maintainer="Angelo Verlain <hey@vixalien.com>"
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=elementary-feedback
-pkgver=8.0.1
+pkgver=8.1.1
 pkgrel=0
 pkgdesc="GitHub Issue Reporter for elementary OS"
 url="https://github.com/elementary/feedback"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-4163297c91ed73a5687e2bfab0cb88eee5954c1e1ddf685d6dfb7a43d3ea7de213fee07b921182f95720c3c6f77d0c8330897e22b3549bd50e2837b86f64845b  elementary-feedback-8.0.1.tar.gz
+27f85bb23bddb015a62b51d945c8fafc4046fe9fdf9f7d751771ee53d2b3e474f43271aca04f6fbe8b71f4e2e633beadf0befd797003a4432369fd0f8aa8e718  elementary-feedback-8.1.1.tar.gz
 "

@@ -1,8 +1,8 @@
 # Contributor: Meng Zhuo <mengzhuo@iscas.ac.cn>
 # Maintainer: Meng Zhuo <mengzhuo@iscas.ac.cn>
 pkgname=gost
-pkgver=3.2.4
-pkgrel=1
+pkgver=3.2.6
+pkgrel=6
 pkgdesc="GO Simple Tunnel - a simple tunnel written in golang"
 url="https://github.com/go-gost/gost"
 arch="all"
@@ -13,8 +13,6 @@ subpackages="$pkgname-doc"
 
 source="$pkgname-$pkgver.tar.gz::https://github.com/go-gost/gost/archive/refs/tags/v$pkgver.tar.gz"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go-mod"}"
 export GOROOT="${GOROOT:-"/usr/lib/go"}"
 
 prepare() {
@@ -35,5 +33,5 @@ package() {
 }
 
 sha512sums="
-3b25077942b48c08833966520e3adfc5c508506c9abc5af334d388e7ddb6c90d251200b57c601adc6d585d2e6ddd11f8cd14dcf31311995871c7cfddbfdcd818  gost-3.2.4.tar.gz
+294c32d7cef4e8b288c1d7290e6382246da16320873c6fd6b9183e1c8786f7d57be3eb032f6e5bf27398db36e087f0398f44ab27901587225960a39a0cc4104a  gost-3.2.6.tar.gz
 "

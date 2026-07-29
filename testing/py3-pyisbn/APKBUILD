@@ -3,7 +3,7 @@
 pkgname=py3-pyisbn
 _pkgname=pyisbn
 pkgver=1.3.1
-pkgrel=3
+pkgrel=4
 pkgdesc="A module for working with 10- and 13-digit ISBNs"
 url="https://github.com/JNRowe/pyisbn"
 arch="noarch"
@@ -26,7 +26,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

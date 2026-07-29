@@ -5,8 +5,8 @@
 # Contributor: Clayton Craft <clayton@craftyguy.net>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=chatty
-pkgver=0.8.8
-pkgrel=9
+pkgver=0.8.9
+pkgrel=12
 pkgdesc="XMPP and SMS messaging via libpurple and Modemmanager"
 arch="all"
 url="https://gitlab.gnome.org/World/Chatty"
@@ -38,9 +38,10 @@ makedepends="
 	pidgin-dev
 	"
 checkdepends="appstream-glib desktop-file-utils"
-source="https://gitlab.gnome.org/World/Chatty/-/archive/v$pkgver/Chatty-v$pkgver.tar.gz"
-
-subpackages="$pkgname-lang $pkgname-bash-completion $pkgname-dbg"
+subpackages="$pkgname-lang $pkgname-bash-completion $pkgname-dbg $pkgname-systemd"
+source="https://gitlab.gnome.org/World/Chatty/-/archive/v$pkgver/Chatty-v$pkgver.tar.gz
+	1492.patch
+	"
 options="!check" # Requires running Wayland compositor
 builddir="$srcdir/Chatty-v$pkgver"
 
@@ -56,5 +57,6 @@ package() {
 }
 
 sha512sums="
-b3071e82ac0d7454249f104234a6c82bd9264cb1777a0ebc96c20f3e5ef1647a91a829d91fe7102423fbd38d6911864719ad089fa465f0611add38f82a33349e  Chatty-v0.8.8.tar.gz
+8685af4583d8e0142098bd0d525a3e8324d5c56e13f9343d32da510d1118a5c95cdd5ecef1e084d53b46c43931acd11ef5d2e7665d947ad833da497e4dfa41cf  Chatty-v0.8.9.tar.gz
+293e8639ef87b6efe39fc1f2ce95c14ee8e81fcb5b7b8db4a75eb254c58c783c8b2185f8317a14a8ca2d070c13ecf396e972ff3adc7070e5161c2eed2fbc64af  1492.patch
 "

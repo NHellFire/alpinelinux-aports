@@ -1,7 +1,7 @@
 # Contributor: Adam Bruce <adam@adambruce.net>
 # Maintainer: Duncan Bellamy <dunk@denkimushi.com>
 pkgname=oci-cli
-pkgver=3.66.0
+pkgver=3.77.0
 pkgrel=0
 pkgdesc="Oracle Cloud Infrastructure CLI"
 url="https://docs.oracle.com/en-us/iaas/Content/API/Concepts/cliconcepts.htm"
@@ -47,5 +47,5 @@ package() {
 }
 
 sha512sums="
-97df071ee8c1eca8aebb50049bd953d4216e24af9c421eafcde9e689d255dd149da16d36cf3de0f9305a7d8e62f815a5862284d833e88f74ee775036f8454d68  oci-cli-3.66.0.tar.gz
+c9c4710ae385b1c7811dca3fe670048e1009b5fdddc7a8e9d15c0ebef0d586978802aefb151c8458dc8ed56bf05835b0c616dcb384b19331e79cd4b61618e162  oci-cli-3.77.0.tar.gz
 "

@@ -2,7 +2,7 @@
 # Maintainer: Edd Salkield <edd@salkield.uk>
 pkgname=fathom
 pkgver=1.3.1
-pkgrel=16
+pkgrel=24
 pkgdesc="Privacy-focused website analytics"
 url="https://github.com/usefathom/fathom"
 arch="all"
@@ -11,9 +11,6 @@ makedepends="npm go sqlite-dev"
 source="https://github.com/usefathom/fathom/archive/v$pkgver/fathom-v$pkgver.tar.gz"
 
 export GOFLAGS="$GOFLAGS -tags=libsqlite3"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

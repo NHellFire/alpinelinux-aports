@@ -1,11 +1,11 @@
 # Contributor: rubicon <rubicon@mailo.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: mio <miyopan@e.email>
+maintainer="mio <miyopan@e.email>"
 pkgname=picat
-pkgver=3.9
+pkgver=3.9.11
 pkgrel=0
-_pkgver="${pkgver//./}"
-_pkgver="${_pkgver/_beta/b}"
+_pkgver="${pkgver/./}"
+_pkgver="${_pkgver//./_}"
 pkgdesc="Logic-based multi-paradigm programming language"
 url="https://picat-lang.org/"
 arch="all"
@@ -43,7 +43,7 @@ package() {
 }
 
 sha512sums="
-2f01d63cf82791a7ec4795ff4029b8959c9122d50d951adc4be455e19827415c5a46cc995a615133b078228000528b107b826774e983906e7f6eec0c4c529fed  picat-3.9.tar.gz
+a42c4fdb4d3ee236786f4497f42444efbc6f6ef3bd8a9b5fa290eaded2872c19fc953137c5d5b967aedd2f101f99ad8fd9c6c236be40a42f854e8aa0677a49d1  picat-3.9.11.tar.gz
 96c779141e1dce7045f582b28711eb1d743dc1e074fcd172e266b715010741c5e3153e4a786cce9b6fefb07c85a4bb68baee25c81c191357ff2753900ad72c0f  fix-fileno-usage.patch
 e030ffd5014d99b76d215f6d18c5136f3330eefb623253ee41b0f4122323050fd3b0ae5e300d04162dc4d6f6f27907bb78f703ff382d7a56f4c55e74f1c6b573  use-time_t.patch
 f91675823a266d9e4eb7e792eaf599391c6d296e1fe3dd0ec82a646f6e0cd41f1283c064893076055069e1f4999eac77799eb4b532ca223a98391bc8fb30db55  gcc15.patch

@@ -2,8 +2,8 @@
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=ruby-yard
 _gemname=${pkgname#ruby-}
-pkgver=0.9.37
-pkgrel=1
+pkgver=0.9.45
+pkgrel=0
 pkgdesc="a documentation generation tool for Ruby"
 url="https://rubygems.org/gems/yard"
 arch="noarch"
@@ -51,5 +51,5 @@ package() {
 }
 
 sha512sums="
-f48a25df1fba7cdde7388842c6bce63ab149e613921cca8c809adb2a3bd7edce49c573c8867e62a3cb33c8cb3868dd67bd87f34c65ffce1e66c1353a2f93f9ca  ruby-yard-0.9.37.tar.gz
+80e95a4fb167b793fca3bd428af2ede960ab699f8cbd24379db9b2d8d3f21e7700e71ebc971569a40b9244743ca2693537b39f7deaad4f2a6937ac01ee3afea0  ruby-yard-0.9.45.tar.gz
 "

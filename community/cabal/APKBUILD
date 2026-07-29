@@ -3,18 +3,19 @@
 # Contributor: Mitch Tishmack <mitch.tishmack@gmail.com>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=cabal
-pkgver=3.10.3.0
+pkgver=3.16.1.0
 pkgrel=0
 pkgdesc="The Haskell Cabal"
 url="https://haskell.org/cabal"
 arch="aarch64 x86_64" # Limited by GHC
 license="BSD-3-Clause"
 depends="ghc gmp zlib curl"
-makedepends="ghc>=9.4.6 gmp-dev libffi-dev zlib-dev cabal-bootstrap"
+makedepends="ghc>=9.10.3 gmp-dev libffi-dev zlib-dev cabal-bootstrap~$pkgver"
 options="net !check" # TODO: enable tests
 subpackages="$pkgname-doc"
 source="https://hackage.haskell.org/package/cabal-install-$pkgver/cabal-install-$pkgver.tar.gz
-	cabal.project.freeze"
+	cabal.project.freeze
+	ghc-9.14.1.patch"
 builddir="$srcdir/cabal-install-$pkgver"
 
 # We currently don't package Haskell dependencies in aports. As such,
@@ -29,7 +30,7 @@ builddir="$srcdir/cabal-install-$pkgver"
 # lower priority.
 #
 # See also https://lists.alpinelinux.org/~alpine/devel/%3C33KG0XO61I4IL.2Z7RTAZ5J3SY6%408pit.net%3E
-provides="cabal-bootstrap"
+provides="cabal-bootstrap=$pkgver-r$pkgrel"
 provider_priority=100 # highest
 
 # Directory were cabal files are stored.
@@ -55,8 +56,6 @@ prepare() {
 }
 
 build() {
-	# ghc version path
-	export PATH="$PATH:/usr/lib/llvm15/bin"
 	HOME="$_cabal_home" cabal v2-update
 	HOME="$_cabal_home" cabal v2-build cabal-install:exes \
 		--jobs=${JOBS:-1} \
@@ -83,6 +82,7 @@ package() {
 }
 
 sha512sums="
-e004dfc05903316c3264aa7a056d287e25f0589fa9adea2e93114e1750f3ae9774177b5d274c78fee37b6ba4bd5c03455d72437258b168607c2a81856ef06ddb  cabal-install-3.10.3.0.tar.gz
-0b5d4302eb326376385636e17dd42ea592f6b9395c2df7c9b14cca81b41d24629a1b6f4c65fe674b8cd072c9ee164776e88fb520c19da14f853d5d5113847775  cabal.project.freeze
+d115f42dc60a92c2a8bc29b9f5b502536a932d130c8c3ef52fb5b5e1a4d3c063ab94aa6579e9f8009a01f203a8d405e7dd1f66bf83a821271466ee359101e4fb  cabal-install-3.16.1.0.tar.gz
+e760be3779f22eb6d536ea2a1486e2b061660896fe0382982d6bb28aa241a721e1d173075f72d3d32087c17a7774f563bba3a48afcac958042a121b11403fb31  cabal.project.freeze
+193e7569de4381eb9ca82b2078512053fd221331f8f0baf68339bdd6b85944dc723bf4fefb6d7934119d8366f1c88466658aafb51755473372b419eb7ba5b986  ghc-9.14.1.patch
 "

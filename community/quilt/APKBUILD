@@ -1,9 +1,9 @@
 # Contributor: Breno Leitao <breno.leitao@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=quilt
 pkgver=0.69
-pkgrel=0
+pkgrel=1
 pkgdesc="Easily manage large numbers of patches"
 url="https://savannah.nongnu.org/projects/quilt"
 arch="noarch"

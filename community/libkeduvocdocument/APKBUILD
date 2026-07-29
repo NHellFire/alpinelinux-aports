@@ -1,11 +1,10 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=libkeduvocdocument
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
+# armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://edu.kde.org"
 pkgdesc="Library to parse, convert, and manipulate KVTML files"
@@ -24,7 +23,6 @@ subpackages="$pkgname-dev $pkgname-lang"
 
 build() {
 	cmake -B build -G Ninja \
-		-DBUILD_WITH_QT6=ON \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib
@@ -40,5 +38,5 @@ package() {
 }
 
 sha512sums="
-823b53a868a31579422c206380a67f46e53c563b8ce236a57e0837df8ed71e5245c3b89ecf8d8c692b8be930b02df27224b37bbe5c6f75b310e53df51f43a3c0  libkeduvocdocument-25.08.0.tar.xz
+14b119d28bca0ba8a228e4bbca4e463ad213f11de73134e06b16ab8a732f069392ca39f054d01eb4b85cb7f7c6c776ae0c043be3448dc670a20c2992a9048e19  libkeduvocdocument-26.04.3.tar.xz
 "

@@ -2,7 +2,7 @@
 # Maintainer: TBK <alpine@jjtc.eu>
 pkgname=dockviz
 pkgver=0.6.4
-pkgrel=25
+pkgrel=33
 pkgdesc="Visualizing Docker Data"
 url="https://github.com/justone/dockviz"
 arch="all"
@@ -11,10 +11,6 @@ options="net !check" # No test suite
 depends="docker"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/justone/dockviz/archive/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v

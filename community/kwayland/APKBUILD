@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwayland
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Qt-style Client and Server library wrapper for the Wayland libraries"
 arch="all"
@@ -19,8 +19,9 @@ makedepends="$depends_dev
 	plasma-wayland-protocols
 	qt6-qtbase-dev
 	qt6-qttools-dev
-	wayland-protocols
+	qt6-qtwayland-private-dev
 	samurai
+	wayland-protocols
 	"
 
 case "$pkgver" in
@@ -52,5 +53,5 @@ package() {
 }
 
 sha512sums="
-2040240f36b15073dd36b05f7a180545c25ff1ff2293d6803404a89f85a3ee5ec07132bcbc7f4c9a5315f6f7d5f51ac8796739ed697dfc4ce5ddd17d0e99df75  kwayland-6.4.5.tar.xz
+d588b293996fe8c80f492e041705595611706709b3953eba53844a78d68cda628a9b212a46b1d1429b4013795439f4ca471bccd366f7550c4385ca4437579616  kwayland-6.7.3.tar.xz
 "

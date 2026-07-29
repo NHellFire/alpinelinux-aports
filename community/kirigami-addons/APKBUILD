@@ -2,7 +2,7 @@
 # group=kde-other
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kirigami-addons
-pkgver=1.8.1
+pkgver=1.13.1
 pkgrel=0
 pkgdesc="Add-ons for the Kirigami framework"
 url="https://invent.kde.org/libraries/kirigami-addons"
@@ -15,9 +15,11 @@ depends="
 	"
 makedepends="
 	extra-cmake-modules
+	kcolorscheme-dev
 	kglobalaccel-dev
 	kguiaddons-dev
 	ki18n-dev
+	kiconthemes-dev
 	kirigami-dev
 	qt6-qtdeclarative-private-dev
 	samurai
@@ -39,8 +41,7 @@ build() {
 }
 
 check() {
-	# tst_sounds.qml is broken
-	wlheadless-run -- ctest --test-dir build -E "tst_sounds.qml"
+	wlheadless-run -- ctest --test-dir build
 }
 
 package() {
@@ -48,5 +49,5 @@ package() {
 }
 
 sha512sums="
-fa7d9be765bb3f9d7e32dce1be1859720f3c99278f9f4b62bc5241248f5984392b7a1c3da4938912caee0d23ea643f58b19be27fc197cdd64aabe356ca317d2c  kirigami-addons-1.8.1.tar.xz
+be7499358b5a30ca44e50b8579a7fbf69569c42cc4bfb28473f05444f534548d301997f4608b3c2ab68bef22e56cbf8b21c474949125d116ac945b7357ca51f8  kirigami-addons-1.13.1.tar.xz
 "

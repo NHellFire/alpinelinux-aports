@@ -1,7 +1,7 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=lxqt-powermanagement
-pkgver=2.2.1
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="Power management module for LXQt"
 url="https://github.com/lxqt/lxqt-powermanagement"
@@ -43,5 +43,5 @@ lang() {
 }
 
 sha512sums="
-038218713bad2d0a4bac792115cabeee3a6d4ed972dcb88e169c29ea95ec37ebd1d3c33a363a670cf20b4f4ed5a87dbd13955f5e03bc0c8df2aed7ced3b03c1a  lxqt-powermanagement-2.2.1.tar.xz
+59a3e979a5656b12fca83cd6006da4105903a3c7024ea05b20e0cf9abf6f85e6b300e6baaeffabf452c04adc0cbe09b476e6f7d74ef45276d64d8dcf14cc1d24  lxqt-powermanagement-2.4.0.tar.xz
 "

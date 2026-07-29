@@ -1,7 +1,7 @@
 # Contributor: lauren n. liberda <lauren@selfisekai.rocks>
 maintainer="lauren n. liberda <lauren@selfisekai.rocks>"
 pkgname=tinymist
-pkgver=0.13.18
+pkgver=0.15.0
 pkgrel=0
 pkgdesc="Language service for Typst"
 url="https://github.com/Myriad-Dreamin/tinymist"
@@ -16,6 +16,7 @@ makedepends="
 	cargo-auditable
 	openssl-dev
 	"
+checkdepends="cage-run"
 subpackages="typlite:_typlite"
 source="
 	https://github.com/Myriad-Dreamin/tinymist/archive/v$pkgver/tinymist-$pkgver.tar.gz
@@ -31,13 +32,13 @@ prepare() {
 }
 
 build() {
-	cargo auditable build --frozen --release -p tinymist
+	cargo auditable build --frozen --release -p tinymist-cli
 	cargo auditable build --frozen --release -p typlite -F cli --bin typlite
 }
 
 check() {
 	# tests package is e2e tests. they don't simply work.
-	cargo test --frozen --workspace --exclude tests
+	cage-run cargo test --frozen --workspace --exclude tests
 }
 
 package() {
@@ -50,5 +51,5 @@ _typlite() {
 }
 
 sha512sums="
-d40d9ec3695949c8d8a315e4bfd3be0a02648e95e6de7b9f51e793f405577b92938de04fb31124d8a2922da292520d2505e47eff57c06cd02df35e68f91c60ac  tinymist-0.13.18.tar.gz
+4ffbb1bdb690a6ab8742bb4dca1660ef778242c660ad53bbdff5726db2699caf40d17f7fa8dc50d8ef68bf425ad5c02a6328a081532967f816674c3d60a92ab2  tinymist-0.15.0.tar.gz
 "

@@ -1,23 +1,21 @@
 maintainer="Michał Polański <michal@polanski.me>"
 pkgname=syft
-pkgver=1.32.0
-pkgrel=0
+pkgver=1.46.0
+pkgrel=1
 pkgdesc="Generate a Software Bill of Materials (SBOM) from container images and filesystems"
 url="https://github.com/anchore/syft"
 license="Apache-2.0"
-arch="all !armhf !armv7 !x86 !ppc64le" # FTBFS on 32-bit arches, ppc64le
+arch="all !armhf !armv7 !x86" # FTBFS on 32-bit arches
 makedepends="go"
 subpackages="
 	$pkgname-bash-completion
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
-source="https://github.com/anchore/syft/archive/v$pkgver/syft-$pkgver.tar.gz"
-options="!check" # tests need docker
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+source="https://github.com/anchore/syft/archive/v$pkgver/syft-$pkgver.tar.gz
+	disable-update-check.patch
+	"
+options="net !check" # Go modules, tests need docker
 
 build() {
 	go build -ldflags "
@@ -25,9 +23,9 @@ build() {
 		" \
 		-o bin/syft ./cmd/syft
 
-	bin/syft completion bash > $pkgname.bash
-	bin/syft completion fish > $pkgname.fish
-	bin/syft completion zsh > $pkgname.zsh
+	bin/syft completion bash >$pkgname.bash
+	bin/syft completion fish >$pkgname.fish
+	bin/syft completion zsh >$pkgname.zsh
 }
 
 check() {
@@ -43,5 +41,6 @@ package() {
 }
 
 sha512sums="
-dec570e72f33754c863a9b955371f451594e89f9ac2cb8a0f4b19c8775ccf926fb86090b2abc3e465f231cf7b42cd832662afc8b4f02f70d04d50a98d6675586  syft-1.32.0.tar.gz
+0610996e902f7f6dc783a59af6dd457873b212002ce95378810cb20f4ca0f9f9af6dd76045905d56e10ecd9b0701ae4a30e4eb57f8b3f1f1b4bc1870fba1ee00  syft-1.46.0.tar.gz
+e261b6a817ebd1347540a18ff9a36e73b736aae8f07e7c554d716878abac1a6346a832d6ba1b5bbed17b6d13f3edf8f2fc757e7021fde3dd8d387247b479a00a  disable-update-check.patch
 "

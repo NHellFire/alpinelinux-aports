@@ -1,19 +1,21 @@
 # Contributor: André Klitzing <aklitzing@gmail.com>
 # Maintainer: André Klitzing <aklitzing@gmail.com>
 pkgname=rbtools
-pkgver=5.2.1
-pkgrel=0
+pkgver=6.0
+pkgrel=1
 pkgdesc="Client tools for Review Board"
 url="https://www.reviewboard.org/docs/releasenotes/rbtools/"
 # pydiffx
 arch="noarch !s390x"
 license="MIT"
 depends="
+	py3-appdirs
 	py3-certifi
 	py3-colorama
 	py3-texttable
 	py3-tqdm
 	py3-typing-extensions
+	py3-typelets
 	py3-housekeeping
 	py3-packaging
 	py3-importlib-metadata
@@ -66,5 +68,5 @@ package() {
 }
 
 sha512sums="
-0f550ea512660d652ef7dbbf01e35dfb987c42df44383185898fb68d4ddd3fcf235c1398abb7dd377dcc3d190f008661c6db3c11433e81aca68ba77fc9ede2ae  rbtools-5.2.1.tar.gz
+1530450801984b7d63376b0af13986bcc97b3e28b8c9bf42030774b820ee39686cff7e90b981224f068d8dacf17d0aace0655c758c149158fa6be2e3c3126af8  rbtools-6.0.tar.gz
 "

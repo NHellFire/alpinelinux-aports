@@ -3,8 +3,8 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
 pkgname=incus-feature
-pkgver=6.16.0
-pkgrel=0
+pkgver=7.2.0
+pkgrel=1
 pkgdesc="Powerful system container and virtual machine manager - Feature branch"
 url="https://github.com/lxc/incus"
 arch="all"
@@ -14,14 +14,13 @@ depends="acl
 	ca-certificates
 	dbus
 	dnsmasq
-	lego
-	lxc
+	lxc>=6.0.0
 	iproute2
-	iptables
 	netcat-openbsd
+	nftables
 	rsync
 	squashfs-tools
-	shadow-uidmap
+	shadow-subids
 	tar
 	xz
 	"
@@ -55,7 +54,7 @@ subpackages="$pkgname-client
 	$pkgname-vm:vm:noarch
 	$pkgname-oci:oci:noarch
 	"
-install="$pkgname.pre-install"
+install="$pkgname.pre-install $pkgname.post-upgrade"
 options="net"
 source="$pkgname-$pkgver.tar.gz::https://github.com/lxc/incus/archive/refs/tags/v$pkgver.tar.gz
 	incusd.confd
@@ -75,7 +74,6 @@ _tools="fuidshift
 	incus-migrate
 	incus-simplestreams
 	lxc-to-incus
-	lxd-to-incus
 	mini-oidc
 	sysinfo
 	tls2jwt
@@ -84,12 +82,35 @@ _tools="fuidshift
 _project="github.com/lxc/incus"
 
 export GOFLAGS="$GOFLAGS -tags=libsqlite3"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 export GOPATH="$srcdir"
 
 # secfixes:
+#   7.2.0-r0:
+#     - CVE-2026-48753
+#     - CVE-2026-47753
+#     - CVE-2026-48754 
+#     - CVE-2026-48756
+#     - CVE-2026-48749
+#     - CVE-2026-48750
+#     - CVE-2026-48751
+#     - CVE-2026-48752
+#     - CVE-2026-48755
+#     - CVE-2026-48769
+#     - CVE-2026-55621
+#     - CVE-2026-55622
+#   7.0.0-r0:
+#     - CVE-2026-35527
+#     - CVE-2026-40195
+#     - CVE-2026-40197
+#     - CVE-2026-40251
+#     - CVE-2026-41647
+#     - CVE-2026-41684
+#     - CVE-2026-41685
+#     - CVE-2026-40243
+#     - CVE-2026-41648
+#   6.21.0-r0:
+#     - CVE-2026-23953
+#     - CVE-2026-23954
 #   6.14.0-r0:
 #     - CVE-2025-52890
 #     - CVE-2025-52889
@@ -163,9 +184,8 @@ user_openrc() {
 }
 
 conversion() {
-	pkgdesc="Tools to convert a prior lxc/lxd instance to incus"
+	pkgdesc="Tools to convert a prior LXC instance to incus"
 	amove usr/bin/lxc-to-incus
-	amove usr/bin/lxd-to-incus
 }
 
 utils() {
@@ -182,7 +202,7 @@ vm() {
 		aarch64) depends=aavmf ;;
 	esac
 	depends="$depends
-		qemu-system-x86_64
+		qemu-system-x86_64>=8.2
 		qemu-chardev-spice
 		qemu-hw-usb-redirect
 		qemu-hw-display-virtio-vga
@@ -211,15 +231,22 @@ oci() {
 check() {
 	export CGO_LDFLAGS="$LDFLAGS -lintl"
 
+	local skip_tests
+
 	# FIXME: disable failing tests
-	go test -v -skip "TestCluster_*|TestIntegration_UnixSocket|TestContainerTestSuite_*|TestDotGo|TestParse|TestPackages|TestConvertNetworkConfig|TestSnapshotCommon|TestHttpRequest|TestArchitectureFirmwarePairs" ./...
+	case "$CARCH" in
+		loongarch64) skip_tests="TestCluster_*|TestIntegration_UnixSocket|TestContainerTestSuite_*|TestDotGo|TestParse|TestPackages|TestConvertNetworkConfig|TestSnapshotCommon|TestHttpRequest|TestArchitectureFirmwarePairs|TestGetCandidateMembers_Pending|TestNewNotifier" ;;
+		*) skip_tests="TestCluster_*|TestIntegration_UnixSocket|TestContainerTestSuite_*|TestDotGo|TestParse|TestPackages|TestConvertNetworkConfig|TestSnapshotCommon|TestHttpRequest|TestArchitectureFirmwarePairs" ;;
+	esac
+
+	go test -v -skip "$skip_tests" ./...
 }
 
 sha512sums="
-164ae32fb3abe9e09e5a24ee712026565e0d62bd727162198e3e221a0f1505c694bdd5191d3f93072082cc0d030e04f7d31c2cba70d8bddb391cd989b01a2ae2  incus-feature-6.16.0.tar.gz
+e1875cf7cf08cd0eaa48efd601f78d921b7f291dc7dd35fc94c29227805db22f251d04ac3e697efd279239ff2b1d1b2be4d210a8adc56a26dad35a926acb860c  incus-feature-7.2.0.tar.gz
 0340f06589acc1509d6cf4c844320f23a40e8da9d6fd1aab59b7424b286bb109e81ded97e26b9a1467f64f378914f4d13f9726c48188468900ab8d88eb528d91  incusd.confd
-ca8762648020b4c933879a7a01b3f6699e9efc1dc1141228342e6619d7e9b07b13d359121767d8cd1ce6d83752ced226964138040454eebec17a3479acdbcda3  incusd.initd
+021999ffd924a77aab0debefe69e4df0f7157c5b937dd3127724951f6050449422b03b7d8ad2957cfa0a781dbc1417fa1b97f7e1b6e8380342727631a0173500  incusd.initd
 a495ca525f2d98771e076026e9046f5d120aa929ed114cae330829ad698c4dbc5d80ed815328f3558584520f6c8d44d7b037721eb977b70f0ad288f6ad19e9cf  incus-feature-agent.initd
 ac40bdeb902a95c10d814a92ebf8f94b7d03858796278258b3bac43044329790d64fbd29a90db2491964d0228f894a098fee27699a37e635295b5c4386a50028  incus-feature-user.initd
-2fb9f4b3e70eca29b023d17120eb4730efc9e4ad560ad94337ecbaf09992b800554a942847b1b992076712378c644f493a5ca3c58513760a26ba816f4c6dc8fc  0001-statically-build-incus-agent-and-incus-migrate.patch
+3cab43fa7747a9d3d265a209ad0797639e05cf421a376d0a90e8ceb7d06e9b7243366a581e9925f24ac58b6739cc2370a0babb67545e725b9da4404128ca21bd  0001-statically-build-incus-agent-and-incus-migrate.patch
 "

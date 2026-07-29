@@ -2,7 +2,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=go-passbolt-cli
 pkgver=0.3.2
-pkgrel=6
+pkgrel=14
 pkgdesc="Command-line tool to interact with Passbolt"
 url="https://github.com/passbolt/go-passbolt-cli"
 arch="all"
@@ -13,10 +13,6 @@ source="
 	passbolt-cli-helper.sh
 	"
 options="net" # go dependencies
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -o go-passbolt-cli

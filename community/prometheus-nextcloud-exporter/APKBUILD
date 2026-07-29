@@ -2,8 +2,8 @@
 # Maintainer: Guy Godfroy <guy.godfroy@gugod.fr>
 pkgname=prometheus-nextcloud-exporter
 _pkgname=nextcloud-exporter
-pkgver=0.8.0
-pkgrel=8
+pkgver=0.9.1
+pkgrel=1
 pkgdesc="Prometheus nextcloud exporter"
 url="https://github.com/xperimental/nextcloud-exporter"
 arch="all"
@@ -38,7 +38,7 @@ package() {
 }
 
 sha512sums="
-60b7c3df703a1c7ba3dcb4395b6782b0205b25048a444ea881e9eca311b8507f22149923db952f25442ab520ff967f6efa571087fb70d7a3a302748e23dc0ef3  nextcloud-exporter-0.8.0.tar.gz
+9b8d25b422e89010a4e9c6a397259fb7828572d2e912bfb4a8e2a30ebc6f94d9e14f913bfbdbd8c048fb843f90d1fe7183037777655764e59d2bf1b2eae87d03  nextcloud-exporter-0.9.1.tar.gz
 4271cac29895943c2d6b7a8bf5a1d35799c1af2a558b7599ffafe037e3de5186773485eb398623e50a4926a431c6cd4942049e16d970e5cf922258c0ffede180  nextcloud-exporter.initd
 c3bbcaf220838f405fae2c23f67902d9efe247713b96b024f713b843c015dcb8fa7a3427f681dc9f682a7dae42dfec461ed329a9cfcaa1bce95eecee28ce8d59  nextcloud-exporter.confd
 "

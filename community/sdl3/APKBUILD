@@ -1,6 +1,6 @@
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=sdl3
-pkgver=3.2.22
+pkgver=3.4.12
 pkgrel=0
 pkgdesc="development library designed to provide low level access to audio, keyboard, mouse, joystick and graphics"
 url="https://www.libsdl.org"
@@ -14,6 +14,7 @@ makedepends="
 	jack-dev
 	libdecor-dev
 	libsamplerate-dev
+	libusb-dev
 	libx11-dev
 	libxcursor-dev
 	libxext-dev
@@ -22,7 +23,7 @@ makedepends="
 	libxrandr-dev
 	libxrender-dev
 	libxscrnsaver-dev
-	libusb-dev
+	libxtst-dev
 	pipewire-dev
 	pulseaudio-dev
 	samurai
@@ -31,7 +32,9 @@ makedepends="
 	$depends_dev
 	"
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev"
-source="https://github.com/libsdl-org/SDL/releases/download/release-$pkgver/SDL3-$pkgver.tar.gz"
+source="https://github.com/libsdl-org/SDL/releases/download/release-$pkgver/SDL3-$pkgver.tar.gz
+	increase-testrwlock-timeout.patch
+	"
 builddir="$srcdir/SDL3-$pkgver"
 
 build() {
@@ -72,5 +75,6 @@ package() {
 }
 
 sha512sums="
-e19f02c9b4c4f8029d9ba59c84c2cf90cacbcb4a8b79aff90316313cbfde5a54821e0e785300c04d71a498cf85e8fae9519aeb60abac4a1f78d185026cd88f66  SDL3-3.2.22.tar.gz
+c53cb5d82f6a9b7221bfd4f64d5352fd0c91837b7cb88ccf4898657b241189e25b7d405aa0c5c42ee25bad9a19c1da5c2daca6f8fde493ae26cb3e5f2883c0f5  SDL3-3.4.12.tar.gz
+de293fa31b824dd178e3c2300f8debd46d2d0b779c0330004687cf43f65341935e988da98c3fb0fd12f7cac8fd082c1854f153e5eaf31991b77369e8723f7fe8  increase-testrwlock-timeout.patch
 "

@@ -1,7 +1,7 @@
 # Maintainer: Thomas Liske <thomas@fiasko-nw.net>
 pkgname=xdp-tools
-pkgver=1.5.6
-pkgrel=0
+pkgver=1.6.3
+pkgrel=1
 pkgdesc="A library and utilities for use with XDP"
 url="https://github.com/xdp-project/xdp-tools"
 arch="all"
@@ -9,13 +9,15 @@ license="BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-only AN
 options="!check" # requires real root permissions
 makedepends="libbpf-dev libpcap-dev zlib-dev linux-headers clang llvm grep emacs-nox m4 git bpftool"
 subpackages="$pkgname-doc xdp-tests libxdp libxdp-static libxdp-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/xdp-project/xdp-tools/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/xdp-project/xdp-tools/archive/refs/tags/v$pkgver.tar.gz
+	musl-fix-ethhdr-redefinition.patch
+"
 
 build() {
 	./configure
 
 	make \
-		LIBDIR=/usr/lib \
+		PREFIX=/usr \
 		PRODUCTION=1 \
 		DYNAMIC_LIBXDP=1 \
 		FORCE_SYSTEM_LIBBPF=1 \
@@ -51,5 +53,6 @@ dev() {
 }
 
 sha512sums="
-20a8fa0bf397e66c6f65e095ad95701d96b1ee34303e62741b523fcc9dddbe0bd7d5e86b3f620766e81265a9986180f2de7a61fee80861bf6d944311a63a2526  xdp-tools-1.5.6.tar.gz
+13c045af6a039cfcfbd5987a34c613a4f8767a1371d5d954d51fdaeed8dc8649388f87dd209135bfa5d6f759a9ee8316ee2b4e6779c3c16869d9f1d046bb4713  xdp-tools-1.6.3.tar.gz
+356614cb02cfd3b1abb7f8b5eca60b8dc7ae92b30818419ae7998b77ef06ed5302a99828b8bd0382642711ca71cd4f2b87d59a5af10e59926dfce4b027c258e2  musl-fix-ethhdr-redefinition.patch
 "

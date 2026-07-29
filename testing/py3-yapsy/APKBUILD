@@ -3,7 +3,7 @@
 pkgname=py3-yapsy
 _pkgname=Yapsy
 pkgver=1.12.2
-pkgrel=7
+pkgrel=9
 pkgdesc="DIY Python plugin management toolkit"
 url="https://yapsy.sourceforge.net"
 arch="noarch"
@@ -28,7 +28,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

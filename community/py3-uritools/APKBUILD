@@ -3,7 +3,7 @@
 pkgname=py3-uritools
 _pyname=uritools
 pkgver=4.0.3
-pkgrel=0
+pkgrel=1
 pkgdesc="Python functions for URI parsing, classification, and composition"
 url="https://github.com/tkem/uritools"
 license="MIT"
@@ -22,7 +22,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

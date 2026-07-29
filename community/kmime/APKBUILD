@@ -1,47 +1,58 @@
 # The group tag is just to easily find this APKBUILD by some scripts for automation
-# group=kde-applications
+# group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kmime
-pkgver=25.08.0
+pkgver=6.28.0
 pkgrel=0
-pkgdesc="Library for handling mail messages and newsgroup articles"
-# armhf blocked by qt6-qtdeclarative -> qt6-qttools
-arch="all !armhf"
-url="https://community.kde.org/KDE_PIM"
-license="LGPL-2.0-or-later"
+pkgdesc="Library to assist handling MIME data"
+arch="all"
+url="https://community.kde.org/Frameworks"
+license="LGPL-2.0-only AND LGPL-2.0-or-later"
 depends_dev="
 	kcodecs-dev
-	ki18n-dev
 	qt6-qtbase-dev
 	"
 makedepends="$depends_dev
-	doxygen
 	extra-cmake-modules
-	graphviz
+	kde-qdoc-common
 	qt6-qttools-dev
 	samurai
 	"
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
-_repo_url="https://invent.kde.org/pim/kmime.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/kmime-$pkgver.tar.xz"
+subpackages="
+	$pkgname-dev
+	$pkgname-lang
+	"
+case "$CARCH" in
+	armhf) ;;
+	*) subpackages="$subpackages $pkgname-doc"
+esac
+_repo_url="https://invent.kde.org/frameworks/kmime.git"
+source="https://download.kde.org/stable/frameworks/${pkgver%.*}/kmime-$pkgver.tar.xz"
 
 build() {
+	export KDE_DOCS=/usr/share/kde/documentation
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_QCH=ON
+		-DCMAKE_INSTALL_LIBDIR=lib
 	cmake --build build
+
+	cmake --build build --target prepare_docs
+	cmake --build build --target generate_docs
+	cmake --build build --target generate_qch
 }
 
 check() {
-	ctest --test-dir build -E "kmime-(rfc2231|dateformatter|header|message)test"
+	ctest --test-dir build -E "kmime-messagetest"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
+
+	DESTDIR="$pkgdir" cmake --build build --target install_html_docs
+	DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 
 sha512sums="
-c31717432cf4a36260d997b541912cab414e790860e06c8e8d5f856f5d829dfea712062efb36630b1a7256e2874fcf95f9fed7374908d98512bc991b1cbdcc84  kmime-25.08.0.tar.xz
+e57a0c93d2816a662043c1f5beac7f426f6e3ad110b23dafd6b02e6e8c09d656057fd1b02447f77b279f7cf807eba09bcb2bb142445a624634cd6dc06d9bf2e1  kmime-6.28.0.tar.xz
 "

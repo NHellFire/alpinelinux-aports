@@ -1,7 +1,7 @@
 # Contributor: Oliver Smith <ollieparanoid@postmarketos.org>
 # Maintainer: Oliver Smith <ollieparanoid@postmarketos.org>
 pkgname=mrhlpr
-pkgver=1.8.0
+pkgver=1.11.0
 pkgrel=0
 pkgdesc="postmarketOS tools for interacting with gitlab MRs"
 url="https://gitlab.postmarketos.org/postmarketOS/mrhlpr"
@@ -14,9 +14,13 @@ makedepends="
 	py3-wheel
 	"
 checkdepends="py3-pytest"
+subpackages="
+	$pkgname-pyc
+	$pkgname-common
+	mrtest
+	"
 source="$pkgname-$pkgver.tar.gz::https://gitlab.postmarketos.org/postmarketos/mrhlpr/-/archive/$pkgver/mrhlpr-$pkgver.tar.gz"
 options="!check" # no testsuite
-subpackages="mrhlpr-common mrtest"
 
 build() {
 	gpep517 build-wheel \
@@ -28,7 +32,7 @@ package() {
 	python3 -m installer -d "$pkgdir" \
 		.dist/*.whl
 	install -Dm755 "$builddir"/mrtest/mrtest_nag.sh \
-		-t "$pkgdir"/etc/apk/commit_hooks.d/
+		-t "$pkgdir"/lib/apk/commit_hooks.d/
 }
 
 common() {
@@ -43,9 +47,9 @@ mrtest() {
 	amove \
 		usr/lib/python3*/site-packages/mrtest \
 		usr/bin/mrtest \
-		etc/apk/commit_hooks.d/mrtest_nag.sh
+		lib/apk/commit_hooks.d/mrtest_nag.sh
 }
 
 sha512sums="
-a529c1bfcc8a4766e38e50eefcf94f77aaaf49f01e2cf4230a4df12afecc7f12226cb5944e3b109f77663c87ce81754c873d350eac13ef22ed343d185b47ee45  mrhlpr-1.8.0.tar.gz
+ce400ea3c6946a95fd9143adc0ad7648948afcd6c170257b390e4db6546784d689276feec30798642ec3721766fe11e54622efea0d7e5d6e026ff3abbee7a863  mrhlpr-1.11.0.tar.gz
 "

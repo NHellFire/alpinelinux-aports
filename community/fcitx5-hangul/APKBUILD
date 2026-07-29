@@ -1,7 +1,7 @@
 # Contributor: Lindsay Zhou <i@lin.moe>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-hangul
-pkgver=5.1.7
+pkgver=5.1.10
 pkgrel=0
 pkgdesc="libhangul input method support for fcitx5"
 url="https://github.com/fcitx/fcitx5-hangul"
@@ -33,5 +33,5 @@ package() {
 }
 
 sha512sums="
-952dbc3539cd54c3ced122d806a821d7276a2d373a59e3fff858f1584de1517f3cb06b9e71d3a9bcf577671d38dfdd79828bd22a18e9b9868dad6ebe19bf3983  fcitx5-hangul-5.1.7.tar.gz
+4aa83921950fa12bb68cc5ade9853dbb7789e3711d789d51425a51ca50d4ea818f326e2b69cb3977a00f106126cc233209d3d35aaf579b0448b8e6db1eb64813  fcitx5-hangul-5.1.10.tar.gz
 "

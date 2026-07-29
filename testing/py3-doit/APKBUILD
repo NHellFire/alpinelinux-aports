@@ -3,7 +3,7 @@
 pkgname=py3-doit
 _pkgname=doit
 pkgver=0.36.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A Python Automation Tool"
 url="https://pydoit.org/"
 arch="noarch"
@@ -25,7 +25,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m doit --version
 }
 

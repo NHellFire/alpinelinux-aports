@@ -1,9 +1,9 @@
 # Contributor: ScrumpyJack <scrumpyjack@st.ilet.to>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: mio <miyopan@e.email>
+maintainer="mio <miyopan@e.email>"
 pkgname=ciwiki
 pkgver=3.0.5
-pkgrel=0
+pkgrel=1
 pkgdesc="Personal lightweight wiki written in C"
 url="https://ciwiki.sourceforge.net/"
 arch="all"

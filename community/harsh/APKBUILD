@@ -1,14 +1,14 @@
 # Maintainer: Willow Barraco <contact@willowbarraco.fr>
 pkgname=harsh
 pkgver=0.8.31
-pkgrel=13
+pkgrel=21
 pkgdesc="Habit tracking for geeks"
 url="https://github.com/wakatara/harsh"
 arch="all"
 license="MIT"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/wakatara/harsh/archive/refs/tags/v$pkgver.tar.gz"
-options="!check" # no test suite
+options="!check net" # no test suite, go
 
 build() {
 	go build -v -ldflags="-X main.version=$pkgver" -o harsh .

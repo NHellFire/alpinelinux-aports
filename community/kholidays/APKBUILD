@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kholidays
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Support for icon themes"
 # armhf blocked by qt6-qtdeclarative
@@ -14,8 +14,10 @@ depends_dev="
 	qt6-qtdeclarative-dev
 	"
 makedepends="$depends_dev
+	bison
 	doxygen
 	extra-cmake-modules
+	flex
 	kde-qdoc-common
 	qt6-qtdeclarative-private-dev
 	qt6-qttools-dev
@@ -50,5 +52,5 @@ package() {
 }
 
 sha512sums="
-63151fdfea2edb5f7ec4d2d12fe3df094998c33d72408673b1c71e377779efacc3304fa11bc81aac9e9cd5e95f285361021a36ed0ae3021c27e0f1249a7c59a1  kholidays-6.17.0.tar.xz
+f9366d50b78e3cb1fd07517f90820e8553592ad2efc34564c7df319cb39345af7d5f7110b3130dc507b5ee9c0f446d84a4ba498e9c0638da1c2794b6593b8f46  kholidays-6.28.0.tar.xz
 "

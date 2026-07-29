@@ -1,6 +1,6 @@
 # Maintainer: kpcyrd <git@rxv.cc>
 pkgname=wasm-bindgen
-pkgver=0.2.100
+pkgver=0.2.122
 pkgrel=0
 pkgdesc="Interoperating JS and Rust code"
 url="https://github.com/rustwasm/wasm-bindgen"
@@ -11,17 +11,18 @@ makedepends="
 	cargo-auditable
 	"
 source="https://github.com/rustwasm/wasm-bindgen/archive/refs/tags/$pkgver/wasm-bindgen-$pkgver.tar.gz
-	Cargo-$pkgver.lock::https://gitlab.archlinux.org/archlinux/packaging/packages/wasm-bindgen/-/raw/$pkgver-1/Cargo.lock
+	Cargo.lock
+	tests.patch
 	"
-options="net !check" # most tests fail outside of x86_64
+options="net"
 
 prepare() {
 	# https://github.com/rustwasm/wasm-bindgen/issues/1819
-	cp "$srcdir/Cargo-$pkgver.lock" Cargo.lock
+	cp "$srcdir/Cargo.lock" .
 
 	default_prepare
 
-	cargo fetch --target="$CTARGET" --locked
+	cargo fetch --target="$CHOST" --locked
 }
 
 build() {
@@ -31,7 +32,23 @@ build() {
 
 check() {
 	cd crates/cli
-	cargo test --frozen
+
+	case "$CARCH" in
+	arm*|s390x|x86)
+		RUSTFLAGS= \
+		cargo test --frozen \
+			--no-fail-fast \
+			|| true # FIXME most tests fail
+		;;
+	*)
+		RUSTFLAGS= \
+		cargo test --frozen -- \
+			--skip no_duplicate_wasm_export_in_node_esm_atomics_debug \
+			--skip runtest_panic_unwind \
+			--skip termination_abort_handler \
+			--skip termination_reinit
+		# the above tests make use of the -Z flag, only available in rust nightly
+	esac
 }
 
 package() {
@@ -42,6 +59,7 @@ package() {
 }
 
 sha512sums="
-e7ac95df91b7e6bcfe59954d9923a873711d828241a0ec8e11fc340c90540417050700ed168c06eec0b2ab9ae9be7ec4f63141048c010911a279a577218fc61d  wasm-bindgen-0.2.100.tar.gz
-c4a6c753abf4e5c9c35853849ac9d9c15a649be6a497107bae07286eeb0e163151012616e395dc00ef9abcdf36cdb5c1348b56c7f7921973e3884d7a4fda0ede  Cargo-0.2.100.lock
+fd1ed48c357298a8542078d89a4e98c446a19a9dea8a74702dc71e254554fe54e55deda2c9c073e663c82b9ca150910c03d54c0ef5f7adb6b1e89e9fbe229384  wasm-bindgen-0.2.122.tar.gz
+0cb7c4e7d2dc5137eb6419dfa3aa73423090db568410f85e7fade206a1bd122b42e4bdba7abc3df4e9e933a589177549e25329ee7d64a96b92b427aae0fd7619  Cargo.lock
+23e90619665c294e1f7e2b86ea7050b407fbd94de3b41f1d4df8d7b6dbfd243745a9670bd0ea4e538d35cb64157f4f6303bcf051c71f5ffee9c91487d19ba3fe  tests.patch
 "

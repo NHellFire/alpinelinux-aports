@@ -1,6 +1,6 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=ibus-typing-booster
-pkgver=2.27.75
+pkgver=2.30.11
 pkgrel=0
 pkgdesc="Completion input method for faster typing"
 url="https://mike-fabian.github.io/ibus-typing-booster/"
@@ -47,5 +47,5 @@ pyc() {
 }
 
 sha512sums="
-9f98c913e8495276d974cb43c5e671da2ba89b5c5d1afbd61c832360c8b3c4628134fd096e6ebba67f7f09a58f530f50f9b027f8640c1627be394d3176962ec2  ibus-typing-booster-2.27.75.tar.gz
+2f455921964ccb6e43c2200840c62031471c1c65d615653b9db63e4e870f05245d842abe1199f9fc0b93fb4a272bf08409c1ccaa1e3e6f0191f9b92549fef6ad  ibus-typing-booster-2.30.11.tar.gz
 "

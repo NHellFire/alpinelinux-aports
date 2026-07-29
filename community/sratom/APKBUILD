@@ -1,7 +1,7 @@
 # Contributor: David Demelier <markand@malikania.fr>
 # Maintainer: David Demelier <markand@malikania.fr>
 pkgname=sratom
-pkgver=0.6.18
+pkgver=0.6.22
 pkgrel=0
 pkgdesc="library for serialising LV2 atoms to and from RDF"
 url="https://drobilla.net/software/sratom"
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-3f78f845974cf7d8a7166e6430a9e8a1454c98b4aea065bd7e66da01dba7a210edc540e17613985ddd8f9124ccf8500b71646942d988f4b9c65dd53f0d18f6cf  sratom-0.6.18.tar.xz
+bb3a46e88faf1596d2f10ac9d22f063e52f7c068a0712b0234168346727f179ea236280dae89e4136e97c243d0815444af1dcc6b86d70b99f5f88008481288b0  sratom-0.6.22.tar.xz
 "

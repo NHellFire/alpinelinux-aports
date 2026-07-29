@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=mercurial
-pkgver=7.1.1
+pkgver=7.2.3
 pkgrel=0
 pkgdesc="Scalable distributed SCM tool"
 url="https://www.mercurial-scm.org/"
@@ -130,6 +130,6 @@ lang() {
 }
 
 sha512sums="
-04ba564bbe664a825caa8740ab66ef973acb7795abea1786fdd0c502da7dfe14071b215c6384ac398d0f7b69d86d6da6f9a4dd7dfc9e7123b975ec1656c95092  mercurial-7.1.1.tar.gz
+bc45397354d24e40fc59708995c1bbaaa04b8ac2fbd9ac5fcb94716c6d94a55071f4b586e5fc3295fb7b59906d96bbc8072d3ec8df811d95a5cc946e8b554ec1  mercurial-7.2.3.tar.gz
 b24e1b79ca36ac1d78a5af4e35eb87581f209255838327a7d9315c17175d41bfa4b7f98c66be078cfa1e7d27a41c1a12bba265fa6d3d30edb4e2ba599fe0ed18  blacklist.txt
 "

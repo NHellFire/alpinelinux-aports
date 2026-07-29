@@ -1,7 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=qpdf
-pkgver=12.2.0
+pkgver=12.3.2
 pkgrel=0
 pkgdesc="Command-line tools and library for transforming PDF files"
 url="https://github.com/qpdf/qpdf"
@@ -42,6 +43,7 @@ build() {
 	CFLAGS="$CFLAGS -flto=auto" \
 	cmake -B build -G Ninja \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DCMAKE_BUILD_TYPE=MinSizeRel \
 		-DBUILD_STATIC_LIBS=OFF \
 		-DBUILD_DOC_PDF=OFF \
@@ -67,5 +69,5 @@ fix_qdf() {
 }
 
 sha512sums="
-96a783730ada6cbb7a571d396f7acd1b17ae298c7a83570f8f1f9d16116e6c1d39201068e6c93401fecd058e1db77c6d83f3c744d01a374062cd8773cb329101  qpdf-12.2.0.tar.gz
+2bd574232c32d19f236476afcbd667d246ba2b7d1f92afb34a7712a578285c5c1bfb8bd260c06c569f9b3728716890baeb40cbd309e3bb38c63e431dacbeae8a  qpdf-12.3.2.tar.gz
 "

@@ -4,7 +4,7 @@
 maintainer="Will Sinatra <wpsinatra@gmail.com>"
 pkgname=py3-pygit2
 _pkgname=pygit2
-pkgver=1.18.2
+pkgver=1.19.3
 pkgrel=0
 pkgdesc="Python bindings for libgit2"
 url="https://github.com/libgit2/pygit2"
@@ -50,5 +50,5 @@ package() {
 }
 
 sha512sums="
-1b41ea4b690567614c20f8f3c413e2c018363e841ca746f6bf964f0b74095909249427cbe68b6f600a65b36fa5871a5a3380110e2e4163c4e2ab94273c22216e  py3-pygit2-1.18.2.tar.gz
+30d0a0cf5995781ee01ce849c7d52c3230e0fa51ede757c5b04addeb1c9d14a6acd53177a3c733d7a44c3d1b204cd44c09510ac1427ec1edfa3f1687d0c56109  py3-pygit2-1.19.3.tar.gz
 "

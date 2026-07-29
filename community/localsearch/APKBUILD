@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <achill@achill.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=localsearch
-pkgver=3.10.0
+pkgver=3.11.1
 pkgrel=0
 pkgdesc="Data miners for tracker"
 url="https://gitlab.gnome.org/GNOME/localsearch"
@@ -10,12 +10,13 @@ license="GPL-2.0-or-later"
 depends="tinysparql"
 makedepends="
 	asciidoc
+	bash-completion
 	dbus-dev
 	enca-dev
 	exempi-dev
 	ffmpeg-dev
 	flac-dev
-	gexiv2-dev
+	gexiv2-0.16-dev
 	giflib-dev
 	glib-dev
 	gobject-introspection-dev
@@ -48,7 +49,7 @@ checkdepends="
 	py3-gobject3
 	python3
 	"
-subpackages="$pkgname-dbg $pkgname-lang $pkgname-doc"
+subpackages="$pkgname-bash-completion $pkgname-dbg $pkgname-lang $pkgname-doc $pkgname-systemd"
 source="https://download.gnome.org/sources/localsearch/${pkgver%.*}/localsearch-$pkgver.tar.xz
 	10-landlock-non-usrmerge.patch
 	"
@@ -62,7 +63,7 @@ build() {
 	abuild-meson \
 		-Db_lto=true \
 		-Dfunctional_tests="$(want_check && echo true || echo false)" \
-		-Dsystemd_user_services=false \
+		-Dsystemd_user_services_dir=/usr/lib/systemd/user \
 		-Dlandlock=enabled \
 		. output
 	meson compile -C output
@@ -77,6 +78,6 @@ package() {
 }
 
 sha512sums="
-fbbf27ffb76058e38ff282359208b53e59e8cd7a33695272b97dec6227bcef5d0c9aeebbf71d560bf059edf68dd3d66941bde21418f49124a6844d1d2511f168  localsearch-3.10.0.tar.xz
+e6a5983a198225da581a1aef52f46f2f2d1d0b9abb1e597646cd7bcc7e781ea21ec4042213abd93324dc4e3eb810d8ab828bc25a8285bd0712d23d1c62b97e66  localsearch-3.11.1.tar.xz
 0b7b0b842be5c98a0e95e0b6ac0034cd8067ee16d3f3a091e825a5123a1da210b36bc7c9da545d1a7f8393e57bf2ce89df6ce0a8fb056be2e37e984ef608f337  10-landlock-non-usrmerge.patch
 "

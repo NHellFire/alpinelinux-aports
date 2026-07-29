@@ -2,7 +2,7 @@
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=gauth
 pkgver=1.5.0
-pkgrel=7
+pkgrel=15
 pkgdesc="Replacement for Google Authenticator"
 url="https://github.com/pcarrier/gauth"
 license="ISC"
@@ -11,9 +11,6 @@ makedepends="go"
 source="https://github.com/pcarrier/gauth/archive/v$pkgver/gauth-v$pkgver.tar.gz"
 
 export GOFLAGS="$GOFLAGS -modcacherw"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v -x -o "$builddir"/bin/

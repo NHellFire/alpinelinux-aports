@@ -2,11 +2,11 @@
 # Maintainer: Milan P. Stanić <mps@arvanta.net>
 pkgname=u-boot-spacemit
 _basever=2022.10
-_realver=2.0.4
+_realver=2.2.10
 pkgver=${_basever}.${_realver}
 pkgrel=0
 pkgdesc="u-boot bootloader for spacemit"
-url="https://gitee.com/bianbu-linux/uboot-2022.10"
+url="https://github.com/spacemit-com/uboot-2022.10"
 arch="riscv64"
 license="GPL-2.0-or-later OFL-1.1 BSD-2-Clause BSD-3-Clause eCos-2.0 IBM-pibs
 	ISC LGPL-2.0-only LGPL-2.1-only X11"
@@ -16,11 +16,12 @@ makedepends="
 	bash
 	bc
 	bison
+	coreutils
 	dtc
 	flex
 	gnutls-dev
 	linux-headers
-	opensbi-spacemit
+	opensbi
 	openssl-dev
 	py3-elftools
 	py3-setuptools
@@ -28,15 +29,21 @@ makedepends="
 	swig
 	util-linux-dev
 	"
-source="$pkgname-v$_realver.tar.gz::https://gitee.com/bianbu-linux/uboot-2022.10/repository/archive/v$_realver.tar.gz
-	020-mbr-support.patch
-	022-syslinux-and-script-support.patch
+source="$pkgname-v$_realver.tar.gz::https://github.com/spacemit-com/uboot-2022.10/archive/refs/tags/k1-bl-v$_realver-release.tar.gz
+	002-SpacemiT-K1X-Fixups.patch
+	003-SpacemiT-K1X-Defconfig-Fixups.patch
+	005-Orange-Pi-RV2-u-boot-support-for-XM25QU128C-flash.patch
+	006-orangepi-rv2-r2s-fit.patch
+	k1-x.env
+	use-mainline-opensbi.patch
+	0001-k1-x_MUSE-Book.dts-add-P1-regulator-to-MUSE-Book-boa.patch
+	k1-bl-v2.2.y-opensbi-embeded.patch
 	"
-builddir=$srcdir/uboot-$_basever-v$_realver
+builddir=$srcdir/uboot-$_basever-k1-bl-v$_realver-release
 
 prepare() {
-	rm -f rm board/spacemit/k1-x/k1-x.env
 	default_prepare
+	cp -f $srcdir/k1-x.env board/spacemit/k1-x/k1-x.env
 	make k1_defconfig
 	scripts/config --file .config --disable PRINT_TIMESTAMP
 	scripts/config --file .config --set-val BOOTDELAY 2
@@ -45,11 +52,16 @@ prepare() {
 	scripts/config --file .config --disable LOCALVERSION_AUTO
 	scripts/config --file .config --disable AUTOBOOT_DELAY_STR
 	scripts/config --file .config --disable AUTOBOOT_STOP_STR
+	scripts/config --file .config --disable ENV_IS_IN_NFS
+	scripts/config --file .config --enable VIDEO_MIPI_DSI
+	scripts/config --file .config --enable ENV_IS_IN_SPI_FLASH
+	scripts/config --file .config --enable USE_PREBOOT
+	scripts/config --file .config --set-str PREBOOT "usb start"
 	scripts/config --file .config --set-str LOCALVERSION " $_realver"
 }
 
 build() {
-	export OPENSBI="/usr/share/opensbi-spacemit/fw_dynamic.itb"
+	export OPENSBI="/usr/share/opensbi/generic/firmware/fw_dynamic.bin"
 	make
 }
 
@@ -57,11 +69,21 @@ package() {
 	mkdir -p "$pkgdir"/usr/share/$pkgname
 	install -m644 "$builddir"/u-boot.itb "$pkgdir"/usr/share/$pkgname/
 	install -m644 "$builddir"/FSBL.bin "$pkgdir"/usr/share/$pkgname/
+	install -m644 "$builddir"/u-boot-env-default.bin "$pkgdir"/usr/share/$pkgname/
 	install -m644 "$builddir"/bootinfo_emmc.bin "$pkgdir"/usr/share/$pkgname/
+	install -m644 "$builddir"/bootinfo_sd.bin "$pkgdir"/usr/share/$pkgname/
+	install -m644 "$builddir"/bootinfo_spinand.bin "$pkgdir"/usr/share/$pkgname/
+	install -m644 "$builddir"/bootinfo_spinor.bin "$pkgdir"/usr/share/$pkgname/
 }
 
 sha512sums="
-69e5a13bebae37d3cc67d56be1057753d6ced351001729135b552d73ae704431ee2674d0673a7fa20189cd8323a26e4af0e5e433a5963acd36d5fb73196d7151  u-boot-spacemit-v2.0.4.tar.gz
-a495f25797013d23a262b7bccd124315927b50febdb4a1a5564116dd82ef164514acec920cfba021eb4f48686f478a0f0a8a498115709715890c6c5236204b09  020-mbr-support.patch
-87ee8313dbe4f1e23b4e11ad728d17f5b63492ed1e5c6f00f2e3f6a286697c32305595a877517f924416adc9ad88d35e79f20e813a2375ee9b7a33d71b8ca25e  022-syslinux-and-script-support.patch
+8bd80cb331c18e1a7d6aca41d8949229774863f587c5fc1706e66eed316217edb6504893d0e130c955e9276f7b8fb0cd1a3e96d8747938f39a19cc4e86b70298  u-boot-spacemit-v2.2.10.tar.gz
+0445f28db59821af8c076c323ea675e16e99581d25c914342da7a78200740b88ee9abcd136cc98aaa5e62c866e145e38bdc8d3242a3437e355718c2c8f5ed179  002-SpacemiT-K1X-Fixups.patch
+aaf92d757d9f808d3441595c2f680a217946be2042a3191456bc7fd84c04815c081dc65bfb3b8b08f6f02158cd201210dc4e76c57b75ae2e82203874a0952071  003-SpacemiT-K1X-Defconfig-Fixups.patch
+f7569e0a673818a19f164f907f9ace3b7a09df5d2cbbe7d234dd0ec907e3ee4ab49546dc9433064d680f910631c072f250e46d4da673d7753c0983add6ff50b2  005-Orange-Pi-RV2-u-boot-support-for-XM25QU128C-flash.patch
+98d572bdd1c0dfded33e0de8497e32712969e72435ac6b878177e650769b2b99007fbb551c19c3d6bd223e994a0fa80ca4809902d11cbb500fa27f38fda49f1b  006-orangepi-rv2-r2s-fit.patch
+9c26e76bde12043903cd674e3a8da96a18ee772e54ccb2ded26153c50a5d08d233269c663ae5444dc29ce94d809193574c437a4db27566dc1ad14db345bbe6a9  k1-x.env
+646d27f9307ca65058e9b1b7eee80fc2af0143563020a608caa6abd728602a8f0c594e0bac1755add8f34329ef689559e784e95d2b37664dd479a5e077f4f4c3  use-mainline-opensbi.patch
+67b6758d98cf39211695bb786cf4a4b01b1352432395509766e1f95bf28248040c2807b931b6aff552b49a00ba3f4fa1d7d61d55edd9c0d34e6de7cb01da51b1  0001-k1-x_MUSE-Book.dts-add-P1-regulator-to-MUSE-Book-boa.patch
+082b69bb47ae8356852a15e73e422e5bd155964e2e1319051ef939b83f7d8cdb7595552f9a3f1fcd0a17871b58c975cf4d68a41262fd6025264dca088802a597  k1-bl-v2.2.y-opensbi-embeded.patch
 "

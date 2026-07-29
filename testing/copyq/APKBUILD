@@ -3,7 +3,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=copyq
 _pkgname=CopyQ
-pkgver=10.0.0
+pkgver=16.0.0
 pkgrel=0
 pkgdesc="Clipboard manager with searchable and editable history"
 url="https://github.com/hluk/CopyQ"
@@ -12,10 +12,16 @@ license="GPL-3.0-or-later"
 makedepends="
 	cmake
 	extra-cmake-modules
+	kguiaddons-dev
 	knotifications-dev
 	kstatusnotifieritem-dev
 	libxfixes-dev
 	libxtst-dev
+	qtkeychain-dev
+	qt6-qtbase-dev
+	qt6-qtbase-private-dev
+	qca-qt6-dev
+	qt6-qtdeclarative-private-dev
 	qt6-qtsvg-dev
 	qt6-qttools-dev
 	qt6-qtwayland-dev
@@ -27,9 +33,9 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/hluk/$_pkgname/archive/v$pkg
 builddir="$srcdir/$_pkgname-$pkgver"
 
 build() {
-	cmake -B build -G Ninja \
-		-DCMAKE_BUILD_TYPE=None \
+	cmake -B build -G Ninja -DWITH_PRIVATE_API=OFF \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DWITH_AUDIO=OFF \
 		-DWITH_QT6=ON
 	cmake --build build
 }
@@ -39,5 +45,5 @@ package() {
 }
 
 sha512sums="
-e53254f2394b062955484bc176c002168a64b580159915bfab07f53a9227371821c4f8c7d66fab9a477c4613e5d50f47c19038a52828fa459f5a086ae64dba42  copyq-10.0.0.tar.gz
+843abe18a2bcd9e2c6c7a68ed13011e465c0a606df3a3fac2ddbfacfb62b291ab3ce21ac15be8216e582ffe052f2815236e637ac35efc78031754d74e3b6f0ee  copyq-16.0.0.tar.gz
 "

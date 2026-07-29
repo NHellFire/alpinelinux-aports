@@ -3,7 +3,7 @@
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=atools
 pkgver=20.2.2
-pkgrel=18
+pkgrel=26
 pkgdesc="Auxilary scripts for abuild"
 url="https://gitlab.alpinelinux.org/Leo/atools"
 arch="all"
@@ -13,10 +13,6 @@ makedepends="scdoc redo go"
 checkdepends="bats"
 subpackages="$pkgname-doc $pkgname-apkbuild-lint:apkbuild_lint:noarch"
 source="$pkgname-$pkgver.tar.gz::https://gitlab.alpinelinux.org/Leo/atools/-/archive/$pkgver/atools-$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	redo build

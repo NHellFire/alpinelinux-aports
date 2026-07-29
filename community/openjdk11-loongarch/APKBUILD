@@ -1,11 +1,11 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=openjdk11-loongarch
-pkgver=11.0.27_p6
+pkgver=11.0.29_p7
 pkgrel=0
 _bootver=11.0.27_p6-r0
-_majorver=${pkgver%%.*}
 _pkgver=${pkgver/_p/+}-ls-ga
+_majorver=${pkgver%%.*}
 pkgdesc="Loongarch port of OpenJDK $_majorver"
 url="https://github.com/loongson/jdk${_majorver}u"
 arch="loongarch64"
@@ -123,8 +123,8 @@ build() {
 
 	# we want to build hotspot with better optimisations; it's set to this
 	# (prepended) anyway, and it's huge
-	export CFLAGS="${CFLAGS//-Os/-O3} -std=gnu17"
-	export CXXFLAGS="${CXXFLAGS//-Os/-O3}"
+	export CFLAGS="$CFLAGS -O3 -std=gnu17"
+	export CXXFLAGS="$CXXFLAGS -O3"
 
 	# CFLAGS, CXXFLAGS and LDFLAGS are ignored as shown by a warning
 	# in the output of ./configure unless used like such:
@@ -341,10 +341,10 @@ create_miniboot() {
 }
 
 sha512sums="
-88b0fa266f364aef5d6ba8413ccca7045d4d74b82330149148646365d044ba342de95185a3764c8c4321c2473601cb3ff17214bf535166e44c71bff09949dcef  openjdk11-loongarch-11.0.27+6-ls-ga.tar.gz
+c9bc95a6afb6c9075092c079f693abc722e24f3d25b99635dd1b0785b608fa8588c09894ce2c77153180a630aa330c496f02a4311acb23617f9fbe9a6b4284db  openjdk11-loongarch-11.0.29+7-ls-ga.tar.gz
 0deb6cc0776e545b0d96a88e577ca727e059ae572220aa7fbfe4742f3b131ab9df93330eb85dc03f9e4b21c5134f9ca6e9fb53f6fb02e80fd7eef6b20af6c4fe  jdk-11.0.27_p6-r0-miniboot.tgz
-b0963e5b6dc4d6cec0670827e0a0691d65e44587a8912ac9110aeb36d7f2d07a8afe9e155ea1568fe1534c09ef3277aeca8a66bbf155354b5cdc6e2b9636b5b4  JDK-8267908.patch
-438c6c4c760b7aece90a8e09d5edce842286071195cffe8d417208f3dfdef0953eb68fb8282d44cbd7ac8eeaee637cdb040c06ffa5381c36f47ffd48b5e6d938  lfs64.patch
+e1a834ae2f5dbe1ad73881d8841f8f6bfa0a248e7b4a36cd40761e770d34577af334cad828161ff38d2d12ff22f585395accd500bf60b2a09763c9c2f6e0ecfa  JDK-8267908.patch
+8c2f6582657c9197c6e0349884ef2ca5f475a4fa664d5d12a22d9b849772b973051a5e28a0fbd76bc37886468c23e5efba8d52c2716156feea9392a08217a0f1  lfs64.patch
 674229c4192ea0d7adc263934f7a4be662b064b7622526d32a187319dcff0fdcd0ba63a7640167604dc32646894071828c6c24dd9914fb0e0007bd2de4af197d  loongarch-fpu_control.patch
 601ac59e59d32cbaf91f7541bd8173b38c68cbec96a7fb74227017afc8e5dc6ce4b8be03e92dd34cf52370e5d52beb780808af57b17c79c53ae8ec64cd34a92d  Example.java
 "

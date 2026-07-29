@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kconfigwidgets
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Widgets for KConfig"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -58,5 +58,5 @@ package() {
 }
 
 sha512sums="
-7028281246585e62b384ff8aae73f84e6f2b9d9450c210fff667e751462483bc4b26e213bcc6b55f519f9cf854439fd9a3b61a7eab4f07a2fef2477a968b9b84  kconfigwidgets-6.17.0.tar.xz
+af6433f3dd2743a600dee1133ef96105d982480336441067d609443f1ad73119c031f23dd4b5a97d2231192ffc5dad58d691915f5f65725520b23cb67229342d  kconfigwidgets-6.28.0.tar.xz
 "

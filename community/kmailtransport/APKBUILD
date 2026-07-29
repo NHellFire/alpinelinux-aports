@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kmailtransport
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Manage mail transport"
-# armhf blocked by extra-cmake-modules
-# x86, ppc64le and s390x blocked by qt6-qtwebengine -> libkgapi
-arch="all !armhf !x86 !ppc64le !s390x !riscv64"
+# armhf blocked by qt6-qtdeclarative -> ki18n
+# x86, armv7, s390x and riscv64 blocked by qt6-qtwebengine -> libkgapi
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://kontact.kde.org/"
 license="LGPL-2.0-or-later"
 depends_dev="
@@ -53,5 +53,5 @@ package() {
 }
 
 sha512sums="
-65fb0a3b934b7e92e5d708094962dbdc15eabf119e39551422bbf14e9b425148ab75a98f2f4ded25ea44938cb5bc2add4d2432282c6a065e9b26266b177ce7e0  kmailtransport-25.08.0.tar.xz
+85637c5057298833ca5aed483de8be028998cc2a54f37f4872589ba6f407cb9349d0c614ceed87fe805876a66e32f008f7190ccd0636621380abbf3dd34caad4  kmailtransport-26.04.3.tar.xz
 "

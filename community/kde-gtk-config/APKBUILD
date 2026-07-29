@@ -2,9 +2,9 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kde-gtk-config
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
-pkgdesc="GTK2 and GTK3 Configurator for KDE"
+pkgdesc="Syncs KDE settings to GTK applications"
 # armhf blocked by qt6-qtdeclarative
 # s390x blocked by xsettingsd
 arch="all !armhf !s390x"
@@ -18,7 +18,6 @@ depends="
 makedepends="
 	extra-cmake-modules
 	gsettings-desktop-schemas-dev
-	gtk+2.0-dev
 	gtk+3.0-dev
 	karchive-dev
 	kcmutils-dev
@@ -56,5 +55,5 @@ package() {
 }
 
 sha512sums="
-47b9ca50dd6a04d86240d376ff3dd6ae1ee98ce9c69cce65e462fcbd96392a2ad773329c8e2465dfa0efe1da6de1c91b65b4b48c0b99f83dcf84eb6ea5c47ef9  kde-gtk-config-6.4.5.tar.xz
+464ed089a3b5a8ae100daf84d77ed91d2eb42714c0d0ac7e59f2badf4bb7aa731cf95e7b4fdc40d32e88264fd07a31c87b239dcdeca2f184f2e9f1f000859bba  kde-gtk-config-6.7.3.tar.xz
 "

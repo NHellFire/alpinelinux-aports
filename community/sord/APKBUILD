@@ -1,7 +1,7 @@
 # Contributor: David Demelier <markand@malikania.fr>
 # Maintainer: David Demelier <markand@malikania.fr>
 pkgname=sord
-pkgver=0.16.18
+pkgver=0.16.22
 pkgrel=0
 pkgdesc="C library for storing RDF data in memory"
 url="https://drobilla.net/software/sord"
@@ -25,5 +25,5 @@ package() {
 }
 
 sha512sums="
-e271d97c77187d7ed0a9c8fe0a65fcf50e269ba79dba4e8d55781ffe3715888c5388d90812d76a48e89ecc9c5e047e0d53ff40333fde7dbbf12dffc496d05e31  sord-0.16.18.tar.xz
+3821500f810e3b1cdbd763db419445c931d8b61de571f475646f11a5740c521c93c47ecab2e81a580a0d94bf432faa0de78fe3be1138c87bf9baca8fe23bb0cd  sord-0.16.22.tar.xz
 "

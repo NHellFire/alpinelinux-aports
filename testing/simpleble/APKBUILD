@@ -1,6 +1,6 @@
-# Maintainer:
+maintainer="Leon White <badfunkstripe@gmail.com>"
 pkgname=simpleble
-pkgver=0.10.3
+pkgver=1.0.0
 pkgrel=0
 pkgdesc="Cross-platform library for bluetooth low-energy"
 url="https://github.com/simpleble/simpleble"
@@ -15,12 +15,10 @@ makedepends="
 subpackages="
 	$pkgname-dev
 	libsimpleble:lib
-	libsimpleble-c:lib_c
+	libsimplecble:lib_c
 	libsimplebluez:lib_bluez
 	"
-source="$pkgname-$pkgver.tar.gz::https://github.com/simpleble/simpleble/archive/refs/tags/v$pkgver.tar.gz
-	bluez.patch
-	"
+source="$pkgname-$pkgver.tar.gz::https://github.com/simpleble/simpleble/archive/refs/tags/v$pkgver.tar.gz"
 options="!check" # tests require plain
 
 build() {
@@ -30,6 +28,14 @@ build() {
 		-DCMAKE_SKIP_INSTALL_RPATH=ON \
 		-DBUILD_SHARED_LIBS=ON
 	cmake --build build-ble
+
+	cmake -B build-cble -G Ninja -S simplecble \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_BUILD_TYPE=None \
+		-DCMAKE_SKIP_INSTALL_RPATH=ON \
+		-DBUILD_SHARED_LIBS=ON
+	cmake --build build-cble
+
 	cmake -B build-bluez -G Ninja -S simplebluez \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_BUILD_TYPE=None \
@@ -40,6 +46,7 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build-ble
+	DESTDIR="$pkgdir" cmake --install build-cble
 	DESTDIR="$pkgdir" cmake --install build-bluez
 }
 
@@ -48,7 +55,7 @@ lib() {
 }
 
 lib_c() {
-	amove usr/lib/libsimpleble-c.so.*
+	amove usr/lib/libsimplecble.so.*
 }
 
 lib_bluez() {
@@ -56,6 +63,5 @@ lib_bluez() {
 }
 
 sha512sums="
-0f31bec8e2a350abfec864362c5ab04d9226a15fcbe829da600169688c7dbb19a5a61d32a61609dba101bf101b4a277a23c51f05f1df5605657fb5d737a04f0a  simpleble-0.10.3.tar.gz
-36a75766a4b67f7cb7e1fb1f751bbaac4948957056940e1cb3dc68a58811f41b69badda8c15912ef20a904edc8da43ac6131bd762e978aabb82b693b2d2fb846  bluez.patch
+ba8b7f9a03d69e13ae6becfbc3917736d50580912720347ffe8e11f07d3620e8620071857570b405da5a87d65c97cc1f80fadeae7e077c316ac040a923ea1260  simpleble-1.0.0.tar.gz
 "

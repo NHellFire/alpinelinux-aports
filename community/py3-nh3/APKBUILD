@@ -1,7 +1,6 @@
-# Contributor: Leo <thinkabit.ukim@gmail.com>
-# Maintainer: Bart Ribbers <bribbers@disroot.org>
+maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-nh3
-pkgver=0.2.18
+pkgver=0.3.6
 pkgrel=0
 pkgdesc="Python bindings to the ammonia HTML sanitization library"
 url="https://github.com/messense/nh3"
@@ -37,5 +36,5 @@ package() {
 }
 
 sha512sums="
-1579ece4642911bf760ee3747ea44b7001ee7f70da65940b548fc2b30a20fee5d5c924d7d44ee73fcf4b3642591cb7085b3da0088b91a6752abfde53c798c275  nh3-0.2.18.tar.gz
+a6527724b56fd88ea582b7f64d76727ea3aa2bac2ad53c9539a501439c6955b5e588141522e4d74b49fd862a4cfa7e022a966d3a667d3c77c81a57677bdfd03e  nh3-0.3.6.tar.gz
 "

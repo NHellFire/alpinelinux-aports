@@ -1,11 +1,11 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=pulumi-language-java
-pkgver=1.16.1
-pkgrel=2
+pkgver=1.28.0
+pkgrel=1
 pkgdesc="Infrastructure as Code SDK (Java language provider)"
 url="https://pulumi.com/"
 # blocked by pulumi
-arch="x86_64 aarch64"
+arch="x86_64 aarch64 loongarch64"
 license="Apache-2.0"
 makedepends="go"
 subpackages="
@@ -16,10 +16,6 @@ subpackages="
 source="$pkgname-$pkgver.tar.gz::https://github.com/pulumi/pulumi-java/archive/refs/tags/v$pkgver.tar.gz"
 builddir="$srcdir/pulumi-java-$pkgver/pkg"
 options="net" # download Go modules
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	mkdir bin
@@ -34,7 +30,7 @@ build() {
 }
 
 check() {
-	# Skipped tests require gradle installed and external schema files from the main pulumi repo
+	# Skipped tests requiring gradle and external schema files from the main pulumi repo
 	go test -skip 'TestGenerate(JavaProgram|Package)|TestLanguage' ./...
 }
 
@@ -50,5 +46,5 @@ package() {
 }
 
 sha512sums="
-c49e1436504f6806d2b03920b25ab523eb2122cd98a9ab0f8d5d47a9d724bee6605e2d94c6a8fc29e59458266a91f87ab9f25b9c94bf828041c08cfafb4c1011  pulumi-language-java-1.16.1.tar.gz
+877b9049f619baec0421743713be099d53431e4db767e3ebbb22e294a73927fd917c2aae2b1ddd4d1f79b201fc83dfd3c45535cbd56876534aafafe4e8de373d  pulumi-language-java-1.28.0.tar.gz
 "

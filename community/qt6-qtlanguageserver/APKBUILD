@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtlanguageserver
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Qt implementation of the Language Server Protocol"
 url="https://qt.io/"
@@ -47,5 +47,5 @@ dev() {
 }
 
 sha512sums="
-d13807e618d39fbc9ed6234310f4a47ecb4fcceeb215b3a29e6e3ade7033a334a8a0e6de4690a0a938cbb71db0c0eaca00fb408e1b0205d218cc98497bb52e88  qtlanguageserver-everywhere-src-6.9.2.tar.xz
+600da7641dea82621ddf24ea69b718d213e083f481300544b70aa41a7d89101d00b2b38bf963df19c0a4756614b2d93814bfe86c3320744e16593630beb33660  qtlanguageserver-everywhere-src-6.11.1.tar.xz
 "

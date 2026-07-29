@@ -1,7 +1,7 @@
 # Maintainer: Thomas Liske <thomas@fiasko-nw.net>
 pkgname=irtt
 pkgver=0.9.1
-pkgrel=35
+pkgrel=43
 pkgdesc="Isochronous Round-Trip Tester"
 url="https://github.com/heistp/irtt"
 arch="all"
@@ -16,10 +16,6 @@ source="https://github.com/heistp/irtt/archive/v$pkgver/irtt-$pkgver.tar.gz
 	"
 install="irtt.pre-install"
 subpackages="$pkgname-openrc"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build ./cmd/irtt

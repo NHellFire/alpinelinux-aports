@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=kcbench
-pkgver=0.9.12
-pkgrel=1
+pkgver=0.9.15
+pkgrel=0
 pkgdesc="Linux kernel compile benchmark"
 url="https://gitlab.com/knurd42/kcbench"
 arch="noarch"
@@ -13,8 +13,10 @@ depends="
 	coreutils
 	elfutils-dev
 	flex
+	gawk
 	gcc
 	grep
+	linux-headers
 	lscpu
 	make
 	openssl
@@ -37,5 +39,5 @@ package() {
 }
 
 sha512sums="
-948611b7b58eeaadfccddb6a9e7f31d076c25473baffb15a7a38761b4abacc6d8870899c35081a281f36c76c44ff41c83cc63ab539ade1b694389d5d09d86366  kcbench-v0.9.12.tar.gz
+11a247ea461e3d6681bc5104eeba9f5619314fbbaa19e02f60a429c0bb6ac7b43861b5409a2d67eeeaf66c810f2e745509cb10b1386e22e72bdee6f1afa1bf4a  kcbench-v0.9.15.tar.gz
 "

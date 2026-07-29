@@ -1,7 +1,9 @@
-maintainer="Krassy Boykinov <kboykinov@teamcentrixx.com>"
+maintainer="team/alpine-desktop <achill@achill.org>"
 pkgname=gstreamer
-pkgver=1.26.6
+pkgver=1.28.5
 pkgrel=0
+# NOTE: Upgrade together with the whole GStreamer suite &
+# only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
 pkgdesc="GStreamer streaming media framework"
 url="https://gstreamer.freedesktop.org"
 arch="all"
@@ -9,6 +11,7 @@ license="LGPL-2.0-or-later"
 replaces="gstreamer1"
 depends_dev="libxml2-dev"
 makedepends="$depends_dev
+	bash-completion-dev
 	bison
 	flex
 	glib-dev
@@ -20,6 +23,7 @@ makedepends="$depends_dev
 	rust
 	"
 subpackages="
+	$pkgname-bash-completion
 	$pkgname-dbg
 	$pkgname-dev
 	$pkgname-doc
@@ -29,8 +33,7 @@ subpackages="
 	"
 source="https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-$pkgver.tar.xz"
 # setcap: gst-ptp-helper
-# FIXME: two tests fail
-options="setcap !check"
+options="setcap"
 
 # secfixes:
 #   1.18.4-r0:
@@ -44,7 +47,7 @@ build() {
 	abuild-meson \
 		-Db_lto=true \
 		-Dintrospection=enabled \
-		-Dbash-completion=disabled \
+		-Dbash-completion=enabled \
 		-Dptp-helper=enabled \
 		-Dptp-helper-permissions=capabilities \
 		-Dbenchmarks=enabled \
@@ -101,5 +104,5 @@ ptp_helper() {
 }
 
 sha512sums="
-9436d2bb2f4be4c14d3c8b8f084502d5eeb4a327436155660ba5f8c1829ab62bb4390db7dbaf531df8c14a19d3842e0ed08431dc63047e4e29cb61030c4d9edb  gstreamer-1.26.6.tar.xz
+c6c97783cbdbdcf9b143fdc525a234b413a30e640dcf5b9b55e2ef6630a631980ff25cd4ec7d8a1864e4c4904c06e57efdfdf07e1cd3e3748d66ce10b25b84bf  gstreamer-1.28.5.tar.xz
 "

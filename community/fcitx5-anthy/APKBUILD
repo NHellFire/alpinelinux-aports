@@ -1,7 +1,7 @@
 # Contributor: Lindsay Zhou <i@lin.moe>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-anthy
-pkgver=5.1.7
+pkgver=5.1.10
 pkgrel=0
 pkgdesc="anthy input method support for fcitx5"
 url="https://github.com/fcitx/fcitx5-anthy"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-5a27c27ec038e8dd5a9c4a61aff843279f2552912a51d2f43adf3022ef400eb5e5692b52d2550b855cab9a39cfdf6a7b4ce2ef3f2ddcbd4657d7c6502e33f834  fcitx5-anthy-5.1.7.tar.gz
+c247c51c2d35b32a8efd5503f4f225f29cc91e48323930e43770b81d05b694620778c0b269576c81ef97b50aff7f7c31b0be4c4120fcbf74e1c528cb26c9844e  fcitx5-anthy-5.1.10.tar.gz
 "

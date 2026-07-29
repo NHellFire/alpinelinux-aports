@@ -15,7 +15,7 @@
 # tfsxml       | unknown       | Source/ThirdParty/tfsxml
 
 pkgname=libmediainfo
-pkgver=25.07
+pkgver=26.01
 pkgrel=0
 pkgdesc="Shared library for mediainfo"
 url="https://github.com/MediaArea/MediaInfoLib"
@@ -55,7 +55,6 @@ build() {
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
-
 sha512sums="
-2932ab1b5d4b2413c82876a292d9b25875e77cc25778c5f53cfff14c7928c1ccc152f7e9be1bc130ffcc0f5cc9073f80880f3e981988e3fb82f7dd7834ee43ad  libmediainfo_25.07.tar.xz
+d9fbed8a5e4b105d836e33152c1c6def9e10c40ade216c189f527bee7853cc90254daa86388a9844f4987fe8c798a55ae109bfbfe9e1610be748bbb16567ef3a  libmediainfo_26.01.tar.xz
 "

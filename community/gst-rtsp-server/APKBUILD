@@ -1,8 +1,10 @@
 # Contributor: Andrew Panteleyev <insonifi@gmail.com>
-maintainer="Krassy Boykinov <kboykinov@teamcentrixx.com>"
+maintainer="team/alpine-desktop <achill@achill.org>"
 pkgname=gst-rtsp-server
-pkgver=1.26.6
+pkgver=1.28.5
 pkgrel=0
+# NOTE: Upgrade together with the whole GStreamer suite &
+# only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
 pkgdesc="GStreamer RTSP server"
 url="https://gstreamer.freedesktop.org"
 arch="all"
@@ -17,8 +19,9 @@ makedepends="
 	"
 checkdepends="gst-plugins-good"
 subpackages="$pkgname-dev"
-source="https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-$pkgver.tar.xz"
-options="!check" # tests pass locally but not in ci
+source="https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-$pkgver.tar.xz
+	disable-test.patch
+	"
 
 # secfixes:
 #   1.24.9-r0:
@@ -38,7 +41,7 @@ build() {
 }
 
 check() {
-	meson test --print-errorlogs -C output
+	meson test -t 2 --print-errorlogs -C output
 }
 
 package() {
@@ -46,5 +49,6 @@ package() {
 }
 
 sha512sums="
-3bddd27d578c30c21f6db0b616029cbb91d6dbec4f49afc572a498adc2c73162d14c39fddf51aac1b2d806642ac96c97ca15bc2a9a5e307e7b1e458e9f2d5cc2  gst-rtsp-server-1.26.6.tar.xz
+e5ea19afa745db47fa8a64b23a05999577fc8b2be6eac593b73c5b1f283a8a0e5c2ad4f903378839b251caa6f015953d00a916d1a723fe8cb7f565209cf48e95  gst-rtsp-server-1.28.5.tar.xz
+44d2c3069522d0ef65b70632055507307ea10c261d2e0643f35cc79f7c3a0f31defb2d16102832ccd45d46a9e0303d5b397994bf25deac80520a7f10c3551fb0  disable-test.patch
 "

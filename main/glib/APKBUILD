@@ -1,12 +1,12 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=glib
-pkgver=2.86.0
-_gi_version=1.84.0
-pkgrel=1
+pkgver=2.88.2
+_gi_version=1.86.0
+pkgrel=0
 # NOTE: Upgrade only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
-pkgdesc="Common C routines used by Gtk+ and other libs"
+pkgdesc="Low-level core library that forms the basis for projects such as GTK and GNOME"
 url="https://developer.gnome.org/glib/"
 arch="all"
 license="LGPL-2.1-or-later"
@@ -46,6 +46,7 @@ source="https://download.gnome.org/sources/glib/${pkgver%.*}/glib-$pkgver.tar.xz
 	https://download.gnome.org/sources/gobject-introspection/${_gi_version%.*}/gobject-introspection-$_gi_version.tar.xz
 	tests-machine-id.patch
 	flaky-tests.patch
+	projectsdir.patch
 	"
 
 # 2.80 moves gir here
@@ -106,6 +107,7 @@ build() {
 		-Dtests="$(want_check && echo true || echo false)" \
 		-Dintrospection=enabled \
 		-Dnls=enabled \
+		-Dglib_debug=disabled \
 		. output
 	PATH="$_prefix/bin:$PATH" LD_LIBRARY_PATH="$_prefix/lib" \
 		meson compile -C output
@@ -142,8 +144,9 @@ static() {
 }
 
 sha512sums="
-6ccf5fba13e06012135ec4b5e65c9ad61460f32fc00457081ca799a0518e872589c589b01e1846a23499fa7d4425727b95774851d7a89b15cd71260e0d13bfdd  glib-2.86.0.tar.xz
-764b5071472f93ed62bd64983c16fc4f73d4e20575d31eb475b40f4c6643080249aec4c5e9536d0ade719a99844cefa5a6e902b4d58e5644d0c0793212da3e5b  gobject-introspection-1.84.0.tar.xz
+d6f40d1ff0f73faccdff8060fabd29b8217cc46139cf33e5792fee05af0665f96cd04e7866995bd84fcd99c9e40c40367d1326f8417bad99c1242dd841ec72a5  glib-2.88.2.tar.xz
+a9d2edbe1cea710e10ef1ea8059a45cf5689bace43b5d2a6861809e863a6de7114b4763db8df3916ad6202c9967f48f7997acd0810a86e5e88dea7e0be88b585  gobject-introspection-1.86.0.tar.xz
 4f561bfede4a559b314195aa4b7b5923a52c62063e6dd33b4933ad53b29c32ef789d69b9f7b17d8d701323006366e6b7acbb083a68674c1c535c185d35cc5d1f  tests-machine-id.patch
 268cf6f089274f29285242f1e29bf5650e85f9fcb5744df884deb139493cc25792ad78487113732665f1c5393c94b2f76f97093a1a003e3caaf65c07960a1bf9  flaky-tests.patch
+0b8a9ebfe0cff747781ab0e0c367d8517b5058465e097ed5700ccb2e9bd61dc22f9cd63e730a9e366f59deddc6f9b50df764b2e8422128ce472837d0ac55a665  projectsdir.patch
 "

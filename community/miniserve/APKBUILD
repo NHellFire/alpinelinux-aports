@@ -1,13 +1,12 @@
-# Contributor: Michał Polański <michal@polanski.me>
-# Maintainer: Michał Polański <michal@polanski.me>
+maintainer="Michał Polański <michal@polanski.me>"
 pkgname=miniserve
-pkgver=0.31.0
+pkgver=0.35.0
 pkgrel=0
 pkgdesc="Quickly serve files via HTTP"
 url="https://github.com/svenstaro/miniserve"
 license="MIT"
 # ring
-arch="all !ppc64le !s390x !riscv64 !loongarch64"
+arch="all !s390x !riscv64"
 makedepends="cargo cargo-auditable openssl-dev"
 checkdepends="curl"
 subpackages="
@@ -27,11 +26,11 @@ prepare() {
 build() {
 	cargo auditable build --frozen --release
 
-	./target/release/miniserve --print-manpage > $pkgname.1
+	target/release/miniserve --print-manpage >$pkgname.1
 
-	./target/release/miniserve --print-completions bash > $pkgname.bash
-	./target/release/miniserve --print-completions fish > $pkgname.fish
-	./target/release/miniserve --print-completions zsh > $pkgname.zsh
+	target/release/miniserve --print-completions bash >$pkgname.bash
+	target/release/miniserve --print-completions fish >$pkgname.fish
+	target/release/miniserve --print-completions zsh >$pkgname.zsh
 }
 
 check() {
@@ -54,5 +53,5 @@ package() {
 }
 
 sha512sums="
-be379204172347b88a04a14481a48c0e07051fe97a3102a9f3348d39ae61e2462068a5ab734bc7df4deccb3181281e7aa07f19cf04e65f88d798b77003724d25  miniserve-0.31.0.tar.gz
+41760d576c4b330e0506973ffa2f9b9e8e88f4585ce00a9a17d5d002340eab4f92834c8325e9671f4cc76fc4548ac9d42f4acc4e92f192b8db8637194ec34451  miniserve-0.35.0.tar.gz
 "

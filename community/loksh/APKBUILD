@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=loksh
-pkgver=7.7
+pkgver=7.9
 pkgrel=0
 pkgdesc="A Linux port of OpenBSD's ksh"
 url="https://github.com/dimkr/$pkgname"
@@ -26,5 +26,5 @@ package() {
 }
 
 sha512sums="
-002e3099a16052517f679f891293387dd55497aceedb5e959f2ae46fc3339b21856e48e402d7fcbffa1a17f1f9c6f433c32622284bd723293a02efe11dc755b9  loksh-7.7.tar.xz
+b51694322262bad7ae302e0b1592cb3ccd642bb34d1d2743f6b29402fa186f2be34d0efa99fdfd871385874fe6885e69502c03901eac1e13c43387e88703d364  loksh-7.9.tar.xz
 "

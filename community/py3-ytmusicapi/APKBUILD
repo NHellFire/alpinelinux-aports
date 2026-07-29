@@ -1,6 +1,6 @@
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=py3-ytmusicapi
-pkgver=1.11.1
+pkgver=1.12.1
 pkgrel=0
 pkgdesc="Unofficial API for YouTube Music"
 url="https://github.com/sigma67/ytmusicapi"
@@ -26,5 +26,5 @@ package() {
 }
 
 sha512sums="
-eefaba7204fc1346e03a5e7c08ec48e17c2edf23db7cd2270ad7f380d9d49927a77fe7796fb1e9e38fb2b89d21da8d89b78a895e870082770a76833878e2355b  ytmusicapi-1.11.1.tar.gz
+f9945a0d61effa33fdf37565531aa3231e670ae6620e5c5d0bbfba69dabf9b5e5f4146786c61f6f0ac2c2b8a1a9ddb01b6c3f299158a4a8997c3bd7898c438e7  ytmusicapi-1.12.1.tar.gz
 "

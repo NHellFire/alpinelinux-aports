@@ -1,17 +1,20 @@
-# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=libsepol
-pkgver=3.6
-pkgrel=1
+pkgver=3.11
+pkgrel=0
 pkgdesc="SELinux binary policy manipulation library"
 url="https://github.com/SELinuxProject/selinux/wiki"
 arch="all"
 license="LGPL-2.0-or-later"
 depends_dev="bsd-compat-headers"
-makedepends="$depends_dev flex-dev coreutils"
-options="!check" # tests fail
-subpackages="$pkgname-dev $pkgname-doc"
-source="https://github.com/SELinuxProject/selinux/releases/download/$pkgver/libsepol-$pkgver.tar.gz
+makedepends="
+	$depends_dev
+	coreutils
+	flex-dev
 	"
+subpackages="$pkgname-dev $pkgname-doc"
+source="https://github.com/SELinuxProject/selinux/releases/download/$pkgver/libsepol-$pkgver.tar.gz"
+options="!check" # tests fail
 
 build() {
 	make SHLIBDIR="/usr/lib"
@@ -26,5 +29,5 @@ check() {
 }
 
 sha512sums="
-35a42d2749fc4f71bc6b7488380714f56975564007128566f1c73e5c50bf81c17535b2cfda4583aacb4870aa2cd5885321c01523e415bda8b3326bfefb13d58e  libsepol-3.6.tar.gz
+38335292be8b8ce8b22bb2a0e481f92e2bbf532d9a2ee5319ada0b3fd294df487e5eba8041bac2a09ef7b048fee13ca0520c34cb3283fea1f95fcc5752f66b81  libsepol-3.11.tar.gz
 "

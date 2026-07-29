@@ -3,7 +3,7 @@ maintainer="Marian Buschsieweke <marian.buschsieweke@posteo.net>"
 pkgname=py3-progressbar2
 _pkgname=progressbar2
 pkgver=4.5.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Text progress bar library for Python"
 url="https://github.com/WoLpH/python-progressbar"
 arch="noarch"
@@ -34,7 +34,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest \
 		--cov-fail-under 0
 }

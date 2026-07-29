@@ -1,20 +1,18 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=actionlint
-pkgver=1.7.7
-pkgrel=7
+pkgver=1.7.12
+pkgrel=2
 pkgdesc="Static checker for GitHub Actions workflow files"
 url="https://github.com/rhysd/actionlint"
 arch="all"
 license="MIT"
+depends="tzdata"
 makedepends="go ronn"
+checkdepends="git"
 options="chmod-clean net"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/rhysd/actionlint/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build \
@@ -24,12 +22,12 @@ build() {
 }
 
 check() {
-	# actionlint.version should be empty string when running linter_test.go
-	sed -i 's/{{ getVersion | json }}/""/g' testdata/format/sarif_template.txt
+	# actionlint.version should be devel when running linter_test.go
+	sed -i 's/{{ getVersion | json }}/"(devel)"/g' testdata/format/sarif_template.txt
 
 	# Some tests expect to be run from a git repository.
 	git init --quiet
-	go test ./...
+	go test .
 	rm -rf .git
 }
 
@@ -40,5 +38,5 @@ package() {
 }
 
 sha512sums="
-d04e15216fd74a9b6cd281011756c888cacd610a265ad3494e5a471d44cee981e0cc18fb33d46710f526706883e6d63da8cf8cba6198087110ebcf6b0a63026b  actionlint-1.7.7.tar.gz
+ad09df4b0f0092055cfda03ca1e832e1b89d027101ef35b3afc1bca5b15772d5eaa5dcc3f10640f58f02082dfc7a5712d1122b9ef9a8f238636603c3e5ccce3e  actionlint-1.7.12.tar.gz
 "

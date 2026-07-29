@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kunitconversion
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Support for unit conversion"
 # armhf blocked by qt6-qtdeclarative
@@ -64,5 +64,5 @@ _py3() {
 }
 
 sha512sums="
-abf2cfd91cd0f0a9b300c5426c7220ae549f33adaf9345beb643db690c7349ff107b32d5297a8970116a3f62053edd00b88e2e49c1a695a0549f1ef6cd9230a3  kunitconversion-6.17.0.tar.xz
+b3695aa52afa6472a8c90c00c73571a16f2dd1baeaa05c773d31935ad30f11a83235c2fb48640047035bb417db39b43f74053164cb686b89c0999dff815d9ed3  kunitconversion-6.28.0.tar.xz
 "

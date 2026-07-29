@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwordquiz
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -55,5 +55,5 @@ package() {
 }
 
 sha512sums="
-478d05f41a0bdc85dd5f56ebf16d6f3eb9d3004d6429be5b64a46f684b81dcdf90ad19b93787096f690fe5d63c7238db61140a5d744da9229ef748e3ec32ba12  kwordquiz-25.08.0.tar.xz
+efbda2ca3035d56453d3bf2a9976cfc514311bb051d25152907a3c6f60ae0b8b94aec0563d12874cffc98a79d4917f011368bc07c3959f7cad83e03f548c1d66  kwordquiz-26.04.3.tar.xz
 "

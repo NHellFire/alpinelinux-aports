@@ -1,12 +1,12 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=buildkit
-pkgver=0.23.2
-pkgrel=3
+pkgver=0.29.0
+pkgrel=2
 pkgdesc="Concurrent, cache-efficient, and Dockerfile-agnostic builder toolkit"
 url="https://github.com/moby/buildkit"
 arch="all"
 license="Apache-2.0"
-depends="containerd"
+depends="oci-runtime"
 makedepends="go"
 subpackages="$pkgname-openrc $pkgname-doc buildctl"
 source="$pkgname-$pkgver.tar.gz::https://github.com/moby/buildkit/archive/refs/tags/v$pkgver.tar.gz
@@ -16,15 +16,14 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/moby/buildkit/archive/refs/t
 options="!check" # needs to mount various things as root
 
 # secfixes:
+#   0.29.0-r0:
+#     - CVE-2026-33747
+#     - CVE-2026-33748
 #   0.12.5-r0:
 #     - CVE-2024-23650
 #     - CVE-2024-23651
 #     - CVE-2024-23652
 #     - CVE-2024-23653
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	mkdir -p out
@@ -59,7 +58,7 @@ buildctl() {
 }
 
 sha512sums="
-95bcf17307696340490c30c60c68d6315197a8bac90e1eaf2c076dfce8fc23949fecb089ac6416f34f22294e37873782e8014ce0da67fdd1d6b29870a406ac63  buildkit-0.23.2.tar.gz
+a92168b72f49aaecf1d9e7673df68d157f6c2be062fc7e23a644355c6dd23c404d38b35092ed298f7f4d683becf3297ded2927b10fd4224bf79804deaba09335  buildkit-0.29.0.tar.gz
 01007221e6aab7a9f9565b48d2a338b2a72508234c7874a4aeaf9fd9181a19ffebe6374560bbae0262b009643b1fb49fb51b0f8006540355ae0f42fbaad5dd59  buildkitd.initd
 44efad35c5867266a84246cf49afd2c4d775a530409397c817c8026873c75686432388325cd7654d939e8bfeceeada9112f3dd814ae5d95d4470373c3aa6dc3e  buildkitd.confd
 "

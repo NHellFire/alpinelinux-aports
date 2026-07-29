@@ -3,8 +3,8 @@
 # Contributor: Stefan Wagner <stw@bit-strickerei.de>
 # Maintainer: Stefan Wagner <stw@bit-strickerei.de>
 pkgname=dunst
-pkgver=1.12.2
-pkgrel=0
+pkgver=1.13.0
+pkgrel=1
 pkgdesc="Customizable and lightweight notification-daemon"
 url="https://dunst-project.org/"
 license="BSD-3-Clause"
@@ -18,9 +18,13 @@ subpackages="
 	$pkgname-bash-completion
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
+	$pkgname-openrc
 	dunstify
 	"
-source="$pkgname-$pkgver.tar.gz::https://github.com/dunst-project/dunst/archive/v$pkgver.tar.gz"
+source="
+	$pkgname-$pkgver.tar.gz::https://github.com/dunst-project/dunst/archive/v$pkgver.tar.gz
+	dunst.initd
+	"
 
 build() {
 	make all dunstify
@@ -32,6 +36,7 @@ check() {
 
 package() {
 	make DESTDIR="$pkgdir" SYSCONFDIR=/etc PREFIX=/usr install
+	install -Dm755 "$srcdir"/dunst.initd "$pkgdir"/etc/user/init.d/dunst
 }
 
 dunstify() {
@@ -40,5 +45,6 @@ dunstify() {
 }
 
 sha512sums="
-f4fabcc5e260cf2dbd16eecd29129df24125ff1444d724202b835415242ed92b9857d42b23ad1e03c6cadd98de7b7ebd5ce20a0e41162baf55b15a71cb90b768  dunst-1.12.2.tar.gz
+c869b1314bdfd4125bbf31102a271af12774242ff56eb2d2c0a2900fdb6b495ec0ff9adad111a32d4c52c342f510592cbaaa413b166bd3fe6cf820ae4ff16d01  dunst-1.13.0.tar.gz
+d588881dfac015b8235e00ae51df2696efe2e8992264bafca3fd43a57a14f15b71b41f70be77c4192fa3e9fdafd630893a330fd1863b1b6425f4d7c2c34d3473  dunst.initd
 "

@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=ksshaskpass
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="ssh-add helper that uses kwallet and kpassworddialog"
 # armhf blocked by qt6-qtdeclarative
@@ -17,6 +17,7 @@ makedepends="
 	kwallet-dev
 	kwidgetsaddons-dev
 	qt6-qtbase-dev
+	qtkeychain-dev
 	samurai
 	"
 
@@ -43,5 +44,5 @@ package() {
 }
 
 sha512sums="
-3323a596b08c99f953606a16af00b17cbf87ed6129258d66b56d71ef61c7acf66158bd3073d8088c0346853211437cbe4df8dd12f5ffcb9d7cf5516c2f633bb3  ksshaskpass-6.4.5.tar.xz
+2c6bdf4b8d7e6b8f490454bf726e46abe730d2a1a470360df355b45addc80b62e284bd6cf7232c8f1bafc9347157bba3a75fcc2eee2fbc321a22092db146185a  ksshaskpass-6.7.3.tar.xz
 "

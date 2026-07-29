@@ -1,7 +1,8 @@
+# Contributor: Oleg Titov <oleg.titov@gmail.com>
 # Maintainer: Miles Alan <m@milesalan.com>
 pkgname=ollama
-pkgver=0.11.7
-pkgrel=0
+pkgver=0.17.7
+pkgrel=1
 pkgdesc="Download and run large language models locally (CPU)"
 options="chmod-clean net"
 url="https://github.com/ollama/ollama"
@@ -16,10 +17,12 @@ license="MIT"
 # x86: ggml-cpu-quants.c:11865:42: error: implicit declaration of function '_pdep_u64'
 arch="all !armhf !armv7 !loongarch64 !ppc64le !riscv64 !s390x !x86"
 makedepends="go>=1.24.0 cmake ninja patchelf"
+checkdepends="bash"
 subpackages="
 	$pkgname-doc
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/ollama/ollama/archive/refs/tags/v$pkgver.tar.gz"
+sonameprefix="$pkgname:"
 
 case $CARCH in
 	armv7|armhf) options="$options !check";;
@@ -40,7 +43,8 @@ build() {
 }
 
 check() {
-	go test ./...
+	# address invalid cross-device link due to os.Rename()
+	TMPDIR="$GOTMPDIR" go test ./...
 }
 
 package() {
@@ -57,5 +61,5 @@ package() {
 }
 
 sha512sums="
-1040cddf433321eed5d565e08e49dd3ad4aa4c42592089bccf47fc3518a406dd655133fcae8ff8ef690303f69afb6cb9a014b43a51e1b2d9c4c9f6dd59a0bc54  ollama-0.11.7.tar.gz
+98ee29c63571b67613f256975c3a5567fdf13635554450aea9ab736463787488ebb3b37e68536fe33334a4ee010d1954bec221ff6a48a449adb664f2d954dbf2  ollama-0.17.7.tar.gz
 "

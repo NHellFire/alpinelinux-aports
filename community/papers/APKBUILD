@@ -1,11 +1,10 @@
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=papers
-pkgver=49.0
+pkgver=50.2
 pkgrel=0
 pkgdesc="simple document viewer for GNOME desktop"
 url="https://apps.gnome.org/Papers/"
-# loongarch64: https://github.com/bytecodealliance/rustix/issues/1496
-arch="all !loongarch64"
+arch="all"
 license="GPL-2.0-or-later"
 depends="
 	adwaita-icon-theme
@@ -88,6 +87,6 @@ doc() {
 }
 
 sha512sums="
-5cda0653887a3af96175e5907c889d0523bb0bb101cb2bf370030c87aaf8e8e768aa4b5e6cf02999959fb2ac79745374fec7e21016700ace8703333b239f2443  papers-49.0.tar.xz
+f1edefcd39142628c94c2a39086788e2327bc8a2a64976488523f63bb13407681d3f175c2834a0f2a49b88f96b73a01b33da1bf019e58991771cfe564b89ccfe  papers-50.2.tar.xz
 252e8f8bdffa6c745c6cf51926d6bb465a4aec4831dc78e21a302d00e47095314a47c9c06775cb00d629de1762ebd854d31ebb95d9180a28a95669c5116c3d9d  fix-pc-ver.patch
 "

@@ -1,9 +1,9 @@
 # Contributor: Stefan Wagner <stw@bit-strickerei.de>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=irssi-xmpp
 pkgver=0.54
-pkgrel=3
+pkgrel=4
 pkgdesc="An irssi plugin to connect to the Jabber network"
 url="https://github.com/cdidier/irssi-xmpp"
 arch="all"

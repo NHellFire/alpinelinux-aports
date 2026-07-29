@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=libdatachannel
-pkgver=0.23.1
+pkgver=0.24.5
 pkgrel=0
 pkgdesc="C/C++ WebRTC network library featuring Data Channels, Media Transport, and WebSockets"
 url="https://libdatachannel.org"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-65c000669dacf7b97605d7471eeb0d862985f2b03e794ede4c394170ecc0495b525dca33123ef84f0cd0b5780d43459ab608533617d40273ee8916e2f84e15e5  libdatachannel-0.23.1.tar.gz
+694561ba5b3e08ed35e7e167330d97455ee2ef8d298c9c41e12de4d07032bbe1bb2ebec1e35126187c57ef9492e7d1c82ffd0fa3511eabcdfb77efabfd4b7d9a  libdatachannel-0.24.5.tar.gz
 "

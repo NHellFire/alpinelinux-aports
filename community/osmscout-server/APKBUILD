@@ -1,7 +1,7 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=osmscout-server
-pkgver=3.1.5
-pkgrel=1
+pkgver=3.1.7
+pkgrel=0
 pkgdesc="Maps server providing tiles, geocoder, and router"
 url="https://rinigus.github.io/osmscout-server"
 # armhf blocked by kirigami2
@@ -54,6 +54,6 @@ package() {
 }
 
 sha512sums="
-0bbefe68da0b6db8b9bdbb8f922c23dde3c25712602fa993a61fa5e77ea96bba971d038bfa778b377b938b719a67c5e5baf7cdd2981ddd5b6d378c06870ac9a4  osmscout-server-3.1.5.tar.gz
+78127208347d2bbf9a8c92a87421aacfb844d668ccb292b47baaa657f25760e23e470399139b9e7c34d5d4ba9ee53491b3d286205ae7c7eadedd247d4719e597  osmscout-server-3.1.7.tar.gz
 46519ab4f56ec98821bd5790a66106021152301928fc6ae5fc766172b5f72f2fa9d8561984cb3aa5ee7841dc319d4208cc20f3df411b873db4581f1b0185bc5d  osmscout-server.desktop
 "

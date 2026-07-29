@@ -2,18 +2,19 @@
 # Contributor: Danct12 <danct12@disroot.org>
 # Contributor: Clayton Craft <clayton@craftyguy.net>
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/phosh <newbie13xd@gmail.com>
+maintainer="team/phosh <newbie13xd@gmail.com>"
 pkgname=phoc
-pkgver=0.49.0
+pkgver=0.56.0
 pkgrel=0
 pkgdesc="wlroots based Phone compositor for the Phosh shell"
 arch="all"
 url="https://gitlab.gnome.org/World/Phosh/phoc"
 license="GPL-3.0-only"
 depends="
+	$pkgname-schemas
 	dbus
-	mutter-schemas
 	gsettings-desktop-schemas
+	mutter-schemas
 	"
 _wlrootsmakedepends="
 	eudev-dev
@@ -40,12 +41,18 @@ makedepends="
 	mesa-dev
 	meson
 	pixman-dev
+	py3-docutils
 	wayland-dev
 	wayland-protocols
 	$_wlrootsmakedepends
 	"
 checkdepends="xvfb-run"
-subpackages="$pkgname-dbg"
+subpackages="
+	$pkgname-dbg
+	$pkgname-doc
+	$pkgname-lang
+	$pkgname-schemas::noarch
+	"
 options="!check" # Needs fullblown EGL
 source="https://sources.phosh.mobi/releases/phoc/phoc-${pkgver/_/.}.tar.xz"
 replaces="wlroots-phosh"
@@ -55,13 +62,14 @@ prepare() {
 	default_prepare
 
 	patch -Np1 < subprojects/packagefiles/wlroots/0001-Revert-layer-shell-error-on-0-dimension-without-anch.patch \
-		-d subprojects/wlroots-0.19.x
+		-d subprojects/wlroots-0.20.x
 }
 
 build() {
 	abuild-meson \
 		-Db_lto=true \
 		-Dembed-wlroots=enabled \
+		-Dman=true \
 		-Dtests="$(want_check && echo true || echo false)" \
 		--default-library=static \
 		. output
@@ -83,6 +91,13 @@ package() {
 	rm -r "$pkgdir"/usr/lib/pkgconfig
 }
 
+schemas() {
+	pkgdesc="$pkgdesc (schemas)"
+	depends=
+
+	amove usr/share/glib-2.0/schemas
+}
+
 sha512sums="
-75853ff03a3bd55ba938a21310e2bcb95b6030020f9fcd2d58d55f6c1ba233e771c16e4314b7537e37247b1a7965d884e288765d72de2b0afdda70bc04e42c84  phoc-0.49.0.tar.xz
+f2a22e04fc00dfde56c83750ff531b6debcf2af81b913f8d85f8b23e1dc1fd71ec3786d2f2e963ed3e3b1b4b8703ed9844452d20619fac729de5482be77b7a7b  phoc-0.56.0.tar.xz
 "

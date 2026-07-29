@@ -2,7 +2,7 @@
 # Maintainer: ScrumpyJack <scrumpyjack@st.ilet.to>
 pkgname=lensfun
 pkgver=0.3.4
-pkgrel=1
+pkgrel=2
 pkgdesc="Image manipulation library to rectify lens defects"
 url="https://lensfun.github.io/"
 arch="all"
@@ -21,7 +21,7 @@ subpackages="$pkgname-dev $pkgname-doc $pkgname-tools py3-$pkgname-pyc py3-$pkgn
 source="$pkgname-$pkgver.tar.gz::https://github.com/lensfun/lensfun/archive/refs/tags/v$pkgver.tar.gz"
 
 build() {
-	cmake -B build -G Ninja \
+	cmake3.5 -B build -G Ninja \
 		-DBUILD_DOC=ON \
 		-DBUILD_LENSTOOL=ON \
 		-DBUILD_TESTS=ON \

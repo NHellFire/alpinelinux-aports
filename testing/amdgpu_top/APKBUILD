@@ -1,6 +1,6 @@
 maintainer="Hugo Osvaldo Barrera <hugo@whynothugo.nl>"
 pkgname=amdgpu_top
-pkgver=0.11.0
+pkgver=0.11.5
 pkgrel=0
 pkgdesc="Tool to display AMDGPU usage"
 url="https://github.com/Umio-Yasuno/amdgpu_top"
@@ -32,5 +32,5 @@ package() {
 }
 
 sha512sums="
-f64256c35791126e4df9f22d684b24463e7355b02851fffb33f8a7f047a868b8502bbd5a6d18d8777383c8a815243b10557e1765cd3c215678938a6c347858bf  amdgpu_top-0.11.0.tar.gz
+f453bae4ad6e7f3bf868adb878451d4fac6a4b1ef7879d263d87100be1aed4d42f6f0ee7eac840866d66b1335dd7c916a30ff01f2278107558f2c9cdb7328ac2  amdgpu_top-0.11.5.tar.gz
 "

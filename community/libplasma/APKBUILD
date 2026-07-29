@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=libplasma
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Plasma library and runtime components based upon KDE Frameworks and Qt"
 # armhf blocked by qt6-qtdeclarative
@@ -40,6 +40,7 @@ makedepends="$depends_dev
 	doxygen
 	extra-cmake-modules
 	graphviz
+	kde-qdoc-common
 	kdoctools-dev
 	qt6-qtdeclarative-private-dev
 	qt6-qttools-dev
@@ -55,19 +56,27 @@ case "$pkgver" in
 	*) _rel=stable;;
 esac
 
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/plasma/libplasma.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/libplasma-$pkgver.tar.xz"
 
 replaces="plasma-framework5 plasma-framework"
 
 build() {
+	export KDE_DOCS=/usr/share/kde/documentation
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DBUILD_QCH=ON
+		-DCMAKE_INSTALL_LIBDIR=lib
 	cmake --build build
+
+	cmake --build build --target prepare_docs
+	cmake --build build --target generate_docs
+	cmake --build build --target generate_qch
 }
 
 check() {
@@ -77,8 +86,11 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
+
+	DESTDIR="$pkgdir" cmake --build build --target install_html_docs
+	DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 
 sha512sums="
-8f670818a4de2a2d7d64886b04e39fd310d14585c7cb0f66ee26103f3e68d068754a8ff2d6ed5d762b40314b0a6357758fe7d521bee7616dbfc8c7f2ad46abeb  libplasma-6.4.5.tar.xz
+07798df10261983b11aa670ca4f0fff9883db2487238894b4999a51bdcd8ee92af784964e4362fda33670e314aa90d7f922f1ad10e87438cb2cab92e4301611d  libplasma-6.7.3.tar.xz
 "

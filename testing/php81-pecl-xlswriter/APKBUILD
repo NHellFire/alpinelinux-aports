@@ -2,7 +2,7 @@
 # Maintainer: viest <dev@service.viest.me>
 pkgname=php81-pecl-xlswriter
 _extname=xlswriter
-pkgver=1.5.8
+pkgver=2.0.3
 pkgrel=0
 pkgdesc="PHP 8.1 extension for creating and reader XLSX files - PECL"
 url="https://pecl.php.net/package/xlswriter"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-89e7894d6c4833e4bc7c89cc94528b121bf4c6184db8df848ff392639a2cdbd935bbf5a84b9ebf06206c79712588c30061146458594e5171282c83fbf65e918c  php-pecl-xlswriter-1.5.8.tar.gz
+8b55d9bd7e3cd36d79527557a642767b0e21679800c24aad7d7705f27d2bd36eb9ddeed6f4911ebddd147a6ee29e2a95e57f9e1e18912e6f35fabdc1d13926fa  php-pecl-xlswriter-2.0.3.tar.gz
 "

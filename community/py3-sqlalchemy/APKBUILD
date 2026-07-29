@@ -1,7 +1,7 @@
 # Contributor: Steven Guikal <void@fluix.one>
 # Maintainer: Steven Guikal <void@fluix.one>
 pkgname=py3-sqlalchemy
-pkgver=2.0.43
+pkgver=2.0.51
 pkgrel=0
 pkgdesc="object relational mapper for Python"
 url="https://pypi.org/project/SQLAlchemy"
@@ -52,7 +52,7 @@ build() {
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
 	.testenv/bin/python3 -m installer .dist/*.whl
-	# mypy plugin tests fail with mypy 1.14.x
+	# mypy tests expect mypy 1.20.x
 	.testenv/bin/python3 -m pytest -n auto -m "not mypy"
 }
 
@@ -62,5 +62,5 @@ package() {
 }
 
 sha512sums="
-8a3c8b9116649ae6c867744b75b9019c5daeaebdcc1b251e8eb526b6ec84168282513b27ca557db3436615b09579864e01173638ccf5bd9a5ecc4537ecf0c695  sqlalchemy-2.0.43.tar.gz
+af3965c5c43921b8e4330348b7d1a46357fa5d6a9a0acde66b4c3e65aedbd27afabc257cde113d38f3be3f3a91d524230fb17efc5515b826442d4fb4d6b7bc1d  sqlalchemy-2.0.51.tar.gz
 "

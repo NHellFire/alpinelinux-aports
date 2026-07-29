@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kitemmodels
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Models for Qt Model/View system"
 # armhf blocked by qt6-qtdeclarative
@@ -54,5 +54,5 @@ package() {
 }
 
 sha512sums="
-1605a13329e8084f87d6f323007036d41fdbdfb97c7b064efea070cada9a2578f054f021aa07d04f48e6bdef5b39546feb688e6b7199e87e0281ea5445219fe4  kitemmodels-6.17.0.tar.xz
+5e64a7c67eb0d40b5af14c3be6b14f4a6009a7a07cd5e31f9a393024007c302a0ed8ff3534d74157f42554646e90dcea33895c1c28fe2d392566f1b658819ab5  kitemmodels-6.28.0.tar.xz
 "

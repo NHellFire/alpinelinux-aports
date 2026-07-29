@@ -2,8 +2,8 @@
 # Maintainer: mio <miyopan@e.email>
 maintainer="mio <miyopan@e.email>"
 pkgname=timg
-pkgver=1.6.2
-pkgrel=1
+pkgver=1.6.3
+pkgrel=0
 pkgdesc="24-Bit color image viewer for terminal"
 url="https://github.com/hzeller/timg"
 arch="all"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-572e62b668001d2915c2110d894755729f3ce474fbdd7ac01b29a545d099ed701d6a9f08e4e2ec6818c3d2a866a7c24d0ed092ef031dffaca87dd9e93ac3953f  timg-1.6.2.tar.gz
+eaec72f59fcff35a873d38acb1b7f93a55b812b11d58523716cc0338cb9c7cd2958c51d5956eabfb7988b2faae12009c5bb97347aa57d9aa80c6ed32bb5877ef  timg-1.6.3.tar.gz
 "

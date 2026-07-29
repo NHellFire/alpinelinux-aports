@@ -2,7 +2,7 @@
 # Maintainer: Steven Guikal <void@fluix.one>
 pkgname=gotop
 pkgver=4.2.0
-pkgrel=24
+pkgrel=32
 pkgdesc="Terminal based graphical activity monitor"
 url="https://github.com/xxxserxxx/gotop"
 # loongarch64: shirou/gopsutil support loongarch64 since 3.23.2
@@ -14,10 +14,6 @@ makedepends="git go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/xxxserxxx/gotop/archive/v$pkgver.tar.gz
 	0001-logging-add-support-for-riscv64.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	mkdir bin

@@ -1,19 +1,22 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Contributor: Eric Timmons <etimmons@alum.mit.edu>
 # Contributor: Will Sinatra <wpsinatra@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Will Sinatra <wpsinatra@gmail.com>"
 pkgname=sbcl-stage0
-pkgver=2.5.8
+pkgver=2.6.4
 pkgrel=0
 pkgdesc="Steel Bank Common Lisp (for bootstrapping)"
 url="https://www.sbcl.org/"
-arch="all !s390x !riscv64 !loongarch64"
+# s390x not currently supported
+# loongarch64 port in progress!
+arch="all !s390x !loongarch64"
 license="custom"
 makedepends="linux-headers"
 source="sbcl-$pkgver.tar.bz2::https://prdownloads.sourceforge.net/sbcl/sbcl-$pkgver-source.tar.bz2
 	ppc-musl.patch
 	musl-time64.patch
+	musl-termios.patch
 	"
 builddir="$srcdir/sbcl-$pkgver"
 options="!check" # stage0 compiler
@@ -58,7 +61,8 @@ package() {
 }
 
 sha512sums="
-ec7009fba3fdfa0547d7d75a0f85c1619bf9abd8483ab9218f708c81457bba65913f3f011ef0ffb2b39024ef26d20ae35b52e4c8ac3bef97ea783e3993bfb69e  sbcl-2.5.8.tar.bz2
-549cc9936ddbd4c19067a455dfad151bd0ce59200b2dce761de67e259e621e4174beefaa5a322886bcd731d2470d229a3e1b75a55a194c54e2feb7c0bcdffb37  ppc-musl.patch
-c5b23ac36478943370156e8a499393c6923a069d8a38e4bf3b651ea91521353398cd813ef18dbcf9e76e97a24bfd85fb1d9cfb8da90951345a6f7ab0d28d65fc  musl-time64.patch
+a3997f5dcf778202df192de1ff8888e6d81b9d1152bc4ba0c7b1b549b663d9be9cea78bdb34cea02a77395c703c6208d14a80acad9a1aae07722b87ad803c09d  sbcl-2.6.4.tar.bz2
+2bb4aad8b081c2bdf28109e341663ea8c4c1e48b519096a60debfcfd3856a11d57c564e85310731a150f4b0976c200a544b4b5de07539b8ef148c936503aa68c  ppc-musl.patch
+3d9ec5452d8c9e742c2a6a15a33b8bd6068f15d01d7584381c12269323fcdfb5bc2319b6f062bebc3973e765e9a08fbada471eb3fcccbeb548453c357e5b5ca2  musl-time64.patch
+a483316b2277802a73e48654fabd12f4f73b5918633bc991e3ef314a27cec10391ded6288066954ceb07c2af79b9024566d374f1092d32ca5f458b6d41edd943  musl-termios.patch
 "

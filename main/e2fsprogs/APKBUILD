@@ -1,8 +1,8 @@
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=e2fsprogs
-pkgver=1.47.2
-pkgrel=3
+pkgver=1.47.4
+pkgrel=0
 pkgdesc="Standard Ext2/3/4 filesystem utilities"
 url="https://e2fsprogs.sourceforge.net/"
 arch="all"
@@ -115,5 +115,5 @@ extra() {
 }
 
 sha512sums="
-1dc86535b72a4ab60e17a547efe5e137054eff6cad9f6cf9cc9485694ec6166687a9d5f50fb47a10e776a70c7690ade5445c0339731f83066abf33c01f70d9c7  e2fsprogs-1.47.2.tar.gz
+923c1ba52cf48557e190ee936be47ff3e43e4798950499e3c663f0f077470caefbb69ee845ebe1f969b3e7c1bb0c22e507188f1daca24649c54c5843c835b2f9  e2fsprogs-1.47.4.tar.gz
 "

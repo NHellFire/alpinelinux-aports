@@ -1,28 +1,42 @@
 # Maintainer: mio <miyopan@e.email>
 maintainer="mio <miyopan@e.email>"
 pkgname=offpunk
-pkgver=2.7.1
+pkgver=3.2
 pkgrel=0
-pkgdesc="An offline-first browser for the small internet"
+pkgdesc="Offline-first browser for the small internet"
 url="https://offpunk.net"
-license="AGPL-3.0-only"
+license="AGPL-3.0-or-later"
 install="$pkgname.post-install"
 arch="noarch"
 depends="
 	chafa
+	curl
 	file
 	less
-	py3-requests
-	python3
+	py3-cryptography
+	py3-lxml
+	py3-readability-lxml
+	xdg-utils
 	"
 makedepends="
+	gettext-tiny
 	py3-gpep517
+	py3-hatch-requirements-txt
 	py3-hatchling
-	py3-installer
+	py3-setuptools
 	"
-subpackages="$pkgname-doc $pkgname-pyc"
-source="offpunk-$pkgver.tar.gz::https://git.sr.ht/~lioploum/offpunk/archive/v$pkgver.tar.gz"
-options="!check" # No tests
+checkdepends="
+	py3-beautifulsoup4
+	py3-pytest
+	py3-pytest-mock
+	"
+subpackages="
+	$pkgname-web
+	$pkgname-doc
+	$pkgname-lang
+	$pkgname-pyc
+	"
+source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~lioploum/offpunk/archive/v$pkgver.tar.gz"
 builddir="$srcdir"/offpunk-v"$pkgver"
 
 build() {
@@ -31,12 +45,31 @@ build() {
 		--output-fd 3 3>&1 >&2
 }
 
+check() {
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+	.testenv/bin/python3 -m pytest
+}
+
 package() {
 	python3 -m installer -d "$pkgdir" .dist/*.whl
-	install -Dm0644 man/"$pkgname".1 "$pkgdir"/usr/share/man/man1/"$pkgname".1
-	install -Dm0644 README.md "$pkgdir"/usr/share/doc/"$pkgname"/README.md
+	install -Dm644 "$builddir"/man/offpunk.1 -t "$pkgdir"/usr/share/man/man1/
+	install -Dm644 "$builddir"/README.md -t "$pkgdir"/usr/share/doc/offpunk/
+}
+
+web() {
+	pkgdesc="$pkgdesc (web browsing)"
+	depends="
+		$pkgname=$pkgver-r$pkgrel
+		py3-beautifulsoup4
+		py3-charset-normalizer
+		py3-feedparser
+		py3-setproctitle
+		"
+
+	mkdir "$subpkgdir"
 }
 
 sha512sums="
-401c3ddd6201a9ea5f9b01cbbb3ae6655b3183b9c9728e18f351dff2f7e02987dab5160502dce14dc79a54083b590735fe8b2c7de8d264222f463ffc50c51592  offpunk-2.7.1.tar.gz
+e061070922bc1fbb9e92d0364af04d9d79957d8860dffb11f1ddbdec4e9d2837ca8fcdc74beb07abbaa6a0d48b05c9482123a207462bb1f0b418a09ee992f64d  offpunk-3.2.tar.gz
 "

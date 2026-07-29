@@ -2,8 +2,8 @@
 # Contributor: Michał Polański <michal@polanski.me>
 # Maintainer: Michał Polański <michal@polanski.me>
 pkgname=buildah
-pkgver=1.41.4
-pkgrel=0
+pkgver=1.44.0
+pkgrel=1
 pkgdesc="tool that facilitates building OCI container images"
 url="https://github.com/containers/buildah"
 license="Apache-2.0"
@@ -15,6 +15,8 @@ options="!check" # tests require root privileges
 source="https://github.com/containers/buildah/archive/v$pkgver/buildah-$pkgver.tar.gz"
 
 # secfixes:
+#   1.42.1-r0:
+#     - CVE-2025-52881
 #   1.38.1-r0:
 #     - CVE-2024-11218
 #   1.37.5-r0:
@@ -39,10 +41,6 @@ source="https://github.com/containers/buildah/archive/v$pkgver/buildah-$pkgver.t
 #   1.14.4-r0:
 #     - CVE-2020-10696
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
 	GIT_COMMIT="$pkgver" make buildah
 	GIT_COMMIT="$pkgver" make -C docs GOMD2MAN="$(which go-md2man)"
@@ -53,5 +51,5 @@ package() {
 }
 
 sha512sums="
-a2f4d7654293baf4267293b33f9a559f9e027bcde816d6a0690f8b9df4256f4989f27331fe6fede98a6e676e3d34a706ef0fb468085afc728aea4c0ea968636c  buildah-1.41.4.tar.gz
+660f29ff9b8c8f7f3776e96391bb803feb54622c92aaf78f5ac37783bdc77573353acd5f692502b61169ad58f6b89a8e8268ec41c0cb080dfec3f8466dd6419e  buildah-1.44.0.tar.gz
 "

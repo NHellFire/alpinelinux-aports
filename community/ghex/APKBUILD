@@ -1,7 +1,7 @@
 # Contributor: August Klein <amatcoder@gmail.com>
-# Maintainer: August Klein <amatcoder@gmail.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=ghex
-pkgver=46.3
+pkgver=50.2
 _pkgver=${pkgver%.*}
 pkgrel=0
 pkgdesc="A hex editor for GNOME"
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-b740b8fdf86c1b6c7f23516c70e50bdc50ff4b949168ecd04c8eaf3336fed472158c0121c93a03c0947ac2ae5c5e25c1db33ac66e439da5a69303c1522b9112d  ghex-46.3.tar.xz
+d420a6124e56fc6f7241c0556949c58bdb3399b3250cf64f7ff212693643497e226bd2f3d80a94e4cc97deb6bee02c22f59ffc1b5c69dc179e949c463fca5a62  ghex-50.2.tar.xz
 "

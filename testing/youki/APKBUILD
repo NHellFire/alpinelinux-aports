@@ -1,16 +1,14 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=youki
-pkgver=0.4.1
+pkgver=0.6.0
 pkgrel=0
 pkgdesc="Container runtime written in Rust"
 url="https://github.com/containers/youki"
-# ppc64le: syscalls crate inline asm is unstable for ppc64le
-# s390x: nix crate lacks support
-# riscv64: syscalls crate lacks support
-# armhf: nc crate fails on invalid instruction
-# armv7: need for rustc to catch to up pass thumb-mode properly
-arch="all !armhf !armv7 !ppc64le !s390x !riscv64"
+# armhf,armv7,x86: 32bit arches are not supported (https://github.com/youki-dev/youki/issues/369)
+# loongarch64: https://github.com/XuShaohua/nc/issues/44
+# s390x: https://github.com/nix-rust/nix/issues/2641
+arch="all !armhf !armv7 !loongarch64 !s390x !x86"
 license="Apache-2.0"
 makedepends="
 	cargo
@@ -20,19 +18,25 @@ makedepends="
 	zlib-dev
 	"
 subpackages="$pkgname-dbg"
-source="https://github.com/containers/youki/archive/v$pkgver/youki-$pkgver.tar.gz"
-options="!check" # FIXME: some tests fail
+source="https://github.com/containers/youki/archive/v$pkgver/youki-$pkgver.tar.gz
+	fix-rootless.patch
+	"
+options="!check" # FIXME: some tests fail or take forever
 
 # prioritize crun and runc
 provides="oci-runtime"
 provider_priority=80
 
 # secfixes:
+#   0.5.7-r0:
+#     - CVE-2025-27561
+#     - CVE-2025-27612
+#     - CVE-2025-62161
+#     - CVE-2025-62596
 #   0.4.1-r0:
 #     - CVE-2024-21626
 
-# Disable systemd_cgroups
-_cargo_opts='--frozen --no-default-features --features=libcgroups/v1,libcgroups/v2'
+_cargo_opts='--frozen --features=v1,v2,seccomp'
 
 prepare() {
 	default_prepare
@@ -53,5 +57,6 @@ package() {
 }
 
 sha512sums="
-ff3c6a416844f25093630f19d8e92812fbb5d7359c148ae72abacc614a4ebc3d8263cf40429431c2f55c912cea12d91194bae49889d8998ed509b450c58a57a1  youki-0.4.1.tar.gz
+2de07ea3e55c72cb90c69b350be755ffa2de60a4264324ad9488706242f734f0e194628a77ba1431aa4f86ac53b8f9227e12fd8c9ec727b925b05bb340f8b4e9  youki-0.6.0.tar.gz
+e44a2d541c32b9d2fa872a98678295c848d5ca32197f1848b9c6b79fc0d03aeb49ce06485332d5b86eca00c2fbeb1332b523d580a12f60135965437b99348e88  fix-rootless.patch
 "

@@ -1,9 +1,9 @@
 # Contributor: Umar Getagazov <umar@handlerug.me>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=mycorrhiza
 pkgver=1.15.1
-pkgrel=4
+pkgrel=12
 pkgdesc="Lightweight wiki engine based on Git"
 url="https://mycorrhiza.wiki/"
 arch="all"
@@ -18,10 +18,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/bouncepaw/mycorrhiza/archive
 	mycorrhiza.initd
 	enable-cgo.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make TAGGED_RELEASE="$pkgver"

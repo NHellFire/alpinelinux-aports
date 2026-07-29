@@ -1,7 +1,7 @@
 # Maintainer: omni <omni+alpine@hack.org>
 maintainer="omni <omni+alpine@hack.org>"
 pkgname=godap
-pkgver=2.10.6
+pkgver=2.11.1
 pkgrel=0
 pkgdesc="A complete TUI for LDAP"
 url="https://github.com/Macmod/godap"
@@ -13,13 +13,8 @@ subpackages="$pkgname-doc
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
-options="net"
+options="net" # fetch go modules
 source="$pkgname-$pkgver.tar.gz::https://github.com/Macmod/godap/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOFLAGS="$GOFLAGS -trimpath -mod=readonly -modcacherw"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build \
@@ -48,5 +43,5 @@ package() {
 }
 
 sha512sums="
-2c61adddbf45fd3aad2d61c0b9d3dcc3ade26101b9212cc9a30dd201f3a70de3100940c9a09bc1e3c756152eedb9cbcd965c0caa3a393710e2033d6ce87e0c44  godap-2.10.6.tar.gz
+38dceea8dd48d6a9e6f80c9ec4375e32aa0c04269c771b864f353c62a3f4ccd2593294d1f53dd071e4831b64b1b7d579543141ab92a8cebc7f686a6bca0db5fe  godap-2.11.1.tar.gz
 "

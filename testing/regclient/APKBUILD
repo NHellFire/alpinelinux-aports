@@ -1,17 +1,13 @@
 # Maintainer: Hristiyan Ivanov <hristiyan.d.ivanov@gmail.com>
 pkgname=regclient
-pkgver=0.8.3
-pkgrel=3
+pkgver=0.11.4
+pkgrel=1
 pkgdesc="Docker and OCI registry client"
 url="https://github.com/regclient/regclient"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/regclient/regclient/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 case "$CARCH" in
 s390x|x86|riscv64|ppc64le|loongarch64)
@@ -43,5 +39,5 @@ package() {
 	done
 }
 sha512sums="
-c9c4fe4532996417b6ddb03d03177ded63579eafce72ccc2dd2e97b18ca977b6913e5b56c5b98985e7e15aed86fe87249463e68bf89e0910e3c2ea245dd4b76a  regclient-0.8.3.tar.gz
+525abfc94d651042eef5fc9c635724dc84c0063deba191b7bf87513505855faaab1cd2a239f5a3e1e21d36f9cbb80286e81ac4a9d7cb1daeecb39c747e416956  regclient-0.11.4.tar.gz
 "

@@ -1,8 +1,8 @@
 # Contributor: Bart Ribbers <bribbers@disroot.org>
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-distributed
-pkgver=2024.11.2
-pkgrel=0
+pkgver=2026.3.0
+pkgrel=1
 pkgdesc="A library for distributed computation"
 url="https://distributed.dask.org/"
 arch="noarch"
@@ -26,8 +26,8 @@ depends="
 makedepends="
 	linux-headers
 	py3-gpep517
-	py3-python-versioneer
 	py3-setuptools
+	py3-setuptools_scm
 	py3-wheel
 	python3-dev
 	yaml-dev
@@ -66,5 +66,5 @@ package() {
 }
 
 sha512sums="
-b74d5daab34051552847acff2026d9c81bc78836d9aedd495902ce78f4cd353929f24cf7c843751402b7aa76d0cb5c52504b5fa37496bbbc46a49feb7ec662cc  distributed-2024.11.2.tar.gz
+38221bd9151db8974af9282957a25cddd365b84edcc47bf0f39e501ba724e109bbe2f1de378fe1314fd6d5e5bff948b7222d5edf805f7ca5262805a7bbc9a71f  distributed-2026.3.0.tar.gz
 "

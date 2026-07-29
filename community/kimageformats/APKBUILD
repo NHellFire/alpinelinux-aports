@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kimageformats
-pkgver=6.17.0
+pkgver=6.28.1
 pkgrel=0
 pkgdesc="Image format plugins for Qt"
 arch="all"
@@ -13,21 +13,14 @@ makedepends="
 	karchive-dev
 	libavif-dev
 	libheif-dev
+	libjxl-dev
 	libraw-dev
 	qt6-qtbase-dev
 	samurai
 	"
-checkdepends="xvfb-run"
+checkdepends="xwayland-run"
 _repo_url="https://invent.kde.org/frameworks/kimageformats.git"
 source="https://download.kde.org/stable/frameworks/${pkgver%.*}/kimageformats-$pkgver.tar.xz"
-
-case "$CARCH" in
-	s390x)
-		;;
-	*)
-		makedepends="$makedepends libjxl-dev"
-		;;
-esac
 
 build() {
 	cmake -B build -G Ninja \
@@ -46,8 +39,11 @@ check() {
 		kimageformats-read-avci
 		kimageformats-read-dds
 		kimageformats-read-hej2
+		kimageformats-read-tim
 		kimageformats-read-xcf
 		kimageformats-write-exr
+		kimageformats-write-heif
+		kimageformats-write-hej2
 		"
 	case "$CARCH" in
 		armv7)
@@ -57,6 +53,8 @@ check() {
 			;;
 		s390x)
 			tests="$tests
+				kimageformats-read-ff
+				kimageformats-read-iff
 				kimageformats-read-pcx
 				kimageformats-write-avif
 				"
@@ -65,7 +63,7 @@ check() {
 	for test in $tests; do
 		skipped_tests="$skipped_tests|$test"
 	done
-	xvfb-run -a ctest --test-dir build -E "$skipped_tests"
+	wlheadless-run -- ctest --test-dir build -E "$skipped_tests"
 }
 
 package() {
@@ -73,5 +71,5 @@ package() {
 }
 
 sha512sums="
-9fdf924fc7fc27273735e8d24ce9a0fa35ab813fca0d2c2ea9c5220d15a7ed791d6660c2f61d5958fbab9028370948ba26112b599006f00cf6c5cecad6d19b8d  kimageformats-6.17.0.tar.xz
+5b8682be0847d3e9ff44804b30b66bf304e5fb189c67b2e9953d2ce8e062614157c6b8739bbcd0a3a180b3f4c43859cddcecdf84aa7aff2b22fb3cdeea9d5387  kimageformats-6.28.1.tar.xz
 "

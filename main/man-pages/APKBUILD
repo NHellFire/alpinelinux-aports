@@ -1,7 +1,7 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=man-pages
-pkgver=6.15
+pkgver=6.18
 pkgrel=0
 pkgdesc="Linux man pages"
 url="https://www.kernel.org/doc/man-pages/"
@@ -19,7 +19,7 @@ package() {
 	# skip things already zipped- find can iterate over new files made by -exec
 	find "$pkgdir"/usr/share/man -type f \
 		! -name "*.gz" \
-		-exec gzip -n9 {} \+
+		-exec "$(command -v pigz || echo gzip)" -n9 {} \+
 
 	# the symlink install links to non-gzipped
 	# installing with pre-gzipped form requires 'sponge'
@@ -44,9 +44,13 @@ package() {
 		"$pkgdir"/usr/share/man/man8/tzselect* \
 		"$pkgdir"/usr/share/man/man8/zic* \
 		"$pkgdir"/usr/share/man/man8/zdump*
+
+	# provided by alpine-baselayout
+	mv "$pkgdir"/usr/share/man/man7/hier.7.gz \
+		"$pkgdir"/usr/share/man/man7/gnu-hier.7.gz
 }
 
 sha512sums="
-fe7de3ca13b0d10c1bbdc9b34783e8bf8ec35df4f2f82ac692906a2738839da451af1033918fe174b7707826add1d3fab974a900dc499bb16250141eb8038de5  man-pages-6.15.tar.xz
-1208b03dca80c5a0338a8af55b2b395f79b9da61f0fa00ba508a4a3806aa399058dfc66bde287f852a9cd83a79e0919979a70c2990d9a0f9452be7943945b0ff  busybox-install.patch
+dd24b547a88e58bd382b73f2e77f424f8c42c4eb9da7c5d7c6ef5989c476e61f9d5e1d258d2c79d1253388923f3c4c76bcfe3ad4bb0ee1cef2078f7ba23d2e27  man-pages-6.18.tar.xz
+af68be2048fdeef25af5bb09eeef12949b97a19f0a83a0aed2c646c4561e9925c8073e767c06e98bb06163cfa30618d84cd6224047963b3be21cf121f31c092f  busybox-install.patch
 "

@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=mailcommon
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="KDE PIM library providing support for mail applications"
 # riscv64 disabled due to missing rust in recursive dependency
-# armhf, x86, ppc64le, s390x and riscv64 blocked by messagelib -> qt6-qtwebengine
-arch="all !armhf !x86 !ppc64le !s390x !riscv64"
+# armhf, x86, armv7, s390x and riscv64 blocked by messagelib -> qt6-qtwebengine
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://kontact.kde.org/"
 license="GPL-2.0-or-later"
 # TODO: Consider replacing gnupg with specific gnupg subpackages that mailcommon really needs.
@@ -27,6 +27,7 @@ depends_dev="
 	kitemmodels-dev
 	kitemviews-dev
 	kmailtransport-dev
+	kmime-dev
 	ktextwidgets-dev
 	kwidgetsaddons-dev
 	kwindowsystem-dev
@@ -38,8 +39,7 @@ depends_dev="
 	qt6-qttools-dev
 	syntax-highlighting-dev
 	"
-makedepends="
-	$depends_dev
+makedepends="$depends_dev
 	extra-cmake-modules
 	samurai
 	"
@@ -49,7 +49,9 @@ checkdepends="
 	"
 subpackages="$pkgname-dev $pkgname-lang"
 _repo_url="https://invent.kde.org/pim/mailcommon.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/mailcommon-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/mailcommon-$pkgver.tar.xz
+	0001-mailcommon-KMime-from-KF6.patch
+	"
 
 build() {
 	cmake -B build -G Ninja \
@@ -84,5 +86,6 @@ package() {
 }
 
 sha512sums="
-2d0941bc4b1a93dfdcdc6a0fbcc17930d95db1dd419dc13466062c9e58ad5154cad0f123427720fe50ca05a7a8b2c61b498b93181485ae89035d58b1f40bd4dd  mailcommon-25.08.0.tar.xz
+d25b9a0c5149f039c8caf4b3c834697d720172f66efa5a4c35273ddac2427a5f6a13ea547e6d8badd8eb472ed0ebb05ab285e1ef608bee67ff1ab70be79fe48e  mailcommon-26.04.3.tar.xz
+7f9a5e55c0edf2188b5611ebf88d06c7e1471946f27b351f825f4193a94afddccd690f71493c8f8a0d2a7382b9a1e72c5deb7938ef8e7b25ca443c1f679161bb  0001-mailcommon-KMime-from-KF6.patch
 "

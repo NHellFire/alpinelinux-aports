@@ -1,7 +1,7 @@
 # Contributor: Oleg Titov <oleg.titov@gmail.com>
 # Maintainer: Oleg Titov <oleg.titov@gmail.com>
 pkgname=direwolf
-pkgver=1.7
+pkgver=1.8.1
 pkgrel=1
 pkgdesc="Software soundcard AX.25 packet modem/TNC and APRS encoder/decoder"
 url="https://github.com/wb2osz/direwolf"
@@ -14,6 +14,7 @@ makedepends="
 	avahi-dev
 	gpsd-dev
 	hamlib-dev
+	libgpiod-dev
 	libudev-zero-dev
 	samurai
 	"
@@ -21,7 +22,7 @@ subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/wb2osz/direwolf/archive/refs/tags/$pkgver.tar.gz"
 
 build() {
-	cmake -B build -G Ninja -DCMAKE_INSTALL_PREFIX=/usr
+	cmake3.5 -B build -G Ninja -DCMAKE_INSTALL_PREFIX=/usr
 	cmake --build build
 }
 
@@ -29,10 +30,9 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 	DESTDIR="$pkgdir" cmake --build build --target install-conf
 
-	rm -r "${pkgdir:?}"/etc
 	rm -r "${pkgdir:?}"/usr/share/doc/direwolf/*.pdf
 }
 
 sha512sums="
-e09b14d7a036546e042da8b536b70d07f485d6a7224b19f5626b33e43a21c48200591fd6680ca1ee4b3c9fb5909d6f1c54ae8160877d51e06278fe19516abe1e  direwolf-1.7.tar.gz
+cb9249de99e410bd533891af7308c7f428e119c162a282262e6947cd8163d209f13c7655444d5e7bde00c3740e585f109458548b061cb2410d536de89c43dae9  direwolf-1.8.1.tar.gz
 "

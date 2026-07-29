@@ -2,7 +2,7 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=uriparser
-pkgver=0.9.9
+pkgver=1.0.2
 pkgrel=0
 pkgdesc="strictly RFC 3986 compliant URI parsing and handling library"
 url="https://uriparser.github.io/"
@@ -13,6 +13,9 @@ subpackages="$pkgname-dev lib$pkgname:libs"
 source="https://github.com/uriparser/uriparser/releases/download/uriparser-$pkgver/uriparser-$pkgver.tar.bz2"
 
 # secfixes:
+#   1.0.2-r0:
+#     - CVE-2026-44927
+#     - CVE-2026-44928
 #   0.9.8-r0:
 #     - CVE-2024-34402
 #     - CVE-2024-34403
@@ -46,5 +49,5 @@ package() {
 }
 
 sha512sums="
-1c4ac63e7a872fdc7ce84ee5e8736dcafe58242b80218a3457bdcd1b358bfec5437658e2ad99427c6d94b14b30c7f7c3d059b9d106cd1a7149adf23e77072de6  uriparser-0.9.9.tar.bz2
+23cf062e10b70e3cababbbb52e20a7e3ca17ae2cba21125ab0587a3dbee562d12d727703567ce14cba90151712f2c4c9e911eda92245292ea3a1138f88dd09fd  uriparser-1.0.2.tar.bz2
 "

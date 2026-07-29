@@ -2,11 +2,11 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kaddressbook
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
-# x86, ppc64le, s390x, riscv64 and armv7 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !ppc64le !s390x !riscv64 !armv7"
+# x86, s390x, riscv64 and armv7 blocked by qt6-qtwebengine
+arch="all !armhf !x86 !s390x !riscv64 !armv7"
 url="https://apps.kde.org/kaddressbook/"
 pkgdesc="Address Book application to manage your contacts"
 license="GPL-2.0-or-later AND LGPL-2.0-or-later"
@@ -50,5 +50,5 @@ package() {
 }
 
 sha512sums="
-f2075c813725d027fcc2b2485890e23a49aee3809d255d53c789068792b1fb1ded900e4aa8cdc673505c557ed8f5572468bc044660b899e095604414dc78ddc3  kaddressbook-25.08.0.tar.xz
+3b174d8cdcc61033a31d5286fac2c1c66c3069a7456aa422fc322fa59b4fdd7c9a29cc972f9782f3a7ee57664160d24f65f3b9307d366db7805e38d02ae52c05  kaddressbook-26.04.3.tar.xz
 "

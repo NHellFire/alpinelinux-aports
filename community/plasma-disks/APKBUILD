@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-disks
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Monitors S.M.A.R.T. capable devices for imminent failure"
 # armhf blocked by qt6-qtdeclarative
@@ -48,7 +48,7 @@ build() {
 }
 
 check() {
-	wlheadless-run -- ctest --test-dir build
+	wlheadless-run -- ctest --test-dir build -E "kcm_disks_smoketest"
 }
 
 package() {
@@ -56,5 +56,5 @@ package() {
 }
 
 sha512sums="
-e5d4ee301a468574c3d5d1e728f8633eb34703c96d9eb2fd97b53a7fed75b9885adf90d83354900355a6dfd28368f044b9cf6db8fa104ba3e38cf5ed56e33476  plasma-disks-6.4.5.tar.xz
+bbfc50cde89b5499ad5d6109c54d73b6b3f8f1377c7c415ca818b72d3c2db1dff52f27428d01ee0b93f4d35780a53c329e8fabd65e665f77b6eb6e7a90e5bc69  plasma-disks-6.7.3.tar.xz
 "

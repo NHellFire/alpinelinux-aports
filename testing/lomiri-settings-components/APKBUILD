@@ -2,7 +2,7 @@
 # Contributor: Antoni Aloy <aaloytorrens@gmail.com>
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=lomiri-settings-components
-pkgver=1.1.2
+pkgver=1.2.1
 pkgrel=0
 pkgdesc="Lomiri settings Components"
 arch="all"
@@ -37,6 +37,6 @@ package() {
 }
 
 sha512sums="
-8b650d86f44f7727fe7301708bafc2f52d6f0fca5b68feae6aeff54a22434ab1642091b8ded72c0f0c350b4cf15b0b90812f53ec74fbd1add5cd778db9596079  lomiri-settings-components-1.1.2.tar
+0b01b3bd8709f9a161ae99b62da49990fd48a49c1f2cd139279d8fa46795ea59cae87158ae1fec0889fad0f7dcb639b9c4d278d69a0691d353fa2e7a151a4653  lomiri-settings-components-1.2.1.tar
 0cbe24ba24468ccfae80b6d6b49c68b55e44561ac7914645746af15ee252c12341f2b401390cffbed520963d1cb7da6980f99520ee820528de964b8a714b87b4  qmltestrunner.patch
 "

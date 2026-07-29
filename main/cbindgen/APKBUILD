@@ -4,21 +4,25 @@
 pkgname=cbindgen
 # Please be VERY careful bumping this - Firefox regularly fails to build
 # with new versions!
-pkgver=0.29.0
+pkgver=0.29.4
 pkgrel=0
 pkgdesc="Tool to generate C bindings from Rust code"
-url="https://github.com/eqrion/cbindgen"
+url="https://github.com/mozilla/cbindgen"
 arch="all"
 license="MPL-2.0"
 makedepends="cargo cargo-auditable"
-checkdepends="cython"
-source="$pkgname-$pkgver.tar.gz::https://crates.io/api/v1/crates/cbindgen/$pkgver/download"
+checkdepends="cmake cython samurai"
+source="$pkgname-$pkgver.tar.gz::https://github.com/mozilla/cbindgen/archive/refs/tags/$pkgver.tar.gz"
 options="net"
 
 prepare() {
 	default_prepare
 
-	cargo fetch --target="$CTARGET" --locked
+	cargo fetch --target="$CHOST" --locked
+	# tests use -Zunpretty=expand -> require nightly toolchain
+	rm -rf tests/rust/expand* \
+		tests/rust/bitfield \
+		tests/profile.rs
 }
 
 build() {
@@ -26,8 +30,6 @@ build() {
 }
 
 check() {
-	# Failing tests
-	rm -rf tests/rust/expand*
 	cargo test --frozen
 }
 
@@ -36,5 +38,5 @@ package() {
 }
 
 sha512sums="
-fa2816881b376e3cc9ce61f9ee982438b38224fdd7225a41131e2500395d75e09b596840fb75f8ffcc04d7a9f90be02c2256918fe33f377660c1d78a3f89a1ac  cbindgen-0.29.0.tar.gz
+c2b22a094c4caf993b03ea712eb1c5c057254615aca9d657eb9e768458f1aa35390aba49a86a54d4bf8fde7e17422a3c1107661e880d50e23a3d6082e549b3bf  cbindgen-0.29.4.tar.gz
 "

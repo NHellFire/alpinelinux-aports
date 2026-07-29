@@ -1,35 +1,28 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-pip
-pkgver=25.1.1
-pkgrel=1
+pkgver=26.1.2
+pkgrel=0
 pkgdesc="Tool for installing and managing Python packages"
 url="https://pip.pypa.io"
 arch="noarch"
 license="MIT"
 depends="
-	py3-setuptools
 	python3
 	"
 makedepends="
+	py3-flit-core
 	py3-gpep517
-	py3-myst-parser
 	py3-sphinx
-	py3-sphinx-copybutton
-	py3-sphinx-inline-tabs
-	py3-sphinx-issues
 	py3-wheel
 	"
 checkdepends="
 	py3-freezegun
-	py3-mock
-	py3-pretend
 	py3-pytest
 	py3-scripttest
 	py3-tomli-w
 	py3-virtualenv
 	py3-werkzeug
-	py3-yaml
 	git
 	"
 subpackages="
@@ -58,29 +51,27 @@ prepare() {
 	# We only target Python 3 and csv23 is not (yet) packaged
 	# As of 20.1b1, this workaround was sufficient to get around the missing dependency
 	sed -i 's/csv23/csv/g' tests/lib/wheel.py
-
-	# not packaged (and has another ~5 deps), and not actually used it seems
-	# (maybe for html docs)
-	sed -i '/sphinxcontrib.towncrier/d' docs/html/conf.py
 }
 
 build() {
 	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
 
 	# see noxfile.py
-	export PYTHONPATH="$PWD/build/lib"
-	sphinx-build -c docs/html -d docs/build/doctrees/man -b man docs/man docs/build/man
+	python3 -m venv --clear --without-pip --system-site-packages .docenv
+	.docenv/bin/python3 -m installer .dist/*.whl
+	.docenv/bin/python3 -m sphinx --tag man -c docs/html -d docs/build/doctrees/man -b man docs/man docs/build/man
 }
 
 check() {
-	export PYTHONPATH="$PWD/build/lib"
+	# avoid "addopt" options in pyproject.toml for pytest plugins we don't have
+	: > empty-pytest.toml
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
 	.testenv/bin/python3 -m installer .dist/*.whl
 	# --deselect'ed and -k'ed tests are not compatible with the latest virtualenv
 	# These files contain almost 500 tests so we should enable them back
 	# as soon as pip will be compatible upstream
 	# https://github.com/pypa/pip/issues/8273
-	.testenv/bin/python3 -m pytest \
+	.testenv/bin/python3 -m pytest -c empty-pytest.toml \
 		-m 'not network' \
 		-k "not test_from_link_vcs_with_source_dir_obtains_commit_id and not test_from_link_vcs_without_source_dir and not test_should_cache_git_sha" \
 		--deselect tests/functional \
@@ -106,5 +97,5 @@ package() {
 }
 
 sha512sums="
-ce61c9861265139b3c5ea9be9dc246097cd75c21687cf8301f80a377d02420c4524f0d6307d2ca0232ff8715b1105343bcfdb9cac6b69503780ab2c4645558dc  pip-25.1.1.tar.gz
+e29c98a7da5e329183b7eef86a66f9d6c3473051f64aa6e762714306148547eb0de4220824484071822a9a62bd01a62a09ab16bba4c26e4b847bfc2609728608  pip-26.1.2.tar.gz
 "

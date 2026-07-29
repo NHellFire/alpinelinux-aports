@@ -1,7 +1,7 @@
-maintainer="Krassy Boykinov <kboykinov@teamcentrixx.com>"
+maintainer="team/alpine-desktop <achill@achill.org>"
 pkgname=gst-plugins-rs
-pkgver=0.13.6
-pkgrel=0
+pkgver=0.15.3
+pkgrel=1
 pkgdesc="Gstreamer rust plugins"
 url="https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs"
 arch="all"
@@ -9,31 +9,34 @@ license="MIT AND Apache-2.0 AND MPL-2.0 AND LGPL-2.1-or-later"
 makedepends="
 	cargo-auditable
 	cargo-c
+	clang-dev
+	cmake
 	dav1d-dev
+	git
 	gst-plugins-bad-dev
 	gst-plugins-base-dev
+	gst-devtools-dev
 	gtk4.0-dev
 	libsodium-dev
 	meson
 	nasm
 	openssl-dev
 	"
-subpackages="$pkgname-dev"
-_plugins="cdg
+_plugins="
+	cdg
 	claxon
 	dav1d
 	fallbackswitch
 	ffv1
-	fmp4
 	gif
 	gopbuffer
 	gtk4
 	hlssink3
 	hsv
+	isobmff
 	json
 	lewton
 	livesync
-	mp4
 	mpegtslive
 	ndi
 	originalbuffer
@@ -64,8 +67,8 @@ _plugins="cdg
 	webrtchttp
 	"
 source="https://gitlab.freedesktop.org/gstreamer/gst-plugins-rs/-/archive/$pkgver/gst-plugins-rs-$pkgver.tar.gz
-	0001-use-cargo-auditable.patch
-	0002-dylib.patch
+	cargo_wrapper.patch
+	raptorq-2.0.0.patch
 	"
 options="net !check" # they don't run
 
@@ -77,10 +80,21 @@ prepare() {
 	cargo fetch --locked
 }
 
+# Fails on trying to download prebuild binaries from
+# https://github.com/rust-skia/skia-binaries/releases/
+_opts="-Dskia=disabled"
+
+# Fails to build
+_opts="$_opts -Dwhisper=disabled"
+
 case "$CARCH" in
 	# Some plugins run out of memory compiling, disable them
 	armhf|armv7|x86)
-		_opts="-Daws=disabled -Dwebrtc=disabled"
+		_opts="$_opts -Daws=disabled -Dwebrtc=disabled"
+		;;
+	aarch64)
+		_plugins="$_plugins aws"
+		_opts="$_opts -Dwebrtc=disabled"
 		;;
 	*)
 		_plugins="$_plugins aws rswebrtc"
@@ -121,7 +135,7 @@ tools() {
 }
 
 sha512sums="
-3f5981d4c1d68a25ab0fdef8593eee295041567cbb5efa3a8d13752cc46a609861b6a85a9d3d245a30397600f2a49428a64b12acaaa4684397ebdb4244d7cbf7  gst-plugins-rs-0.13.6.tar.gz
-a19f8cededda5f08e0fafe0074bd04700d31566bc002c60a4807a709b7d97fe3c331437054e668d9e30c4afb97fa6bb87a74ee37ee0e77ae09ccb55dbf4efad2  0001-use-cargo-auditable.patch
-004862f52560082ceedd81d530643f191c2497f9fe0f3cc878a96414836cca759e542727f9cf3b67c6edae51f605bd31cfc15675da4668ef7efd112c0cfbe147  0002-dylib.patch
+ed6650bf1d17b91452fb00f57659a482cb544b5cb4032d6bf523d90d3817a5904b1d7e75d21c1dabf916ef28279ad9b72a807ba49827cd457a6161119d4bfece  gst-plugins-rs-0.15.3.tar.gz
+31a05258d7dca274b782e06bc56ddcb69c86d681b2c0d59acbed45ebcf17734828033da97a62751730aca2acab4f0c94a806d1cffdba2035539e2eb79f52fbe8  cargo_wrapper.patch
+2037f8ee0706970979dde45235e8ee4a863415cd82237b3161491b62ab7b63fe964407ae345add5d9c9a360605b987e89f9278ec90a29396534e454e42576add  raptorq-2.0.0.patch
 "

@@ -2,7 +2,7 @@
 pkgname=py3-pydyf
 _pyname=pydyf
 pkgver=0.11.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A low-level PDF generator"
 url="https://pypi.org/project/pydyf/"
 arch="noarch"
@@ -27,7 +27,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

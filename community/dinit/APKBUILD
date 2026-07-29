@@ -1,6 +1,6 @@
 maintainer="Patrycja Rosa <alpine@ptrcnull.me>"
 pkgname=dinit
-pkgver=0.19.4
+pkgver=0.21.0
 pkgrel=0
 pkgdesc="Service monitoring/init system"
 url="https://github.com/davmac314/dinit"
@@ -44,5 +44,5 @@ _shutdown() {
 }
 
 sha512sums="
-ad91deb1c644bae4491a4938c54dc968ac24acf24880c17794895d9a78fa8aad60a0a127eedc2c1362ba55dce081a25930efeaf5400ea925157cce8e25ad99d8  dinit-0.19.4.tar.gz
+9362ddc400570bed7c0d67eeeafef2e339834c8a71948542562e1c5467da7a6f0fad74599118138c02f2d08116a9a8bfe3d9d1a5d02ea0ccf5e97192ea5deea7  dinit-0.21.0.tar.gz
 "

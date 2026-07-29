@@ -1,8 +1,8 @@
 # Contributor: kpcyrd <git@rxv.cc>
 # Maintainer: kpcyrd <git@rxv.cc>
 pkgname=rekor
-pkgver=1.4.0
-pkgrel=2
+pkgver=1.5.2
+pkgrel=1
 pkgdesc="Signature transparency log"
 url="https://github.com/sigstore/rekor"
 arch="all"
@@ -17,9 +17,6 @@ options="net"
 source="$pkgname-$pkgver.tar.gz::https://github.com/sigstore/rekor/archive/v$pkgver.tar.gz"
 
 export GOFLAGS="$GOFLAGS -ldflags=-X=sigs.k8s.io/release-utils/version.gitVersion=v$pkgver"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 # secfixes:
 #   1.1.1-r0:
@@ -67,5 +64,5 @@ server() {
 }
 
 sha512sums="
-a952df092b026826267047508167b0a4c5b694e984cf0b61f6e202adbaa116e3d809319d1e61a40379bfc1bd0ec645b2a81da5672cf22dd79177167980b85224  rekor-1.4.0.tar.gz
+da4ab43bb3e3b90806c3af1b208a891fc3fb1a88e9ee822e49bfe43d2a31e4fd123c8157c4cfde1b2973ed83c378dc759bd82180c48bd5eb0f4a3e4c7d789d23  rekor-1.5.2.tar.gz
 "

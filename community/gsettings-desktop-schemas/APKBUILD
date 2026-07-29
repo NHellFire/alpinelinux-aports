@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=gsettings-desktop-schemas
-pkgver=49.0
+pkgver=50.1
 pkgrel=0
 pkgdesc="A collection of GSettings schemas"
 url="https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas"
@@ -26,5 +26,5 @@ package() {
 }
 
 sha512sums="
-ea566d5d97001542ce44abf3d29a0380104ee836e411744ef2f5593e60376bfc2dd6c54ad4ef057f0aab4c394ec0022f1876e69a3e0c76d4f434d0bb53184a36  gsettings-desktop-schemas-49.0.tar.xz
+b0f98f4823008a49536aa16503a2a2c0dd403580d8687198245e1d7c8acf3acf07d436f77d3eaba15f49305b7c5c003f3d30cc48d1fbda913db5d8c3e091de9d  gsettings-desktop-schemas-50.1.tar.xz
 "

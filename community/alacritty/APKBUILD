@@ -1,6 +1,6 @@
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=alacritty
-pkgver=0.15.1
+pkgver=0.17.0
 pkgrel=0
 pkgdesc="cross-platform, GPU-accelerated terminal emulator"
 url="https://github.com/alacritty/alacritty"
@@ -79,5 +79,5 @@ package() {
 }
 
 sha512sums="
-23ab8d72e54a5ebc34e27b1f60e37a64d100f5d96668afe819949f211f29ff2e3519ae76125b362f6b9f573b70949b3f63b468cc5f14dd50fc874cea3d3849a6  alacritty-0.15.1.tar.gz
+2f85062e1e5bbd1c1babe278acfe6b6a8044cad879b79ea7a11e8776ebd0485030c77bf947d7fec5d3c5675e31f634d47c66a0955d6e57d1b51934fcfd2b5b8a  alacritty-0.17.0.tar.gz
 "

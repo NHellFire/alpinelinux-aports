@@ -1,8 +1,9 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=scudo-malloc
-# tied to llvm version
-pkgver=20.1.8
+pkgver=22.1.8
 pkgrel=0
+_pkgver=${pkgver/_/-}
+# NOTE: Upgrade together with the whole LLVM suite.
 pkgdesc="Standalone scudo malloc from compiler-rt"
 url="https://llvm.org"
 arch="all"
@@ -12,10 +13,11 @@ depends_dev="$pkgname=$pkgver-r$pkgrel"
 makedepends="linux-headers"
 checkdepends="gtest-dev"
 subpackages="$pkgname-static $pkgname-dev"
-source="https://github.com/llvm/llvm-project/releases/download/llvmorg-${pkgver//_/-}/compiler-rt-${pkgver//_/}.src.tar.xz
+source="https://github.com/llvm/llvm-project/releases/download/llvmorg-$_pkgver/llvm-project-$_pkgver.src.tar.xz
 	0001-Add-makefile.patch
 	"
-builddir="$srcdir/compiler-rt-${pkgver//_/}.src/lib/scudo/standalone"
+_basedir="$srcdir/llvm-project-$_pkgver.src"
+builddir="$_basedir/compiler-rt/lib/scudo/standalone"
 
 case "$CARCH" in
 ppc64le)
@@ -55,6 +57,6 @@ package() {
 }
 
 sha512sums="
-905fe22cbcb777255245b8594fb6cbb496c9ad96c962e9c429335a9358c6520f2aa2964d2019a40dd5ac20b0df17569dd62f635078f92d34206700ee06123a1d  compiler-rt-20.1.8.src.tar.xz
+2615b20ba08534f83ab8ecc7b5ba43b5f1dfcf9cdb2534a32fcdbf0ccdd9a008b46276e45ef26ed9377f65b5e4ae89ea798f3863fd034484b5715140f3a7b35c  llvm-project-22.1.8.src.tar.xz
 1102a512adde2ef31aafa6011a4293d5fa361aa920f88ac20599aab84711e973315e6f6719631be11007aea869ae700e34ed57c7dc7724e8aacbc5b493632849  0001-Add-makefile.patch
 "

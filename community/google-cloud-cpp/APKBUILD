@@ -1,14 +1,18 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
 maintainer="Holger Jaekel <holger.jaekel@gmx.de>"
 pkgname=google-cloud-cpp
-pkgver=2.35.0
-_googleapis_commit_sha=280725e991516d4a0f136268faf5aa6d32d21b54
-pkgrel=6
+pkgver=3.6.0
+_googleapis_commit_sha=ef19b7b7a73f19f33ab86c5b3603e9590025acd7
+pkgrel=3
 pkgdesc="C++ Client Libraries for Google Cloud Services"
 url="https://cloud.google.com/sdk"
 arch="all"
 license="Apache-2.0"
+depends_dev="
+	protobuf-dev
+	"
 makedepends="
+	$depends_dev
 	abseil-cpp-dev
 	c-ares-dev
 	clang
@@ -18,7 +22,7 @@ makedepends="
 	grpc-dev
 	nlohmann-json
 	openssl-dev
-	protobuf-dev
+	opentelemetry-cpp-dev
 	re2-dev
 	samurai
 	"
@@ -37,36 +41,44 @@ _ga_library="
 	apigateway
 	apigeeconnect
 	apikeys
+	apiregistry
 	appengine
 	apphub
 	artifactregistry
 	asset
 	assuredworkloads
+	auditmanager
 	automl
 	backupdr
 	baremetalsolution
 	batch
 	beyondcorp
+	bigquerycontrol
 	bigquery
 	bigtable
 	billing
 	binaryauthorization
 	certificatemanager
+	ces
 	channel
+	chronicle
 	cloudbuild
 	cloudcontrolspartner
 	cloudquotas
+	cloudsecuritycompliance
 	commerce
 	composer
 	compute
 	confidentialcomputing
 	config
+	configdelivery
 	connectors
 	contactcenterinsights
 	containeranalysis
 	container
 	contentwarehouse
 	datacatalog
+	dataform
 	datafusion
 	datamigration
 	dataplex
@@ -75,6 +87,7 @@ _ga_library="
 	datastream
 	deploy
 	developerconnect
+	devicestreaming
 	dialogflow_cx
 	dialogflow_es
 	discoveryengine
@@ -86,20 +99,28 @@ _ga_library="
 	essentialcontacts
 	eventarc
 	filestore
+	financialservices
 	functions
+	geminidataanalytics
 	gkebackup
 	gkeconnect
 	gkehub
 	gkemulticloud
+	gkerecommender
+	hypercomputecluster
 	iam
 	iap
 	ids
 	kms
 	language
+	licensemanager
 	logging
+	lustre
+	maintenance
 	managedidentities
 	managedkafka
 	memcache
+	memorystore
 	metastore
 	migrationcenter
 	monitoring
@@ -110,11 +131,14 @@ _ga_library="
 	networkservices
 	notebooks
 	oauth2
+	opentelemetry
 	optimization
+	oracledatabase
 	orgpolicy
 	osconfig
 	oslogin
 	parallelstore
+	parametermanager
 	policysimulator
 	policytroubleshooter
 	privateca
@@ -127,13 +151,15 @@ _ga_library="
 	recommender
 	redis
 	resourcemanager
-	resourcesettings
+	rest_internal
+	rest_protobuf
 	retail
 	run
 	scheduler
 	secretmanager
 	securesourcemanager
 	securitycenter
+	securitycentermanagement
 	servicecontrol
 	servicedirectory
 	servicehealth
@@ -143,6 +169,8 @@ _ga_library="
 	spanner
 	speech
 	sql
+	storagebatchoperations
+	storagecontrol
 	storageinsights
 	storagetransfer
 	storage
@@ -155,27 +183,29 @@ _ga_library="
 	tpu
 	trace
 	translate
+	universe_domain
+	vectorsearch
 	videointelligence
 	video
 	vision
+	visionai
 	vmmigration
 	vmwareengine
 	vpcaccess
 	webrisk
 	websecurityscanner
 	workflows
+	workloadmanager
 	workstations
 	"
 _non_ga_library="
 	cloud-common-common-protos
 	cloud-extended-operations-protos
-	cloud_location_locations-protos
+	cloud-location-locations-protos
 	cloud-orgpolicy-v1-orgpolicy-protos
 	grafeas-protos
 	grpc-utils
 	longrunning-operations-protos
-	rest-internal
-	rest-protobuf-internal
 	rpc-code-protos
 	rpc-context-attribute-context-protos
 	rpc-error-details-protos
@@ -286,10 +316,30 @@ package() {
 library() {
 	local name=${subpkgname#"$pkgname"-}
 	pkgdesc="$pkgdesc ($name)"
-	amove usr/lib/libgoogle_cloud_cpp_${name//-/_}*
+	local libname=${name//-/_}
+
+	case "$name" in
+		api-*|type-*)
+			# API/type proto libraries: subpackage name like "api-annotations"
+			# maps to library file "libgoogle_cloud_cpp_api_annotations_protos.so"
+			amove usr/lib/libgoogle_cloud_cpp_${libname}_protos.so*
+			;;
+		*-protos)
+			# Non-GA proto libraries: subpackage name like "rpc-status-protos"
+			# maps directly to library file "libgoogle_cloud_cpp_rpc_status_protos.so"
+			amove usr/lib/libgoogle_cloud_cpp_${libname}.so*
+			;;
+		*)
+			# GA libraries: move main library and optional proto variant
+			# e.g., "bigquery" -> libgoogle_cloud_cpp_bigquery.so + libgoogle_cloud_cpp_bigquery_protos.so
+			# Some libraries (like compute) have no base library, only variants, so first pattern may not match
+			amove usr/lib/libgoogle_cloud_cpp_${libname}.so* 2>/dev/null || true
+			amove usr/lib/libgoogle_cloud_cpp_${libname}_*.so* 2>/dev/null || true
+			;;
+	esac
 }
 
 sha512sums="
-889afa01c67b2a6566bfd557a3a1990806888b967e7383d9fd8b67aff93ed1430e463715f0ba44f178d4ac241f08c08b2973f83b3c5e6e53e7c634a63e39d3ef  google-cloud-cpp-2.35.0.tar.gz
-80da8175c52ae83eaa300783377d9f3d86593fa0bcd4723c5afea4cafa8bf4a2575fb2af48f7e944eabdb11ec8c946a14d9d75f70384744a3bfb2cc71ec2b1ed  280725e991516d4a0f136268faf5aa6d32d21b54.tar.gz
+fd8ef967f07a4de2784ca51af8cbe88f384abfa8929c7fff73fb82f96cd91e3273670cc86be5d5321b98e78d2e6435495bd0c56a034cc49922b2b331437654aa  google-cloud-cpp-3.6.0.tar.gz
+3c62208bc295fe939c9d1b1aa76a57fc92da8adc37779ae0696e621930b00b865cfb367d83fcb7b8b4c1fb93353232e64c16d73bd6d0a9ec1888f7c7f6aa16ec  ef19b7b7a73f19f33ab86c5b3603e9590025acd7.tar.gz
 "

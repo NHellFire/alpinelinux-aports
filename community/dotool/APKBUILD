@@ -2,7 +2,7 @@
 # Maintainer: John Gebbie <me@johngebbie.com>
 pkgname=dotool
 pkgver=1.5
-pkgrel=11
+pkgrel=19
 pkgdesc="Command to simulate input anywhere (X11, Wayland, TTYs)"
 url="https://sr.ht/~geb/dotool"
 arch="all"
@@ -14,10 +14,6 @@ source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~geb/dotool/archive/$pkgver.t
 	dotoold.initd
 	"
 options="!check net" # no test suite
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	export DOTOOL_VERSION="$pkgver"

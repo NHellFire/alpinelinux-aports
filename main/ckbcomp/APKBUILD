@@ -1,7 +1,7 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=ckbcomp
-pkgver=1.242
+pkgver=1.248
 pkgrel=0
 pkgdesc="Compile a XKB keyboard description to a keymap"
 url="https://salsa.debian.org/installer-team/console-setup"
@@ -19,5 +19,5 @@ package() {
 }
 
 sha512sums="
-ea8c2496240486dad46616434fde4625e66a59bfb3a60aa5e6d5035e364647285c1ffe7466ce06d83970c205e27aa4d87e61ae4e7a6482b1ab2d39a11be6d451  console-setup-1.242.tar.gz
+1aff2ae2ee7259f2a16cbe8ea7d2afcef71e265b81510c3e44c387ac8ea57cf27b13ae3e7d71b80f8cfc37951c7e32a6012f7e7b20b5273a33ef75852a3d9dfa  console-setup-1.248.tar.gz
 "

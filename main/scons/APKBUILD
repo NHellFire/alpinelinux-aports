@@ -1,8 +1,8 @@
 # Contributor: Nicolas Lorin <androw95220@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=scons
-pkgver=4.9.1
-pkgrel=0
+pkgver=4.10.1
+pkgrel=1
 pkgdesc="Software construction system"
 url="https://scons.org/"
 arch="noarch"
@@ -51,6 +51,6 @@ package() {
 }
 
 sha512sums="
-4108eb52fdf8647bf66fe82ced36fbd6e0fd1cde5e837f2142ba9c978df2913137b8e32990183e553af0fe8f49fad023313803a4e714ebf686a708204bf5eae0  scons-4.9.1.tar.gz
-754704d59096480d30f38271f43e4b0dccd3974b4da385f798bf60654a27eb165693907691245da3d8fedfb9a6cc6cb0cfa3af811227b46eb269de3f525fea2a  SCons-4.9.1.tar.gz
+e47000c4fe770c84c1c97ed4e7feee9305669cfbbd1aac06e158d15b08383dbdcbd5397ff62519478204c07d064337fe8101d81e17e0c8d5d611e453ed6d4da2  scons-4.10.1.tar.gz
+4c64070714ba16c8e231ecfac9c1df6fad252b5509e0d260cc05f28865e3068f58c169d73c1559373b7a2d517bcb94a07593ab00781afd9a6a55893455471bc4  SCons-4.10.1.tar.gz
 "

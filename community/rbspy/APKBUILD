@@ -1,11 +1,13 @@
 # Contributor: Adam Jensen <adam@acj.sh>
 # Maintainer: Adam Jensen <adam@acj.sh>
 pkgname=rbspy
-pkgver=0.36.1
+pkgver=0.51.0
 pkgrel=0
 pkgdesc="Sampling profiler for Ruby"
 url="https://rbspy.github.io/"
-arch="all !armhf !armv7 !ppc64le !s390x !x86" # limited by cargo and build errors
+# 32-bit: ruby-structs
+# s390x: nix
+arch="all !armhf !armv7 !x86 !s390x"
 license="MIT"
 makedepends="cargo cargo-auditable"
 checkdepends="ruby"
@@ -32,5 +34,5 @@ package() {
 }
 
 sha512sums="
-01f57aee770148cc330541b0c00f0a34468c5ea7e68422dd34b04bcbff503a4de88a463bc36a317cde6f08253106401575984158e6c2e3ef7333e3ed601d00b5  rbspy-0.36.1.tar.gz
+7ced0d0100672a638f973aff5cfd4451de385a55ea8080a03042ab518450390d1b27aee8c0052051635bccf888500d804bd4811e1ca766ab8f1c256757f8b650  rbspy-0.51.0.tar.gz
 "

@@ -1,6 +1,6 @@
 maintainer="Thomas Böhler <witcher@wiredspace.de>"
 pkgname=cocogitto
-pkgver=6.3.0
+pkgver=7.0.0
 pkgrel=0
 pkgdesc="The Conventional Commits toolbox"
 url="https://docs.cocogitto.io/"
@@ -18,7 +18,6 @@ subpackages="
 	$pkgname-zsh-completion
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/cocogitto/cocogitto/archive/refs/tags/$pkgver.tar.gz
-	001-bump-libc.patch
 	"
 options="net !check" # tests relies on, among other things, specific tags
 
@@ -62,6 +61,5 @@ package() {
 }
 
 sha512sums="
-5e83f4be27affbf9d15f22d34e7d43522affd9cc5f5ae7436ce257ac734465190e4f1833747fe51876ae510bc04234579997c6348f9a74c4cddda37bc2adf40f  cocogitto-6.3.0.tar.gz
-d1ef6b3e11e845874318c24d8e281ed6526a0dbf1ad688f483d639867dbb0b56843d9b2d62271ad8efa5605fb12864498c57e425dc313fc5cbee84bea53db407  001-bump-libc.patch
+000e98db3c07452b45bb60445b25c80fc6e682d5ebc79b28d04f6eca16152e32e16e60056e2892faa63e895e043681819d1ec38902a51dd5c9325653f01d645e  cocogitto-7.0.0.tar.gz
 "

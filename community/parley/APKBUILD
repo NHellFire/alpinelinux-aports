@@ -2,11 +2,11 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=parley
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative -> ki18n
-# x86, armv7, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !armv7 !ppc64le !s390x !riscv64"
+# x86, armv7, s390x and riscv64 blocked by qt6-qtwebengine
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://kde.org/applications/education/org.kde.parley"
 pkgdesc="Vocabulary Trainer"
 license="GPL-2.0-or-later AND GFDL-1.2-only"
@@ -54,5 +54,5 @@ package() {
 }
 
 sha512sums="
-63e09f929447ac729eea5c037d9eb01fdb50bfbe9ec8ff6d886afad2646b5a53803ba4a8f14cece9a9086c0eb926f27e89a23323adf5ac653ad9eecb314b6a05  parley-25.08.0.tar.xz
+f8e8b5d50cf2f1a94440c10fd568f90133c0dbadd9d9baa8940c912f1c984891ccd78143b5846e4dd306b20c1d4bf76925124c26604810941f15f2e5b4079ea4  parley-26.04.3.tar.xz
 "

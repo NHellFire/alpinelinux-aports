@@ -1,8 +1,9 @@
 # Contributor: Eloi Torrents <eloitor@disroot.org>
-# Maintainer:
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=lyx
-pkgver=2.4.4
-pkgrel=1
+pkgver=2.5.1
+pkgrel=0
 pkgdesc="Advanced WYSIWYM document processor & LaTeX front-end"
 url="https://www.lyx.org"
 arch="all"
@@ -20,9 +21,7 @@ depends="
 	python3
 	"
 subpackages="$pkgname-doc $pkgname-lang $pkgname-pyc"
-source="https://ftp.lip6.fr/pub/lyx/stable/${pkgver%.*}.x/lyx-$pkgver.tar.xz
-	fix-memcpy-overlap.patch
-	"
+source="https://ftp.lip6.fr/pub/lyx/stable/${pkgver%.*}.x/lyx-$pkgver.tar.xz"
 
 build() {
 	./configure \
@@ -42,10 +41,9 @@ package() {
 pyc() {
 	default_pyc
 	local IFS=$'\n'
-	amove $(find usr/share/lyx -type d -name __pycache__)
+	amove "$(find usr/share/lyx -type d -name __pycache__)"
 }
 
 sha512sums="
-93c674aa71f017b62a5352468362fb0d48da0264a5308bb0228c4f8bf07a443004379a08ffe9fa1cc0393accc8fb9f95ae7a2b314c9c5b7b6023dba711688216  lyx-2.4.4.tar.xz
-47f311b433739beb42e914e54491060f72836c08cab2bcaa4e465fcb20b5d4878eedb0a986266967f84b75d91986d7b14fa65706ec4efe4380b432ff6a89423d  fix-memcpy-overlap.patch
+77c3bd1deeb2c6d174d21ee9620654ac82d0695fbeba22b653819129d2d27f2a999e28cdff444c1e9fd64a0a7fae5ce0effa69818bce2aea1b708f7a27858e54  lyx-2.5.1.tar.xz
 "

@@ -1,7 +1,7 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=pure-maps
-pkgver=3.4.1
-pkgrel=0
+pkgver=3.5.1
+pkgrel=1
 pkgdesc="Maps and navigation"
 url="https://github.com/rinigus/pure-maps"
 # armhf blocked by qt5-qtdeclarative -> mapbox-gl-qml
@@ -14,7 +14,7 @@ depends="
 	kirigami2
 	mapbox-gl-qml
 	mimic1
-	nemo-qml-plugin-dbus
+	nemo-qml-plugin-dbus-qt5
 	osmscout-server
 	py3-gpxpy
 	py3-pyotherside
@@ -72,5 +72,5 @@ lang() {
 }
 
 sha512sums="
-4fa310eb5b6088a0b610c3fb42e334869fb4e09232123fe1e07789f8149ad488097592999156e9023a95eeec5e288f5c84ecac610a3210e44b3f7eb482910e29  pure-maps-3.4.1.tar.gz
+4a2092f88dfc14d288c3a72661aadd3d902ce207ba7e8dd17a0991e03510190c07acfa7143958409d6342ba611baeccb9133dfbd22d7f626827642202fd83983  pure-maps-3.5.1.tar.gz
 "

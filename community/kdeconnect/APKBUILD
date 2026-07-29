@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdeconnect
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Adds communication between KDE and your smartphone"
 url="https://community.kde.org/KDEConnect"
@@ -11,6 +11,7 @@ arch="all !armhf"
 license="GPL-2.0-only OR GPL-3.0-only"
 depends="
 	kirigami
+	kirigami-addons
 	sshfs
 	"
 makedepends="
@@ -30,6 +31,7 @@ makedepends="
 	kservice-dev
 	kstatusnotifieritem-dev
 	kwayland-dev
+	libei-dev
 	libfakekey-dev
 	modemmanager-qt-dev
 	pulseaudio-qt-dev
@@ -43,7 +45,7 @@ makedepends="
 	samurai
 	"
 checkdepends="xwayland-run"
-subpackages="$pkgname-lang $pkgname-nftables::noarch $pkgname-zsh-completion"
+subpackages="$pkgname-lang $pkgname-nftrules::noarch $pkgname-zsh-completion"
 _repo_url="https://invent.kde.org/network/kdeconnect-kde.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/kdeconnect-kde-$pkgver.tar.xz
 	60_kdeconnect.nft
@@ -51,6 +53,9 @@ source="https://download.kde.org/stable/release-service/$pkgver/src/kdeconnect-k
 builddir="$srcdir/$pkgname-kde-$pkgver"
 
 # secfixes:
+#   0:
+#     - CVE-2025-32899
+#     - CVE-2025-32901
 #   20.08.2-r0:
 #     - CVE-2020-26164
 
@@ -69,16 +74,12 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-}
 
-nftables() {
-	pkgdesc="$pkgdesc (nftables rules)"
-	install_if="$pkgname=$pkgver-r$pkgrel nftables"
-
-	install -Dm644 -t "$subpkgdir"/etc/nftables.d "$srcdir"/60_kdeconnect.nft
+	install -Dm644 "$srcdir"/60_kdeconnect.nft \
+		"$pkgdir"/usr/share/nftables.avail/60_kdeconnect.nft
 }
 
 sha512sums="
-687b0da4ff19e7787e3a6ed8e88fb51e85dc30654f5251ad569dedacab75683917196a6e61d359757f138efc5ee5f683a3460a1513798e414d73fceaa5068d33  kdeconnect-kde-25.08.0.tar.xz
-0ccc2cb0ffd3892698b45bcf723cfdd23ad98f0e2b0436cd0a91d9ed13c6992853e2c4092ee8a0edc6216f1f262151e99e344b8f16c52237e9ff8de62fd37cae  60_kdeconnect.nft
+f8d575310e48b2daf6bd354a4731618e27c602903e4e7f1b4e9c07c28e7e6c701b3ff4bdc61fc6c7061f790f5996592cf89fe6c527c699fb4c24a800513fc42c  kdeconnect-kde-26.04.3.tar.xz
+c09cefc5012ac7b1cae65fc16722cc08d9f0124dd69131e2910ac3e2a38c374e159b6ab73fd8b20221fbe039334ed2764e7ebc068eca5c7dd8d68dc565d3452d  60_kdeconnect.nft
 "

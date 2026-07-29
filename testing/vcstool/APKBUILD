@@ -2,7 +2,7 @@
 # Maintainer: Russ Webber <russ@rw.id.au>
 pkgname=vcstool
 pkgver=0.3.0
-pkgrel=5
+pkgrel=6
 pkgdesc="A command line tool designed to make working with multiple repositories easier"
 url="https://github.com/dirk-thomas/vcstool"
 arch="noarch"
@@ -27,7 +27,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

@@ -1,6 +1,6 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=libquotient
-pkgver=0.9.3
+pkgver=0.9.6.1
 pkgrel=2
 pkgdesc="Qt library for cross-platform clients for Matrix"
 url="https://github.com/quotient-im/libQuotient"
@@ -45,5 +45,5 @@ package() {
 }
 
 sha512sums="
-d9ec85cb8af11100806bced4ef084427bf508cbf1ecc22a884aab84a020a8955e5dc747ea7cda20e8de8fac1b7a5f0f98ddfc88396baa7f930000c783cb2d0ce  libquotient-0.9.3.tar.gz
+d8db4eb22c33bf2e2a4a092318c01be61ec16fc0d0f9d0d7218d1ab5e17600515ecb02a19a38334f255b4928477a88cd07bbd1ae18844091ea68bf645f3bda49  libquotient-0.9.6.1.tar.gz
 "

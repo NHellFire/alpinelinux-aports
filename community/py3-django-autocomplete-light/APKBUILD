@@ -1,7 +1,7 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-django-autocomplete-light
-pkgver=3.12.1
+pkgver=5.0.0
 pkgrel=0
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=django-autocomplete-light
@@ -10,7 +10,6 @@ url="https://pypi.python.org/project/django-autocomplete-light"
 arch="noarch"
 license="MIT"
 depends="
-	py3-six
 	py3-django-querysetsequence
 	py3-django-taggit
 	py3-django-extensions
@@ -22,9 +21,10 @@ checkdepends="
 	py3-pep8-naming
 	py3-mccabe
 	py3-pytest-django
-"
+	py3-tenacity
+	"
 makedepends="py3-setuptools py3-gpep517 py3-wheel"
-source="$pkgname-$pkgver.tar.gz::https://github.com/yourlabs/django-autocomplete-light/archive/refs/tags/$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/yourlabs/django-autocomplete-light/archive/v$pkgver.tar.gz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 options="!check" # depends on py3-selenium, repackaged chrome
 subpackages="$pkgname-pyc"
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-7a84c57523a7a49df62bf62f1ab5cb5156bbeb8eb348066b043d71e350c2cbba3572e696ec8b58fed8eb7e765df2d85f18f102ce796c1ffc384f0caa8708e005  py3-django-autocomplete-light-3.12.1.tar.gz
+7adb16fd7c0b16925ebd6eb9043c15e84d8c8cbf79b518e74158f985507f1a0ff23a0db91840d48a440c66df782defda582ad39cd991a9393eb261f40103fa6c  py3-django-autocomplete-light-5.0.0.tar.gz
 "

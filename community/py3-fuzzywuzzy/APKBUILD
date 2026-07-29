@@ -3,7 +3,7 @@
 pkgname=py3-fuzzywuzzy
 _pyname=fuzzywuzzy
 pkgver=0.18.0
-pkgrel=7
+pkgrel=8
 pkgdesc="Fuzzy string matching in python"
 url="https://github.com/seatgeek/fuzzywuzzy"
 arch="noarch"
@@ -23,7 +23,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

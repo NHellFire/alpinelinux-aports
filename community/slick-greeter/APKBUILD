@@ -1,7 +1,7 @@
 # Contributor: David Demelier <markand@malikania.fr>
 maintainer="Jakko <jahau@rocketmail.com>"
 pkgname=slick-greeter
-pkgver=2.2.2
+pkgver=2.2.6
 pkgrel=0
 pkgdesc="a slick-looking LightDM greeter"
 url="https://github.com/linuxmint/slick-greeter"
@@ -27,5 +27,5 @@ package() {
 }
 
 sha512sums="
-9000de222c97a872d6d56a21ab889cedda60c0523533d7c43e3518f8b2221444d451d49d628979f0698d7375343fd349c73196722d928b933ee7041d2d5c4179  slick-greeter-2.2.2.tar.gz
+7c6ad8acd5886b41d5a4aef7eb46f12f86d2739f1add215e5907d310b0e9a747e8093b2dcb41d81117ef8e1d69e9f4a73f89fb206f1ea15783e6da0efc74536b  slick-greeter-2.2.6.tar.gz
 "

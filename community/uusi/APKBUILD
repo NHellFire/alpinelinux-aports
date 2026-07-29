@@ -1,16 +1,17 @@
 # Based on Arch's uusi package
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=uusi
-pkgver=0.4.3
+pkgver=0.4.4
 pkgrel=0
 pkgdesc="Tweak cabal package descriptions"
 url="https://github.com/berberman/uusi"
 arch="aarch64 x86_64" # ghc
 license="MIT"
-makedepends="ghc"
+makedepends="ghc patchelf"
 subpackages="$pkgname-doc"
-source="https://github.com/berberman/uusi/archive/$pkgver/uusi-$pkgver.tar.gz"
+source="https://github.com/berberman/uusi/archive/$pkgver/uusi-$pkgver.tar.gz
+	"
 options="!check" # needs HUnit package
 
 build() {
@@ -24,7 +25,6 @@ build() {
 		--disable-tests \
 		--dynlibdir=/usr/lib \
 		--libsubdir=\$compiler/site-local/\$pkgid \
-		--ghc-option=-fllvm \
 		--ghc-option=-optl-Wl\,-z\,relro\,-z\,now \
 		--ghc-option='-pie'
 
@@ -33,8 +33,12 @@ build() {
 
 package() {
 	runhaskell Setup copy --destdir="$pkgdir"
+
+	# Trim rpath containing $builddir
+	patchelf --shrink-rpath --allowed-rpath-prefixes /usr/lib \
+		"$pkgdir"/usr/bin/gen-setup
 }
 
 sha512sums="
-12ea510341face022ce51a39f10a85c620446daa29170618c0421746dccd9c726837a8309a01bf9b326186a03a508baed5213cf01d5dcb1bf9b35f40adbadaf2  uusi-0.4.3.tar.gz
+c4d5464795c6b74e69f9c13f0af78bd39c18669a8390353ab08f468240ea2ae51134b46250f81d2fe8961cc8d5eb72e23db2ebbbbc26c91f3d4707f227b41c1e  uusi-0.4.4.tar.gz
 "

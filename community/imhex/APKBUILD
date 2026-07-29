@@ -1,13 +1,12 @@
 # Contributor: George Hopkins <george-hopkins@null.net>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=imhex
-pkgver=1.37.4
-pkgrel=0
+pkgver=1.38.1
+pkgrel=3
 pkgdesc="Hex editor for reverse engineers and programmers"
 url="https://github.com/WerWolv/ImHex"
-# armhf, armv7, x86: 32-bit not supported
-arch="all !armhf !armv7 !x86"
+arch="all"
 license="GPL-2.0-or-later"
 options="!check" # No testsuite
 makedepends="
@@ -21,26 +20,28 @@ makedepends="
 	glm-dev
 	gtk+3.0-dev
 	libarchive-dev
-	llvm-dev
-	llvm-gtest
-	llvm-static
+	libssh2-dev
+	lz4-dev
 	mbedtls-dev
 	nlohmann-json
 	openssl-dev
 	python3-dev
 	samurai
 	yara-dev
+	zlib-dev
+	zstd-dev
 	"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/WerWolv/ImHex/releases/download/v$pkgver/Full.Sources.tar.gz
 	$pkgname-patterns-$pkgver.tar.gz::https://github.com/WerWolv/ImHex-Patterns/archive/refs/tags/ImHex-v$pkgver.tar.gz
 	fix-lfs64.patch
+	no-update.patch
 	no-werror.patch
 	"
 builddir="$srcdir/ImHex"
 
 # don't attempt to trace soname for plugin
-somask="ui.hexpluglib"
+somask="fonts.hexpluglib ui.hexpluglib"
 
 prepare() {
 	default_prepare
@@ -50,13 +51,14 @@ prepare() {
 }
 
 build() {
-	cmake3.5 -B build -G Ninja \
+	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DUSE_SYSTEM_CAPSTONE=ON \
 		-DUSE_SYSTEM_NLOHMANN_JSON=ON \
 		-DUSE_SYSTEM_FMT=ON \
-		-DUSE_SYSTEM_LLVM=ON \
+		-DUSE_SYSTEM_LLVM=OFF \
 		-DUSE_SYSTEM_YARA=ON \
 		-DIMHEX_DISABLE_STACKTRACE=ON \
 		-DIMHEX_IGNORE_BAD_CLONE=ON \
@@ -72,12 +74,12 @@ package() {
 
 	cd "$pkgdir"
 	rm -vr usr/share/imhex/sdk
-	rm -v usr/bin/imhex-updater
 }
 
 sha512sums="
-07ecc4776f3b82583f1137d1615ab8e73985a550203a127b084c0dfa1e6d7cdae4a558067968c726970c07bcd6fe85fb42302a18ed8b352e789becc5fa113768  imhex-1.37.4.tar.gz
-3d2f0dee58ad1e9261be71247dad41ed4437d65dc01fd37ff8b3a517ebf23e5a1123f51ae84f9c3b911d7c0b0c6044ffb580fc86f869f4c1ec1667a989125911  imhex-patterns-1.37.4.tar.gz
-197153d54cbec932d1acba62a9cae9605a38cf6adc22b52bd7b53ed13a905c26729e1b6d297079c7c7da57e2c6a11a77198b4beef35a58ecc839ca517d1484bb  fix-lfs64.patch
-531dbc5ffffa2933d06d7ff118c032108d18e76030a00c08f83bfe67c23507079facb6d6c6ae4eaa05629a948993ac42c3fd69c2aeaa6d05c5bb89c4d72930dd  no-werror.patch
+52c3119a4929bcc30ebfa9147c89a251ad5bf6b2bb793e3a494b2f65eb11c1f166d0a0d92ba1c9a24d4000d3264309788f34754a31e01175eda875181fdaf6dd  imhex-1.38.1.tar.gz
+4dd70c332f432e1a187260a7c86e17bfc4ed6ad8906ac44844a3d758e0f0ecf42c68e1740b5679745e34f4c0c4de12c992e63c509220c0f86d9a87f56ad47328  imhex-patterns-1.38.1.tar.gz
+66ae7af6fb38683ab45f8013c7d87b56373e019271d655e689846a0e683f7dde030e4bce9155444a7956dc94055835193bc9bc57a39aabfc3d87cbfaea7e5c8f  fix-lfs64.patch
+368bf6c61de309855f20373a4267fac523bf27b7abf9cc3cab5feab1125802bc6c2e6df925966879d803e7f7ffbf3d0d584c198af71af1e78dfb5821a44b1721  no-update.patch
+c998f80b29fb7d94f9169ef80d82dec65e4af3ed4628d0d5e839a17e0ac4e93e90a3c19188225be4c40fbf574a08a1896fe5b72dbcf31d7f09d936c048c3375c  no-werror.patch
 "

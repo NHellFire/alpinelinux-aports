@@ -1,6 +1,6 @@
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=hwdata
-pkgver=0.399
+pkgver=0.409
 pkgrel=0
 pkgdesc="Hardware identification and configuration data"
 url="https://github.com/vcrhonek/hwdata"
@@ -65,5 +65,5 @@ pnp() {
 }
 
 sha512sums="
-2a4ea986e5eae4c909ec875df2eecee120fb003fdfff0061649e6c88bb79d42cd9555f551933d3eab41375d5dd9937a1c0d6276b89b10ede7598cb133633ca2e  hwdata-0.399.tar.gz
+d3dc81b77431d74ac8317ff3c3b778f9f8b21f678fbfcff36d6a54365982d34698193b0c2c50db5d330e54d0bd64444981b5125a21562bd0ced873163081ba1f  hwdata-0.409.tar.gz
 "

@@ -1,7 +1,7 @@
 # Contributor: Saijin-Naib <Saijin-Naib_package-maintenance@outlook.com>
 # Maintainer: Saijin-Naib <Saijin-Naib_package-maintenance@outlook.com>
 pkgname=cobang
-pkgver=1.7.3
+pkgver=2.5.2
 pkgrel=0
 pkgdesc="A QR code and barcode scanner desktop app for Linux"
 url="https://github.com/hongquan/CoBang"
@@ -36,5 +36,5 @@ package() {
 }
 
 sha512sums="
-2ac2dbd3f4aecd0dd0235c07d082b137a147bac5abe2b1e737f6f62d44eb2bf6b10e2f9addf51c2410b0e77cc0ba56bd65f8a34165c282f7fa4f5b0cdd02a390  cobang-1.7.3.tar.gz
+4341b19e024690172135d00c3dca12ee01659463bc9fd6cf9481a0369f33646a4d72d97f67bf22cd3cd61e30dafd9f0031fac1958a2e591e89a8d159d469a67c  cobang-2.5.2.tar.gz
 "

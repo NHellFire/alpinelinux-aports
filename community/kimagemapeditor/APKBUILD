@@ -2,11 +2,11 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kimagemapeditor
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative -> ki18n
-# ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !ppc64le !s390x !riscv64"
+# x86, armv7, s390x and riscv64 blocked by qt6-qtwebengine
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://kde.org/applications/development/org.kde.kimagemapeditor"
 pkgdesc="An editor of image maps embedded inside HTML files, based on the <map> tag"
 license="GPL-2.0-or-later"
@@ -28,7 +28,10 @@ makedepends="
 	qt6-qtwebengine-dev
 	samurai
 	"
-subpackages="$pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/graphics/kimagemapeditor.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/kimagemapeditor-$pkgver.tar.xz"
 options="!check" # No tests
@@ -46,5 +49,5 @@ package() {
 }
 
 sha512sums="
-8641c8b2f6c857bf82d91318a7faf01d5d9b0ca938a291e63643d8015e8b6c7dc78739df44a4bbb26654ce9226fd4a70999f423db16c898a5b3c478cce56292a  kimagemapeditor-25.08.0.tar.xz
+39eb8876c6704aa4b453cda4393c3aff98ff23fb8a86e13fb803c9428775af333086e314955885cb8999c1d8ec0cbac5e2853f3324201e2c72df07c61c9762c3  kimagemapeditor-26.04.3.tar.xz
 "

@@ -2,18 +2,19 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kamoso
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative -> kirigami
-# ppc64le, s390x and riscv64 blocked by qt6-qtwebengine -> purpose
-arch="all !armhf !ppc64le !s390x !riscv64"
+arch="all !armhf"
 url="https://kde.org/applications/multimedia/org.kde.kamoso"
 pkgdesc="An application to take pictures and videos out of your webcam"
 license="GPL-2.0-or-later AND LGPL-2.1-only"
 depends="
 	gst-plugins-bad
 	gst-plugins-good
+	gst-plugins-good-qt
 	kirigami
+	kirigami-addons
 	purpose
 	"
 makedepends="
@@ -26,6 +27,7 @@ makedepends="
 	kdoctools-dev
 	ki18n-dev
 	kio-dev
+	kirigami-addons-dev
 	knotifications-dev
 	purpose-dev
 	qt6-qtbase-dev
@@ -53,5 +55,5 @@ package() {
 }
 
 sha512sums="
-5a14e95e1276512ac7dd1961d558da5e3848b67912d2e775f2ae03a304a8c87728a1bc755cf9de5b41e008847f1a804e19e6d4fd494a3722a9a19e873b680e96  kamoso-25.08.0.tar.xz
+ec382df50d840d369c326c096e7fd52aa64671b70516231b635a5ec88d0c5097e152e14ec99d68f45f7f56a98c4c3f10a490fc4bcde94cf5ab87cb517590c1e7  kamoso-26.04.3.tar.xz
 "

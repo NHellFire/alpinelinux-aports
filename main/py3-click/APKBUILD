@@ -1,0 +1,49 @@
+# Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
+# Contributor: Celeste <cielesti@protonmail.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=py3-click
+pkgver=8.4.2
+pkgrel=0
+pkgdesc="Simple wrapper around optparse for powerful command line utilities"
+url="https://click.palletsprojects.com"
+arch="noarch"
+license="BSD-3-Clause"
+makedepends="
+	py3-flit-core
+	py3-gpep517
+	"
+checkdepends="py3-pytest"
+subpackages="$pkgname-pyc"
+source="https://files.pythonhosted.org/packages/source/c/click/click-$pkgver.tar.gz
+	test-fix-broken-test-pytest-0.9.1.patch
+	"
+builddir="$srcdir/click-$pkgver"
+
+replaces="py-click" # Backwards compatibility
+provides="py-click=$pkgver-r$pkgrel" # Backwards compatibility
+
+build() {
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
+}
+
+check() {
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer .dist/*.whl
+	if [ "$CARCH" = "loongarch64" ]; then
+		.testenv/bin/python3 -m pytest -k "not test_echo_via_pager"
+	else
+		.testenv/bin/python3 -m pytest
+	fi
+}
+
+package() {
+	python3 -m installer -d "$pkgdir" \
+		.dist/*.whl
+}
+
+sha512sums="
+7df2cdd4c86e54c2e2e00c7425e484becb65a20c7dc38f0624c8ebe61aa701bc8cd1bc6de12367ff40e12ec0c16e06190f7a47e2f8c9849d7a431cecf8b42d87  click-8.4.2.tar.gz
+6264cf18ffbd76a2df588afec5b934e0b369a74fa4f8f46ddcacd5d1189d9fc4a0a4275278333efbd95f45bcd8a188c06d5ae3cc643a523911ee15f59ed6d1b5  test-fix-broken-test-pytest-0.9.1.patch
+"

@@ -1,28 +1,26 @@
 # Contributor: Luca Weiss <luca@lucaweiss.eu>
 maintainer="Luca Weiss <luca@lucaweiss.eu>"
 pkgname=libcamera
-pkgver=0.5.2
+pkgver=0.7.2
 pkgrel=0
 pkgdesc="Linux camera framework"
 url="https://libcamera.org/"
 arch="all"
 license="LGPL-2.1-or-later AND GPL-2.0-or-later"
-depends_dev="
+# upstream calls 'date' with a non-POSIX option so we pull in coreutils
+makedepends="
+	coreutils
+	doxygen
 	eudev-dev
 	glib-dev
 	gnutls-dev
-	gst-plugins-bad-dev
-	qt6-qtbase-dev
-	"
-# upstream calls 'date' with a non-POSIX option so we pull in coreutils
-makedepends="$depends_dev
-	coreutils
-	doxygen
 	graphviz
+	gst-plugins-base-dev
 	gtest-dev
 	libevent-dev
 	libpisp-dev
 	libunwind-dev
+	libyuv-dev
 	linux-headers
 	meson
 	py3-jinja2
@@ -32,17 +30,18 @@ makedepends="$depends_dev
 	py3-sphinxcontrib-doxylink
 	py3-yaml
 	python3-dev
+	qt6-qtbase-dev
 	qt6-qttools-dev
 	yaml-dev
 	"
 subpackages="
 	$pkgname-dbg
 	$pkgname-dev
-	$pkgname-doc
 	qcam
 	$pkgname-gstreamer
 	$pkgname-v4l2
 	$pkgname-tools
+	py3-$pkgname-pyc:pyc
 	py3-$pkgname:py3
 	"
 source="https://gitlab.freedesktop.org/camera/libcamera/-/archive/v$pkgver/libcamera-v$pkgver.tar.gz
@@ -71,8 +70,10 @@ esac
 
 build() {
 	abuild-meson \
-		-Dv4l2=true \
+		-Dpipelines=auto,virtual \
+		-Dv4l2=enabled \
 		-Dwerror=false \
+		-Ddocumentation=disabled \
 		. output
 	meson compile -C output
 }
@@ -148,6 +149,6 @@ py3() {
 }
 
 sha512sums="
-eb2ef122baa2a884c6b5303610882ba9d5699ebbadb24c21cdf2e09466a85ef54689c5e291fb153c0acd37307756dd4eb5353d16200b3469272398797513f131  libcamera-v0.5.2.tar.gz
+b317cdc96f61682ee0bf26dfb7c4d6441db9a9c5b93ab53528121a8cd44862b3d59cbaa3881bb0837e3e381564c184c7b742124aef4267eea754c6083de353c1  libcamera-v0.7.2.tar.gz
 22167a4eceb6d1b40b0b7c45fdf116c71684f5340de7f767535cb8e160ad9d2ae0f00cb3d461f73a344520a48a4641cf46226841d78bee06bfbfd2a91337f754  qcam.desktop
 "

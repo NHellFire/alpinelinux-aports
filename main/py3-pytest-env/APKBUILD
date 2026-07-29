@@ -2,13 +2,13 @@
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=py3-pytest-env
 _pyname=pytest_env
-pkgver=1.1.5
+pkgver=1.7.0
 pkgrel=0
 pkgdesc="Pytest plugin for adding environment variables"
 url="https://github.com/MobileDynasty/pytest-env"
 arch="noarch"
 license="MIT"
-depends="python3 py3-pytest"
+depends="python3 py3-dotenv py3-pytest"
 makedepends="py3-gpep517 py3-hatchling py3-hatch-vcs py3-installer"
 checkdepends="py3-pytest"
 subpackages="$pkgname-pyc"
@@ -31,5 +31,5 @@ package() {
 	python3 -m installer -d "$pkgdir" .dist/*.whl
 }
 sha512sums="
-8f7df6d823067f55b3e761acee76744dc64e2e0f0c1e19ef5ab4db3215e92843279742782e654e652af025126f6c31ba86a54e3ef9e2223ca6057fbdc136ddd1  pytest_env-1.1.5.tar.gz
+071eead1a149ae1a3fb219e8573a8faa5f185550bff8d2216d56b3a69e71dc34385cf8a6fc771352a82b3e25a3d7311fd92c65c91ebf1e8022095ade5e2052b4  pytest_env-1.7.0.tar.gz
 "

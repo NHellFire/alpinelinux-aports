@@ -6,10 +6,10 @@
 # Contributor: Ariadne Conill <ariadne@dereferenced.org>
 # Contributor: omni <omni+alpine@hack.org>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
-pkgver=20
+pkgver=22
 _majorver=${pkgver%%.*}
 pkgname=llvm
-pkgrel=1
+pkgrel=0
 pkgdesc="Low Level Virtual Machine compiler system, default version."
 arch="noarch"
 url="https://llvm.org/"
@@ -25,6 +25,7 @@ subpackages="
 	"
 	# Deliberately ommitted: $pkgname-test-utils-pyc
 options="!check"
+builddir="$srcdir"
 
 _binaries="
 	UnicodeNameMappingGenerator
@@ -157,10 +158,11 @@ linktools() {
 
 dev() {
 	depends="llvm$_majorver-dev"
-	mkdir -p "$subpkgdir"/usr/lib/cmake/llvm
+	mkdir -p "$subpkgdir"/usr/lib/cmake/llvm/ "$subpkgdir"/usr/bin/
 	ln -sf llvm$_majorver "$subpkgdir"/usr/lib/cmake/llvm
 	ln -sf llvm$_majorver/lib/LLVMgold.so "$subpkgdir"/usr/lib/
 	ln -sf llvm$_majorver/lib/libLTO.so "$subpkgdir"/usr/lib/
+	ln -sv ../lib/llvm$_majorver/bin/llvm-config "$subpkgdir"/usr/bin/llvm-config
 }
 
 _test_utils() {

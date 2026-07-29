@@ -1,7 +1,7 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=gvm-libs
-pkgver=22.26.0
+pkgver=23.9.1
 pkgrel=0
 pkgdesc="Greenbone Vulnerability Management Libraries"
 url="https://www.openvas.org/"
@@ -42,13 +42,12 @@ makedepends="
 	"
 checkdepends="gcovr"
 subpackages="$pkgname-dev $pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/greenbone/gvm-libs/archive/v$pkgver.tar.gz
+source="$pkgname-$pkgver.tar.gz::https://github.com/greenbone/gvm-libs/archive/refs/tags/v$pkgver.tar.gz
 	glib-include-path.patch
 	strptime.patch
 	use-posix-addr-struct.patch
 	32-bit-fix.patch
 	no-werror.patch
-	disable-asan.patch
 	"
 
 build() {
@@ -83,11 +82,10 @@ package() {
 }
 
 sha512sums="
-475fb711db0dd877a4408b0bdae043aca84825eb6943df7fe4864323a856fa2f8108f8e7adf6d2de2b6a6061ddf745125ef634ecf027c316b53112880aeeeb78  gvm-libs-22.26.0.tar.gz
+e6299e0c7eb35e6aa7e045e646f06b57281ad4d55dba7a23de5375304241e9711ed62b1fb38c6ffc6e2ca6932442a08cd91204e15d655bd7503976e950d31ddc  gvm-libs-23.9.1.tar.gz
 c0fe0add24cb4336f0ce313197042e60a3aba3eeb983f31b243e665a488e520ffa260ab9a3feb852500310a9df66f2eaf82ac4294d7980b983a78454b30eb9f9  glib-include-path.patch
 7e98eb91143b00c35bde99e2576562c40be614f04f030b0bbc633ec987860e63771f8d61d76a5da901ac11f09a9d1fde0398eaad0ff676f3abacd2c80ef8dc69  strptime.patch
 1641f2c728eecf318850446a53d6a7baf53efd33caebd1de27007a227cf48ad8d7d8ef3183d519aade2167dc9cfab3a0e33c6f37ec83b21808742f201f11e781  use-posix-addr-struct.patch
 33e222d9bfe05eb3c0e6a4ed706573d3c4989dc84634d4ad505a2fc7c052f5ec5919ca6613c72ef496e95046a9208a1450af47227e220ca11b93a9fb115dd6db  32-bit-fix.patch
 792656e54410a2511a3e759d24ab6b48c58b69ac4a46736360ab4e75ba4bef994e7e8b7f73c421321716c9e629c480b5dd6ee47074268b6adad53131fbe632a9  no-werror.patch
-9c01d139d719581c622934095cfd2c551431b79f93ec3e5303556b4bf14ac1f3f18fb2c54c991b7170f2fbd260568c94ebe60c48dc1aa94cb1cb65087854e9bc  disable-asan.patch
 "

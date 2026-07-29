@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtpositioning
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Provides access to position, satellite and area monitoring classes"
 url="https://qt.io/"
@@ -66,5 +66,5 @@ dev() {
 }
 
 sha512sums="
-ab9fdb39e7e564b5b9c6a07ddfa024830b3721d5ad697da313ec48c743ec990d29d3e7e7d66e77e8c9589c653b222aefb7c639bf0547f94927083322daff5333  qtpositioning-everywhere-src-6.9.2.tar.xz
+b39c05c13c6440e9d3dd85577ac8e56751f1db598c3ef5f8cdd71d379291abb8d80dd900e5bcde83310d071c398e4dc7de7741d4523d3675806b69bce0a5129a  qtpositioning-everywhere-src-6.11.1.tar.xz
 "

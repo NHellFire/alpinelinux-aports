@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=gnome-user-docs
-pkgver=49.0
+pkgver=50.2
 pkgrel=0
 pkgdesc="GNOME User Documentation"
 url="https://gitlab.gnome.org/GNOME/gnome-user-docs"
@@ -27,5 +27,5 @@ package() {
 }
 
 sha512sums="
-579b03086cc370fc2f0c050f92178b97e94971348854db6662de3776a2fb4fb6b14429a93a5408dde29aa399c900e0d3afc5ae178b742ba17ccf6030442c796a  gnome-user-docs-49.0.tar.xz
+64609a0d45593544beb1102f1b25752e90676eb1ec9c2d9f30cd03198cec2285647b094890a4fc5afcf2d5b630f23fea7c236551ba0678485dd7017c41aa4947  gnome-user-docs-50.2.tar.xz
 "

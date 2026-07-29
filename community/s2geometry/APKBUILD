@@ -1,8 +1,7 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-# Maintainer: Bart Ribbers <bribbers@disroot.org>
+maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=s2geometry
-pkgver=0.11.1
-pkgrel=2
+pkgver=0.14.0
+pkgrel=1
 pkgdesc="Computational geometry and spatial indexing on the sphere"
 url="https://s2geometry.io/"
 arch="all"
@@ -19,9 +18,12 @@ makedepends="$depends_dev
 	swig
 	"
 source="https://github.com/google/s2geometry/archive/v$pkgver/s2geometry-v$pkgver.tar.gz
-	fix-newer-openssl.patch
+	abseil-20260526.patch
 	"
-subpackages="$pkgname-dev py3-$pkgname:_py3"
+subpackages="
+	$pkgname-dev
+	py3-$pkgname:_py3
+	"
 options="!check" # No test target available
 
 build() {
@@ -48,6 +50,6 @@ _py3() {
 }
 
 sha512sums="
-c500029c6e9cc412a29a8a74961688b0a504f60b1a7698ef84c0d0ae760e3c3f05e7068fb1154c9755d907f82e3bc09f8bf1d0ff629cbd3bad6e70169187dd37  s2geometry-v0.11.1.tar.gz
-a7b79ce8ec0f45cc6e04925d1530c56126de23b168fc6f5bc22905a8af0006a7aab59dbebf194a5e69bbcf6da9168836e4de775d9cea926ff49e9ebf4471693a  fix-newer-openssl.patch
+345207937b8c1580eb7adc527e29c33b140d9042716425896c121b2661404675faf4e8ac5fdaf804e44a9165de049776897f24b56a90bfab3f8b1c632a34322b  s2geometry-v0.14.0.tar.gz
+535f404764b3d47f26457bd8ac78a0d8380f2fa3a631348b47165837e646f3e571733d6f06411403f1f4c78a65c1436862c68085352c7d4ab234a55f9d0b1815  abseil-20260526.patch
 "

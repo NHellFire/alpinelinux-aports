@@ -1,13 +1,13 @@
 # Maintainer: Noel Kuntze <noel.kuntze@contauro.com>
 pkgname=grommunio-gromox
-pkgver=2.46
+pkgver=3.8
 pkgrel=0
 pkgdesc="Open Source Groupware Solution"
-arch="all !riscv64 !s390x" # test failure on s390x
+arch="all !s390x" # test failure on s390x
 url="https://grommunio.com/"
 license="AGPL-3.0-or-later"
 subpackages="$pkgname-dbg $pkgname-doc $pkgname-dev $pkgname-openrc"
-_php=php83
+_php=php84
 install="$pkgname.pre-install $pkgname.pre-upgrade $pkgname.post-install $pkgname.post-upgrade"
 depends="
 	grommunio-common
@@ -48,7 +48,7 @@ pkggroups="grommunio gromox gromoxcf"
 
 source="
 	https://github.com/grommunio/gromox/archive/refs/tags/gromox-$pkgver.tar.gz
-	0001-iconv-ignore.patch
+	0002-iconv-utiltest.patch
 
 	gromox-delivery-queue.initd
 	gromox-delivery.initd
@@ -163,8 +163,8 @@ package() {
 }
 
 sha512sums="
-f521b2c40d83729f8bdca44edb9ec079073199cbe2723ac9b04760f37ece95fbf912e2876f0cabf8be80e6c7b8efb35573ba9eba0218a2166d4f106261ea6377  gromox-2.46.tar.gz
-6503d20b60d2017efbb3f4b0de6656d059391ab90f2e6346c83293371d0fed242a6003a4385a3fb0b5a0b1ca4c45d0a3136fd7080e8d08d42c0cc0d68baeac2d  0001-iconv-ignore.patch
+3e3cf326a3aaf49d075b1c0bfe25d4a3577462e0ebbabe4a261163dbf3cbadb51bb64304467f6d47a5efc77ece5fbb9d92f18e4fe674a6911e0abd0e0ac968c3  gromox-3.8.tar.gz
+8f01dc0eadf779571282bebadb3ef8818258789b1ddcbd1a72ac5365ae3021b846942b521e3013e76eb4d520be7d093cd731d22a1aa9e790b25818a289e56389  0002-iconv-utiltest.patch
 88bd2ef0f586e5147554d960d8c448b4896de05ca3d397a94131d409409a2bad1a858b67cfac41f609125f60471f53f03df53b44b04fd28ef6dede50a0e5d7fe  gromox-delivery-queue.initd
 7081e5e45ecea883a5bf6ebba17ab3bd70543f15745456a4f33cb853078f66fdb8d20a950281a4cc6b8b6f32c4c5123f82bbeda5be7fa3226ac32fb61e715c42  gromox-delivery.initd
 b21657db42dcd4186a5e848871743933dbff0649726620fe487f827fca47c4f1dd874d34667ebbf3c0d3e30fc16ff4915bede9a74fd582f0e435fefa1779255c  gromox-event.initd

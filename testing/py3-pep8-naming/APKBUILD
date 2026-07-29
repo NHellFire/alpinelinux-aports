@@ -2,7 +2,7 @@
 # Maintainer: Fabian Affolter <fabian@affolter-engineering.ch>
 pkgname=py3-pep8-naming
 pkgver=0.14.1
-pkgrel=0
+pkgrel=2
 pkgdesc="Check PEP-8 naming conventions plugin for flake8"
 url="https://github.com/PyCQA/pep8-naming"
 arch="noarch"
@@ -24,7 +24,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 run_tests.py
 }
 

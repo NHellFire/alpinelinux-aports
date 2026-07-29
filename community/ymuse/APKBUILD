@@ -1,7 +1,7 @@
 # Maintainer: Lauri Tirkkonen <lauri@hacktheplanet.fi>
 pkgname=ymuse
 pkgver=0.22
-pkgrel=4
+pkgrel=12
 pkgdesc="GTK client for Music Player Daemon (MPD) written in Go"
 url="https://yktoo.com/en/software/ymuse/"
 arch="all"
@@ -11,10 +11,6 @@ checkdepends="xvfb-run"
 options="net"
 source="ymuse-$pkgver.tar.gz::https://github.com/yktoo/ymuse/archive/refs/tags/v$pkgver.tar.gz
 fcd7717c15c9118c1fbf8c842cbafbf084a5bf5e.patch"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

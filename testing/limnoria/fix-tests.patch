@@ -34,30 +34,21 @@ index ccba7ea..c5630a9 100644
              self.assertError('unix call /usr/bin/nosuchcommandaoeuaoeu')
  
          def testShellForbidden(self):
-diff --git a/test/test_i18n.py b/test/test_i18n.py
-index 374d674..a00bccf 100644
---- a/test/test_i18n.py
-+++ b/test/test_i18n.py
-@@ -51,8 +51,8 @@ def bar():
- class I18nTestCase(SupyTestCase):
-     def testPluginInternationalization(self):
-         self.assertEqual(_(msg_en), msg_en)
--        with conf.supybot.language.context('fr'):
--            self.assertEqual(_(msg_en), msg_fr)
-+#        with conf.supybot.language.context('fr'):
-+#            self.assertEqual(_(msg_en), msg_fr)
-         conf.supybot.language.setValue('en')
-         self.assertEqual(_(msg_en), msg_en)
-         multiline = '%s\n\n%s' % (msg_en, msg_en)
-@@ -62,8 +62,8 @@ class I18nTestCase(SupyTestCase):
-     def testDocstring(self):
-         self.assertEqual(foo.__doc__, msg_en)
-         self.assertEqual(bar.__doc__, msg_en)
--        with conf.supybot.language.context('fr'):
--            self.assertEqual(foo.__doc__, msg_fr)
--            self.assertEqual(bar.__doc__, msg_fr)
-+ #       with conf.supybot.language.context('fr'):
-+ #           self.assertEqual(foo.__doc__, msg_fr)
-+ #           self.assertEqual(bar.__doc__, msg_fr)
-         self.assertEqual(foo.__doc__, msg_en)
-         self.assertEqual(bar.__doc__, msg_en)
+diff --git a/plugins/SedRegex/test.py b/plugins/SedRegex/test.py
+index 2031094..a467cf4 100644
+--- a/plugins/SedRegex/test.py
++++ b/plugins/SedRegex/test.py
+@@ -337,9 +337,10 @@ class SedRegexTestCase(ChannelPluginTestCase):
+         """Test that SedRegex works with 'spawn' multiprocessing context
+         (Windows compatibility)."""
+         with useSpawnContext():
+-            self.feedMsg('hello world')
+-            self.feedMsg('s/world/everyone/')
+-            m = self.getMsg(' ')
++            with conf.supybot.plugins.sedregex.processTimeout.context(5):
++                self.feedMsg('hello world')
++                self.feedMsg('s/world/everyone/')
++                m = self.getMsg(' ')
+             self.assertIn('hello everyone', str(m))
+ 
+     @unittest.skipIf(

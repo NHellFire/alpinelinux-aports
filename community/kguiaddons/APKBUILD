@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kguiaddons
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Addons to QtGui"
 # armhf blocked by qt6-qtdeclarative
@@ -28,6 +28,7 @@ makedepends="$depends_dev
 	python3-dev
 	qt6-qtdeclarative-private-dev
 	samurai
+	wayland-protocols
 	"
 checkdepends="xwayland-run"
 subpackages="
@@ -73,5 +74,5 @@ _py3() {
 }
 
 sha512sums="
-593845cf393480732f29c440520fd4bab6904b8d8025923ee62859b20e43b0ae275c083b0b54923fecef703542245a753f5380485340449b469ae25791f63dfc  kguiaddons-6.17.0.tar.xz
+e53966ce8501095a23df620625a07de3d7c7cd720d719a6dff1e54fc7fc38e69c17f50ff270d201768819e269b4b675235e66548e39c6522ef4b9510314d1f0a  kguiaddons-6.28.0.tar.xz
 "

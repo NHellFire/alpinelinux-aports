@@ -1,10 +1,11 @@
 # Contributor: Stuart Cardall <developer@it-offshore.co.uk>
 # Contributor: Stefan Wagner <stw@bit-strickerei.de>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=xdotool
-pkgver=3.20211022.1
-pkgrel=1
+pkgver=4.20260303.1
+pkgrel=0
 pkgdesc="Simulate X11 keyboard/mouse input events"
 url="https://github.com/jordansissel/xdotool"
 arch="all"
@@ -42,5 +43,5 @@ package() {
 }
 
 sha512sums="
-02e599d25f402759176f200207bd7a78f333e44c4213b9dd266afd47c319e1bbf73b16aac29a31700be9a5cfd37ac0dc52271f26adc4ed46500fb35d7389e182  xdotool-3.20211022.1.tar.gz
+2ec84a0856797d24c3fe7aa75cb643e37d1b2a2ff7dc332a11f9e88321592c4f0e2aa7a7e981ca98ca624fc120d1abb0021d97537555c43be77afc1b9a72803c  xdotool-4.20260303.1.tar.gz
 "

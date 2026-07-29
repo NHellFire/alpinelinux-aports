@@ -2,7 +2,7 @@
 # Maintainer: Matthias Ahouansou <matthias@ahouansou.cz>
 pkgname=invidtui
 pkgver=0.4.6
-pkgrel=8
+pkgrel=16
 pkgdesc="TUI based Invidious client"
 url="https://darkhz.github.io/invidtui/"
 arch="all"
@@ -10,10 +10,6 @@ license="MIT"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/darkhz/invidtui/archive/refs/tags/v$pkgver.tar.gz"
 options="net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	export CGO_CFLAGS="$CFLAGS"

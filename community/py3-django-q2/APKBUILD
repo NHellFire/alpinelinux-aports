@@ -2,7 +2,7 @@
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=py3-django-q2
 _pyname="django-q2"
-pkgver=1.8.0
+pkgver=1.10.0
 pkgrel=0
 # riscv64: test failure with test_timeout
 arch="noarch !riscv64"
@@ -16,7 +16,6 @@ depends="
 	py3-django
 	py3-django-picklefield
 	py3-django-redis
-	py3-future
 	py3-tz
 	py3-redis
 	py3-six
@@ -37,7 +36,6 @@ checkdepends="
 "
 source="
 	$pkgname-$pkgver.tar.gz::https://github.com/django-q2/django-q2/archive/refs/tags/v$pkgver.tar.gz
-	fix-HiredisParser-reference.patch
 	"
 builddir="$srcdir"/$_pyname-$pkgver
 subpackages="$pkgname-pyc"
@@ -58,7 +56,8 @@ check() {
 	# test_max_rss: failure on 32-bit arches
 	REDIS_HOST=127.0.0.1 \
 	MONGO_HOST=127.0.0.1 \
-	.testenv/bin/python3 -m pytest -v -k 'not test_qcluster and not test_scheduler and not test_mongo and not test_max_rss' || FAIL=true
+	.testenv/bin/python3 -m pytest -v -k 'not test_qcluster and not test_scheduler and not test_mongo and not test_max_rss and not test_recycle' || FAIL=true
+
 	pkill valkey-server
 	if [ "$FAIL" = "true" ]; then
 		return 1
@@ -71,6 +70,5 @@ package() {
 }
 
 sha512sums="
-8c2596eafb795aa18e0994dadb29d62cf89f99dad74292101d54966b14a0218792c3751e708f3e8ac3d9d8420dfd0a65051b00317005c1e7ea13607a60a2b9c5  py3-django-q2-1.8.0.tar.gz
-b4df8b946cff0b9160a8dc2a94f7ebbc288c35a4ee956f3f29d7a268f6a769bbc2bfdec6b7bd2e4c7134974820f306d07dfba37aeae2c37b8b9eefb2b3f3e5d4  fix-HiredisParser-reference.patch
+1789c369292bdf9af6b8a82342cac7369b16c0ecfde0a883700a1b659d8b1ade6663b2ac7661874f59721d68e5a6433cc6e8e24aafdec6512f8b6e9723a3866b  py3-django-q2-1.10.0.tar.gz
 "

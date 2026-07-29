@@ -1,9 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=emacs-vterm
-pkgver=0_git20250111
-_gitrev=056ad74653704bc353d8ec8ab52ac75267b7d373
-pkgrel=0
+pkgver=0_git20251119
+_gitrev=a01a2894a1c1e81a39527835a9169e35b7ec5dec
+pkgrel=1
 _pkgreal=vterm
 pkgdesc="Fully-fledged terminal emulator based on libvterm"
 url="https://github.com/akermu/emacs-libvterm"
@@ -50,5 +50,5 @@ package() {
 }
 
 sha512sums="
-728fc4589c0cfdcd8ec3ac1737ae617bd539ef075f7fd4df623ea6471f9bd38932bbed9e4c179cb5cba4d108dbb0ba01180c122dcdbb28a1a0adf24484229e8b  emacs-vterm-056ad74653704bc353d8ec8ab52ac75267b7d373.tar.gz
+ec0d85a3fde894092f7151cf1f7b0b0acbf14e66608d5fcbcdd88f224ba21c62cb478818df7056486189bcaab309dae5f62727b4c0da34068874c13e411c456b  emacs-vterm-a01a2894a1c1e81a39527835a9169e35b7ec5dec.tar.gz
 "

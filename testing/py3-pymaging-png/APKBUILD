@@ -3,7 +3,7 @@ pkgname=py3-pymaging-png
 _pkgname=pymaging-png
 _commit=83d85c44e4b2342818e6c068065e031a9f81bb9f
 pkgver=0.0.20130727
-pkgrel=10
+pkgrel=11
 pkgdesc="PNG format support for pymaging"
 url="https://github.com/ojii/pymaging-png"
 arch="noarch"
@@ -25,7 +25,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m unittest discover
 }
 

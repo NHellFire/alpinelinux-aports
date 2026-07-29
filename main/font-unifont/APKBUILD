@@ -1,7 +1,7 @@
 # Contributor: Breno Leitao <breno.leitao@gmail.com>
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=font-unifont
-pkgver=17.0.01
+pkgver=17.0.05
 pkgrel=0
 pkgdesc="GNU Unifont glyphs"
 url="https://unifoundry.com/unifont/index.html"
@@ -54,5 +54,5 @@ misc() {
 }
 
 sha512sums="
-bb5223b1784e0f11694d1e6f93b088b3063b8ec055e7ae19ecab99e2cb97582be27dbaab22197719faf413ceb49c097a1c3177c410404882aa3b9d3465117d88  unifont-17.0.01.tar.gz
+79b4e57d95cd34f3964d666f9cf284a85d9e137f7b396dd459b66ed9681b789491349915922aae9f51448b0c80e181caa1a96b5a0ed4744b2a87412bcb39ca22  unifont-17.0.05.tar.gz
 "

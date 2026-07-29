@@ -1,6 +1,6 @@
 maintainer="Michał Polański <michal@polanski.me>"
 pkgname=cargo-release
-pkgver=0.25.18
+pkgver=1.1.3
 pkgrel=0
 pkgdesc="Everything about releasing a rust crate"
 url="https://github.com/crate-ci/cargo-release"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-0a9d11ec17a005ca2a14f3493e812ced7754a04c9d1572dd3c36c71be6e6ea0dfd8f78829e5fc063b8d6010a984362b795bfa6899ec181544f417d853881165d  cargo-release-0.25.18.tar.gz
+ce82296550cacd11bd8817196104baf691eccc8469afa80b4e9f8765a1e9c3c0e32941824a4b47e063e1dc79aea09436f4bbaa915e75c1b694862ff452db7fd4  cargo-release-1.1.3.tar.gz
 "

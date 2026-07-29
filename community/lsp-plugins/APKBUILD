@@ -1,7 +1,7 @@
 # Contributor: Magnus Sandin <magnus.sandin@valitron.se>
 # Maintainer: Magnus Sandin <magnus.sandin@valitron.se>
 pkgname=lsp-plugins
-pkgver=1.2.23
+pkgver=1.2.33
 pkgrel=0
 pkgdesc="Collection of free plugins compatible with LADSPA, LV2 and LinuxVST"
 url="https://lsp-plug.in"
@@ -11,7 +11,6 @@ install="$pkgname.post-upgrade"
 makedepends="
 	cairo-dev
 	cmd:php
-	cmd:git
 	gst-plugins-base-dev
 	jack-dev
 	ladspa-dev
@@ -31,9 +30,11 @@ subpackages="
 	$pkgname-vst2
 	"
 source="
-	lsp-plugins-$pkgver.tar.gz::https://github.com/lsp-plugins/lsp-plugins/archive/refs/tags/$pkgver.tar.gz
+	lsp-plugins-$pkgver-src.tar.gz::https://github.com/lsp-plugins/lsp-plugins/releases/download/$pkgver/lsp-plugins-src-$pkgver.tar.gz
+	dlmopen-musl.patch
 	"
 options="!check" # no testsuite
+builddir="$srcdir/lsp-plugins"
 
 # GitLab CI and builders run armhf/armv7 as 32-bit arches on aarch64. Thus, we
 # cannot rely on the uname -m output on these platforms, as the build system is
@@ -44,7 +45,9 @@ armhf) export ARCHITECTURE=armv6l ;;
 armv7) export ARCHITECTURE=armv7l ;;
 esac
 
-build() {
+prepare() {
+	default_prepare
+
 	export CFLAGS="$CFLAGS -O2"
 	export CXXFLAGS="$CXXFLAGS -O2 -fno-lto"
 	export LDFLAGS="-fno-lto"
@@ -54,12 +57,14 @@ build() {
 		ADD_FEATURES=xdg \
 		ARTIFACT_EXPORT_HEADERS=1 \
 		config
-	make fetch
+}
+
+build() {
 	make
 }
 
 package() {
-	make DESTDIR="$pkgdir" install
+	make -j1 DESTDIR="$pkgdir" install
 	rm "$pkgdir"/usr/lib/*.a
 }
 
@@ -107,5 +112,6 @@ vst2() {
 }
 
 sha512sums="
-6628c4aff680e02c925d4a5cf40345abffd9fe11a54c802d9a600073ddece61c266f34a35950986dec13e0db23ae399f61f72187407ec4ec51bbcf2bb2990c61  lsp-plugins-1.2.23.tar.gz
+8087ba478f49fab50a142db7e6a6d26d0431c47a620d2280da08c3204d3eaa0d4a8de02f26cfbb84a7ecc4c3fd46d0fd5f794cf7c50c61bfa6be56405ae68e1d  lsp-plugins-1.2.33-src.tar.gz
+8bacac4f6c8ad6aa1539f13679f7fa01770d0e30d349e38db0f61a8f56bc7b320c288ee6dedfbbe76594b4ea02196b8b50e352cc6b0b3f066d6bd3180d68d702  dlmopen-musl.patch
 "

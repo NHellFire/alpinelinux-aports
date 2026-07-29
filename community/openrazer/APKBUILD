@@ -1,7 +1,7 @@
 # Contributor: Bart Ribbers <bribbers@disroot.org>
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=openrazer
-pkgver=3.10.3
+pkgver=3.12.4
 pkgrel=0
 pkgdesc="Open source driver and user-space daemon to control Razer lighting and other features on GNU/Linux"
 url="https://openrazer.github.io/"
@@ -20,6 +20,8 @@ makedepends="
 subpackages="
 	$pkgname-doc
 	$pkgname-src
+	$pkgname-systemd
+	$pkgname-udev
 	py3-$pkgname-pyc
 	py3-$pkgname:py3
 	"
@@ -36,9 +38,6 @@ options="!check" # No tests
 
 package() {
 	DESTDIR="$pkgdir" make appstream_install udev_install daemon_install xdg_install setup_dkms
-
-	# We don't have systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 src() {
@@ -68,5 +67,5 @@ py3() {
 }
 
 sha512sums="
-ca4a78a28141b77c133149dee5aa3d996f74a54a590fe57280830ea4b2df527274feb6087fcbc96a6eb85e25bd3178d8dceb140e8fff4f020931c1ffe234601a  openrazer-v3.10.3.tar.gz
+4eb2aba7b4d0f6ad7a0d1d5a0592aae7e720fd7ed9bc9a2e359e1384154dae2c5ea2ff54da2b405d41f1ce9760a5a141f4c58c539b2539d1f39e38ea1da376c8  openrazer-v3.12.4.tar.gz
 "

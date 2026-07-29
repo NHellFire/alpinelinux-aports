@@ -1,7 +1,7 @@
 # Contributor: Krassy Boykinov <kboykinov@teamcentrixx.com>
 maintainer="Krassy Boykinov <kboykinov@teamcentrixx.com>"
 pkgname=jdtls
-pkgver=1.46.1
+pkgver=1.58.0
 pkgrel=0
 pkgdesc="Eclipse Java language server"
 url="https://github.com/eclipse/eclipse.jdt.ls"
@@ -9,9 +9,23 @@ arch="aarch64 x86_64"
 license="EPL-2.0"
 depends="java-jre-headless python3"
 makedepends="maven"
-source="$pkgname-$pkgver.tar.gz::https://github.com/eclipse/eclipse.jdt.ls/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/eclipse/eclipse.jdt.ls/archive/refs/tags/v$pkgver.tar.gz
+	update-junit-juniper.patch
+	update-p2-site-for-jdt-javac.patch
+	"
 builddir="$srcdir/eclipse.jdt.ls-$pkgver"
 options="!check" # runs in build
+
+prepare() {
+	default_prepare
+
+	# io.github.git-commit-id:git-commit-id-maven-plugin:9.0.2:revision
+	# requires a .git directory with HEAD ref
+	cd "$builddir"/org.eclipse.jdt.ls.core
+	git init -q .
+	git add .
+	git -c user.name=jdtls -c user.email=jdtls@example.com commit -q -m "Init"
+}
 
 build() {
 	mvn -B package -fn -Dmaven.repo.local="$builddir"/.m2/repository
@@ -38,5 +52,7 @@ package() {
 }
 
 sha512sums="
-07a2c09e6ce408a4bb1614db525af4469f9f1586c9cde14838a00af5ffc29bc09e9971e991d13b667beecaccd15bb0b3a4a89f6b1709570edf2634918b9a0307  jdtls-1.46.1.tar.gz
+c7c7fdc88341f9f1c148d677a573dcf2e04b72c7351556da23db2a0741431161619943bf88b775d46a5cfa8fd7979d68a6b8a9849bf7721d52e880af6f4080f2  jdtls-1.58.0.tar.gz
+13d62e2d230d2462a9bc58ce0cb0fa4ac4ef63abc202ad8b99e8f28ee98f522a69b7db5c62dbbf134ee1a25994f9ff3182578f773cf6f75344c72327a90c56f6  update-junit-juniper.patch
+1dc52d2e4a6e2b5dad175555905a1de6a70ad01a5ceb8dcd34f2edf5301934789da0991710244cbe8b8b3344f3f86731322afffb15456a94c14f04477239ec8f  update-p2-site-for-jdt-javac.patch
 "

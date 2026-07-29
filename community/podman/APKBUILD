@@ -1,8 +1,8 @@
 # Contributor: Michał Polański <michal@polanski.me>
-# Maintainer: Michał Polański <michal@polanski.me>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=podman
-pkgver=5.6.1
-pkgrel=0
+pkgver=5.8.3
+pkgrel=1
 pkgdesc="Simple management tool for pods, containers and images"
 url="https://podman.io/"
 license="Apache-2.0"
@@ -12,7 +12,8 @@ depends="
 	conmon
 	oci-runtime
 	passt
-	shadow-subids
+	cmd:newgidmap
+	cmd:newuidmap
 	containers-common
 	netavark
 	aardvark-dns
@@ -21,6 +22,8 @@ depends="
 makedepends="
 	bash
 	btrfs-progs-dev
+	coreutils
+	gettext-envsubst
 	go
 	go-md2man
 	gpgme-dev
@@ -28,6 +31,7 @@ makedepends="
 	libassuan-dev
 	libseccomp-dev
 	mandoc
+	python3
 	sqlite-dev
 	"
 install="$pkgname.post-install $pkgname.post-upgrade"
@@ -38,17 +42,27 @@ subpackages="
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	$pkgname-remote:remote
+	$pkgname-systemd::all
 	$pkgname-docker:docker:noarch
 	$pkgname-docker-doc:docker_doc:noarch
+	$pkgname-docker-systemd:docker_systemd:noarch
 	"
 source="https://github.com/containers/podman/archive/v$pkgver/podman-$pkgver.tar.gz
-	no-systemd.patch
+	kill-all-only-rootful.patch
+	systemd-units-always.patch
+	28586.patch
 
 	podman.initd
 	podman.confd
 	"
 
 # secfixes:
+#   0:
+#     - CVE-2026-33414
+#   5.8.3-r0:
+#     - CVE-2026-44517
+#   5.7.0-r0:
+#     - CVE-2025-52881
 #   5.6.1-r0:
 #     - CVE-2025-9566
 #   5.3.2-r0:
@@ -89,22 +103,18 @@ source="https://github.com/containers/podman/archive/v$pkgver/podman-$pkgver.tar
 #   1.8.1-r0:
 #     - CVE-2020-1726
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
 	# https://github.com/mattn/go-sqlite3/issues/1164
 	export CGO_CFLAGS="$CFLAGS -D_LARGEFILE64_SOURCE"
 
 	export BUILDTAGS="exclude_graphdriver_devicemapper seccomp apparmor libsqlite3"
-	make -j1 podman podman-remote rootlessport docs \
+	make -j1 podman podman-remote quadlet rootlessport docs \
 		PREFIX=/usr \
 		GOMD2MAN="$(which go-md2man)"
 }
 
 package() {
-	make install.bin install.remote install.man install.completions \
+	make install.bin install.remote install.man install.completions install.systemd \
 		PREFIX=/usr DESTDIR="$pkgdir"
 
 	install -Dm755 "$srcdir"/$pkgname.initd "$pkgdir"/etc/init.d/$pkgname
@@ -128,6 +138,10 @@ docker() {
 
 	# Remove man pages
 	rm -rf "${subpkgdir:?}"/usr/share
+
+	# Remove systemd-related stuff (will be handled in docker_systemd func later)
+	rm -rf "$subpkgdir"/usr/lib
+	rm -rf "$subpkgdir"/usr/share/user-tmpfiles.d
 }
 
 docker_doc() {
@@ -145,9 +159,28 @@ docker_doc() {
 	done
 }
 
+systemd() {
+	default_systemd
+
+	amove usr/libexec/podman/quadlet
+	amove usr/lib/tmpfiles.d/podman.conf
+}
+
+docker_systemd() {
+	pkgdesc="Emulate Docker CLI using Podman (systemd files)"
+	install_if="$pkgname-docker=$pkgver-r$pkgrel systemd"
+
+	install -Dm644 "$builddir"/contrib/systemd/system/podman-docker.conf \
+		"$subpkgdir"/usr/lib/tmpfiles.d/podman-docker.conf
+	install -Dm644 "$builddir"/contrib/systemd/system/podman-docker.conf \
+		"$subpkgdir"/usr/share/user-tmpfiles.d/podman-docker.conf
+}
+
 sha512sums="
-146858b4e64c638a20c7865b294180c344a0fd7c4815a0f95c69abe04397c1aef53379e34f3f092184d663cc6f4967db2872a5aa969e1aa5a8f06c86ccbd14e1  podman-5.6.1.tar.gz
-5a395b94d75bcc8b87cc3bafbcf1f61a411ee37256dc1ddb27e21ad49b912227601423e387c2f111f773a4a19936b586a308279297cef9c8a64ccfdd87123615  no-systemd.patch
-f8941dc3f8c6b08b288e3347ef2d782140f6e46809da0353f3695338a2de75a971b312e57d09b0a0ea51557568d888b367e3b234be550aea8386321878f4a22f  podman.initd
+1dd626f1b761bdeb1c87836dfc94ed036db420863512abaabf21c1015c433216f8d7192fbb8d4f7b634797ea50b2f4a8fcf61a724da2962aeaa47dad5f75defe  podman-5.8.3.tar.gz
+39db452e9442d11578a7e47326bfc97af0e6f412912c3581ca2aa511c631d3cbf5ec48c8e792bddb5893e2ee8efd3d3b2f07221917c2fa7b31b7f6a5f6191990  kill-all-only-rootful.patch
+6065a35d01183b3def9888881d25dfd940ec0f487ffaf229019c17d286cea35d684f0eed2745d9c57e9fa89f8a21e20b97e45af67121fc32858e75462748faaf  systemd-units-always.patch
+09df9b7b3085c60fa2ca4225452835632ca809a7543b816118d0705205f29aa653ce0e00cbc8a52cb34294fe665a5834d106096373b067543c0185e0f240a1d7  28586.patch
+2fbded8bf4680441dd04f12909e1af828525f4aa08678bf465c66958339fc6cd52cdfdac8e7fdfaf9fe5b6464545e8b071f47c6147d58d4c644c2c5447b3098b  podman.initd
 ec6e6d3f72d0ab6c90a30b2cca5152c0d0f1e402ae671289263d7bf3b5141de9d67c3593f20b6075cedd214b7fb1506e69ff7b4f9691b43b391389343ab9b9b1  podman.confd
 "

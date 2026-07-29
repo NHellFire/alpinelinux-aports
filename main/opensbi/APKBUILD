@@ -2,7 +2,7 @@
 # Maintainer: Milan P. Stanić <mps@arvanta.net>
 pkgname=opensbi
 # XXX: Updates require rebuilds of main/u-boot.
-pkgver=1.7
+pkgver=1.9
 pkgrel=0
 pkgdesc="risc-v open source supervisor binary interface"
 url="https://github.com/riscv/opensbi"
@@ -10,10 +10,11 @@ arch="riscv64"
 license="BSD-2-Clause"
 options="!check" # no tests
 makedepends="bash python3"
-source="$pkgname-$pkgver.tar.gz::https://github.com/riscv/opensbi/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/riscv/opensbi/archive/refs/tags/v$pkgver.tar.gz
+	"
 
 build() {
-	make PLATFORM=generic
+	make PLATFORM=generic BUILD_INFO=y
 }
 
 package() {
@@ -23,5 +24,5 @@ package() {
 }
 
 sha512sums="
-2481c37ed912ef756089cfd39bb2b34417981ed273ff0365d0933e761619b481a8ce8bd88951a2a9cccef4bcb4a73c4aff63fd7bd5bbebc3e8cdcc1cd90a39a4  opensbi-1.7.tar.gz
+dbefd522516a63fae91a0ddad13a5230e65888f4171361ebc8d84d21649ea2000a96e3cbd5f862a91962c92e254d27b62ee2ffd27f33ae8fc88a6f0cb93e37d6  opensbi-1.9.tar.gz
 "

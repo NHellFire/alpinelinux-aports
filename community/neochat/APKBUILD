@@ -2,13 +2,13 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=neochat
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="A client for Matrix, the decentralized communication protocol"
 url="https://invent.kde.org/network/neochat/"
 # armhf blocked by qt6-qtdeclarative -> kirigami
-# x86, riscv64, s390x and ppc64le blocked by qt6-qtwebengine -> qt6-qtwebview
-arch="all !armhf !x86 !riscv64 !s390x !ppc64le"
+# x86, armv7, riscv64 and s390x blocked by qt6-qtwebengine -> qt6-qtwebview
+arch="all !armhf !x86 !armv7 !riscv64 !s390x"
 license="GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-2-Clause"
 depends="
 	kirigami
@@ -79,6 +79,6 @@ package() {
 }
 
 sha512sums="
-49a28d64a3e970b632a22eb8d3d9d6807194e94a5f9aff485afcbfac3f8ead04e56b804f838407168ac7128d784401bf3c8c7e75d86c4c32187f09259e1b0d83  neochat-25.08.0.tar.xz
+a6c551aba65827d60cc51df1acbd9da6d5c144ecbf1a87bebbffd2d85684d49c135594fafd133fae9f7ff86f4a36d561c602249d0dbd7d3a2fb1da8f5805be38  neochat-26.04.3.tar.xz
 d57214940e739639895b2cb140c7cedbfbc515662e8aa58adab339466ea8e87e95e087347aab7a4006287290515af2aa71dda4b0b9b9a40f9b297b17f92b285a  neochatrc
 "

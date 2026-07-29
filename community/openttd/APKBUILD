@@ -1,8 +1,8 @@
 # Contributor: Adrian Siekierka <kontakt@asie.pl>
 # Maintainer: Thomas Kienlen <kommander@laposte.net>
 pkgname=openttd
-pkgver=14.1
-pkgrel=2
+pkgver=15.3
+pkgrel=0
 pkgdesc="Open source version of the Transport Tycoon Deluxe simulator"
 url="https://www.openttd.org"
 arch="all"
@@ -18,12 +18,14 @@ makedepends="
 	libpng-dev
 	lzo-dev
 	samurai
-	sdl2-dev
+	sdl2-compat-dev
+	sdl2-compat-static
 	xz-dev
 	zlib-dev
 	"
 subpackages="$pkgname-doc $pkgname-lang::noarch"
-source="https://cdn.openttd.org/openttd-releases/$pkgver/openttd-$pkgver-source.tar.xz
+source="
+	https://cdn.openttd.org/openttd-releases/$pkgver/openttd-$pkgver-source.tar.xz
 	no-sse4.patch
 	"
 
@@ -57,6 +59,6 @@ lang() {
 }
 
 sha512sums="
-194135cc01457d9ed069c09d8961ad3de681bc9936533ca81ff23099f394bb9a83ef84a0852e85525e258f6149e14fd41cfc5f8e683c0643515005c42fb77e3b  openttd-14.1-source.tar.xz
-fef70a685b4d440a0c1a6b6cde94df2dcada7ee10f4b213ee0a649dfbbb5de800aed06a4f066b2be5369147b1ecd83ad6b89bdb06138c46b250ca7f75c95b5a4  no-sse4.patch
+966b97450eb9509d50652596d3af92554e46e65cb36e41c7fe2c46dac84b397b2b693f1f0bf6308aabe1e8f5ff8a90ece99ccbe34cbb3bb723a389324269b771  openttd-15.3-source.tar.xz
+ea6814a5af2fa3721ec18d11a3dde0f640b7d9dee937afeac88edc4d79b90a57a5d1f111c55acde2fc66089968c71dc23ad93963855d17d3d8897f6f9b7fdd7e  no-sse4.patch
 "

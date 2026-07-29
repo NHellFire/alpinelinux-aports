@@ -1,10 +1,8 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=akonadiconsole
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # s390x, ppc64le, armhf and riscv64 blocked by akonadi
 # ppc64le, armv7 and loongarch64 blocked by calendarsupport
@@ -42,7 +40,7 @@ makedepends="
 	samurai
 	xapian-bindings
 	"
-checkdepends="xvfb-run"
+checkdepends="xwayland-run"
 _repo_url="https://invent.kde.org/pim/akonadiconsole.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/akonadiconsole-$pkgver.tar.xz"
 
@@ -55,7 +53,7 @@ build() {
 }
 
 check() {
-	xvfb-run ctest --test-dir build
+	wlheadless-run -- ctest --test-dir build
 }
 
 package() {
@@ -63,5 +61,5 @@ package() {
 }
 
 sha512sums="
-d6d9a3e8874c7f05301400d210a67b6700b760cae34b6a8cd57a1fe173962ceced1589a1a5bb805c49b1b126b550ba84643960ab0c0bda5144937cd4986b5995  akonadiconsole-25.08.0.tar.xz
+655a38c191d6a6fa27635bcdce6e2f792c5bc4fb30d9144c66743cd64849fb93cfee5f1037d404d1dd5b52738ba5763c00e0e8713ef259a451836336efdf5920  akonadiconsole-26.04.3.tar.xz
 "

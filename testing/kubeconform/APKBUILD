@@ -1,17 +1,13 @@
 # Maintainer: Hristiyan Ivanov <hristiyan.d.ivanov@gmail.com>
 pkgname=kubeconform
 pkgver=0.7.0
-pkgrel=1
+pkgrel=9
 pkgdesc="A FAST Kubernetes manifests validator, with support for Custom Resources!"
 url="https://github.com/yannh/kubeconform"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/yannh/kubeconform/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

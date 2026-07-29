@@ -2,7 +2,7 @@
 # Maintainer: Nicolas Lorin <androw95220@gmail.com>
 pkgname=autorestic
 pkgver=1.8.3
-pkgrel=8
+pkgrel=16
 pkgdesc="Config driven, easy backup cli for restic."
 url="https://github.com/cupcakearmy/autorestic"
 arch="all"
@@ -13,10 +13,6 @@ options="!check net"
 depends="restic"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/cupcakearmy/autorestic/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build

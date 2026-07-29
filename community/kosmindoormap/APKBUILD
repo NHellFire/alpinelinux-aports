@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kosmindoormap
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -50,5 +50,5 @@ package() {
 }
 
 sha512sums="
-f1367119b833af4971b291e965343972e52ef6e5cab921203f2354b07c7ddc8fb6eacafec156a7ef902be28ecba5b4e8ee8213d7693fb95444d8d3842c500f90  kosmindoormap-25.08.0.tar.xz
+14b4f4e283c81d8f536b7082dfcf928f9b40473b92c33d711ebdd82974f0b25a83e3ced3df3e3d4b96f25124fa581445bef826d18d109906681aaa2ce7d3b997  kosmindoormap-26.04.3.tar.xz
 "

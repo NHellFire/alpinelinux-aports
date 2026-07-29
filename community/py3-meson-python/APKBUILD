@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-meson-python
-pkgver=0.18.0
-pkgrel=1
+pkgver=0.20.0
+pkgrel=0
 pkgdesc="Meson PEP 517 Python build backend"
 url="https://github.com/mesonbuild/meson-python"
 arch="noarch"
@@ -12,6 +12,7 @@ depends="
 	python3
 	"
 checkdepends="
+	cmake
 	cython
 	git
 	patchelf
@@ -45,5 +46,5 @@ package() {
 }
 
 sha512sums="
-f32f02851cdfc13f29550b297b3bce9038bdaf02381b15064e36442104e93624e090abeae23b9de97dfa971aa456716cae65dbe04784beee13b510db12de1000  py3-meson-python-0.18.0.tar.gz
+804f2885e2ebf8f2dfc2a91bf30a5306409684a8b6acdcb69217f45a5c6411e32b1373897efc71e148739502388727efc4e5d52b5f9375be676663ca3d189b6b  py3-meson-python-0.20.0.tar.gz
 "

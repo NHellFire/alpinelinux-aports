@@ -2,7 +2,7 @@
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
 # Maintainer: Peter Shkenev <santurysim@gmail.com>
 pkgname=wayland-protocols
-pkgver=1.45
+pkgver=1.49
 pkgrel=0
 pkgdesc="Protocols and protocol extensions complementing the Wayland core protocol"
 url="https://wayland.freedesktop.org"
@@ -33,5 +33,5 @@ package() {
 }
 
 sha512sums="
-d0557a75eb486fb824f182648bec346e270cb1ada8727613377ab95b0ccb595c516de242f486110c88b7009e98c87b071bf5b598f84466e5624aa1d81f19e195  wayland-protocols-1.45.tar.xz
+c6f58586c4e3046fb545f31959eb662426ddf94cab627a136bec905c3a1c75087ed2850d49e44964241a9158a3559ad02607647a19fb5f1c1fb254160b04806c  wayland-protocols-1.49.tar.xz
 "

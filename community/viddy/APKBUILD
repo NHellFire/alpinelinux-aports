@@ -1,22 +1,19 @@
 # Contributor: Marvin Preuss <marvin@xsteadfastx.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=viddy
 pkgver=0.4.0
-pkgrel=14
+pkgrel=22
 pkgdesc="Modern watch command, time machine and pager"
 url="https://github.com/sachaos/viddy"
 arch="all"
 license="MIT"
 makedepends="go"
+options="net" # go
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/sachaos/viddy/archive/refs/tags/v$pkgver.tar.gz
 	update-go-mod.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -ldflags "-X main.version=$pkgver"

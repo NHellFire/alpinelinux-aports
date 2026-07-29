@@ -1,13 +1,14 @@
 maintainer="Marian Buschsieweke <marian.buschsieweke@posteo.net>"
 pkgname=py3-pytest-regtest
-pkgver=2.3.2
-pkgrel=1
+pkgver=2.6.0
+pkgrel=0
 pkgdesc="pytest-regtest is a pytest-plugin for implementing regression tests"
 url="https://gitlab.com/uweschmitt/pytest-regtest"
 arch="noarch"
 license="MIT"
 depends="
 	py3-pytest
+	py3-deepdiff
 	"
 makedepends="
 	py3-gpep517
@@ -23,9 +24,9 @@ checkdepends="
 	"
 subpackages="$pkgname-pyc"
 source="
-	https://gitlab.com/uweschmitt/pytest-regtest/-/archive/$pkgver/pytest-regtest-$pkgver.tar.bz2
+	$pkgname-$pkgver.tar.gz::https://pypi.python.org/packages/source/p/pytest_regtest/pytest_regtest-$pkgver.tar.gz
 	"
-builddir="$srcdir/pytest-regtest-$pkgver"
+builddir="$srcdir/pytest_regtest-$pkgver"
 
 build() {
 	gpep517 build-wheel \
@@ -36,27 +37,13 @@ build() {
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages test-env
 	test-env/bin/python3 -m installer .dist/*.whl
-	test-env/bin/python3 -m pytest \
-		--deselect develop_tests/test_regtest.py::test_regtest \
-		--deselect develop_tests/test_regtest.py::test_always_fail \
-		--deselect develop_tests/test_regtest.py::test_always_fail_regtest \
-		--deselect develop_tests/test_regtest.py::test_only_fail_regtest \
-		--deselect develop_tests/test_regtest.py::test_with_paramertrization \
-		--deselect develop_tests/test_regtest.py::test_with_paramertrization \
+	test-env/bin/python3 -m pytest tests \
 		--deselect tests/test_cli.py::test_cli \
 		--deselect tests/test_cli.py::test_tee \
-		--deselect tests/test_regtest.py::test_regtest_context_manager \
-		--deselect tests/test_regtest.py::test_regtest_fh \
-		--deselect tests/test_regtest.py::test_regtest_all \
-		--deselect tests_dev/test_demo.py::test_squares_up_to_ten \
-		--deselect tests_dev/test_direct.py::test_regtest \
-		--deselect tests_dev/test_direct.py::test_regtest_all \
-		--deselect tests_dev/test_direct.py::test_with_paramertrization \
-		--deselect tests_dev/test_direct.py::test_with_paramertrization \
-		--deselect tests_dev/test_direct.py::test_with_very_long_name \
-		--deselect tests_dev/test_direct.py::test_snapshot \
-		--deselect tests_dev/test_snapshot.py::test_snapshot_numpy_1d \
-		--deselect tests_dev/test_snapshot.py::test_snapshot_object \
+		--deselect tests/test_regtest.py::test_identifier \
+		--deselect tests/test_snapshot_python_types.py::test_snapshot_python_data_types \
+		--deselect tests/test_snapshot_python_types.py::test_snapshot_with_version \
+		--deselect tests/test_utils.py::test_highlight_mismatches \
 		--deselect tests/test_snapshot_polars.py::test_snapshot_polars_changed_entry \
 		--deselect tests/test_snapshot_polars.py::test_snapshot_polars_empty_diff \
 		--deselect tests/test_snapshot_polars.py::test_snapshot_polars_rtol_atol \
@@ -70,5 +57,5 @@ package() {
 }
 
 sha512sums="
-22461823b205bdcee30fe76b5fd921dd503877349ab6b388ceda119145a213df248005b133fdd7b6827b14cdfe9fbae711979552d91e4c17b3ae442551c25779  pytest-regtest-2.3.2.tar.bz2
+2ac0e4ee8ea0e4f68e7610c990ae98d7bef49cc5244f80bbac1e6036dc6efaf6a0e28b740e91fa3cfa5ec25c07c8d50e5ddb828fc096256c2fa5ce52873bcacc  py3-pytest-regtest-2.6.0.tar.gz
 "

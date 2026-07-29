@@ -2,7 +2,7 @@
 
 _flavor=asahi
 pkgname=linux-${_flavor}
-pkgver=6.16.5_p2
+pkgver=7.1.5_p2
 
 _rel=${pkgver#*_p}
 _kver=${pkgver%_p*}
@@ -15,7 +15,7 @@ depends="initramfs-generator speakersafetyd"
 _depends_dev="perl gmp-dev elfutils-dev flex bison"
 makedepends="$_depends_dev sed bc linux-headers installkernel
 	linux-firmware-any openssl-dev diffutils findutils
-	clang20-libclang
+	clang22-libclang
 	rust
 	rustfmt
 	rust-bindgen
@@ -54,7 +54,7 @@ esac
 
 prepare() {
 	default_prepare
-	rm "$builddir"/localversion*
+	rm -f "$builddir"/localversion*
 	echo "-$_rel-asahi" > "$builddir"/localversion-alpine
 	oldconfig
 }
@@ -209,6 +209,6 @@ _dev() {
 }
 
 sha512sums="
-b57f044a6396d9efb84513c12779a219b7d48793ca15fb67e597dbfc35ddf5f3c00c02b254417627984f744e2459c4ae0aedd4fb8a5d82c199efd1278d40194b  linux-asahi-6.16.5-2.tar.gz
-f373d648688a1a3d6299e5b7b501ad13e5966eaa7d9116adf1df3e21b6a5304cb608d8b7ab19a7545ca16c290ce1495b0b9944600eec777d0aa292dd6df65101  config-asahi.aarch64
+d96ca5e807ad262f885dc690090b48772f05488b8a2f0ec59110e63de7fd49e6219bb4b15aa6e92384fb49aacda60799598eaa75adaefe431be6a8a8eca14bfd  linux-asahi-7.1.5-2.tar.gz
+fd5d2b12098988e24eb5074d90f292138bebf01e631f038c44e8bb77861fb5e0fb38703b7f970e1a2f5c9d0efa8912d95889674272104f0d1639dd7cb793a22f  config-asahi.aarch64
 "

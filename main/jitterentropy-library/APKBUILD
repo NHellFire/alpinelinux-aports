@@ -1,6 +1,6 @@
 # Contributor: Dermot Bradley <dermot_bradley@yahoo.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=jitterentropy-library
 #
 # NOTE: This package is (currently) only used by rng-tools and care
@@ -10,7 +10,7 @@ pkgname=jitterentropy-library
 # rng-tools' jitter functionality).
 #
 pkgver=3.6.3
-pkgrel=0
+pkgrel=1
 pkgdesc="Jitterentropy library"
 url="https://www.chronox.de/jent/"
 arch="all"

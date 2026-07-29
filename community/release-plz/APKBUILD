@@ -1,11 +1,13 @@
 # Maintainer: Orhun Parmaksız <orhunparmaksiz@gmail.com>
 pkgname=release-plz
-pkgver=0.3.139
+pkgver=0.3.159
 pkgrel=0
 pkgdesc="Release Rust packages without using the command line"
 url="https://github.com/MarcoIeni/release-plz"
 license="MIT OR Apache-2.0"
-arch="all"
+# loongarch64: gix-index 0.47.0 uses st_mtim; musl libc uses st_mtime
+arch="all !loongarch64"
+depends="git"
 makedepends="
 	cargo
 	cargo-auditable
@@ -54,5 +56,5 @@ package() {
 }
 
 sha512sums="
-16a0d966f95db0740f06422505fef5b9c4c595243c3899ba443ffdb36330ba958aec6d483565cb3e6d957ea2a2a629c53f4fc05470bd9d4dc0c03bea38b28424  release-plz-v0.3.139.tar.gz
+5c25633f123063d7f13c70d8f241945e492aa049388bd1a7af44b5963cfd3219169720885c44230bc780479278ffa403d0c38954d471e8acf50ddb464d912b90  release-plz-v0.3.159.tar.gz
 "

@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=gnome-contacts
-pkgver=49.0
+pkgver=50.0
 pkgrel=0
 pkgdesc="A contacts manager for GNOME"
 url="https://apps.gnome.org/Contacts"
@@ -19,6 +19,7 @@ makedepends="
 	gtk4.0-dev
 	libadwaita-dev
 	libgee-dev
+	libglycin-gtk4-dev
 	libportal-dev
 	libqrencode-dev
 	meson
@@ -43,5 +44,5 @@ package() {
 }
 
 sha512sums="
-3b6dbad35b0eee001db732a42c245e6a3cf5c610995f7e5e700ede95bb1ebfdda507514db108cafc9f194eb74d7df0ff4d896d07f92be966111207964ffe432f  gnome-contacts-49.0.tar.xz
+192e84ac63d2eae2ca6dc19ce6015f2b5ee8559af9bfd189abdb6a4559a2a2d9a2a7b81e84e6f8daefea03aa41869a6752dd14f022ba5e0757877ad90540f868  gnome-contacts-50.0.tar.xz
 "

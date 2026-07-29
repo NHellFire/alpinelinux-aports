@@ -1,0 +1,36 @@
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: mio <miyopan@e.email>
+maintainer="mio <miyopan@e.email>"
+pkgname=ait
+pkgver=1.15
+pkgrel=0
+pkgdesc="Small yet mighty GNU Emacs style editor"
+url="https://www.netbsd.org/~ktnb/ait.html"
+arch="all"
+license="BSD-3-Clause"
+subpackages="$pkgname-doc"
+source="https://ftp.netbsd.org/pub/NetBSD/misc/ktnb/ait-$pkgver.tar.gz
+	gcc15.patch
+	"
+builddir="$srcdir/$pkgname"
+
+build() {
+	make CC="$CC" LD="$CC"
+}
+
+check() {
+	./ait -v
+}
+
+package() {
+	install -Dvm755 ait -t "$pkgdir"/usr/bin/
+
+	install -Dvm644 ait.1 -t "$pkgdir"/usr/share/man/man1/
+	install -Dvm644 README.md -t "$pkgdir"/usr/share/doc/$pkgname/
+	install -Dvm644 ./*LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
+}
+
+sha512sums="
+223884ff51ed77144aba33ae79c09890c9250077a704ec81046d5ed6f59a3e1e12603fae45796753b78587dafb2c99a8ebfcadf2efaf0a2dae85a83abbb15532  ait-1.15.tar.gz
+1db404960432d3b5b10828e16925b072f9bc6a93bd969a3767603f309cd133b4df8b84e82b7983653de1acdd33931e1f5f4e9587673f01b8a4c7420f01d7e182  gcc15.patch
+"

@@ -3,10 +3,10 @@
 # Contributor: Mitch Tishmack <mitch.tishmack@gmail.com>
 # Maintainer: Sören Tempel <soeren+alpine@soeren-tempel.net>
 pkgname=cabal-stage0
-pkgver=3.10.3.0
+pkgver=3.16.1.0
 pkgrel=0
 # GHC version used to bootstrap cabal via the ./bootstrap.py script.
-_bootstrapver=9.8.2
+_bootstrapver=9.14.1
 pkgdesc="Cabal version used for bootstrapping"
 url="https://haskell.org/cabal"
 arch="aarch64 x86_64" # Limited by GHC
@@ -15,17 +15,16 @@ depends="gmp zlib !cabal"
 makedepends="ghc~$_bootstrapver gmp-dev libffi-dev zlib-dev python3"
 options="!check"
 source="$pkgname-$pkgver.tar.gz::https://github.com/haskell/cabal/archive/refs/tags/cabal-install-v$pkgver.tar.gz
-	$pkgname-$pkgver-$_bootstrapver.tar.gz::https://dev.alpinelinux.org/archive/cabal-stage0/cabal-$pkgver-with-ghc-$_bootstrapver.tar.gz"
+	$pkgname-$pkgver-$_bootstrapver.tar.gz::https://dev.alpinelinux.org/archive/cabal-stage0/cabal-$pkgver-with-ghc-$_bootstrapver.tar.gz
+	ghc-9.14.1.patch"
 builddir="$srcdir/cabal-cabal-install-v$pkgver"
 
 # Provide cabal-bootstrap for community/cabal.
 # See comment in community/cabal for details.
-provides="cabal-bootstrap"
+provides="cabal-bootstrap=$pkgver-r$pkgrel"
 provider_priority=1 # lowest
 
 build() {
-	export PATH="$PATH:/usr/lib/llvm14/bin"
-
 	./bootstrap/bootstrap.py --bootstrap-sources \
 		"$srcdir/$pkgname-$pkgver-$_bootstrapver.tar.gz"
 }
@@ -36,6 +35,7 @@ package() {
 }
 
 sha512sums="
-8e8138567674c55beaa95786c8c621d9a7891e8941681958dc95f08a1f4c03d5dad6c91dcef41f078f3e90a0e3c50ac128406916f9863b253080332e75d456e7  cabal-stage0-3.10.3.0.tar.gz
-ba8b8285c4c9a08fc9b0b944f916c8cb2fec4e65f4f23b350e8a7709152de8f7bb16c1ea51e230bccb06b1cda887fca6427ff1fc0efb28c2975392d6f03214d8  cabal-stage0-3.10.3.0-9.8.2.tar.gz
+4acf8b33869f214dfedbc7e0c02f3a94269dc5c3877fff8aa56e9967e10be78f8deb5767ac31eab78299970d33a5bc7389bf1ee89c3cad50427490697d91bab5  cabal-stage0-3.16.1.0.tar.gz
+b195045f37bb446b90be674a5154344fdbf90d4a9347f586f15d73de7034843167cf8833ab96b15d7a20fdb2d176e67cfde04bebaf70681a7b79ae857910159b  cabal-stage0-3.16.1.0-9.14.1.tar.gz
+4542d8e48fca94818bca3a9d15cb0526c694a1ccc0763eef10ef24a93261b9acafbb225acaaf4c8473c1f20c84604a28790ed0cc34ae3148770ad9b798c5352c  ghc-9.14.1.patch
 "

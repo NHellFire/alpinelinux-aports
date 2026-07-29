@@ -1,7 +1,7 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=xdg-desktop-portal-lxqt
-pkgver=1.2.0
+pkgver=1.4.0
 pkgrel=0
 pkgdesc="LXQT xdg desktop portal"
 url="https://github.com/lxqt/xdg-desktop-portal-lxqt"
@@ -18,7 +18,8 @@ makedepends="
 	samurai
 	xdg-desktop-portal-dev
 	"
-source="https://github.com/lxqt/xdg-desktop-portal-lxqt/releases/download/$pkgver/xdg-desktop-portal-lxqt-$pkgver.tar.xz"
+subpackages="$pkgname-systemd"
+source="xdg-desktop-portal-lxqt-$pkgver-1.tar.xz::https://github.com/lxqt/xdg-desktop-portal-lxqt/releases/download/$pkgver/xdg-desktop-portal-lxqt-$pkgver.tar.xz"
 options="!check" # no tests
 
 build() {
@@ -44,5 +45,5 @@ lang() {
 }
 
 sha512sums="
-fe0c8efedfbf3c7ec7f4b633d030bf9ed884e3836ba70390de4d61d4f73b57aa34afbabd474b05034f1db5fd54125988ccb52e34284ead850a8f3d6fba665b89  xdg-desktop-portal-lxqt-1.2.0.tar.xz
+00969717dcac9351df3e9f43d3c585db90f940ecb28a5c4a208eb363d16c1edd146429b60bffba73a0660a8a1ff101b95b7865fe5638239ca964a0bc4084bcde  xdg-desktop-portal-lxqt-1.4.0-1.tar.xz
 "

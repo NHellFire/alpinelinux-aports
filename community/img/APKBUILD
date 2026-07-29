@@ -2,7 +2,7 @@
 # Maintainer: Lucas Ramage <ramage.lucas@protonmail.com>
 pkgname=img
 pkgver=0.5.11
-pkgrel=35
+pkgrel=43
 pkgdesc="Standalone, daemon-less, unprivileged Dockerfile and OCI compatible container image builder"
 url="https://github.com/genuinetools/img"
 arch="aarch64 x86_64"
@@ -14,9 +14,6 @@ source="https://github.com/genuinetools/img/archive/v$pkgver/img-$pkgver.tar.gz"
 options="!check" # failing tests
 
 export GOFLAGS="$GOFLAGS -modcacherw -trimpath"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make BUILDTAGS="seccomp noembed"

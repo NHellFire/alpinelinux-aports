@@ -1,0 +1,36 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=mcstrans
+pkgver=3.11
+pkgrel=0
+pkgdesc="Label translation daemon to support MLS systems"
+url="https://github.com/SELinuxProject/selinux"
+arch="all"
+license="GPL-2.0-or-later"
+makedepends="
+	libselinux-dev
+	libcap-dev
+	linux-headers
+	"
+subpackages="
+	$pkgname-doc
+	$pkgname-systemd
+	"
+source="https://github.com/SELinuxProject/selinux/releases/download/$pkgver/mcstrans-$pkgver.tar.gz"
+
+build() {
+	make
+}
+
+check() {
+	make test
+}
+
+package() {
+	make DESTDIR="$pkgdir" SBINDIR=/usr/sbin install
+
+	rm -r "$pkgdir"/etc/rc.d
+}
+
+sha512sums="
+bc6ee5eb93518a6b41ac8775927bbf4a9d4a5be837feb8f1bbdc5105bcc94843d94c40dd172c0bd621e5d793c9dc1e588be64d6fe67ec8a33730bce10bcde79a  mcstrans-3.11.tar.gz
+"

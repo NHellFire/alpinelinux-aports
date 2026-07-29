@@ -2,13 +2,13 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtwebview
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Provides a way to display web content in a QML application"
 url="https://qt.io/"
 # s390x blocked by qt6-qtdeclarative
-# ppc64le, riscv64, armhf and x86 blocked by qt6-qtwebengine
-arch="all !s390x !ppc64le !riscv64 !armhf !x86"
+# riscv64, armhf, armv7 and x86 blocked by qt6-qtwebengine
+arch="all !s390x !riscv64 !armhf !armv7 !x86"
 license="LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only AND Qt-GPL-exception-1.0"
 depends_dev="qt6-qtwebengine-dev"
 makedepends="$depends_dev
@@ -57,5 +57,5 @@ dev() {
 }
 
 sha512sums="
-7806e93b32787529c6149784a75d956218734a9768cd32fda058351cb5d77e590d48f5c5beae23d81e1eef85e8f96b86fde31056a988e5932b38800609cea6ae  qtwebview-everywhere-src-6.9.2.tar.xz
+52d9c76172bdabae52678073a5cca1423b4267369f3793a6cd146474fae0482b0f4d9834fb4fa491c6b81e829776a15bed10e58425ca5426fc225586a316e4c6  qtwebview-everywhere-src-6.11.1.tar.xz
 "

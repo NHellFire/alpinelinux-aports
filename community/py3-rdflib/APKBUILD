@@ -1,8 +1,8 @@
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=py3-rdflib
 _pyname=rdflib
-pkgver=7.1.4
-pkgrel=0
+pkgver=7.6.0
+pkgrel=1
 pkgdesc="A Python library for working with RDF, a simple yet powerful language for representing information"
 url="https://rdflib.readthedocs.org/"
 arch="noarch"
@@ -18,11 +18,9 @@ makedepends="
 	py3-poetry-core
 	"
 checkdepends="
-	py3-doctest-ignore-unicode
 	py3-html5lib
 	py3-pytest
 	py3-pytest-cov
-	py3-requests
 	py3-sparqlwrapper
 	"
 subpackages="$pkgname-pyc"
@@ -64,5 +62,5 @@ package() {
 }
 
 sha512sums="
-dcdf31ee0ed5e1b68e650155996e139e9160be0598189d41dbfe2734a50679d4dacad2fc887a30e51bc2c1dee1878291f01c374e17d6e4175b30b69ff73bba60  rdflib-7.1.4.tar.gz
+464fe52d968bd8618cef5ab99c28cb465b9b07287a28049d7e2916c1dac4971187be5794b4007509f875fb28cb0c198fd2e1d9338893ecdd00ed5d0d6865ee98  rdflib-7.6.0.tar.gz
 "

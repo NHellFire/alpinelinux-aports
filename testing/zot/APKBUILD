@@ -1,14 +1,14 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=zot
-pkgver=2.1.7
-_zui_commit=d25abda17df8ac4e38211b09d5336012ad42b870
-pkgrel=3
+pkgver=2.1.17
+_zui_commit=34deb3d37319e4bf12d261cf3c53fa718968a38e
+pkgrel=1
 pkgdesc="Vendor-neutral OCI-native container image registry"
 url="https://zotregistry.dev/"
-# 32-bit, riscv64: build fails
-arch="all !x86 !armhf !armv7 !riscv64"
+# 32bit: tests fail to build && https://github.com/distribution/distribution/pull/4642
+arch="all !x86 !armhf !armv7"
 license="Apache-2.0"
-makedepends="go linux-headers npm nodejs"
+makedepends="go linux-headers npm nodejs rollup"
 checkdepends="openssl"
 subpackages="
 	$pkgname-doc
@@ -28,15 +28,17 @@ source="
 	"
 options="net" # download Go modules
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+# The project uses encoding/json/v2
+# XXX: remove when the package comes out of experimental status
+export GOEXPERIMENT=jsonv2
 
 prepare() {
 	default_prepare
 
 	cd "$srcdir"/zui-$_zui_commit
 	npm install --no-progress
+	rm -r node_modules/rollup
+	ln -s /usr/share/node_modules/rollup node_modules/rollup
 }
 
 build() {
@@ -45,7 +47,7 @@ build() {
 	cp -r build "$builddir"/pkg/extensions/
 
 	cd "$builddir"
-	local _extensions="sync,search,scrub,metrics,lint,ui,mgmt,profile,userprefs,imagetrust"
+	local _extensions="sync,search,scrub,metrics,lint,ui,mgmt,profile,userprefs,imagetrust,events"
 	local _goldflags="
 	-X zotregistry.dev/zot/pkg/api/config.ReleaseTag=v$pkgver
 	-X zotregistry.dev/zot/pkg/api/config.Commit=AlpineLinux
@@ -56,10 +58,10 @@ build() {
 	for binary in zot zb zli; do
 		go build -v \
 			-ldflags "$_goldflags" \
-			-tags "$_extensions,containers_image_openpgp" \
+			-tags "$_extensions" \
 			./cmd/$binary
 	done
-	go build -v -tags containers_image_openpgp ./cmd/zxp
+	go build -v ./cmd/zxp
 
 	# Only generate shell completions for the CLI client
 	for shell in bash fish zsh; do
@@ -76,9 +78,14 @@ check() {
 	sh ../../scripts/gen_nameless_certs.sh
 
 	# Skip tests requiring static container image tarballs (pulled via skopeo) in $builddir/test/data/
+	# Skip TestHTPasswdWatcherOriginal failing for riscv64
+	# Skip TestHTPasswdWatcher failing for s390x due to race conditions in the test
+	# Skip TestInjectUploadImageWithBasicAuth which passes CI but fails on aarch64 builder
+	# despite increasing ulimit: failed to create htpasswd watcher, error: too many files
+	# Skip TestServeAPIKey failing on riscv64 builder with multiple invalid server config errors
 	cd "$builddir"
-	go test -tags containers_image_openpgp \
-		-skip 'TestGarbageCollectForImageStore|TestImageBuilder|TestPredefinedImages' \
+	go test \
+		-skip 'TestGarbageCollectForImageStore|TestImageBuilder|TestPredefinedImages|TestInjectUploadImageWithBasicAuth|TestHTPasswdWatcherOriginal|TestHTPasswdWatcher|TestServeAPIKey' \
 		./...
 }
 
@@ -123,8 +130,8 @@ _zshcomp() {
 }
 
 sha512sums="
-db99996549a4c321183e5fe3d015aef683a37510472b9aac6054df7e8b134c10846facb26021618f58c1e0a5253157e0aef4764ccfc233ec242222d5f16af120  zot-2.1.7.tar.gz
-689686b21fe7cb621585eb1097a3bea5578bc164f822c7675af0a0a1109106f3c80fb11009de938434e3d813a14d74f35a4d32d9337722b6b7f40faee5d594e3  zui-d25abda17df8ac4e38211b09d5336012ad42b870.tar.gz
+95d13e50f508307e53478d0533ee305af21fedb5a16ec24cec0e941b0a06e465f491051899a2fa3622598f74531a01199c6ae63cbb64a45bc2622f33c7120150  zot-2.1.17.tar.gz
+37983a9a383b718ff0d95c97b974ce17e9b0400aeb3a4f6af74252377f96bd78184d71a16558855b78be58613ca651664a0bbdba268a9504b5d7e7ce585d612d  zui-34deb3d37319e4bf12d261cf3c53fa718968a38e.tar.gz
 86dfa273e97110b703fbc368757520ef6169dead185ff54b5b8ba45e764949bc3a21a51d53a1605d7163faef8c83c066e688577f5315b8c0afb09f69a2bbe3bb  zot.initd
 b128ecaf3e35cfdab8069da9a8267a9faed50b892ae07b6a4a22a4108236d6cdbc10cc4cf0105c728e9e6da6ac773f56d1dd84de1ba4463110058b6c2f190b30  zot.confd
 "

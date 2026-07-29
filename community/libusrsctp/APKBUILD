@@ -1,9 +1,9 @@
 # Contributor: Daniel Santana <daniel@santana.tech>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=libusrsctp
 pkgver=0.9.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Portable SCTP userland stack"
 url="https://github.com/sctplab/usrsctp"
 arch="all"

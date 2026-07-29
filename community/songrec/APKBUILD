@@ -1,28 +1,31 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-# Maintainer: Bart Ribbers <bribbers@disroot.org>
+maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=songrec
-pkgver=0.4.3
+pkgver=0.7.4
 pkgrel=0
 pkgdesc="Open-source Shazam client for Linux"
 url="https://github.com/marin-m/SongRec"
-# s390x fails to build
-# loongarch64: blocked by nix crate
-arch="all !s390x !loongarch64"
+# loongarch64 and s390x blocked by nix crate
+# x86, armhf and armv7 blocked by no 64-bit time support in pipewire crate on 32-bit arches
+arch="all !loongarch64 !s390x !x86 !armhf !armv7"
 license="GPL-3.0-only"
 makedepends="
 	alsa-lib-dev
 	cargo
 	cargo-auditable
+	clang-dev
 	gdk-pixbuf-dev
 	glib-dev
-	gtk+3.0-dev
+	graphene-dev
+	gtk4.0-dev
+	libadwaita-dev
+	libsoup3-dev
 	openssl-dev>3
 	pango-dev
+	pipewire-dev
 	pulseaudio-dev
 	"
-source="https://github.com/marin-m/songrec/archive/$pkgver/songrec-$pkgver.tar.gz
-	getrandom-0.2.10.patch
-	"
+subpackages="$pkgname-doc"
+source="https://github.com/marin-m/songrec/archive/$pkgver/songrec-$pkgver.tar.gz"
 # net required to download Rust dependencies
 # no tests
 options="net !check"
@@ -48,6 +51,5 @@ package() {
 }
 
 sha512sums="
-f5598c22cc41693f4ddb15f495122fb1cec5033f363ae4858407cc673861e613153a0db2dafcd7684281a90ea4f5ac4849107158cbc2b3d297ef4ff24fb629a8  songrec-0.4.3.tar.gz
-c5b082ced0b66d6451435901e2bffc82afa38c25b44eac7ad45032caece86d7297af02257904594f850900775a3a17946a21cce606cc4df3cae23f8a43695321  getrandom-0.2.10.patch
+e7811391d76c1ad13e2844b32aa5ade2e3da4b4f7ecd0c28847cf5b90ba2b6f87d2a6144760c43c39f2286b40cdb87d3d4ae06da788cc1e690923df52f4b9506  songrec-0.7.4.tar.gz
 "

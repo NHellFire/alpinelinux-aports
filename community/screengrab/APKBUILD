@@ -1,7 +1,7 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=screengrab
-pkgver=3.0.0
+pkgver=3.2.0
 pkgrel=0
 pkgdesc="Crossplatform tool for fast making screenshots"
 url="https://github.com/lxqt/screengrab"
@@ -18,7 +18,7 @@ makedepends="
 	qt6-qttools-dev
 	samurai
 	"
-subpackages="$pkgname-doc $pkgname-lang"
+subpackages="$pkgname-lang"
 source="https://github.com/lxqt/screengrab/releases/download/$pkgver/screengrab-$pkgver.tar.xz"
 options="!check" # No testsuite
 
@@ -45,5 +45,5 @@ lang() {
 }
 
 sha512sums="
-86356a1992379c4656fc423f22a92d49a6de55892260f71e923d6c25d4ca099ae0846926dbf516577c5801af993b4f0cd511f3f6da95e6adfc7c2dda1b779724  screengrab-3.0.0.tar.xz
+9a5ba541ee5f27f9b46b4f3cf51c73b5d782acbbaaac38f2d5055d02e886878a7f0e714d4b99936643d42d10fa6fa4ee451a1d0037e1ea0d3dd29bd8cd3d1b79  screengrab-3.2.0.tar.xz
 "

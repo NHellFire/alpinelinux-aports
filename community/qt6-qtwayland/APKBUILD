@@ -2,26 +2,26 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtwayland
-pkgver=6.9.2
-pkgrel=0
+pkgver=6.11.1
+pkgrel=2
 pkgdesc="Provides APIs for Wayland"
 url="https://qt.io/"
 arch="all"
 license="LGPL-2.1-only AND LGPL-3.0-only AND GPL-3.0-only AND Qt-GPL-exception-1.0"
 depends_dev="
-	qt6-qtbase-dev
-	qt6-qtbase-private-dev
+	$pkgname-private-dev
 	vulkan-headers
 	"
 makedepends="$depends_dev
 	cmake
 	perl
+	qt6-qtbase-dev
+	qt6-qtbase-private-dev
 	samurai
 	"
 case "$CARCH" in
 	armhf) ;;
 	*)
-		depends_dev="$depends_dev qt6-qtdeclarative-dev"
 		makedepends="$makedepends
 			qt6-qtdeclarative-dev
 			qt6-qtdeclarative-private-dev
@@ -29,7 +29,10 @@ case "$CARCH" in
 		;;
 esac
 
-subpackages="$pkgname-dev"
+subpackages="
+	$pkgname-private-dev:private_dev
+	$pkgname-dev
+	"
 options="!check" # No tests
 builddir="$srcdir/qtwayland-everywhere-src-${pkgver/_/-}"
 
@@ -62,6 +65,22 @@ dev() {
 	amove usr/lib/qt6/sbom
 }
 
+private_dev() {
+	depends="qt6-qtbase-private-dev"
+	case "$CARCH" in
+		armhf) ;;
+		*) depends="$depends qt6-qtdeclarative-private-dev" ;;
+	esac
+
+
+	local file; find "$pkgdir"/usr/include -type d -name private | while read -r file; do
+		amove "${file#"$pkgdir"}"
+	done
+
+	amove usr/lib/cmake/*Private
+	amove usr/lib/qt6/modules/*Private.json
+}
+
 sha512sums="
-b53f96a3b94265241fb73a35b8b4db6934cbfea3fb7b7611f34cad8490a4eff952e66044b95f56a15f398e851a9da8553dcad5a63dfeac0c99c6e8c171260a9a  qtwayland-everywhere-src-6.9.2.tar.xz
+97c9aa8a75d68d3ba5f28e86dd2af7fc3fd2a32a190ffc4c5b5145a98e7657627dbb2b63893f241d009baa72de7beaebfcf91282e731b7985c240d204c5aab9b  qtwayland-everywhere-src-6.11.1.tar.xz
 "

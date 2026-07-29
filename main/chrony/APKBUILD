@@ -1,21 +1,42 @@
 # Contributor: Łukasz Jendrysik
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
-# Maintainer: Natanael Copa <ncopa@alpinelinux.org>
+# Contributor: Jakub Jirutka <jakub@jirutka.cz>
+# Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=chrony
 pkgver=4.8
-pkgrel=0
+pkgrel=7
 pkgdesc="NTP client and server programs"
 url="https://chrony-project.org/"
-pkgusers="$pkgname"
-pkggroups="$pkgname"
 arch="all"
 license="GPL-2.0-or-later"
-install="$pkgname.pre-install $pkgname.pre-upgrade"
-makedepends="asciidoctor libcap-dev texinfo nettle-dev gnutls-dev libseccomp-dev"
+depends="$pkgname-common=$pkgver-r$pkgrel"
+makedepends="
+	asciidoctor
+	bison
+	libcap-dev
+	texinfo
+	nettle-dev
+	gnutls-dev
+	libseccomp-dev
+	"
 checkdepends="bash"
-subpackages="$pkgname-dbg $pkgname-doc $pkgname-openrc"
+pkgusers="$pkgname"
+pkggroups="$pkgname"
+install="
+	$pkgname-common.pre-install
+	$pkgname-common.pre-upgrade
+	$pkgname.post-upgrade
+	"
+subpackages="
+	$pkgname-nts
+	$pkgname-dbg
+	$pkgname-doc
+	$pkgname-openrc
+	$pkgname-common::noarch
+	"
 source="https://chrony-project.org/releases/chrony-$pkgver.tar.gz
 	max_resolve_interval.patch
+	seccomp-musl.patch
 
 	chronyd.confd
 	chronyd.initd
@@ -35,9 +56,20 @@ prepare() {
 	# (See https://github.com/ago/pps-tools)
 	mkdir -p pps-tools/sys
 	cp "$srcdir"/timepps.h pps-tools/sys/
+
+	cp -r "$builddir" "$builddir-nts"
 }
 
 build() {
+	_build --disable-nts --disable-sechash
+	# The above build options don't affect docs.
+	make docs
+
+	cd "$builddir-nts"
+	_build
+}
+
+_build() {
 	CPPFLAGS="$CPPFLAGS -I./pps-tools/" \
 	CFLAGS="$CFLAGS -flto=auto" \
 	./configure \
@@ -46,47 +78,68 @@ build() {
 		--sysconfdir=/etc/$pkgname \
 		--chronyrundir=/run/chrony \
 		--disable-readline \
-		--with-user=$pkgname \
+		--with-ntp-era=0 \
+		--with-user="$pkgname" \
+		--with-chronyc-user="$pkgname" \
+		--with-pidfile=/run/chrony/chronyd.pid \
 		--with-sendmail=/usr/sbin/sendmail \
 		--enable-ntp-signd \
-		--enable-scfilter
-	make all docs
+		--enable-scfilter \
+		"$@"
+	make all
 }
 
 check() {
-	make check
+	make -C "$builddir-nts" check
 }
 
 package() {
+	pkgdesc="$pkgdesc (without NTS and SHA/AES)"
+	provider_priority="100"  # highest (other provider is chrony-nts)
+
 	make DESTDIR="$pkgdir" install
 
-	mkdir -p "$pkgdir"/etc/logrotate.d
 	install -Dm644 examples/chrony.logrotate "$pkgdir"/etc/logrotate.d/chrony
+	install -Dm644 examples/*.example -t "$pkgdir"/usr/share/doc/chrony/
 
-	mkdir -p "$pkgdir"/usr/share/doc/chrony
-	install -m644 examples/*.example "$pkgdir"/usr/share/doc/chrony/
-	install -Dm755 "$srcdir"/chronyd.initd "$pkgdir"/etc/init.d/chronyd
-	install -Dm644 "$srcdir"/chronyd.confd "$pkgdir"/etc/conf.d/chronyd
+	cd "$pkgdir"
 
-	install -dm2750 -g wheel "$pkgdir"/var/log/chrony
+	install -d etc/chrony \
+		etc/chrony/conf.d \
+		etc/chrony/sources.d
+	install -Dm644 "$srcdir"/chrony.conf etc/chrony/chrony.conf
 
-	mkdir -p "$pkgdir"/var/lib/chrony \
-		"$pkgdir"/etc/chrony
+	install -Dm644 "$srcdir"/chronyd.confd etc/conf.d/chronyd
+	install -Dm755 "$srcdir"/chronyd.initd etc/init.d/chronyd
 
-	# chrony.drift must be writable by chrony user
-	chown $pkgusers:$pkggroups "$pkgdir"/etc/chrony
-	install -m644 "$srcdir"/chrony.conf "$pkgdir"/etc/chrony/chrony.conf
-	chown root:root "$pkgdir"/etc/chrony/*
+	install -dm750 -o "$pkgusers" -g "$pkggroups" var/lib/chrony
+}
 
-	chown $pkgusers:$pkggroups "$pkgdir"/var/lib/chrony
-	touch "$pkgdir"/var/lib/chrony/chrony.drift
+common() {
+	pkgdesc="$pkgdesc (common files)"
+	depends=""
+
+	amove etc
+	amove var
+}
+
+nts() {
+	pkgdesc="$pkgdesc (with NTS and SHA/AES)"
+	provides="$pkgname=$pkgver-r$pkgrel"
+	provider_priority="10"  # lowest (other provider is chrony)
+
+	make -C "$builddir-nts" DESTDIR="$subpkgdir" install
+
+	cd "$subpkgdir"
+	rm -rf etc usr/share var
 }
 
 sha512sums="
 949b796bb34db32a5c1b9e6b53be6a22e51c59f24a316d585b8a52a52ab1f61bdf0378dc58b282bb0ba4fac1f05e1e99fbe37cb4259aa2b359e7bf679c176aab  chrony-4.8.tar.gz
 f6f2056d1e70785f66b0fbec6e3ec9b0184785eac262e28e2a2c4d5a49762bf780ed7c2c7990a93f6ef063c167cea01fb8828705be558d0b8ff8c07d6962239f  max_resolve_interval.patch
-c1ce577ed1af9f3d88a6a2880a4834ae0c6a7f45870d9396d2aacd7716eb8de346ce458e1a45fdd48b1e8b8f5cd3afcba9534ac47fedb517604c9d910a342fac  chronyd.confd
-cc19b01a2a2cc26738f52c2c15d88db47240dcd00987ce5e75ba69fae8385b83a2643946f390d7ce0b73826b8de878989788b36ae5e43b2daac4477cbf9752f6  chronyd.initd
-663c6316bcca762de119d88e4bb6536bfe0fea19939fe1b673900847619e7f1d6783b789b38ebba97b5dc3778dedf798bafd65f00f8bd7e312bfed7df0caaf71  chrony.conf
+ec1a462ad2a015e32767796116a5a0e86b5eff1b63b23c23a1664de460f3b716e500148d6d2f16b9ffb0b146eea74f5adc8390d45f840adfb9887093081804b6  seccomp-musl.patch
+4e7fe8cd3c2d75b32de3fbf4ffffe2f977c6aa05f902caaaa62dd5d6d7c90b3345bb78c7433585dd5b40ca4fbc662d01730d2f91af327b69e0cfbbfafb84194e  chronyd.confd
+4de13c947ed52f6d3f5bbe4904ffd2201a86bbc645f1da891d33c7a79504a5282571641b6afb8ae85bafb5245849dc1354f4e143a0a3779bcb2006ad372ee291  chronyd.initd
+0a567f8986a541737b88018cb904d64f4a20e86c54a08223773451fc6a6473adf9e65d0643117d87072ca4a01846285a40ffc44fc00559333076e19f775284af  chrony.conf
 172ce4d41d40e0cf22d076eada2bfe6d2b99bb858f3fa80eeba7e677a42bc68fe755cb847d120fff2faa9b07af172a787ec7c4a36005f1df67c19a1bc19825b8  timepps.h
 "

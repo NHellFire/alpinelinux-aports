@@ -4,12 +4,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=libgravatar
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="KDE PIM library providing Gravatar support"
 # armhf blocked by extra-cmake-modules
-# ppc64le, s390x and riscv64 blocked by qt6-qtwebengine -> pimcommon
-arch="all !armhf !ppc64le !s390x !riscv64"
+# s390x and riscv64 blocked by qt6-qtwebengine -> pimcommon
+arch="all !armhf !s390x !riscv64"
 url="https://kontact.kde.org/"
 license="LGPL-2.0-or-later"
 depends_dev="
@@ -47,5 +47,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-db69e0eb9ce38d26159d9681693bf4ef5d9f261b347a9e7e13fa99d0af81039c83577f4b40c79cc7cb0dd41901e2830364ac5278d72e8a9337315c50714e5454  libgravatar-25.08.0.tar.xz
+df0e0d02f5c048643eec117450c10e5b4743cb5dc94e79ff1cf6a86c45c23788ecd61d302d02701c333a5ab2b0ac07b8d0e36dfb6ae0a2b9cd3897588228371e  libgravatar-26.04.3.tar.xz
 "

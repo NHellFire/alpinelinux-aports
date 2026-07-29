@@ -1,7 +1,7 @@
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=gmenuharness
-pkgver=0.1.4
-pkgrel=2
+pkgver=0.1.6
+pkgrel=0
 pkgdesc="Library to test GMenuModel structures"
 url="https://gitlab.com/ubports/development/core/gmenuharness"
 arch="all"
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-0ff5ab2411b5f7ad104c27dabd1523c63cb9981212f76d13fb4d7241d19cab8336a9bb188d5fcef87cd916ccce037174227c31c36c546e6793f3ec3641b2547c  gmenuharness-0.1.4.tar.gz
+f969d344f6ebd958752ceba8edabe02307ab5150da4fb2fbf160403b67d82d386012c6754ac0acfd35684b24bd7108d6132d92a7c8d86540b93fcb9d6d010e4a  gmenuharness-0.1.6.tar.gz
 "

@@ -2,7 +2,7 @@
 # Contributor: Guy Godfroy <guy.godfroy@gugod.fr>
 # Maintainer: Guy Godfroy <guy.godfroy@gugod.fr>
 pkgname=py3-iterable-io
-pkgver=1.0.0
+pkgver=1.0.4
 pkgrel=0
 #_pkgreal is used by apkbuild-pypi to find modules at PyPI
 _pkgreal=iterable-io
@@ -10,7 +10,7 @@ pkgdesc="Adapt generators and other iterables to a file-like interface"
 url="https://github.com/pR0Ps/iterable-io"
 arch="noarch"
 license="LGPL-3.0-only"
-makedepends="py3-gpep517 py3-setuptools py3-wheel"
+makedepends="py3-gpep517 py3-hatchling"
 checkdepends="py3-pytest"
 subpackages="$pkgname-pyc"
 source="$_pkgreal-$pkgver.tar.gz::https://github.com/pR0Ps/iterable-io/archive/refs/tags/v$pkgver.tar.gz"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-33853fea816a0474754bf90f144419ad4033a5c0b7c811441a55126fbe41e902c31b504b7e68fd94bf0dc63e103a5dbd3069fd8852884b7e072f17f961bcbaaa  iterable-io-1.0.0.tar.gz
+6cd201b1151bbe62b3946795a6106be6c3c97a595d9fab54128f38f27c559525f6e7835c6298e8770d404eff0571ebd1d241be404654c703c28a326096203b27  iterable-io-1.0.4.tar.gz
 "

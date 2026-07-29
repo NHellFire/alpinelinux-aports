@@ -1,9 +1,10 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
+# Contributor: Patrycja Rosa <alpine@ptrcnull.me>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=librsvg
-pkgver=2.61.1
+pkgver=2.62.3
 pkgrel=0
-pkgdesc="SAX-based renderer for SVG files into a GdkPixbuf"
+pkgdesc="Library to render SVG images to Cairo surfaces"
 url="https://gitlab.gnome.org/GNOME/librsvg"
 arch="all"
 license="LGPL-2.1-or-later"
@@ -15,10 +16,11 @@ makedepends="
 	cargo-c
 	dav1d-dev
 	font-dejavu
+	gdk-pixbuf-dev
 	gi-docgen
+	git
 	glib-dev
 	gobject-introspection-dev
-	gtk+3.0-dev
 	libgsf-dev
 	meson
 	py3-docutils
@@ -57,7 +59,7 @@ build() {
 	abuild-meson \
 		-Dintrospection=enabled \
 		-Dpixbuf=enabled \
-		-Dpixbuf-loader=enabled \
+		-Dpixbuf-loader=disabled \
 		-Dvala=enabled \
 		-Dtests="$(want_check && echo true || echo false)" \
 		-Davif=enabled \
@@ -88,5 +90,5 @@ _convert_doc() {
 }
 
 sha512sums="
-b08fbdb745ef926b4ed09b64b415b25de3d606efd7e9f7ff89545d21d83073ddf356f71fe7447d4480221d9342a8011c7e52b1500cfba85a024f5bea229d90ac  librsvg-2.61.1.tar.xz
+c2c0f28268e47ec78f98d86cd2536be3e0c3706039b04ac2286d87a6ac7ee0dfb75a4adc4f8bd9c3b6b1f5c94fecafc6d84dfe67f7e4ebfad59f7227e509300d  librsvg-2.62.3.tar.xz
 "

@@ -2,13 +2,13 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kalarm
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Personal alarm scheduler"
 url="https://kontact.kde.org/"
 # armhf blocked by qt6-qtdeclarative -> ki18n
-# x86, ppc64le, s390x, riscv64 and armv7 blocked by qt6-qtwebengine -> akonadi
-arch="all !armhf !x86 !ppc64le !s390x !riscv64 !armv7"
+# x86, s390x, riscv64 and armv7 blocked by qt6-qtwebengine -> akonadi
+arch="all !armhf !x86 !s390x !riscv64 !armv7"
 license="GPL-2.0-or-later AND GFDL-1.2-only"
 depends="kdepim-runtime"
 makedepends="
@@ -53,14 +53,18 @@ makedepends="
 	mpv-dev
 	phonon-dev
 	pimcommon-dev
-	qgpgme
 	qt6-qtbase-dev
 	samurai
 	vlc-dev
 	"
-subpackages="$pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/pim/kalarm.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/kalarm-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/kalarm-$pkgver.tar.xz
+	0001-kalarm-KMime-from-KF6.patch
+	"
 options="!check" # No tests
 
 build() {
@@ -76,5 +80,6 @@ package() {
 }
 
 sha512sums="
-ea4d83c604d6c4b73a4e7ef5a04a85b462db69f9efd246a5f71f6bb717576f5e42835a53e7ed020eb496c2f5bac12ba89d24ce8b0fc575841689ae89a04e7da1  kalarm-25.08.0.tar.xz
+a7b1e7566d88ce3b47add7933724bf16428e36034b7c826d1f859d963ea7691717c9f13f5c16ba56c868703f5255ad6438ad2958b4f9b48d0fd9f969f7c5b502  kalarm-26.04.3.tar.xz
+fc200ba1f870e428c02700fd495ad57580205ada80d2977e222771cd56b597ee05e31a3e5f48511b9d2d4772dc04151f0b232706c55b10faf58ad0624d49e7a6  0001-kalarm-KMime-from-KF6.patch
 "

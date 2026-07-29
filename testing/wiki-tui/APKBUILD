@@ -1,8 +1,8 @@
 # Contributor: Orhun Parmaksız <orhunparmaksiz@gmail.com>
 # Maintainer: Orhun Parmaksız <orhunparmaksiz@gmail.com>
 pkgname=wiki-tui
-pkgver=0.8.2
-pkgrel=1
+pkgver=0.9.2
+pkgrel=0
 pkgdesc="Simple and easy to use Wikipedia Text User Interface"
 url="https://github.com/Builditluc/wiki-tui"
 arch="all"
@@ -13,10 +13,8 @@ makedepends="
 	openssl-dev
 	"
 subpackages="$pkgname-doc"
-source="
-	$pkgname-$pkgver.tar.gz::https://github.com/Builditluc/wiki-tui/archive/v$pkgver.tar.gz
-	cargo-update.patch"
-options="net"
+source="$pkgname-$pkgver.tar.gz::https://github.com/Builditluc/wiki-tui/archive/v$pkgver.tar.gz"
+options="net" # cargp fetch
 
 prepare() {
 	default_prepare
@@ -39,6 +37,5 @@ package() {
 }
 
 sha512sums="
-9240c17ab9410bf4182349701d06df73f56b11fceb24415c5249a982026fb236d87ab151b7a5b62683d70c38414fe67270b8f2012eb9188fddebf2d6c366fd22  wiki-tui-0.8.2.tar.gz
-76d987d2825ba41f0d5aadc8dea946ff55e4355a0ccd0accfb52d9ef24f96bade933eea94a22838c582e4a7766ed6d4d6fbaeeccfde456714c2edefc834e7d1a  cargo-update.patch
+1cf07dc6ca815eec1ce58bd6d0fd28ede6f147303f2e5a11c6d6258ae1883ee099bfd2beec4a0e0e5a0cceac7d63f2d492ebdb26d0356790a4abfb0a78861ddb  wiki-tui-0.9.2.tar.gz
 "

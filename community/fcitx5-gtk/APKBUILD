@@ -2,7 +2,7 @@
 # Contributor: Lindsay Zhou <i@lin.moe>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-gtk
-pkgver=5.1.4
+pkgver=5.1.7
 pkgrel=0
 pkgdesc="Fcitx5 GTK module"
 url="https://github.com/fcitx/fcitx5-gtk/"
@@ -67,5 +67,5 @@ _gtk4() {
 }
 
 sha512sums="
-4338a71b2629c2958c277b5377508cd78beaece6ff93e480af8ceffeb429678dbcacfceed5fa1f166b52798c767c4a39feee783835f26e44eefcb90687c981af  fcitx5-gtk-5.1.4.tar.gz
+77773a4a54919afbd4e981fa87457d091135524b80627a7ec6910f543237b616bb408d3e40292bdde064ab4e28267627a62f611e650fba6cc9921526a529231c  fcitx5-gtk-5.1.7.tar.gz
 "

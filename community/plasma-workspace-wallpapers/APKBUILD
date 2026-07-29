@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-workspace-wallpapers
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Wallpapers for the Plasma Workspace"
 arch="noarch"
@@ -36,5 +36,5 @@ package() {
 }
 
 sha512sums="
-58da59ba47cb7dddbfd7e8e700100d173adf4e9ca7a2f7cba2e4dfed62aadb90b2d6aa97b6d473e9e8b8c0def66373b16653b15309417c04166b66141798012e  plasma-workspace-wallpapers-6.4.5.tar.xz
+694620e3cd7eb26b77e30ff4a8c08c491a33625d10fe3bd009626a547b5c62f0a8d63fab7d11d7e3c967bf5e5833f1646a8d7abe234f30bff52c4a35867f849b  plasma-workspace-wallpapers-6.7.3.tar.xz
 "

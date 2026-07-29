@@ -1,13 +1,12 @@
 # Contributor: S.M Mukarram Nainar <theone@sm2n.ca>
 # Maintainer: team/rust <alpine@ptrcnull.me>
 pkgname=rust-analyzer
-pkgver=2025.08.11
+pkgver=2026.06.29
 _pkgver=${pkgver//./-}
 pkgrel=0
 pkgdesc="Rust compiler front-end for IDEs"
 url="https://github.com/rust-lang/rust-analyzer"
-# armhf: ftbfs, oom
-arch="all !armhf"
+arch="all"
 license="MIT OR Apache-2.0"
 depends="rust-src"
 makedepends="cargo mimalloc2-dev cargo-auditable"
@@ -20,6 +19,12 @@ options="net !check"
 # crashes otherwise
 export CARGO_PROFILE_RELEASE_PANIC="unwind"
 
+case "$CARCH" in
+arm*)
+	# avoid OOM situations
+	export CARGO_PROFILE_RELEASE_LTO="thin"
+	;;
+esac
 
 prepare() {
 	default_prepare
@@ -35,7 +40,7 @@ prepare() {
 		mimalloc = { rustc-link-lib = ["mimalloc"] }
 	EOF
 
-	cargo fetch --target="$CTARGET" --locked
+	cargo fetch --target="$CHOST" --locked
 }
 
 build() {
@@ -55,5 +60,5 @@ package() {
 }
 
 sha512sums="
-19b9efa3d7bb772fcc9475634a8cc20afd4cc0d0df785392c4e8e85d62f3a09967182c4c6119315e6bfcc6ed630f89e40004707c8a5b18bcd8d91beffaf5a0c1  rust-analyzer-2025.08.11.tar.gz
+045a3364c069dad4faa0d200c4ade631fa74025bdf3e5cfd3eecaac366ee69c5afc50f767bc6171e65e257ab422d0c84be55a97ffed6f8ad1fffcc1f77b64450  rust-analyzer-2026.06.29.tar.gz
 "

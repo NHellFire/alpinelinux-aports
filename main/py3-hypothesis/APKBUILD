@@ -1,7 +1,7 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 maintainer="Michał Polański <michal@polanski.me>"
 pkgname=py3-hypothesis
-pkgver=6.138.2
+pkgver=6.151.12
 pkgrel=0
 pkgdesc="Advanced property-based (QuickCheck-like) testing for Python"
 options="!check"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-0c497b6dc9be6e19df1199195a9a83ec8b330b7e9998bb4314fc42898a7cd1fcd7e44c214f64ead78b115ddbbb2ac35c44176bb2969a0bc182e215ca0fe4b4b0  py3-hypothesis-6.138.2.tar.gz
+5bfae6c4b0248d2e86b44b91ac633a0131577a64b36360661a5ae205b3f008c2797bf04b34aedf2e0c453cf266e14ca75e4624dc77a08f4078504629d78f677c  py3-hypothesis-6.151.12.tar.gz
 "

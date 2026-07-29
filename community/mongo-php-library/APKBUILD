@@ -1,8 +1,8 @@
 # Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
 
-_php=php82
+_php=php85
 pkgname=mongo-php-library
-pkgver=1.18.0
+pkgver=2.3.0
 pkgrel=0
 pkgdesc="High-level abstraction around the lower-level drivers for PHP"
 url="https://github.com/mongodb/mongo-php-library"
@@ -24,5 +24,5 @@ package() {
 }
 
 sha512sums="
-db618bff13fe7a9697f773127e19a3db2be1ae6e133116e9064e8fd49a1158357294714caafe527902bdd2409ccc367eda8e7d1a5e146b3f66de35a732492e50  mongo-php-library-1.18.0.tar.gz
+00bb7412e5728ab255e857ac4f0d943dee5e992624d8ceb4fdc8e4b3c46ee78bdb8acab6c233242ea2603acac2d4b8979134c5d3a323951ce5a3419b683d450f  mongo-php-library-2.3.0.tar.gz
 "

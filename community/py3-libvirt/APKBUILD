@@ -1,7 +1,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-libvirt
-_pkgname=libvirt-python
-pkgver=11.6.0
+_pkgname=libvirt_python
+pkgver=12.5.0
 pkgrel=0
 pkgdesc="The libvirt virtualization API python binding"
 url="https://libvirt.org/"
@@ -16,7 +16,7 @@ makedepends="
 	"
 checkdepends="py3-pytest-xdist py3-lxml"
 subpackages="$pkgname-pyc"
-source="https://libvirt.org/sources/python/$_pkgname-$pkgver.tar.gz
+source="https://download.libvirt.org/python/libvirt_python-$pkgver.tar.gz
 	disable-screenshot-test.patch"
 builddir="$srcdir/$_pkgname-$pkgver"
 
@@ -38,6 +38,6 @@ package() {
 }
 
 sha512sums="
-06c09e8c62eafe11cb2419f8a13e040e9f4380591b235d1debdfc29e11b9f62535c1d8285e19bc190528dc3d987076bd39511c1c734b4bd590937d788977f05b  libvirt-python-11.6.0.tar.gz
+113462df69bcfbbdebc14cac2b470ce1f182a45913cf5dad77e47c8056fb76cf5c9d60d14bb94c300597af6a4203fcd66fb7c8352ddb13c976de1bd487452da3  libvirt_python-12.5.0.tar.gz
 3d1d62a5d5283e5679dd1318a335b2785c895499f1fedae5d75947e29b0a55f6e4925108cf74e6b36f1c9f140aaf5c89171b84d8e94b1c3d3fc6fdc8c7f2f5fc  disable-screenshot-test.patch
 "

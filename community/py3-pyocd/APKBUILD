@@ -1,7 +1,7 @@
 # Contributor: Bart Ribbers <bribbers@disroot.org>
 # Maintainer: Bart Ribbers <bribbers@disroot.org>
 pkgname=py3-pyocd
-pkgver=0.37.0
+pkgver=0.43.1
 pkgrel=0
 pkgdesc="Cortex-M debugger for Python"
 url="https://pypi.org/project/pyocd/"
@@ -33,8 +33,8 @@ makedepends="
 	py3-wheel
 	"
 checkdepends="py3-pytest"
-subpackages="$pkgname-pyc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/pyocd/pyOCD/archive/refs/tags/v$pkgver.tar.gz
+subpackages="$pkgname-pyc $pkgname-udev"
+source="$pkgname-$pkgver-1.tar.gz::https://github.com/pyocd/pyOCD/archive/refs/tags/v$pkgver.tar.gz
 	0001-Add-uacess-to-udev.patch
 	"
 builddir="$srcdir/pyOCD-$pkgver"
@@ -61,6 +61,6 @@ package() {
 }
 
 sha512sums="
-dfebd7a916729104cdc7cc6f7b263fe46c4e94dbb3cdee9bccd031c5e25a150ee5b8c4fcb73041d203f77eb2e9eca37cdac6309128ae861dc109e96f0f191ec9  py3-pyocd-0.37.0.tar.gz
+e879dde5c0189340c67603798dd94f7bfd145bf149c25c680d5b61ce78f3a33bd771dd87b23fe3a430e085967bb3e8bb03007ad8b922b509de61ad5804f44f5f  py3-pyocd-0.43.1-1.tar.gz
 132efcb19ee9d4cd4608f9e41a097ab292e7314b5589708a4398f81d727ad17b541047143d3f77628c5e1d70c404b4164625f81aa65a0bcdf6a76611ef09d74e  0001-Add-uacess-to-udev.patch
 "

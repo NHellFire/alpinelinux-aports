@@ -5,7 +5,7 @@
 # Contributor: Duncan Bellamy <dunk@denkimushi.com>
 # Maintainer: Duncan Bellamy <dunk@denkimushi.com>
 pkgname=rspamd
-pkgver=3.12.1
+pkgver=4.1.1
 pkgrel=1
 pkgdesc="Fast, free and open-source spam filtering system"
 url="https://rspamd.com/"
@@ -18,6 +18,7 @@ depends="icu-data-full"
 makedepends="
 	cmake
 	curl-dev
+	doctest-dev
 	elfutils-dev
 	glib-dev
 	hiredis-dev
@@ -26,7 +27,6 @@ makedepends="
 	libsodium-dev
 	libstemmer-dev
 	libunwind-dev
-	fasttext-dev
 	fmt-dev
 	openssl-dev>3
 	pcre2-dev
@@ -38,16 +38,12 @@ makedepends="
 	zlib-dev
 	zstd-dev
 	"
-# luajit disabled due to failed rspamd_resolver test cases with icu 76.1
-# https://github.com/rspamd/rspamd/issues/5263
-# case "$CARCH" in
-# 	riscv64|s390x|x86|loongarch64) makedepends="$makedepends lua5.4-dev"
-# 		_luajit="OFF" ;;
-# 	*) makedepends="$makedepends luajit-dev"
-# 		_luajit="ON" ;;
-# esac
-makedepends="$makedepends lua5.4-dev"
-_luajit="OFF"
+case "$CARCH" in
+	arm*|riscv64|s390x|x86|loongarch64) makedepends="$makedepends lua5.4-dev"
+		_luajit="OFF" ;;
+	*) makedepends="$makedepends luajit-dev"
+		_luajit="ON" ;;
+esac
 install="$pkgname.pre-install $pkgname.post-upgrade"
 subpackages="
 	$pkgname-dbg
@@ -66,7 +62,7 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/rspamd/rspamd/archive/$pkgve
 	30-unbundle-snowball.patch
 	31-unbundle-hiredis.patch
 	tests.patch
-	"
+"
 # merged into main package
 provides="
 	rspamd-controller=$pkgver-r$pkgrel
@@ -109,12 +105,11 @@ build() {
 		-DRUNDIR=/run/$pkgname \
 		-DRSPAMD_USER=$pkgusers \
 		-DRSPAMD_GROUP=$pkggroups \
-		-DENABLE_FASTTEXT=ON \
 		-DENABLE_BACKWARD="$_backward" \
 		-DENABLE_HYPERSCAN="$_hm" \
 		-DENABLE_LUAJIT="$_luajit" \
-		-DENABLE_PCRE2=ON \
 		-DENABLE_URL_INCLUDE=ON \
+		-DSYSTEM_DOCTEST=ON \
 		-DSYSTEM_XXHASH=ON \
 		-DSYSTEM_ZSTD=ON \
 		-GNinja \
@@ -167,13 +162,13 @@ utils() {
 }
 
 sha512sums="
-5e049f6aa872f9ded9ee7f580222edb83260a3a8dc14b74a0f95b88796d36690ac5e9b33b143560253111f79cc8cd5231fd2478661d8cfe92d75874cc472cf6c  rspamd-3.12.1.tar.gz
+80f77fe641ae77c2cf874bcc5e7cf854a3a0f1ae9386a49f6497c99486d49ddfc52d311d593dd811d4c13acdadcf7377ee818bac7e48eb2e479526f19741581d  rspamd-4.1.1.tar.gz
 2efe28575c40d1fba84b189bb872860e744400db80dce2f6330be6c6287fb3f46e6511284729b957488bf40bcb9b0952e26df9934f5f138334bd2766075c45cb  rspamd.logrotated
 8af7bde8b0fa392913bc7891498ad27d5262897a0a2c0922fa3006b06b9782773876881ea34dd65a236d4f33e080d551dc3866a2cce6d61b35165cd6713dc53c  rspamd.initd
 a2003ef0c9d64a44480f59302864a2dfedcbe3a0047fcbb655408bc8aae9014b6ad0ddc6b64d4abeeb21bea0f86678afd30589ac8eed83e07ad7f87710e93702  rspamd.confd
 d82ee4c81d5e6401327a6f16cb2cbaa4e968532270ef5ef960319c5aac72720c0ac3a3d42fe8e1f76e20488eadd0d01a5cb313e0fe12979aef1363325dd7c716  10-control_socket.patch
-8801e3af59886847c25c87ca2f231cd9ededf35f376f9920967e72696fb017b1a4312f3a49017b52f65556bfe5c9f74a80405643afa32bb2906c38d39c5e1818  20-default-configs.patch
+ae1c1e6bb81bf8147ed67703be2a1793d650b1448d966b1d7c2b3cdc988ec05e0c646c3718deffe7b8df1db6a59f2d59e9d90ecc848c972a8b73793dbcf91e5f  20-default-configs.patch
 0d02f5268eb943c9cc2a8db5e8adab1662aecf9aebf2e1ab467ffd67fd1468101fdb98de40e096f62392018a406505957fda8dbdfc88e0c357eea0292a165a9f  30-unbundle-snowball.patch
-c687621311ebc5ed7f9508ab32f38649ff899cb52973da2ab53fa376b0026b39a489ad79c90a49052894b8e89354b8a606e1a4fb8f79fe6e321e47e47a533281  31-unbundle-hiredis.patch
+ea3cb18bd71460d5d6f511ec86851e89e02446b6bcf70dd6275e9766354ea2209835166512c9045176b457e028f1e319fc816c1dafb4b47c5c7d13602a23870d  31-unbundle-hiredis.patch
 fecb21f079756676674b506ab47b6e423d55c81cd3f0d2c5fe02994537853e4fd25ddd7fafd97c33058401eadb40e9da95307fe0cdbce37bdeac84cb4d5c9760  tests.patch
 "

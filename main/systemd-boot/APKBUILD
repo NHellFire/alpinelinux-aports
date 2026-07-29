@@ -2,27 +2,27 @@
 # Contributor: Hugo Osvaldo Barrera <hugo@whynothugo.nl>
 # Maintainer: Struan Robertson <contact@struanrobertson.co.uk>
 pkgname=systemd-boot
-pkgver=257.9
+pkgver=261.2
 pkgrel=0
 pkgdesc="systemd's EFI boot manager."
 url="https://systemd.io/"
-# riscv64: I have no way to test this currently
-arch="x86_64 x86 aarch64 armv7 loongarch64"
+arch="x86_64 x86 aarch64 armv7 loongarch64 riscv64"
 license="LGPL-2.1-or-later"
 makedepends="
 	bash
 	coreutils
 	gperf
 	libcap-dev
+	libucontext-dev
 	meson
 	py3-elftools
 	py3-jinja2
 	util-linux-dev
+	musl-libintl
 "
 install="ukify-kernel-hook.post-install ukify-kernel-hook.pre-deinstall"
 source="
 	systemd-$pkgver.tar.gz::https://github.com/systemd/systemd/archive/refs/tags/v$pkgver.tar.gz
-	0001-patch-wchar_t-for-musl.patch
 	ukify.hook
 	ukify.conf
 	"
@@ -44,6 +44,7 @@ build() {
 	esac
 
 	abuild-meson  \
+		-Dlibc="musl" \
 		-Dversion-tag="$pkgver-$pkgrel" \
 		-Dsbat-distro="alpine" \
 		-Dsbat-distro-summary="Alpine Linux" \
@@ -78,7 +79,6 @@ build() {
 		-Dlogind=false \
 		-Dmachined=false \
 		-Dnetworkd=false \
-		-Dnscd=false \
 		-Dnss-myhostname=false \
 		-Dnss-mymachines=disabled \
 		-Dnss-resolve=disabled \
@@ -126,7 +126,7 @@ package() {
 }
 
 ukify() {
-	depends="binutils py3-pefile"
+	depends="binutils py3-pefile systemd-efistub"
 	pkgdesc="Create unified kernel images (UKIs)."
 
 	install -Dm755 "$builddir/src/ukify/ukify.py" \
@@ -135,6 +135,9 @@ ukify() {
 	local _v=${pkgver%%.*}
 	sed -i "s|{{PROJECT_VERSION}} ({{VERSION_TAG}})|$_v ($pkgver-$pkgrel)|" \
 		"$subpkgdir/usr/sbin/ukify"
+
+	mkdir -p "$subpkgdir/usr/lib/systemd/boot"
+	cp -r "$builddir/src/boot/hwids" "$subpkgdir/usr/lib/systemd/boot/"
 }
 
 efistub() {
@@ -147,7 +150,7 @@ efistub() {
 }
 
 ukify_hook() {
-	depends="ukify kernel-hooks cmd:sbsign systemd-efistub"
+	depends="ukify kernel-hooks cmd:sbsign"
 	pkgdesc="Create unified kernel images (UKIs) (kernel hook)."
 
 	amove usr/share/kernel-hooks.d/ukify.hook
@@ -155,8 +158,7 @@ ukify_hook() {
 }
 
 sha512sums="
-23b3d2764e0f990d8373068ccb41177793413bc193f7bd34e38b03d6fc3cd32d07c86e9dcbf07e32904075bb5eeca208f65beab04d628ac0e0b81ba87a975c1b  systemd-257.9.tar.gz
-81e6f311d567ef8b1f8957f25f019e7fa995f640659381757d1abdd7295434810b79a09367d274c5755f1ed1f6d37d7d98e9c93645578daca34acdeca0ba3965  0001-patch-wchar_t-for-musl.patch
+876f043970cb65b39ae15fba39f23bf94c7c3d80569503d6e8ea2c8013c30ee40ce43cb55cbcb1cf14d5c3021aafc09c0f67473bbf742d8964bf9fa30693b971  systemd-261.2.tar.gz
 537dd901f27003f3bb56e72769847a2411db2c5ac3091f2a7f990e3210eefe1bf4d36e3dc958a731720a7fba1b9bf3dcda48002c68f6e9bbcebdb8d0b37e88b1  ukify.hook
 c119a4c5a472b82aca71c2e0c63c9420e92aaa83c9b5141e3bfbf332206697b6f6a5fd2a90e808d1e276fa896d9ee375dd1c8ffd174487cfccc7345da9ee11b4  ukify.conf
 "

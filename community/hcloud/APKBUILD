@@ -1,6 +1,6 @@
 maintainer="Michał Polański <michal@polanski.me>"
 pkgname=hcloud
-pkgver=1.51.0
+pkgver=1.62.2
 pkgrel=2
 pkgdesc="Command-line interface for Hetzner Cloud"
 url="https://github.com/hetznercloud/cli"
@@ -12,12 +12,11 @@ subpackages="
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
-source="https://github.com/hetznercloud/cli/archive/v$pkgver/hcloud-$pkgver.tar.gz"
+source="https://github.com/hetznercloud/cli/archive/v$pkgver/hcloud-$pkgver.tar.gz
+	tests-fix-time-sensitive-test.patch
+	"
 builddir="$srcdir/cli-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+options="net" # Go modules
 
 build() {
 	go build \
@@ -29,9 +28,9 @@ build() {
 		-v \
 		./cmd/hcloud
 
-	./hcloud completion bash > $pkgname.bash
-	./hcloud completion fish > $pkgname.fish
-	./hcloud completion zsh > $pkgname.zsh
+	./hcloud completion bash >$pkgname.bash
+	./hcloud completion fish >$pkgname.fish
+	./hcloud completion zsh >$pkgname.zsh
 }
 
 check() {
@@ -47,5 +46,6 @@ package() {
 }
 
 sha512sums="
-1c18bea5fdc78d45e940ef99f6dcb04b150e0f299587d4547f1cd8e9659e79aa22c672b463fd523d4985f62ab15d8fc11d80c6807afe602bf268bad5d7c8bcee  hcloud-1.51.0.tar.gz
+e423919201a6eb3f4d015238b3590edff1a380aba756b371905aef98d2db658f8aa45216a652be813300b8bdc9df6c49d956b48c9a7183ad87ec9ed840f6a75c  hcloud-1.62.2.tar.gz
+ecf08a86b6c3ca2d36c2978badb9e82f343d52247cba755a4f98d706e43167dd50749271ea44899d259b96cd329da4779e8c166a6baf2c06a889ed50b922b184  tests-fix-time-sensitive-test.patch
 "

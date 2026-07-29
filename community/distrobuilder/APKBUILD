@@ -1,8 +1,8 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
 # Maintainer: Sean McAvoy <seanmcavoy@gmail.com>
 pkgname=distrobuilder
-pkgver=3.1
-pkgrel=8
+pkgver=3.3.1
+pkgrel=1
 pkgdesc="System container image builder"
 url="https://linuxcontainers.org/distrobuilder/"
 arch="all !armhf !armv7"
@@ -12,14 +12,12 @@ makedepends="go linux-headers"
 subpackages="$pkgname-lxc::noarch $pkgname-lxd::noarch $pkgname-incus::noarch $pkgname-doc"
 checkdepends="squashfs-tools"
 options="net"
-source="https://github.com/lxc/distrobuilder/archive/refs/tags/distrobuilder-$pkgver.tar.gz"
-builddir="$srcdir/distrobuilder-distrobuilder-$pkgver"
+source="$pkgname-$pkgver.tar.gz::https://github.com/lxc/distrobuilder/archive/refs/tags/v$pkgver.tar.gz
+	skip-testverifyfile.patch
+	"
 options="net"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-export GOFLAGS="$GOFLAGS -modcacherw"
+export GOFLAGS="$GOFLAGS -modcacherw -tags=containers_image_storage_stub,containers_image_docker_daemon_stub,containers_image_openpgp"
 
 build() {
 	go build -o out ./distrobuilder
@@ -58,5 +56,6 @@ incus() {
 }
 
 sha512sums="
-d5f7277cada70105e3bfb0bfb13778cf323d58e384c54a9674cad6539373d0888f3360997edb5fe8a306ae131e2ab7042aba496e1cfdb2a146f0a0e0ec059af2  distrobuilder-3.1.tar.gz
+76cf6f533554ae58cdd3c22dac15f1a133d717bd2a151ad5b0046d70a8122d973d1ffdcdee208d1442fb13e4b4b540bf6e05df780d2cf7abb0f7018038dbf92a  distrobuilder-3.3.1.tar.gz
+fe26a5e906a70f250028498e91358731a12bb5cf750c294e0d1bde90c62bf3412c0571cc1a008230603135ce7a1c69d7210d97dac922f70d9291bcf65569177e  skip-testverifyfile.patch
 "

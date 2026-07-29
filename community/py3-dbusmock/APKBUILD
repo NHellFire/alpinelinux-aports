@@ -1,14 +1,14 @@
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=py3-dbusmock
-pkgver=0.37.0
-pkgrel=0
+pkgver=0.38.1
+pkgrel=1
 pkgdesc="Mock D-Bus objects for tests"
 url="https://github.com/martinpitt/python-dbusmock"
 arch="noarch"
 license="LGPL-3.0-or-later"
 depends="dbus py3-dbus py3-gobject3"
 makedepends="py3-gpep517 py3-setuptools py3-wheel python3-dev"
-checkdepends="bash py3-nose py3-pytest"
+checkdepends="bash py3-pytest busctl"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/p/python-dbusmock/python_dbusmock-$pkgver.tar.gz"
 builddir="$srcdir/python_dbusmock-$pkgver"
@@ -32,5 +32,5 @@ package() {
 }
 
 sha512sums="
-09a0e9b38c1286c69ef371411c75363068eb9bcc487a69587f7098653bf9d1b1326bdefa01fab9913879e6faf96e3ddedefd798b236697ec186f7a5051eba64d  python_dbusmock-0.37.0.tar.gz
+3bfd069f977171045338bd76862660a0e088e99aa000261fe2d447d8576cecdf249579162eae54ad21bdd4a1ad3421da13b5ee30e347d813990f55288c09b85e  python_dbusmock-0.38.1.tar.gz
 "

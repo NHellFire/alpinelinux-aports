@@ -2,15 +2,15 @@
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 maintainer="Will Sinatra <wpsinatra@gmail.com>"
 pkgname=amazon-ssm-agent
-pkgver=3.3.3050.0
-pkgrel=2
+pkgver=3.3.4851.0
+pkgrel=1
 pkgdesc="Amazon SSM Agent for managing EC2 Instances using the SSM APIs."
 url="https://aws.amazon.com/documentation/systems-manager/"
 license="Apache-2.0"
 # loongarch64: blocked by old github.com/creack/pty version
 arch="all !loongarch64"
 makedepends="go bash"
-source="https://github.com/aws/amazon-ssm-agent/archive/v$pkgver/amazon-ssm-agent-$pkgver.tar.gz
+source="https://github.com/aws/amazon-ssm-agent/archive/$pkgver/amazon-ssm-agent-$pkgver.tar.gz
 	amazon-ssm-agent.initd"
 subpackages="$pkgname-openrc"
 options="!check net"
@@ -44,6 +44,6 @@ package() {
 }
 
 sha512sums="
-4f84f5f32293e0802fb01dac2fc1c147ae7cb1590e0590ea599536ee9e2513e851ab6ba36a052712ec16b4782ae2df57c705eb7d5352fc928aebc4d690be6f4d  amazon-ssm-agent-3.3.3050.0.tar.gz
+8db3ad9719886fba91564efe82532d829f471012fe2c21e363c5e139b6d896639669fd863b92e8977381cac1e178a420be4be4c71b7fae16549ebd3939986e41  amazon-ssm-agent-3.3.4851.0.tar.gz
 a905c4272c5aa3ed65147f6aa58d70ba5bd0311d26308e7aa0f77da7b9860056d24a2a31ce7dddd25dc09c355275dd2f56847e2ab00ac1cb92eaa2aa732c34f3  amazon-ssm-agent.initd
 "

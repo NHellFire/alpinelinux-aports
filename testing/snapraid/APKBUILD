@@ -1,19 +1,14 @@
 # Contributor: Nathan Caldwell <saintdev@gmail.com>
 # Maintainer: Nathan Caldwell <saintdev@gmail.com>
 pkgname=snapraid
-pkgver=12.4
+pkgver=14.8
 pkgrel=0
 pkgdesc="A backup program for disk arrays"
 url="https://www.snapraid.it"
-arch="all !s390x" # tests fails on s390x
+arch="all"
 license="GPL-3.0-only"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/amadvance/snapraid/releases/download/v$pkgver/snapraid-$pkgver.tar.gz"
-
-prepare() {
-	default_prepare
-	update_config_sub
-}
 
 build() {
 	./configure \
@@ -34,4 +29,6 @@ package() {
 	make DESTDIR="$pkgdir" install
 }
 
-sha512sums="98841d236769302ed3f7ed3271b9b757d806f70b50c108cc48771cf3753b713b82803402db17ebc45d2b669cb19e3675bbb2bd02d87f8c1fe941d83f87662a09  snapraid-12.4.tar.gz"
+sha512sums="
+53bd85f66151f4b25ac280d27b793f9f95850c1cf0ed1b620552437e65becd96f0ba0df5ed26f24ff57f2f516ca8273d2f4dd9014487dd5058b937c66ff667d2  snapraid-14.8.tar.gz
+"

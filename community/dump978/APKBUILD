@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=dump978
-pkgver=10.2
-pkgrel=1
+pkgver=11.1
+pkgrel=0
 pkgdesc="FlightAware's 978MHz UAT demodulator"
 arch="all"
 url="https://github.com/flightaware/dump978"
@@ -28,5 +28,5 @@ package() {
 }
 
 sha512sums="
-78d9798c2863ca55f24ea0fb1e7505541231efa3333edf8e743b852135259f6c15acdaec098dc61e3bdefae4c6c5da6b0641d6e2a420166ea77ef9b4795bdd0e  dump978-10.2.tar.gz
+19e8270de2db2ced57071b0e86f28e2b3ac2ab97f76d8b8682d9e66e8c872a19220acb321875ec0e5a473e051a04846a559531581cc3482cdcb2e2896bab174d  dump978-11.1.tar.gz
 "

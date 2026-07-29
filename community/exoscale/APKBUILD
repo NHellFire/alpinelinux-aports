@@ -1,7 +1,7 @@
 # Contributor: Patrycja Rosa <alpine@ptrcnull.me>
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=exoscale
-pkgver=1.85.2
+pkgver=1.93.0
 pkgrel=3
 pkgdesc="Command-line tool for everything at Exoscale"
 url="https://github.com/exoscale/cli"
@@ -11,10 +11,6 @@ makedepends="go"
 source="https://github.com/exoscale/cli/archive/refs/tags/v$pkgver/exoscale-$pkgver.tar.gz"
 builddir="$srcdir/cli-$pkgver"
 options="net" # go deps
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -o exo -ldflags "-X main.version=$pkgver"
@@ -29,5 +25,5 @@ package() {
 }
 
 sha512sums="
-1fddbc5d9c54aaf71c169603bb75c243954efb22a04b35ecfe4f70a35c762ffb1d7cc723b435c783bc35314bf292a15b4e2b194e54ed82b793daec176dba4d3e  exoscale-1.85.2.tar.gz
+7a4a16bc366564e15ce549f694c3551d84a9dc76c476ecabe9799d67238ceb32aaf64b4435d83c206f77b35bd6dd5bc83d90d42838a319cb5da090847bee68cd  exoscale-1.93.0.tar.gz
 "

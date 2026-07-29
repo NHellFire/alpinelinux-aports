@@ -1,0 +1,38 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=ministream
+pkgver=0.99.1
+pkgrel=0
+pkgdesc="Small appstream manifest parser"
+url="https://gitlab.gnome.org/sp1rit/ministream"
+arch="all"
+license="LGPL-2.1-or-later"
+makedepends="
+	glib-dev
+	gobject-introspection-dev
+	meson
+	"
+checkdepends="
+	appstream-dev
+	libxml2-dev
+	"
+subpackages="$pkgname-dev"
+source="https://gitlab.gnome.org/sp1rit/ministream/-/archive/$pkgver/ministream-$pkgver.tar.gz"
+
+build() {
+	abuild-meson \
+		-Dtests="$(want_check && echo true || echo false)" \
+		output .
+	meson compile -C output
+}
+
+check() {
+	meson test --print-errorlogs -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+}
+
+sha512sums="
+cad415edd5c573bbb41e9b0f045d16f5c80cd10ee32d54b14c8070b24581d867803881ff26b86effc9c73ea1a0cd9157b9eb35fb0367f882b48340417ec1163c  ministream-0.99.1.tar.gz
+"

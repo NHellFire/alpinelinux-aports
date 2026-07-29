@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kgamma
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Adjust your monitor's gamma settings"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -46,5 +46,5 @@ package() {
 }
 
 sha512sums="
-c2a69058973dec6aa4f9b3d1e5543618ea823502150aebcc94136f231b414f22559a5b42c0286aa5ec6208b1b5edac034ea2a0086cbce18d38c30f7d40c2b609  kgamma-6.4.5.tar.xz
+d5ef17cb6aa38931a69c07eb58776acbcf938316502577fffe37a6b8de71ca54765fccf115c031e8f6bdcadb3845b98f0d94f95277818ed2a4b7d3ff4bb1a30a  kgamma-6.7.3.tar.xz
 "

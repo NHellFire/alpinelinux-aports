@@ -1,7 +1,7 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=ethtool
-pkgver=6.15
+pkgver=7.0
 pkgrel=0
 pkgdesc="Utility for controlling network drivers and hardware"
 url="https://mirrors.edge.kernel.org/pub/software/network/ethtool/"
@@ -30,5 +30,5 @@ package() {
 }
 
 sha512sums="
-f140095e7c9e38d8b151796eed1301e9e6ab93e82d3e35b8a524b4f5be7b219e707bd270af7398195081085778c61948e15b39462a6a6f44aad6ffcaaddc3644  ethtool-6.15.tar.xz
+f8f0d08fe3da11f10cf7eb1f6348ebccd69175bfcdeb22726a8b86613d0dc7c8538b7d7075264102c9695f0100bb94cae03fd8dbe3b5bbe1fe758e1cb936a9c9  ethtool-7.0.tar.xz
 "

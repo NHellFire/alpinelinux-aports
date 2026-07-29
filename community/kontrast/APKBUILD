@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kontrast
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Tool to check contrast for colors that allows verifying that your colors are correctly accessible"
 # armhf blocked by qt6-qtdeclarative
@@ -43,5 +43,5 @@ package() {
 }
 
 sha512sums="
-2b3324d98f6566f21b1cb66ed0688f1652ccac11c7ec7cc56ebfe3b13df14b6400518798c4a4fbbe2dd672fc0d67d3e0755eb24e29db20267f818ec61e54fdd8  kontrast-25.08.0.tar.xz
+8ce5d10ca4e347306922d57f16bad692b4573397f5dccea50cea65ac56bca817ab3b539639a2fcd722f7e5a737cb36df02a7bc4505a913eb1e9940b7d849cc27  kontrast-26.04.3.tar.xz
 "

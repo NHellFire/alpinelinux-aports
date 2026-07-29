@@ -2,8 +2,8 @@
 # Maintainer: Carlo Landmeter <clandmeter@alpinelinux.org>
 pkgname=py3-zope-proxy
 _pkgname=zope.proxy
-pkgver=5.0.0
-pkgrel=2
+pkgver=7.2
+pkgrel=0
 pkgdesc="Generic transparent proxies via a C extension module"
 options="!check" # Requires unpackaged zope.security and upper repo zope.testrunner
 url="https://github.com/zopefoundation/$_pkgname"
@@ -32,5 +32,5 @@ package() {
 }
 
 sha512sums="
-e7b46fab93df36b27218701c7eddd18b6e4087df4a7f69ee55742dc3fba7e8db77e8abb9dcf8e3a2eae3fd06c9c674adcf3de0d1641bed99894aa75350240976  zope.proxy-5.0.0.tar.gz
+8018e12ac0fbc596619ac23aeaa57d7863507f87cbfbba299a616e1222f816bf062cf8df41498356f3efaf34ae69e5b25645f3a2d68fbd8ebe5da759648a39c9  zope.proxy-7.2.tar.gz
 "

@@ -1,6 +1,6 @@
-# Maintainer: team/gnome <achill@achill.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=at-spi2-core
-pkgver=2.58.0
+pkgver=2.60.5
 pkgrel=0
 # NOTE: Upgrade only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
 pkgdesc="Protocol definitions and daemon for D-Bus at-spi"
@@ -23,6 +23,9 @@ subpackages="
 	libatk-1.0:libatk
 	libatk-bridge-2.0:libatk_bridge
 	$pkgname-libs
+	$pkgname-systemd
+	py3-gobject3-atspi-pyc:pyc:noarch
+	py3-gobject3-atspi:_py3:noarch
 	"
 # Allows disabling installation of the accessibility service with `apk add !at-spi2-core`.
 # See https://gitlab.alpinelinux.org/alpine/aports/-/merge_requests/80773
@@ -45,7 +48,6 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" meson install --no-rebuild -C build
-	rm -rf "$pkgdir"/usr/lib/systemd
 }
 
 dev() {
@@ -68,6 +70,14 @@ libatk_bridge() {
 		usr/lib/libatk-bridge-2.0*
 }
 
+_py3() {
+	pkgdesc="PyGObject overrides for AT-SPI (GObject Introspection)"
+	depends="$pkgname=$pkgver-r$pkgrel"
+	install_if="$pkgname=$pkgver-r$pkgrel py3-gobject3"
+
+	amove usr/lib/python3.*/site-packages/gi
+}
+
 sha512sums="
-bbcc82e324d6d0d26962804c500afc72d05554399b51a631d1253b35ba5bd456573cfaa0659f253fc0cfc4d0395b97bc4ba2d91c909051be8be4fd61b7ec0e47  at-spi2-core-2.58.0.tar.xz
+175811b9ca918908583699ca83e8ec8ec758581da58969e7c2058b3a0ab11179c5361bec035c2a80dbfa77bd10051b1cc947c8851258fac1cb0d8547a4f75342  at-spi2-core-2.60.5.tar.xz
 "

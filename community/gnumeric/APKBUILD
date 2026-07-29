@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=gnumeric
-pkgver=1.12.59
-pkgrel=0
+pkgver=1.12.60
+pkgrel=1
 pkgdesc="GNOME Spreadsheet Program"
 url="https://www.gnome.org/projects/gnumeric"
 arch="all"
@@ -22,12 +22,13 @@ makedepends="
 	gtk-doc
 	"
 checkdepends="
-	perl-exporter
 	perl-file-basedir
 	perl-xml-parser
 	"
 subpackages="$pkgname-dbg $pkgname-dev $pkgname-doc $pkgname-lang"
-source="https://download.gnome.org/sources/gnumeric/${pkgver%.*}/gnumeric-$pkgver.tar.xz"
+source="https://download.gnome.org/sources/gnumeric/${pkgver%.*}/gnumeric-$pkgver.tar.xz
+	0001-docs-fix-parallel-builds.patch
+	"
 options="!check" # failing tests
 
 build() {
@@ -51,5 +52,6 @@ package() {
 }
 
 sha512sums="
-51b4fc23166d75788bcb86260c5e17fa4bb48f8920a0f9bc001609417be75f707650f057c58d480e9ded1dc8460407629329c19154c65d273a6edc7682d3428f  gnumeric-1.12.59.tar.xz
+43529ca05411cba02b052754cd15bbe84b5205e58ebb7dc5e7c07131600842e523a108f509020845f036f27b0d78eb9df6db970dfeb21285dc7e5fd8171fea56  gnumeric-1.12.60.tar.xz
+506cf29a5dac4a4d67240ee52d891947b3a064f7ebe1b97d91439a61b8155ae4b32e4c8dd6653d8baff6a34e22b73224f8ef05f300a1c078411d28a3b2c7687a  0001-docs-fix-parallel-builds.patch
 "

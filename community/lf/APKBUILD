@@ -1,8 +1,8 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
-# Maintainer: James Chen-Smith <james@chen-smith.net>
+maintainer=""
 pkgname=lf
-pkgver=37
-pkgrel=1
+pkgver=41
+pkgrel=4
 pkgdesc="Terminal filemanager written in Go with vim-style keybindings"
 options="chmod-clean net"
 url="https://github.com/gokcehan/lf"
@@ -17,10 +17,6 @@ subpackages="
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/gokcehan/lf/archive/r$pkgver.tar.gz"
 builddir="$srcdir/lf-r$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v -ldflags "-X main.gVersion=r$pkgver" -o bin/$pkgname
@@ -46,5 +42,5 @@ package() {
 }
 
 sha512sums="
-a965f59e7684950005ad4af5ae1d8851cf55d487fa129483816ff050fedfd07306fd32c46876271d45d190a12c6b2c793dcce14963754a6bbff7f93c0011a4c7  lf-37.tar.gz
+4a04991165daf408d883fc38bb7ac4f8405bb9f62b0c983c19a95708e9384fd82f621a0be2792bf2e819047e1f6a542624cf47d650a765f872a0b5b7cc80c8c4  lf-41.tar.gz
 "

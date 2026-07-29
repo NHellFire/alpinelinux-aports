@@ -1,7 +1,7 @@
 # Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 # Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 pkgname=kicad-library
-pkgver=9.0.4
+pkgver=10.0.3
 pkgrel=0
 pkgdesc="KiCad component and footprint libraries"
 url="https://kicad.github.io/"
@@ -10,21 +10,16 @@ arch="noarch !armv7 !armhf !riscv64 !s390x"
 license="GPL-3.0-or-later"
 makedepends="cmake samurai"
 depends="kicad"
-subpackages="$pkgname-3d:three_d"
+subpackages="
+	$pkgname-3d:three_d
+	"
 source="
 	https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/$pkgver/kicad-symbols-$pkgver.tar.gz
 	https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/$pkgver/kicad-footprints-$pkgver.tar.gz
 	https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/$pkgver/kicad-packages3D-$pkgver.tar.gz
 	"
 options="!check" # package only provides data files, so not tests possible
-
-prepare() {
-	default_prepare
-
-	# Always reference the .wrl file, not the source .step file. When KiCad is
-	# not linked against opencascade, it can only display .wrl files.
-	find "$srcdir"/kicad-footprints-$pkgver -type f -exec  sed -e 's/\((model "[^"]*\)\.step"/\1.wrl"/g' -i {} \;
-}
+builddir="$srcdir"
 
 build() {
 	cd "$srcdir"/kicad-symbols-$pkgver
@@ -52,13 +47,10 @@ three_d() {
 	pkgdesc="3D models for KiCad component and footprint libraries"
 	depends="$pkgname"
 	DESTDIR="$subpkgdir" cmake --install "$srcdir"/kicad-packages3D-$pkgver/build
-
-	# Remove .step version of 3D models; only .wrl versions are needed
-	find "$subpkgdir" -name '*.step' -exec rm {} \;
 }
 
 sha512sums="
-9f9973d6ff659a1dcdee6c842b06d7a00bb905a49c507215142e3f102c88f5e8298fa3039b7512c51f41ffadca1ff93001b7d0a5733d4a9a1d03b381772ef6bb  kicad-symbols-9.0.4.tar.gz
-b48bff3199332a1898a0c9a511410e6dfe4c381c44f6038e530cce1da130f2637e237610645d7c592aba2eb919898dd0f3e180cc61db6bd8cfef4878f6c51965  kicad-footprints-9.0.4.tar.gz
-6e94fc793234aee6a682d2f04bb66866bbaaa1baee7ae606f1c14de2a4e9879a4ea2358257db9a57650f464f81fecf070a9782a0f7e3f0577372173c2b564e15  kicad-packages3D-9.0.4.tar.gz
+719146046a56d1f44e921096c1718f45f3a1f10c8d81c4e25aa305a279e534440c409a34985e9d3c107d7790d69cd0aaeedbd2cff1c70d72cba1b4eb5daefb07  kicad-symbols-10.0.3.tar.gz
+aeb2f1c8fa0b19b62113dfee9008d61243ed1694f0067404f8f207117f2df88348008191e7a13e908c01f5587c4abcb2d54c229130c43c1cf7c9aa3cdeb213f8  kicad-footprints-10.0.3.tar.gz
+cf0772415c8da1618a65a1b3bb57ffdea56a61aea2fe29636f00191b5a0fac60b4bb07e56d76c9c4014eff4b5a2011880c7e3667212f1f6cf7c86a448ae1887a  kicad-packages3D-10.0.3.tar.gz
 "

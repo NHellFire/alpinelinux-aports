@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kig
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Interactive Geometry"
 url="https://edu.kde.org/kig"
@@ -47,5 +47,5 @@ package() {
 }
 
 sha512sums="
-669fa11aacb9fb5adf5a9bb78cbbe6cab2a8b7ca8ffccb9cd182cb1b5c36b3f918b5e7d4606dc9c61f391fb75f397903caf73eeccf5718239a3a7a7cf9c44425  kig-25.08.0.tar.xz
+fcc520906e779b68ba40603e09f998feed5aab1c164f9f79ff57c287a60a06e3ef172873306b8e1b670264aedc09e8a6477a177d8fbfdb09cf80fb6040795adc  kig-26.04.3.tar.xz
 "

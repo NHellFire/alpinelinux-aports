@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kpipewire
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Components relating to pipewire use in Plasma"
 # armhf blocked by qt6-qtdeclarative
@@ -61,5 +61,5 @@ package() {
 }
 
 sha512sums="
-7a0405027e0460c931f8a4b854348e0d1443e201982b5e4cab3aac2facc2002e462ac11fe877373999a84ac1ffb535a98421f4aaece3eff767b8e7d0d24051f7  kpipewire-6.4.5.tar.xz
+ea16fc85a089480fb0d83593c39b09663d356a702082a9ddf9fe732ed6c3c8ab6ab402ea2393a3f42a9972fe220d2fcde0a6a05826900a42e31cda6e22c3b5f9  kpipewire-6.7.3.tar.xz
 "

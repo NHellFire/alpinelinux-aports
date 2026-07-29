@@ -1,7 +1,7 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer: Carlo Landmeter <clandmeter@alpinelinux.org>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=freetype
-pkgver=2.13.3
+pkgver=2.14.3
 pkgrel=0
 # upgrading needs to rebuild py3-matplotlib and update its _ftver
 pkgdesc="TrueType font rendering library"
@@ -23,8 +23,7 @@ subpackages="
 	$pkgname-demos
 	$pkgname-doc
 	"
-source="
-	https://download.savannah.gnu.org/releases/freetype/freetype-$pkgver.tar.xz
+source="https://download.savannah.gnu.org/releases/freetype/freetype-$pkgver.tar.xz
 	https://download.savannah.gnu.org/releases/freetype/ft2demos-$pkgver.tar.xz
 	pcf-family-names.patch
 	subpixel.patch
@@ -73,8 +72,8 @@ demos() {
 }
 
 sha512sums="
-600828d7756c8cfa974448ef34ee0db573fb8cfdb2dc1e0358b63c44a03bfd7e3d4384424b9cc5e4749034f60231a550c4b7fcb46694fcacea218787ce305504  freetype-2.13.3.tar.xz
-e662a20ad2ff80534e8ea0df2f299e8f61350f13d279f80f8257b18352e863dd2c266791b85d3410b0c83966cb12e3ff49cf398b83a651dc73772df9fcf5936c  ft2demos-2.13.3.tar.xz
+43de86ea70b4b47f6efaae67f3440f65a24ffac29dc6d11203a9764e4f1a749ce1ba7645acd23525220b3ba12ddad8687b962b9f1254e2c0a86070854e85d5a0  freetype-2.14.3.tar.xz
+e59c1266010330a8cbfd25dec096a72ce7539b64f9c057de062a281261b3ad658240f58e75b53d7a880d7ad5e020206316a6e9e82b03dec2e4d999f3f56cb39a  ft2demos-2.14.3.tar.xz
 78ad6b1de388d3986fd5a51a7076b0a9d782733e85f400fc8c070b40e5e48130a562a67a7a9b251169b74ae052f571ea8e6b0f9435c271520d93dd72c1845d59  pcf-family-names.patch
 55fb06dbc7cc950129a99d9fd5480397b3e0720f32ab65fb3893768ed40e2de27be2cfd52ec6da490f79c79b4ddfecd0b7efcd32da4a95f2666a6b67a3cd9a31  subpixel.patch
 580fe59acddfd41966e387bdb6a88336b8bc119cc3d60d8689be20c96fb0dd07c5138ea31f6cb9c854f497ecb41c3adc49eb3ec16a34b2e010e8294851770763  table-validation-modules.patch

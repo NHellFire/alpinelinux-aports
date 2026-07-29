@@ -2,7 +2,7 @@
 # Maintainer: Erwan Rouchet <lucidiot@brainshit.fr>
 pkgname=pup
 pkgver=0.4.0
-pkgrel=34
+pkgrel=42
 pkgdesc="HTML parser for the command line"
 url="https://github.com/ericchiang/pup"
 arch="all"
@@ -14,15 +14,11 @@ builddir="$srcdir/src/github.com/ericchiang/pup"
 
 export GOPATH="$srcdir"
 export GO111MODULE=off
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
-	default_prepare
-	cd "$srcdir"
 	mkdir -p "$(dirname "$builddir")"
 	ln -s "$srcdir/$pkgname-$pkgver" "$builddir"
+	default_prepare
 }
 
 build() {

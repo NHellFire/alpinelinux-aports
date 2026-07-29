@@ -1,7 +1,7 @@
 # Maintainer: Ariadne Conill <ariadne@dereferenced.org>
 pkgname=ko
 pkgver=0.17.1
-pkgrel=8
+pkgrel=16
 pkgdesc="Build containers from Go projects"
 url="https://ko.build/"
 arch="all"
@@ -15,10 +15,6 @@ subpackages="
 source="https://github.com/ko-build/ko/archive/v$pkgver/ko-$pkgver.tar.gz
 	unset-CGO_ENABLED.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v -ldflags "-X github.com/google/ko/pkg/commands.Version=$pkgver"

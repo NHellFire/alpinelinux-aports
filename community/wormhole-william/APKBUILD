@@ -2,18 +2,16 @@
 # Maintainer: Edd Salkield <edd@salkield.uk>
 pkgname=wormhole-william
 pkgver=1.0.8
-pkgrel=3
+pkgrel=11
 pkgdesc="Go implementation of Magic Wormhole"
 arch="all"
 url="https://github.com/psanford/wormhole-william"
 license="MIT"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/psanford/wormhole-william/archive/v$pkgver.tar.gz"
+options="net" # go
 
 export GOFLAGS="$GOFLAGS -trimpath -mod=readonly -modcacherw"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v .

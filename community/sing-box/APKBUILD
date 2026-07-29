@@ -2,20 +2,29 @@
 # Maintainer: Lindsay Zhou <i@lin.moe>
 maintainer="Lindsay Zhou <i@lin.moe>"
 pkgname=sing-box
-pkgver=1.12.5
-pkgrel=0
+pkgver=1.13.14
+pkgrel=1
 pkgdesc="The universal proxy platform"
 url="https://sing-box.sagernet.org/"
 arch="all"
 license="GPL-3.0-or-later with name use or association addition"
 makedepends="go"
-subpackages="$pkgname-openrc $pkgname-bash-completion $pkgname-fish-completion $pkgname-zsh-completion"
+subpackages="$pkgname-openrc $pkgname-systemd $pkgname-bash-completion $pkgname-fish-completion $pkgname-zsh-completion"
 options="net" # go modules and check
 source="$pkgname-$pkgver.tar.gz::https://github.com/SagerNet/sing-box/archive/v$pkgver.tar.gz
 	$pkgname.initd
 	$pkgname.confd
 	"
-_tags="with_gvisor,with_quic,with_dhcp,with_wireguard,with_utls,with_acme,with_clash_api,with_tailscale"
+# with_ccm,with_ocm: claud and openai api proxy, disabled before LLM policy decision.
+# with_naive_outbound: bundled pre-compiled binaries
+_tags="with_gvisor,with_quic,with_dhcp,with_wireguard,with_utls,with_acme,with_clash_api,with_tailscale,badlinkname,tfogo_checklinkname0"
+_ldflags="
+	-X \"github.com/sagernet/sing-box/constant.Version=$pkgver\"
+	-X internal/godebug.defaultGODEBUG=multipathtcp=0
+	-checklinkname=0
+	-s -w -buildid= -linkmode=external
+	"
+
 
 build() {
 	export CGO_CPPFLAGS="$CPPFLAGS"
@@ -23,18 +32,21 @@ build() {
 	export CGO_CXXFLAGS="$CXXFLAGS"
 	export CGO_LDFLAGS="$LDFLAGS"
 
-	go build -v -tags "$_tags" \
-	-ldflags "-X \"github.com/sagernet/sing-box/constant.Version=$pkgver\" -s -w
-	-buildid= -linkmode=external" ./cmd/sing-box
+	go build -o ./"$pkgname" \
+		-v -tags "$_tags" -ldflags "$_ldflags" \
+		./cmd/sing-box
 
 	install -d completions
-	go run ./cmd/sing-box completion bash   > completions/bash
-	go run ./cmd/sing-box completion fish   > completions/fish
-	go run ./cmd/sing-box completion zsh    > completions/zsh
+	./"$pkgname" completion bash   > completions/bash
+	./"$pkgname" completion fish   > completions/fish
+	./"$pkgname" completion zsh    > completions/zsh
 }
 
 check() {
-	go test -tags "$_tags" -v ./...
+	# TestQuerySocketDiagUDPExact: need inet_diag kernel module
+	go test -tags "$_tags" -ldflags "$_ldflags" \
+		-skip TestQuerySocketDiagUDPExact \
+		-v ./...
 	# require docker to run test cases in the "test" submodule,
 	# so we don't use `make test`.
 }
@@ -50,10 +62,11 @@ package() {
 	install -Dm644 completions/fish "$pkgdir/usr/share/fish/vendor_completions.d/$pkgname.fish"
 	install -Dm644 completions/zsh  "$pkgdir/usr/share/zsh/site-functions/_$pkgname"
 
+	install -Dm644 release/config/*.service -t "$pkgdir"/usr/lib/systemd/system/
 }
 
 sha512sums="
-b4797e0c890b8ecb976434b01b3f178a4faa4d37031524ffc2dda48f763bd49d9db92d75d980089c1764f174c80270345dc34616bc50d846809203cd36ff6184  sing-box-1.12.5.tar.gz
-1fd26edaeefb94d3fbf53a8310efad1776c2a90c6497481def603667e565bbca9f75ef670bb1e3c06488ab8a68ff27943f2f828fdb2b869ee6c2da95425cbccb  sing-box.initd
+381a19527e631e6cfd534dded3081db3d51cf6637f67a2407c7cd4a3dfd772f4f666df81ea1d8007375a1b6e85d7a37b925b15bd9b60821ce3d173fd780180c5  sing-box-1.13.14.tar.gz
+338dd5c9beec6edd98407aa264af6bf256b46fcdd48f437e0f5131e21bc12b4e402c8fb39f03ff6183655b11ab06463ae4faee0cf092246923743a8b6183c3c2  sing-box.initd
 448184b1ea062f93854c61c86b591681b35767bf475c2643e416e41f84da5b1a793351613470909b17c533ddf964ccbf438aa3454073e8e84d0f4d3ef0385654  sing-box.confd
 "

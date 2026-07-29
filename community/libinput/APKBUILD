@@ -3,7 +3,7 @@
 # Contributor: Daniel Sabogal <dsabogalcc@gmail.com>
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=libinput
-pkgver=1.28.1
+pkgver=1.31.3
 pkgrel=0
 pkgdesc="Library for handling input devices"
 url="https://www.freedesktop.org/wiki/Software/libinput"
@@ -21,7 +21,6 @@ depends_dev="
 makedepends="
 	$_depends_tools
 	$depends_dev
-	gtk+3.0-dev
 	libevdev-dev
 	meson
 	mtdev-dev
@@ -35,15 +34,17 @@ subpackages="
 	$pkgname-dev
 	$pkgname-doc
 	$pkgname-libs
-	$pkgname-udev
-	$pkgname-debug-gui:_debug_gui
+	$pkgname-udev::all
 	$pkgname-tools
 	$pkgname-zsh-completion
 	"
 install="$pkgname.post-upgrade"
-source="https://gitlab.freedesktop.org/libinput/libinput/-/archive/$pkgver/libinput-$pkgver.tar.gz"
+source="https://gitlab.freedesktop.org/libinput/libinput/-/archive/$pkgver/libinput-$pkgver.tar.gz
+	"
 
 # secfixes:
+#   1.31.1-r0:
+#     - CVE-2026-35094
 #   1.20.1-r0:
 #     - CVE-2022-1215
 
@@ -52,7 +53,7 @@ build() {
 		-Db_lto=true \
 		-Ddocumentation=false \
 		-Dlibwacom=false \
-		-Ddebug-gui=true \
+		-Ddebug-gui=false \
 		-Dtests="$(want_check && echo true || echo false)" \
 		. output
 	meson compile -C output
@@ -72,12 +73,6 @@ libs() {
 	amove usr/share/libinput
 }
 
-udev() {
-	install_if="$pkgname-libs=$pkgver-r$pkgrel eudev"
-
-	amove usr/lib/udev
-}
-
 tools() {
 	pkgdesc="CLI helper tools for debugging libinput"
 	depends="$pkgname=$pkgver-r$pkgrel $_depends_tools"
@@ -91,13 +86,11 @@ tools() {
 	amove usr/libexec/libinput/libinput-replay
 }
 
-_debug_gui() {
-	pkgdesc="GTK-based visual debug helper for libinput"
-	depends=""
-
-	amove usr/libexec/libinput/libinput-debug-gui
+udev() {
+	default_udev
+	install_if="$pkgname-libs=$pkgver-r$pkgrel udev"
 }
 
 sha512sums="
-b8c75f64ff9f14bbaa27997e6abd47142d5e8843609dba08813c4dc75ee513b6f1fc13cdff53df953a7417f13b10c172ef99735153cb2e0729423233ed6340ef  libinput-1.28.1.tar.gz
+adac84a982bb0d7c6527b6ca2542cc814016768c8ae97864d7469565e5d74a3605bf5f8cc9aa0484191a069b0917b6c02fc929820455ef5dbce5c5a8e2f1500f  libinput-1.31.3.tar.gz
 "

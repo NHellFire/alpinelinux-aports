@@ -2,7 +2,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=py3-pontos
 _pkgname=pontos
-pkgver=25.8.0
+pkgver=26.6.0
 pkgrel=0
 pkgdesc="Common utilities and tools maintained by Greenbone Networks"
 url="https://github.com/greenbone/pontos/"
@@ -56,5 +56,5 @@ package() {
 }
 
 sha512sums="
-8bdc54b641bcbdff0939873a72c972dfc661df097fdc0ad4ec884cc73ba79d335cec1f370856d6e0283fd9cdfaafeb0d2d313af615f0ace68efcf259271884a4  py3-pontos-25.8.0.tar.gz
+63d01aa72455b8d1dc45e353f83d98c0beb090f16339ca74b9e7bfc69f4111b59e33ee78699a40d741c79bee8846b6f266c9c06db360d28e87f4a8c0d329c61c  py3-pontos-26.6.0.tar.gz
 "

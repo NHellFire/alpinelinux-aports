@@ -1,10 +1,10 @@
 # Contributor: Paweł Tomak <pawel@tomak.eu>
 # Contributor: rubicon <rubicon@mailo.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=pike
-pkgver=8.0.2024
-pkgrel=0
+pkgver=8.0.2040
+pkgrel=1
 pkgdesc="Pike programming language"
 url="https://pike.lysator.liu.se/"
 # ppc64le: hangs while building modules in src/post_modules
@@ -92,7 +92,7 @@ package() {
 
 	rm -Rf "$pkgdir"/usr/doc
 	mkdir -vp "$pkgdir"/usr/share/doc/
-	mv -v	"$builddir"/refdoc/traditional_manual \
+	cp -va	"$builddir"/refdoc/traditional_manual \
 		"$pkgdir"/usr/share/doc/$pkgname
 }
 
@@ -130,7 +130,7 @@ image() {
 	pkgdesc="$pkgdesc (image handling modules)"
 	depends="$pkgname=$pkgver-r$pkgrel"
 
-	amove usr/lib/pike/?.?/modules/Image.pmod
+	amove usr/lib/pike/?.?/modules/*Image.pmod
 	amove usr/lib/pike/modules/Image.so
 	amove usr/lib/pike/modules/*Image_[!S]*.so
 	amove usr/lib/pike/modules/*Image*.pmod
@@ -176,5 +176,5 @@ full() {
 }
 
 sha512sums="
-1edec4381c9aeeba2b11967f2f817bfb0eb78b592f632c47f8e1a5a72bee69115eb868d19e3b3d4692e39da022da754df2e74b221948874c6d61bd00ff63844f  pike-8.0.2024.tar.gz
+0660a575d00bd9034f3566e2b9c20f3b0455fad51a54a6e4af97a677324b978316c13bccf1962f67b55cce70168242399c9ff6877ff092206157e1c2bb805013  pike-8.0.2040.tar.gz
 "

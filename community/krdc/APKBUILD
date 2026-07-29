@@ -2,9 +2,9 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=krdc
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-# armhf blocked by extra-cmake-modules
+# armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://kde.org/applications/internet/krdc/"
 pkgdesc="Remote Desktop Client"
@@ -32,16 +32,19 @@ makedepends="
 	kxmlgui-dev
 	libssh-dev
 	libvncserver-dev
+	qtkeychain-dev
 	samurai
 	"
-subpackages="$pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/network/krdc.git"
 source="https://download.kde.org/stable/release-service/$pkgver/src/krdc-$pkgver.tar.xz"
 options="!check" # No tests
 
 build() {
 	cmake -B build -G Ninja \
-		-DBUILD_WITH_QT6=ON \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib
@@ -53,5 +56,5 @@ package() {
 }
 
 sha512sums="
-a413b2090bdf4661f79e7dd5bccef0c5d6ca77a7791e108235580685132eabd1951fd40470cc1a908344c4543eba1204cd5dcdef83f074d93a61961d1e7156d5  krdc-25.08.0.tar.xz
+7df1f7362dedfd808903971be7218329c1f828303c473f73d335eb871791ea9c60ee9c015c49feeff7cbb128c4bfe948ea7ed74b474f940c3f468468094d3097  krdc-26.04.3.tar.xz
 "

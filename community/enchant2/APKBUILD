@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=enchant2
-pkgver=2.8.12
+pkgver=2.8.15
 pkgrel=0
 pkgdesc="wrapper library for generic spell checking (v2)"
 url="https://rrthomas.github.io/enchant/"
@@ -78,5 +78,5 @@ nuspell() {
 }
 
 sha512sums="
-2bcd22afd97e348bc2925c41cb25f7aec9cb67debca4bcf58f6e30ac06dd09582e01896728e8943ba549b76854905b43b9d51c4ca720dd9e5dcd19d7c996d13b  enchant-2.8.12.tar.gz
+581f42117c18caff4d4691ef9759f10ef295e0d557278e37cc9212eb312406f41094769402e0fd6747fbc7df6b142e6adacdd29410aaa343923f88d541d3548f  enchant-2.8.15.tar.gz
 "

@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kbruch
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -40,5 +40,5 @@ package() {
 }
 
 sha512sums="
-7616283cd17cfb506800e0921ca9724d2a585fc33f7d92d76b9a0661a440f93fc89ae640844a3a33f7b69feb14559e58842bc0a1075e10678f9bd7108ace9272  kbruch-25.08.0.tar.xz
+cb720c452a49faa1e1abdb69d62d9f25eb2cc0569fbb4c24921acb29c6387689c7723f30e600b0f9a1c8bd4a7c7a4c723080fb5c87e5c3303c3af8ad2722b349  kbruch-26.04.3.tar.xz
 "

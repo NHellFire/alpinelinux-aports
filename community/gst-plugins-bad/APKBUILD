@@ -1,12 +1,13 @@
-maintainer="Krassy Boykinov <kboykinov@teamcentrixx.com>"
+maintainer="team/alpine-desktop <achill@achill.org>"
 pkgname=gst-plugins-bad
-pkgver=1.26.6
+pkgver=1.28.5
 pkgrel=0
+# NOTE: Upgrade together with the whole GStreamer suite &
+# only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
 pkgdesc="GStreamer streaming media framework bad plug-ins"
 url="https://gstreamer.freedesktop.org/"
 arch="all"
 license="GPL-2.0-or-later LGPL-2.0-or-later"
-options="!check" # 4 out of 51 tests fail as of 1.20.1
 replaces="gst-plugins-bad1"
 # chromaprint causes a circular dependency:
 # pipewire -> libcamera -> here -> chromaprint -> ffmpeg -> sdl2 -> pipewire
@@ -79,6 +80,7 @@ subpackages="$pkgname-dbg $pkgname-lang $pkgname-dev"
 source="
 	https://gstreamer.freedesktop.org/src/gst-plugins-bad/gst-plugins-bad-$pkgver.tar.xz
 	0001-jifmux-Make-copies-of-parsed-image-buffer-parts.patch
+	test-skip.patch
 	"
 ldpath="/usr/lib/gstreamer-1.0"
 
@@ -127,8 +129,10 @@ build() {
 		-Dpackage-origin="https://alpinelinux.org" \
 		-Dpackage-name="GStreamer bad plug-ins (Alpine Linux)" \
 		-Dintrospection=enabled \
+		-Dgpl=enabled \
 		-Dsctp=enabled \
 		-Dsrt=enabled \
+		-Dva=enabled \
 		-Dtests="$(want_check && echo enabled || echo disabled)" \
 		. output
 	meson compile -C output
@@ -144,6 +148,7 @@ package() {
 }
 
 sha512sums="
-b5f4ca65b92426a814db7f7843c81c8dbe2306bb081aadf1851f43e3bbabc02353953a9c073a0043ce3d926c0ec040bc92105abdefbf93ad7cc146792fe33891  gst-plugins-bad-1.26.6.tar.xz
+8c52c1d8c3fd59a18c5b1bdfdb3e6e5c420ef45994415424b123aa2074985e363da0c20bdec627cd35aa9df3f38f3a131a03dea6bd3532af9d67b29a74ef518e  gst-plugins-bad-1.28.5.tar.xz
 0c79d4cf065656dc8d783c5aa11c44e4ee35ab9930cc9f2bfb0ac990a73818aaa0aa6788b3ae9a7182a79427027facb490ee26fefad4db3ec39437d67a54b2fb  0001-jifmux-Make-copies-of-parsed-image-buffer-parts.patch
+5fc29049383f8b2158888fd1b6c1e89f027ca87552b437cd709597718c284d5c2e6c6526432f84eedcb216cfae1657b619d4172cf8fd8bdaa15c90740bae0316  test-skip.patch
 "

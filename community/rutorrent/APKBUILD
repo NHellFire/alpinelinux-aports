@@ -2,7 +2,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=rutorrent
 _pkgname=ruTorrent
-pkgver=5.2.10
+pkgver=5.3.9
 pkgrel=0
 pkgdesc="Yet another web front-end for rTorrent"
 url="https://github.com/Novik/ruTorrent"
@@ -11,6 +11,7 @@ license="GPL-3.0-or-later"
 depends="php83 curl"
 # we need to user gnu tar since the permissions on files in tar archive are
 # bad
+options="net"
 makedepends="tar"
 checkdepends="nodejs npm"
 pkggroups="rutorrent"
@@ -46,6 +47,6 @@ package() {
 }
 
 sha512sums="
-4c6be1d2bca65f13aa4ea69cadfd5c0f0cbad8d3c14cd19aafaebce269a38169ddcee263379fb8381a3c46638d7ef652e7d4b95fe2a921952c7dff05538eeab4  rutorrent-5.2.10.tar.gz
+53473d0f31eeb1a1464c2991ad56fb405c6f727865485f30c514332e954c02fc6b817ece64bca0e998c003be265bb9bf09c5beb11232657859582937b2b07f5f  rutorrent-5.3.9.tar.gz
 e05fae51bbb79202635becaad01b8b78b7311e395270dfa46b2139b98b259e18c93228f0d1a9f3fda964cf7596e625c918089865ec5da20b28857f0c3fa77623  fix-rss-rtorrent-tests.patch
 "

@@ -1,16 +1,16 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=openjdk17-loongarch
-pkgver=17.0.15_p6
+pkgver=17.0.17_p10
 pkgrel=0
 _bootver=17.0.15_p6-r0
-_majorver=${pkgver%%.*}
 _pkgver=${pkgver/_p/+}-ls-ga
+_majorver=${pkgver%%.*}
 pkgdesc="Loongarch port of OpenJDK $_majorver"
 url="https://github.com/loongson/jdk${_majorver}u"
 arch="loongarch64"
 license="GPL-2.0-only WITH Classpath-exception-2.0"
-options="sover-namecheck"
+options="sover-namecheck !archcheck" # arch dependent files moved into subpkgs
 makedepends_build="
 	autoconf
 	bash
@@ -345,7 +345,7 @@ create_miniboot() {
 }
 
 sha512sums="
-256317b652a2775493b41f83498d2de1d815c24ffd7e6facefe0dddaba5844ea2f913401e4a63142a4df0987627599f6ace98e81082f3c7bb13613a19174484a  openjdk17-loongarch-17.0.15+6-ls-ga.tar.gz
+79cdfdb3dfb1301312e6f9881494da5c57d208fa3b4a0074e1db05845b76ce52515ebeb5f833cb3aa139380de903d18ea8208a1cdc8efe9a5dae23e1f2adb585  openjdk17-loongarch-17.0.17+10-ls-ga.tar.gz
 70c0cfb1b4147bdecb467ecb22ae5b5529eec0abc085763213a796b7cdbd81d1761d12b342060539b936fa54f345d33f060601544874d6213fdde79111fa813e  gtest-1.13.0.tar.gz
 7c9e08be6895a151dabf3a39b3ea6d291275cb313c6dac7adff0d793a8dc068534663809902feab742c193b46d5d616d947f1b97bd785d16ed08105c58caff4d  jdk-17.0.15_p6-r0-miniboot.tgz
 a0af4abbabb3a0714fca4e3c95c49c5f91ab27a1c7fd80927a493402bc571f571087c99149fd711fe85d1e5acb494fa245214e7a0676a00ce6d639caf778d8bf  JDK-8218814_Wformat-security.patch

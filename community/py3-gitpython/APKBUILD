@@ -1,6 +1,6 @@
-maintainer=""
+maintainer="Wen Heping <wenhepingalpine@sohu.com>"
 pkgname=py3-gitpython
-pkgver=3.1.44
+pkgver=3.1.57
 pkgrel=0
 pkgdesc="Python3 Git Library"
 url="https://github.com/gitpython-developers/GitPython"
@@ -27,6 +27,9 @@ source="https://github.com/gitpython-developers/GitPython/archive/$pkgver/GitPyt
 builddir="$srcdir/GitPython-$pkgver"
 
 # secfixes:
+#   3.1.49-r0:
+#     - CVE-2026-42215
+#     - CVE-2026-42284
 #   3.1.37-r0:
 #     - CVE-2023-41040
 
@@ -49,5 +52,5 @@ package() {
 }
 
 sha512sums="
-bd7d29f388fc9e2d433be556dd117c3f2e9148b41266180f2edf06dec675c33d9fcb573b93ff7e2a216616eb209fbbd05f7d465c84d87747563e324d3f5254d0  GitPython-3.1.44.tar.gz
+cbc4de8267cc6f929d87c518ffa05deaf517bbabe2082165547c9e7e2fe9990d67af7bedee2566802ac10f11830d4b1f086106e4dc211165d433ea8ee56f6cbb  GitPython-3.1.57.tar.gz
 "

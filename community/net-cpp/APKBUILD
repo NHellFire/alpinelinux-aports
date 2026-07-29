@@ -1,16 +1,16 @@
 # Maintainer: Luca Weiss <luca@lucaweiss.eu>
 pkgname=net-cpp
-pkgver=3.2.0
+pkgver=3.2.2
 pkgrel=0
 pkgdesc="A simple yet beautiful networking API for C++11"
-url="https://gitlab.com/ubports/core/lib-cpp/net-cpp"
+url="https://gitlab.com/ubports/development/core/lib-cpp/net-cpp"
 arch="all"
 license="LGPL-3.0-only"
 makedepends="cmake cmake-extras boost-dev curl-dev process-cpp-dev
 	properties-cpp-dev jsoncpp-dev gtest-dev samurai"
 checkdepends="py3-httpbin"
 subpackages="$pkgname-dev"
-source="https://gitlab.com/ubports/core/lib-cpp/net-cpp/-/archive/$pkgver/net-cpp-$pkgver.tar.gz"
+source="https://gitlab.com/ubports/development/core/lib-cpp/net-cpp/-/archive/$pkgver/net-cpp-$pkgver.tar.gz"
 
 build() {
 	if [ "$CBUILD" != "$CHOST" ]; then
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-1a4b3a6031abb89021fe28504d53c1dea8254b194bd69f7b565529d261b6c543968542cce259745aa38bef6062b7f1d8c77d511a1fc0374fdc46064a260454d4  net-cpp-3.2.0.tar.gz
+bcb3c53d401dfc8d2abacbd7fef70841af14e17d08811d60f8b616bf5f3b8aea6227c55cbc7f702e76f6cc64ad26edefb1a041895186a966575b4fa3a588eac8  net-cpp-3.2.2.tar.gz
 "

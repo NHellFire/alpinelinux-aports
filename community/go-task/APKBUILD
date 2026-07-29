@@ -1,8 +1,8 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
 # Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
 pkgname=go-task
-pkgver=3.44.1
-pkgrel=0
+pkgver=3.52.0
+pkgrel=1
 pkgdesc="Task runner written in Go, installed as go-task"
 url="https://taskfile.dev/"
 arch="all"
@@ -19,6 +19,7 @@ subpackages="
 options="net" # go dependencies
 source="$pkgname-$pkgver.tar.gz::https://github.com/go-task/task/archive/refs/tags/v$pkgver.tar.gz
 	completion-rename-to-go-task.patch
+	test-failfast-task-fix-race-condition.patch
 	"
 builddir="$srcdir/task-$pkgver"
 
@@ -28,12 +29,15 @@ build() {
 
 check() {
 	go build -o bin/ ./cmd/sleepit
+
+	# some tests require a git repo to be present
+	git init -q
 	go test -json -v ./... | tee test.log | gotestfmt -showteststatus -hide empty-packages
 }
 
 package() {
 	install -Dm0755 task "$pkgdir"/usr/bin/go-task
-	install -Dm0644 website/docs/usage.mdx -t "$pkgdir"/usr/share/doc/go-task/
+	install -Dm0644 website/src/docs/reference/cli.md -t "$pkgdir"/usr/share/doc/go-task/
 
 	install -Dm0644 completion/bash/task.bash \
 		"$pkgdir"/usr/share/bash-completion/completions/go-task.bash
@@ -54,6 +58,7 @@ task() {
 }
 
 sha512sums="
-387d8142c68a44930a76e441eec2c34d61d1189ccf897f8e885243614a1ddb01a77c60780347903733698966426d1742fe70bef628990caec12a3f21116f92b3  go-task-3.44.1.tar.gz
-da73c22442b253dd225e29ab2b9d0b195a96b2a435fe553bbb4aa6d0a410f81cc95c67ba732e180c4c40c0cecdf305a9673da842a182a679bf4d43b039b14aad  completion-rename-to-go-task.patch
+f0879d100ea571bae85f470f6f528ae40a41e45c976a132b834658a28d891a6111fce5300ea26430a95a2804130a6b7d14a7155384e8373faa1c084ddcb0b05b  go-task-3.52.0.tar.gz
+b38aaf0dd9db0daffcb0a9d289ea3b3860ab5b00c33522b8024ec7505cb264c7ddfc7e6a8c9f11df9f7ab86b08b17c22074bbdd5d5c8a2dcfb24aa6e92f25b85  completion-rename-to-go-task.patch
+bb0b65b6cfe5dfce91904bb6b639b26272db60a030d3361fba672278c946116174fe4e25048747aa1381fc7de9a7ba565d5e2dec7a051f81ad084f06a7a36943  test-failfast-task-fix-race-condition.patch
 "

@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kwrited
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="KDE daemon listening for wall and write messages"
 arch="all !armhf" # qt6-qtdeclarative-dev  unavilable on armhf
@@ -42,5 +42,5 @@ package() {
 }
 
 sha512sums="
-aa347da9f4d752c7d6fd2fc050d08d6a9534a958a4dd38107ea4d23308b799e77514e5086192ceb6c23b848fb4933b31dcae3051dc23ef7aea4b695fdcede733  kwrited-6.4.5.tar.xz
+8d64fa827914250622aca4d3db83b7e27e956c243816ae8b05eeecfb7b946016bfd6c3c9bbd8534656db1744c64431059bc986167a8fb105629c382946685693  kwrited-6.7.3.tar.xz
 "

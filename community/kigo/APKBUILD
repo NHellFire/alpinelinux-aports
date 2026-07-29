@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kigo
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="An open-source implementation of the popular Go game"
 # armhf blocked by extra-cmake-modules
@@ -48,5 +48,5 @@ package() {
 }
 
 sha512sums="
-ce060095331031537c40c084431e72d73d82c0f99c76eb944c7c2cfbd7033343f4547cb048695abf8b58f382c386160e7fd5bfd09f70e5e895be992dad60aa61  kigo-25.08.0.tar.xz
+1fd0e50dce4facaf55bcc2fb19dad1b3e7cc2f5d582377da213f51a32ba997bdf7a7ef65b85bd6f8627870a6293ef2283c2406bfdd8dfd10656cbdd53504891c  kigo-26.04.3.tar.xz
 "

@@ -1,6 +1,8 @@
-# Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
+# Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=intel-ucode
-pkgver=20250812
+pkgver=20260512
 pkgrel=0
 pkgdesc="Microcode update files for Intel CPUs"
 arch="x86 x86_64"
@@ -8,11 +10,16 @@ url="https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files"
 license="custom"
 makedepends="iucode-tool"
 source="https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files/archive/microcode-$pkgver.tar.gz"
-options="!check"
+options="!check !archcheck" # intel microcode is only relevant for x86 and x86_64
 builddir="$srcdir/Intel-Linux-Processor-Microcode-Data-Files-microcode-$pkgver"
 
 # (Taken from https://github.com/intel/Intel-Linux-Processor-Microcode-Data-Files/blob/main/releasenote.md)
 # secfixes:
+#   20260512-r0:
+#     - CVE-2025-35979
+#   20260210-r0:
+#     - CVE-2024-24853
+#     - CVE-2025-31648
 #   20250812-r0:
 #     - CVE-2025-20053
 #     - CVE-2025-20109
@@ -122,5 +129,5 @@ package() {
 }
 
 sha512sums="
-5c21676d1c1783c937c78ca00b9f8d9a870bc7dfdde564bdf2ba277931223fa8d6a2f21d6a0e6249b4ba8ccc2e47d5b3cbf41cc5edc08360c909b3f1c7f2dec1  microcode-20250812.tar.gz
+b6e2e9fb3fe19cd46fcbcd639d16e2348b812eac2bcc535fb839d226218e1cbc724fc49c0d81acf606a22b719ff43ed5b46304fba65ef0ba663290df822649b8  microcode-20260512.tar.gz
 "

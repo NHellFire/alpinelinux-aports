@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=libkscreen
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="KDE screen management software"
 # armhf blocked by qt6-qtdeclarative -> kconfig
@@ -33,13 +33,12 @@ case "$pkgver" in
 	*) _rel=stable;;
 esac
 
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang $pkgname-zsh-completion"
+subpackages="$pkgname-dev $pkgname-doc $pkgname-lang $pkgname-systemd $pkgname-zsh-completion"
 _repo_url="https://invent.kde.org/plasma/libkscreen.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/libkscreen-$pkgver.tar.xz"
 
 build() {
 	cmake -B build -G Ninja \
-		-DBUILD_WITH_QT6=ON \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
@@ -48,15 +47,13 @@ build() {
 }
 
 check() {
-	dbus-run-session wlheadless-run -- ctest --test-dir build -E "kscreen-test(backendloader|edid|log)"
+	dbus-run-session wlheadless-run -- ctest --test-dir build -E "kscreen-test(backendloader|edid|log|qscreenbackend|inprocess)"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	rm -rf "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-9b5793370eeee42f366721f6fcb45b587cf58161f42373898525bcb05c536a3cf0623c2cf13044fabbd5e761b27aba8657d75c2dda8af0c52d6697ea0783425a  libkscreen-6.4.5.tar.xz
+e3eecd02abd1c455acf25b320757c3f02c8ffb1b9835c357c6f47a4541ce0f7f03072f69a715265f351b309a868d81515317def8d0f592b637adfe0261b6062b  libkscreen-6.7.3.tar.xz
 "

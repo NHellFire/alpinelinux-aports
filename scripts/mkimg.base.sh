@@ -2,10 +2,15 @@ build_kernel() {
 	local _flavor="$2" _modloopsign= _add
 	shift 3
 	local _pkgs="$@"
-	[ "$modloop_sign" = "yes" ] && _modloopsign="--modloopsign"
+	if [ "$modloop_sign" = "yes" ]; then
+		_modloopsign="--modloopsign --apk-pubkey $_abuild_pubkey"
+		if [ -z "$PACKAGER_PRIVKEY" ]; then
+			error "Need \$PACKAGER_PRIVKEY to be set for modloop_sign=yes"
+			return 1
+		fi
+	fi
 	update-kernel \
 		$_hostkeys \
-		${_abuild_pubkey:+--apk-pubkey $_abuild_pubkey} \
 		$_modloopsign \
 		--media \
 		--cache-dir "$APKROOT/etc/apk/cache" \
@@ -16,8 +21,7 @@ build_kernel() {
 		--feature "$initfs_features" \
 		--modloopfw "$modloopfw" \
 		--repositories-file "$APKROOT/etc/apk/repositories" \
-		"$DESTDIR" \
-		|| return 1
+		"$DESTDIR"
 	for _add in $boot_addons; do
 		apk fetch --root "$APKROOT" --quiet --stdout $_add | tar -C "${DESTDIR}" -zx boot/
 	done
@@ -85,7 +89,7 @@ build_syslinux() {
 	mkdir -p "$DESTDIR"/boot/syslinux
 	apk fetch --root "$APKROOT" --stdout syslinux | tar -C "$DESTDIR" -xz usr/share/syslinux
 	for _fn in isohdpfx.bin isolinux.bin ldlinux.c32 libutil.c32 libcom32.c32 mboot.c32; do
-		mv "$DESTDIR"/usr/share/syslinux/$_fn "$DESTDIR"/boot/syslinux/$_fn || return 1
+		mv "$DESTDIR"/usr/share/syslinux/$_fn "$DESTDIR"/boot/syslinux/$_fn
 	done
 	rm -rf "$DESTDIR"/usr
 }
@@ -290,10 +294,10 @@ create_image_iso() {
 		if [ "$ARCH" = s390x ]; then
 			printf %s "$initfs_cmdline $kernel_cmdline " > ${WORKDIR}/parmfile
 			for _f in $kernel_flavors; do
-				mk-s390-cdboot -p ${WORKDIR}/parmfile \
-					-i ${DESTDIR}/boot/vmlinuz-$_f \
+				mk-s390image -p ${WORKDIR}/parmfile \
 					-r ${DESTDIR}/boot/initramfs-$_f \
-					-o ${DESTDIR}/boot/merged.img
+					${DESTDIR}/boot/vmlinuz-$_f \
+					${DESTDIR}/boot/merged.img
 			done
 			iso_opts="$iso_opts -no-emul-boot -eltorito-boot boot/merged.img"
 		fi
@@ -323,7 +327,7 @@ create_image_targz() {
 profile_base() {
 	kernel_flavors="lts"
 	initfs_cmdline="modules=loop,squashfs,sd-mod,usb-storage quiet"
-	initfs_features="ata base bootchart cdrom ext4 mmc nvme raid scsi squashfs usb virtio"
+	initfs_features="ata base bootchart cdrom dhcp ext4 mmc nvme raid scsi squashfs usb virtio"
 	modloop_sign=yes
 	grub_mod="all_video disk part_gpt part_msdos linux normal configfile search search_label efi_gop fat iso9660 cat echo ls test true help gzio"
 	case "$ARCH" in
@@ -331,7 +335,7 @@ profile_base() {
 	esac
 	case "$ARCH" in
 		x86_64) initfs_features="$initfs_features nfit";;
-		arm*|aarch64) initfs_features="$initfs_features phy";;
+		arm*|aarch64|riscv64) initfs_features="$initfs_features phy";;
 	esac
 	apks="alpine-base apk-cron busybox chrony dhcpcd doas e2fsprogs
 		kbd-bkeymaps network-extras openntpd openssl openssh

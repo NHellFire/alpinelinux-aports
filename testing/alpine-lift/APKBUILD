@@ -2,7 +2,7 @@
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=alpine-lift
 pkgver=0.2.0
-pkgrel=26
+pkgrel=34
 pkgdesc="Basic cloud-init-like for Alpine Linux"
 url="https://github.com/bjwschaap/alpine-lift"
 license="MIT"
@@ -12,10 +12,6 @@ options="!check" #no golint avail
 source="$pkgname-$pkgver.tar.gz::https://github.com/bjwschaap/alpine-lift/archive/refs/tags/v$pkgver.tar.gz
 makefile.patch
 "
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	export CGO_CPPFLAGS="$CPPFLAGS"

@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=ktexteditor
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Advanced embeddable text editor"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -54,16 +54,17 @@ build() {
 check() {
 	local skipped_tests="(encoding_utf8.txt_diff"
 	local tests="
-		encoding_latin15.txt_diff
-		encoding_utf32.txt_diff
-		encoding_utf16.txt_diff
-		encoding_utf32be.txt_diff
-		encoding_utf16be.txt_diff
+		encoding_cp1251.txt_diff
 		encoding_cyrillic_utf8.txt_diff
 		encoding_koi8-r.txt_diff
-		encoding_one-char-latin-15.txt_diff
 		encoding_latin15-with-utf8-bom.txt_diff
-		encoding_cp1251.txt_diff
+		encoding_latin15.txt_diff
+		encoding_one-char-latin-15.txt_diff
+		encoding_utf16.txt_diff
+		encoding_utf16be.txt_diff
+		encoding_utf32.txt_diff
+		encoding_utf32be.txt_diff
+		encoding_utf8-bom-only.txt_diff
 		"
 	case "$CARCH" in
 		s390x) tests="$tests
@@ -86,5 +87,5 @@ package() {
 }
 
 sha512sums="
-45eeba949f103654553b051f2909466a940501a2294d6ecbd6ca0e573ffa45460f3513c7a04d4ed8c301f2e55d8783d3ea03d74eeeefbbe75c37bf20bec80958  ktexteditor-6.17.0.tar.xz
+fb9306a7ade78edbc4229d1250b6354056fb27c3696323702da683673d9282b2ccab866efb6af28b5f29167970f4433f8c558cfd8424950d5714b2f0bfb9ac9c  ktexteditor-6.28.0.tar.xz
 "

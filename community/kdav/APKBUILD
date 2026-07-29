@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kdav
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="A DAV protocol implementation with KJobs"
 url="https://community.kde.org/Frameworks"
@@ -52,5 +52,5 @@ package() {
 }
 
 sha512sums="
-e5058b60bc76f53e2acaf6efda530ff8c639fa19c68bdaf71528d691bafb28c0b05b8467635d2401cf438bda8a033a5adabc38206554bb58f7f753df0118376d  kdav-6.17.0.tar.xz
+a7cc12b681c1513e0dff91f284104e585815b46f1c2beb195ffe20ea2ae115dee671af56f6bbd8b09234a6666aa604b8cb62e4752a5d18e2d49bc4c904cc7e82  kdav-6.28.0.tar.xz
 "

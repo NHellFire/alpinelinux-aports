@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kquickcharts
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="A QtQuick plugin providing high-performance charts"
 # armhf blocked by qt6-qtdeclarative
@@ -43,5 +43,5 @@ package() {
 }
 
 sha512sums="
-9101d450d8f98ad06bb44b95b12efc8a5154966ab871aa581e29ed5fb94b3abd7afc9126adc7ffb14680dbee7cac9ce72de48290edcfda5c2a67f11dd4f77fcd  kquickcharts-6.17.0.tar.xz
+f4ee23c48aeb4aea79575cac1fdd8e33a06af0f79c1b16e33d90908ce7f743bb78bee7bb7f3fc0a5558dad36e72f304a5baf4b8a70f39beee07d2176048a9848  kquickcharts-6.28.0.tar.xz
 "

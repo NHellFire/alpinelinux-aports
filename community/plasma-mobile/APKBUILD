@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-mobile
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Modules providing phone functionality for Plasma"
 # armhf blocked by qt6-qtdeclarative
@@ -15,8 +15,8 @@ depends="
 	dbus-x11
 	kpipewire
 	kquickcharts
-	maliit-keyboard
 	plasma-activities
+	plasma-keyboard
 	plasma-nano
 	plasma-nm
 	plasma-pa
@@ -59,13 +59,16 @@ makedepends="
 	qt6-qtdeclarative-dev
 	samurai
 	solid-dev
-	telepathy-qt-dev
 	"
-
+subpackages="
+	$pkgname-dbg
+	$pkgname-lang
+	$pkgname-systemd
+	$pkgname-waydroid
+	"
 provides="plasma-phone-components=$pkgver-r$pkgrel" # For backwards compatibility
 replaces="plasma-phone-components" # For backwards compatibility
 
-subpackages="$pkgname-lang"
 
 case "$pkgver" in
 	*.*.9*) _rel=unstable;;
@@ -80,7 +83,8 @@ build() {
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
-		-DCMAKE_INSTALL_LIBDIR=lib
+		-DCMAKE_INSTALL_LIBDIR=lib \
+		-DINSTALL_SYSTEMD_SERVICE=ON
 	cmake --build build
 }
 
@@ -94,7 +98,21 @@ package() {
 	install -Dm644 "$srcdir"/99-flashlight.rules -t "$pkgdir"/usr/lib/udev/rules.d/
 }
 
+waydroid() {
+	pkgdesc="$pkgdesc - Waydroid integration"
+	install_if="$pkgname=$pkgver-r$pkgrel waydroid"
+
+	amove usr/lib/libexec/kf6/kauth/waydroidhelper
+	amove usr/lib/qt6/plugins/plasma/kcms/systemsettings/kcm_waydroidintegration.so
+	amove usr/lib/qt6/qml/org/kde/plasma/private/mobileshell/waydroidintegrationplugin
+	amove usr/share/applications/kcm_waydroidintegration.desktop
+	amove usr/share/dbus-1/system-services/*waydroidhelper.service
+	amove usr/share/dbus-1/system.d/*waydroidhelper.conf
+	amove usr/share/plasma/quicksettings/*waydroid
+	amove usr/share/polkit-1/actions/*waydroidhelper.policy
+}
+
 sha512sums="
-02886196bfee65cd3003a017ad8a4d36440e4268f23fafe4c2fb19476993fce362dd4da0106b3f68952e3653157f30d178183b9b1d25e786dde3cbf819972b5b  plasma-mobile-6.4.5.tar.xz
+31032b8583f5a01062c211e613f44494fea57ae5e5cf180c8db7004da53f71a2d3c47bcdca72062a96416a45fca160a6dfe010a2b6cc62b26b5a0b7e4d37eac6  plasma-mobile-6.7.3.tar.xz
 4badc25cbb7dc84d6af54cff5f3c09dcc37da86b7e930bdcab6d75f8dd90ef0dd9c8a3837ab696b1f4de9cad82d5e64ddd44904640a92e910a8f45524542be95  99-flashlight.rules
 "

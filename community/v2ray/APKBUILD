@@ -2,16 +2,16 @@
 # Maintainer: Lindsay Zhou <i@lin.moe>
 maintainer="Lindsay Zhou <i@lin.moe>"
 pkgname=v2ray
-pkgver=5.37.0
-pkgrel=2
+pkgver=5.47.0
+pkgrel=3
 pkgdesc="A platform for building proxies to bypass network restrictions"
 url="https://v2fly.org"
 arch="all"
 license="MIT"
 makedepends="go"
 subpackages="$pkgname-openrc"
-_geosite_ver=20250627153051
-_geoip_ver=202507050144
+_geosite_ver=20260309055128
+_geoip_ver=202603050223
 source="$pkgname-core-$pkgver.tar.gz::https://github.com/v2fly/v2ray-core/archive/v$pkgver.tar.gz
 	geosite-$_geosite_ver.dat::https://github.com/v2fly/domain-list-community/releases/download/$_geosite_ver/dlc.dat
 	geoip-$_geoip_ver.dat::https://github.com/v2fly/geoip/releases/download/$_geoip_ver/geoip.dat
@@ -22,10 +22,6 @@ source="$pkgname-core-$pkgver.tar.gz::https://github.com/v2fly/v2ray-core/archiv
 options="net" # go modules
 
 builddir="$srcdir/$pkgname-core-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	local ldflags="
@@ -69,10 +65,10 @@ package() {
 }
 
 sha512sums="
-040d07eac30fcacb1a97d1178a67358058d9a5f8a7ff5f9df0c859562be1057cc955598b41fbfae7065de0a160bf98791384c919b0248c4337ea395777629e84  v2ray-core-5.37.0.tar.gz
-0d2738c315fbf8b1104c5e7abda346538e827ad43311130b58eed94e3490c7311d93db330b3d63dc878d7d1195705f6d607ca1760299f8a6323eae142e9c0f0d  geosite-20250627153051.dat
-31d6945dd0cb6dab43ede6d4d0ece5cace06d7557e94b304422b5c810f5ac935d9b1f88b779b415eb2f634afefe2db50eabc9722484e1b49ee871ac0b3cb0687  geoip-202507050144.dat
-b77e2f70315359aef49522da25a6de95cbd154edaf38a9644c24f550e52a86c76411e64404830514db68017e435caa497c1a709ca0f0879b948424a2d90cd895  geoip-only-cn-private-202507050144.dat
+e0d4c73beb066d5ec714e79846a70af07d2eca3541a01d582b69c757271d03ef9603eff1d67e0717ed8af1e1abab09ca03ccc0986b5e8fe3700d461468ae723d  v2ray-core-5.47.0.tar.gz
+7a88657092e5cb0fe1c59aae186e9242c6ea7ab308c0c781667bda0e1586bc8a5093225182d9b9f7b2997334ade54f950c2ddb2c7ccdf1a4d913beec85ad265b  geosite-20260309055128.dat
+9a37ded508acccb14beb864a0b0ff0edcd506d5e66bb378a341d54c2c06b547b371e2fc6a21e171c82b78e19c82644ede3710cd80ad2fe802c7b9dd80a45a1ef  geoip-202603050223.dat
+050f8c3af07fbc653db3f6a37f93d4a98dd37e55aca0dd69f7d27d9efe40de7938b739bcbf202969249b73a16d92d48402d5b02105c96b3cdc8cbab76e36b935  geoip-only-cn-private-202603050223.dat
 714e9f93efb74a2b30a74df95fa2bdaa854188d5fce3ed4514f2d19e790baf31dc78c18726700013113501dd31981a2e0582150b64d7235121242c01e2e5b8d9  v2ray.initd
 4b00bfe001780b9ac7eff1b9776a98ae5e7050362ebfb0ed2550f8f1244e9474d186dcde5bccba01dbdd908e9a932f75238becae6585efe674ebc5ffb8cbf0a6  v2ray.confd
 "

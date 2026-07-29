@@ -1,7 +1,7 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-pyqt-builder
-pkgver=1.18.2
-pkgrel=0
+pkgver=1.19.1
+pkgrel=1
 pkgdesc="The PEP 517 compliant PyQt build system"
 url="https://www.riverbankcomputing.com/software/pyqt-builder/"
 arch="noarch"
@@ -29,5 +29,5 @@ package() {
 }
 
 sha512sums="
-129b8cbb7d2c6b533618d5b8523453ce4f442a2052c1151c30c8076e99d7887caac1e9c24220a913bc17444b35061ea507fd7f9038efd82a63636b24ae4182b5  pyqt_builder-1.18.2.tar.gz
+2308c51f93c37b1d13f312e4f2475d26b22d374ef284925fead9eab4aa89b994770431aca45170ac2154b4813fff151798f113f56d4cbf6c6e544fb463104a6d  pyqt_builder-1.19.1.tar.gz
 "

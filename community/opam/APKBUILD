@@ -4,7 +4,7 @@
 # Contributor: omni <omni+alpine@hack.org>
 # Maintainer: Kate <kit-ty-kate@exn.st>
 pkgname=opam
-pkgver=2.4.1
+pkgver=2.5.2
 pkgrel=0
 pkgdesc="OCaml Package Manager"
 url="https://opam.ocaml.org"
@@ -17,6 +17,10 @@ checkdepends="rsync bash diffutils"
 source="https://github.com/ocaml/opam/releases/download/$pkgver/opam-full-$pkgver.tar.gz"
 subpackages="$pkgname-doc"
 builddir="$srcdir/opam-full-$pkgver"
+
+# secfixes:
+#   2.5.2-r0:
+#     - CVE-2026-57825
 
 case "$CARCH" in
 	riscv64|loongarch64)
@@ -50,5 +54,5 @@ package() {
 }
 
 sha512sums="
-25e0b60c214f94c91780658ce4af149c89549b6d164d07739eca2e8b1c2ea2086e17a64ba486c4a8365fcdf532729848f410f63e3579f2bdd564fc333ab3f787  opam-full-2.4.1.tar.gz
+08ac70beddbcec75289b01f3037037e4f47d04c89119ff7203d1db655f5051688e94a5144b63a4a4bf5a361781ee687a0b3730fed6c25923fd35ff4f0c677e71  opam-full-2.5.2.tar.gz
 "

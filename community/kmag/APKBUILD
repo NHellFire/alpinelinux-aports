@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kmag
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-0e6d93069d7044e266e964947e66ad76a9f517b6ae3e0df38d3ca0ebf651f67f6ebaa9db83c6b9b5e0c6b4530b20d44530da699cf44509a71a81e0aa0fbbbe9e  kmag-25.08.0.tar.xz
+590c8aee82fe2d95c24506ef8de58cabb26dd4446f06477dfc082240593668f38757a3ba1fa28d4011ada29b2aab41ecab6eb0595b35f60e46896b3623d91412  kmag-26.04.3.tar.xz
 "

@@ -1,10 +1,8 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kimap
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Job-based API for interacting with IMAP servers"
 # armhf blocked by extra-cmake-modules
@@ -16,7 +14,7 @@ depends_dev="
 	kcoreaddons-dev
 	ki18n-dev
 	kio-dev
-	kmime-dev
+	kmime-dev<26
 	qt6-qtbase-dev
 	"
 makedepends="$depends_dev
@@ -25,7 +23,9 @@ makedepends="$depends_dev
 	"
 subpackages="$pkgname-dev"
 _repo_url="https://invent.kde.org/pim/kimap.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/kimap-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/kimap-$pkgver.tar.xz
+	0001-kimap-KMime-from-KF6.patch
+	"
 
 build() {
 	cmake -B build -G Ninja \
@@ -45,5 +45,6 @@ package() {
 }
 
 sha512sums="
-a43131f944d459e8c6598ee4f5a9d57cca578ecb736887c49256b9b31c2c632106ead759f58e976b3e7d5b89a8a25fe46617a8c5029ed40c5513526bf4425711  kimap-25.08.0.tar.xz
+541b1dff6b27e58a2356f35d39d61c3de8d7d597c3a3b5746bcc3253f486865ce1e6365373ccc5d8bf69fc652d8258e2c85a5bb01bcd6f0bd87770b8027b20e8  kimap-26.04.3.tar.xz
+779d1458ea41ff8a66dd5161e7150df11ebe5b51116b4d916b171fee93363278867cc438bb9c8a985c5677a3bb576a609e81a67e3e99f10000a56ae012d76408  0001-kimap-KMime-from-KF6.patch
 "

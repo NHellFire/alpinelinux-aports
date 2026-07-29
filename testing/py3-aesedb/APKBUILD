@@ -2,8 +2,8 @@
 # Maintainer: Jonas <spameier+alpine@proton.me>
 pkgname=py3-aesedb
 _pyname=aesedb
-pkgver=0.1.6
-pkgrel=3
+pkgver=0.1.8
+pkgrel=1
 pkgdesc="NTDS parser toolkit"
 url="https://github.com/skelsec/aesedb"
 arch="noarch"
@@ -24,7 +24,10 @@ checkdepends="
 	py3-pytest
 	py3-pytest-asyncio
 	"
-subpackages="$pkgname-pyc"
+subpackages="
+	$pkgname-pyc
+	$pkgname-examples
+	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/skelsec/aesedb/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_pyname-$pkgver"
 
@@ -45,6 +48,13 @@ package() {
 	rm -rf "$pkgdir"/usr/lib/python3.*/site-packages/tests/ # remove tests
 }
 
+examples() {
+	pkgdesc="$pkgdesc (example scripts)"
+	depends="$pkgname=$pkgver-r$pkgrel"
+	amove usr/lib/python*/site-packages/aesedb/examples
+	amove usr/bin
+}
+
 sha512sums="
-73513510909da98ab27f21d4a4b630294212132ba6d583dba99578764c20c887cf56b6456709b1c161c2b46958bd4318abccddade80f3b3d98478114d3a98520  py3-aesedb-0.1.6.tar.gz
+e344c0e017da6b253ec4633f8b63868cd6db9e917e062f8d77f15c969ad348172121649214c4ffbe8eadc0187dbbd6648eaf1745e75c8c677ba5f88bcafe1f36  py3-aesedb-0.1.8.tar.gz
 "

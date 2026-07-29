@@ -2,8 +2,8 @@
 # Contributor: Maxim Karasev <begs@disroot.org>
 # Maintainer: knuxify <knuxify@gmail.com>
 pkgname=chafa
-pkgver=1.16.2
-pkgrel=1
+pkgver=1.18.2
+pkgrel=0
 pkgdesc="Terminal graphics for the 21st century"
 url="https://hpjansson.org/chafa"
 arch="all"
@@ -13,7 +13,9 @@ makedepends="
 	tiff-dev
 	freetype-dev
 	libavif-dev
+	libheif-dev
 	libjpeg-turbo-dev
+	libjxl-dev
 	librsvg-dev
 	libwebp-dev
 	"
@@ -21,15 +23,11 @@ subpackages="
 	$pkgname-libs
 	$pkgname-dev
 	$pkgname-doc
+	$pkgname-bash-completion
 	$pkgname-fish-completion
 	$pkgname-zsh-completion
 	"
 source="https://github.com/hpjansson/chafa/releases/download/$pkgver/chafa-$pkgver.tar.xz"
-
-# libjxl package is not available on s390x
-if [ "$CARCH" != "s390x" ]; then
-	makedepends="$makedepends libjxl-dev"
-fi
 
 build() {
 	./configure \
@@ -49,6 +47,8 @@ check() {
 package() {
 	make DESTDIR="$pkgdir" install
 
+	install -Dm644 tools/completions/bash-completion.sh \
+		"$pkgdir"/usr/share/bash-completion/completions/chafa
 	install -Dm644 tools/completions/zsh-completion.zsh \
 		"$pkgdir"/usr/share/zsh/site-functions/_chafa
 	install -Dm644 tools/completions/fish-completion.fish \
@@ -56,5 +56,5 @@ package() {
 }
 
 sha512sums="
-a4a398eb39a6e77306960b2f6629695f25617116ef95e440f87437de8806b7da7d8400002e32e629ede9c1ecee67920c061b5102181afa7af6673f55f9ed93a9  chafa-1.16.2.tar.xz
+30516e59e686cf4bcac2218f6d69cd998a181d4a3c28baec40771188caabd03d7140cffe86d54ee214ffcd3c05f57b3da6fe31df5b6eab1d561f8573df4f4e4f  chafa-1.18.2.tar.xz
 "

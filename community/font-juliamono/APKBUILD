@@ -1,6 +1,6 @@
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=font-juliamono
-pkgver=0.061
+pkgver=0.63.2
 pkgrel=0
 pkgdesc="Monospaced font with reasonable Unicode support"
 url="https://juliamono.netlify.app/"
@@ -15,5 +15,5 @@ package() {
 }
 
 sha512sums="
-74149e35cb882b721e2fc391622f75f1f920bed22f564d0ef9d8348e4be20c9a4e59360f83b8100c1e96171384f7976c5beff84e3e038e6ee815440663448ab3  font-juliamono-0.061.tar.gz
+7acf8019ffa58d9db70b6cfdfcf45f1ff55aaf969dde2489c6fc7307d6f87718a6913464d8e472b271077d27c0ffbc9fa5571b6656eadf17e65cccfee71fe38d  font-juliamono-0.63.2.tar.gz
 "

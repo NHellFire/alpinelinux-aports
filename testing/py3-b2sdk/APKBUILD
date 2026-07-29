@@ -1,7 +1,7 @@
 # Contributor: lauren n. liberda <lauren@selfisekai.rocks>
 maintainer="lauren n. liberda <lauren@selfisekai.rocks>"
 pkgname=py3-b2sdk
-pkgver=2.8.1
+pkgver=2.11.0
 pkgrel=0
 pkgdesc="Python library to access B2 cloud storage"
 url="https://github.com/Backblaze/b2-sdk-python"
@@ -15,14 +15,17 @@ depends="
 	"
 makedepends="
 	py3-gpep517
+	py3-hatchling
+	py3-hatch-vcs
 	py3-installer
-	py3-pdm-backend
 	py3-virtualenv
 	"
 checkdepends="
 	py3-pytest-lazy-fixtures
 	py3-pytest-mock
 	py3-pytest-timeout
+	py3-responses
+	py3-tenacity
 	py3-tqdm
 	pytest
 	"
@@ -32,7 +35,7 @@ source="
 	"
 builddir="$srcdir/b2-sdk-python-$pkgver"
 
-export PDM_BUILD_SCM_VERSION="$pkgver"
+export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
 
 build() {
 	gpep517 build-wheel \
@@ -53,5 +56,5 @@ package() {
 }
 
 sha512sums="
-20cc8b4f28f010588965a5ca6300b41d914ecdba57f28ab0719c4ad52293d41e5c62648a178a5202614cdc65f22a9e48c5dd966a682daa98be07fdb04235f318  py3-b2sdk-2.8.1.tar.gz
+53e511824dcb95e7aa70866ddb75a7b1abd780031b87021f65874d2cb18c527414ad19f291bc87788d8a801aa20f1a676ba27972e56ae76b15766de756163f50  py3-b2sdk-2.11.0.tar.gz
 "

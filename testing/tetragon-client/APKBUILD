@@ -1,7 +1,7 @@
 # Maintainer: Hoang Nguyen <folliekazetani@protonmail.com>
 pkgname=tetragon-client
 pkgver=1.1.2
-pkgrel=8
+pkgrel=16
 pkgdesc="CLI client for eBPF-based Security Observability and Runtime Enforcement"
 url="https://github.com/cilium/tetragon"
 arch="x86_64 aarch64" # fails to build on other platforms
@@ -15,10 +15,6 @@ subpackages="
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/cilium/tetragon/archive/refs/tags/v$pkgver.tar.gz"
 builddir="$srcdir/tetragon-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v \

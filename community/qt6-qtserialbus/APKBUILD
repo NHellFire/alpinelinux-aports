@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtserialbus
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Qt module for general purpose serial bus access"
 url="https://qt.io/"
@@ -54,5 +54,5 @@ dev() {
 }
 
 sha512sums="
-8dd814c2f755318492c15adb2fb03012028e5ae870eebe405b0d8ea71796dc43793223e4e37d6479fe49c9e30b03daff0f89e4f69f806669f1f54c03c9e11e45  qtserialbus-everywhere-src-6.9.2.tar.xz
+bb655d719ad753fe06bfe89f1cc02a5b5fa64edf560b9529817b09a9a701b9952806bc18e98f58ebabe78d8207336db250baf613df3e15f8f380d1ebef320ee3  qtserialbus-everywhere-src-6.11.1.tar.xz
 "

@@ -2,7 +2,7 @@
 # Maintainer: Simon Zeni <simon@bl4ckb0ne.ca>
 pkgname=sdl12-compat
 # Have the same version as the last upstream release
-pkgver=1.2.68
+pkgver=1.2.76
 pkgrel=1
 pkgdesc="SDL-1.2 compat layer that uses SDL-2.0"
 url="https://github.com/libsdl-org/sdl12-compat"
@@ -29,16 +29,13 @@ build() {
 		-DCMAKE_BUILD_TYPE=None \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DSDL12TESTS="$(want_check && echo ON || echo OFF)" \
+		-DSTATICDEVEL=ON \
 		$crossopts
 	cmake --build build
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# Claim the provider 'pc:sdl=$pkgver' by creating a symlink
-	# so packages can find it
-	ln -s sdl12_compat.pc "$pkgdir"/usr/lib/pkgconfig/sdl.pc
 }
 
 dev() {
@@ -50,5 +47,5 @@ dev() {
 }
 
 sha512sums="
-d0e71e75f312402bf075f6553d9fd6493a3db9dd42719bb753287a35e6c40ee37c6092b157ff2384f3055400a3113645595d1269590cd50ea1e0c8f247240858  sdl12-compat-1.2.68.tar.gz
+34d9d67b1d708d8edf4ad3ead43d8e25f861eb58ffd444d9cfe4482e249a763962203bf48fa75a644d57fcc5956fb2cd30ca592403977e83fc9a1ea17ad0cf8e  sdl12-compat-1.2.76.tar.gz
 "

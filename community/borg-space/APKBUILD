@@ -1,7 +1,7 @@
 # Contributor: Andy Hawkins <andy@gently.org.uk>
 # Maintainer: Andy Hawkins <andy@gently.org.uk>
 pkgname=borg-space
-pkgver=2.3
+pkgver=2.6
 pkgrel=0
 pkgdesc="Report and track the size of your Borg repositories"
 url="https://pypi.org/project/borg-space/"
@@ -20,7 +20,7 @@ depends="
 	py3-voluptuous>=0.14
 	"
 makedepends="
-	py3-flit-core
+	py3-flit-core>=2
 	py3-gpep517
 	"
 checkdepends="
@@ -40,6 +40,8 @@ build() {
 }
 
 check() {
+	echo "Running tests"
+
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
 	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest -n auto
@@ -51,5 +53,5 @@ package() {
 }
 
 sha512sums="
-e604381e54a7032df7b0f59ebca9dda82a24414e30418a49dd5f2615c601e01e5166a8b09b08e40001fd95d85b5391fde31eda845c011f46ffae95dc03c11cf0  borg-space-2.3.tar.gz
+4f74b4fed363f3b0b26202e4cb031cf081e217106863778d92219c89cdc0318a438ad3036963a27bbb33c9ede37e2624fca3504d970ff1989c2b6318da86af4a  borg-space-2.6.tar.gz
 "

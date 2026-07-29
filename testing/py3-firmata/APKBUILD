@@ -3,7 +3,7 @@
 pkgname=py3-firmata
 _pkgname=pyFirmata
 pkgver=1.0.3
-pkgrel=10
+pkgrel=11
 pkgdesc="Python interface for the Firmata procotol"
 url="https://github.com/tino/pyFirmata"
 arch="noarch"
@@ -27,7 +27,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m unittest discover
 }
 

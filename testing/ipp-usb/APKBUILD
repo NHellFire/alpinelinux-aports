@@ -1,33 +1,26 @@
 # Contributor: Angelo Verlain <hey@vixalien.com>
 # Contributor: Sertonix <sertonix@posteo.net>
-maintainer="Angelo Verlain <hey@vixalien.com>"
+# Maintainer: Robert Mongold <rtmongold@gmail.com>
 pkgname=ipp-usb
-pkgver=0.9.30
-pkgrel=3
+pkgver=0.9.34
+pkgrel=1
 pkgdesc="HTTP reverse proxy, backed by IPP-over-USB connection to device"
 url="https://github.com/OpenPrinting/ipp-usb"
 arch="all"
 license="BSD-2-Clause"
+depends="avahi cups libusb"
 makedepends="
 	avahi-dev
 	go
 	libusb-dev
 	"
-subpackages="$pkgname-doc $pkgname-openrc"
+subpackages="$pkgname-doc $pkgname-openrc $pkgname-udev::noarch"
 options="net"
 source="
 	https://github.com/OpenPrinting/ipp-usb/archive/refs/tags/$pkgver/ipp-usb-$pkgver.tar.gz
 	ipp-usb.initd
+	71-ipp-usb.rules
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
-case "$CARCH" in
-	# tests failinng on build-edge-x86
-	x86) options="$options !check" ;;
-esac
 
 build() {
 	go build -tags nethttpomithttp2
@@ -39,7 +32,7 @@ check() {
 
 package() {
 	install -D -m755 -t "$pkgdir"/usr/sbin/ ipp-usb
-	install -D -m644 -t "$pkgdir"/usr/lib/udev/rules.d/ systemd-udev/*.rules
+	install -D -m644 "$srcdir"/71-ipp-usb.rules "$pkgdir"/usr/lib/udev/rules.d/71-ipp-usb.rules
 	install -D -m644 -t "$pkgdir"/etc/ipp-usb/ ipp-usb.conf
 	install -D -m644 -t "$pkgdir"/usr/share/man/man8/ ./*.8
 	install -D -m644 -t "$pkgdir"/usr/share/ipp-usb/quirks/ ipp-usb-quirks/*
@@ -47,6 +40,7 @@ package() {
 }
 
 sha512sums="
-32694ac23e5707817017e43f1732ad204af530a0dc766dea956d868389b2653bf9ca10b3e7c4dd723553fc9dad1f792627ae933fb08eb6a66b532fe6a0643ad2  ipp-usb-0.9.30.tar.gz
+19258a1f3571dffa068b3cbaa62459e50cdc37e5c778a889114f93f14c2e3ba08b78d0b7a2a72e34aa27780b131c8ccf302ccb3fb1de4c1dbfa7bdc2e9c9e7ac  ipp-usb-0.9.34.tar.gz
 46b66cd698ad1dcc54ffc2dba64fd4b395085d5caeb1abfa00b68a2884edae1afd4826065bbde8a032644c39f9710f12cd81e11730d0aef56b87f6767d1c0bbc  ipp-usb.initd
+faf0d348f1cdacb476748cc47883365172dfd53802025e3dbdd26091bc08b525a105e6219d0d00704552601e960571078dce6ef55d92c3de2361edda0c6d8cb1  71-ipp-usb.rules
 "

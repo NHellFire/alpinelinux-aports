@@ -2,7 +2,7 @@
 # Maintainer: techknowlogick <techknowlogick@gitea.com>
 pkgname=helm
 pkgver=3.19.0
-pkgrel=0
+pkgrel=8
 pkgdesc="The Kubernetes Package Manager"
 url="https://helm.sh/"
 arch="all"
@@ -38,10 +38,6 @@ case "$CARCH" in
 	# FAIL
 	arm*|riscv64|loongarch64) options="$options !check" ;;
 esac
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 export GOFLAGS="$GOFLAGS -modcacherw"
 

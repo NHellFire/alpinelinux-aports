@@ -1,11 +1,11 @@
 # Contributor: Leonardo Arena <rnalrd@alpinelinux.org>
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=perl
-pkgver=5.42.0
+pkgver=5.42.2
 pkgrel=0
-_cross=1.6.2
+_cross=1.6.3
 _pkgver=${pkgver/_rc/-RC}
 pkgdesc="Larry Wall's Practical Extraction and Report Language"
 url="https://www.perl.org/"
@@ -15,7 +15,7 @@ depends_dev="perl-utils=$pkgver-r$pkgrel"
 makedepends_host="bzip2-dev zlib-dev"
 subpackages="$pkgname-doc $pkgname-dev $pkgname-utils::noarch"
 [ "$CBUILD" = "$CHOST" ] && subpackages="$subpackages miniperl"
-source="https://www.cpan.org/src/5.0/perl-$_pkgver.tar.xz
+source="https://cpan.metacpan.org/authors/id/S/SH/SHAY/perl-$_pkgver.tar.xz
 	perl-cross-$_cross.tar.gz.noauto::https://github.com/arsv/perl-cross/releases/download/$_cross/perl-cross-$_cross.tar.gz
 	digest-sha-cflags.patch
 	dont-write-packlist.patch
@@ -58,6 +58,8 @@ provides="
 #   5.26.1-r0:
 #     - CVE-2017-12837
 #     - CVE-2017-12883
+#   0:
+#     - CVE-2026-4176
 
 _privlib=/usr/share/perl5/core_perl
 _archlib=/usr/lib/perl5/core_perl
@@ -238,8 +240,8 @@ utils() {
 }
 
 sha512sums="
-b10f74d1245a879ae51d3ad93ad519a148df126ec865715474c801548ccfc3f542ef3bbb1f59568cea2ec77302d428dc772aba605357d7faf13eb6a351917275  perl-5.42.0.tar.xz
-51b45bf972304634d706d09e27d457636e43f9f27f739004eca529b21245ba78612dcb08b54225fc7ca19511983642c37915939ea8aa1c1a4560093474d9e76b  perl-cross-1.6.2.tar.gz.noauto
+3c77dbede22df1a7ab3714c7dc6d675f14cb99b084fcc4e4d9b65aed1a080ac4d5ecf2cbf4759b2565f6452e52b337633f870dbcbf152dc66833cfe71f04fffc  perl-5.42.2.tar.xz
+eb8aa2d57121ef288e253f9443bd4f53ad8b23152096265a0f8211ca4f2a61fdf3fdd03ca1e7d1e1c4a8a408421c7254cfaf12d1f81333aa4a0bf53d74cfa223  perl-cross-1.6.3.tar.gz.noauto
 59afa4c166e4808d355e19cd70748540ffce9da5c6919c71648be7678de328409f9121ddea33415add73fc01a22e95ed9d9629f31b8ba20b3bbfc04dab926c63  digest-sha-cflags.patch
 abae709290306a8fbc96b604b9b38fc09a46ae178f3e77944813f1b46c78e2e3654e5c3b3a6aca96684a2d1061e2871376d508fbe82604864055309156b4d0d8  dont-write-packlist.patch
 4e8a655160e54a151e0bc4819fd1cd69e43c1e36844bcefbb9734f36130a2d9e1700b1aa64153a9d20a8deb875e904876dbe7b14dd278266b21a86a33d91eebd  json-pp-options.patch

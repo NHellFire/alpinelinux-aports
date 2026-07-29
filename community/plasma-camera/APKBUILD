@@ -2,8 +2,8 @@
 # group=kde-other
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=plasma-camera
-pkgver=2.0.0
-pkgrel=1
+pkgver=2.1.1
+pkgrel=2
 pkgdesc="Camera application for Plasma Mobile"
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -24,6 +24,7 @@ makedepends="
 	ki18n-dev
 	kirigami-dev
 	libcamera-dev
+	libkexiv2-dev
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qtmultimedia-dev
@@ -52,5 +53,5 @@ package() {
 }
 
 sha512sums="
-679265300fdd26e7478fcc4ff27e0fe721d6bb1f9a260962354b8e0165d76be922dd6be9526c2e5a3c30f2772482699338500ddf1efe5be50cc1b69404778259 plasma-camera-2.0.0.tar.xz
+0a7a6e4bcce5fcb483291e15bca3a4537a4f00a8b7ab4fbd3f38e775ec8757a4b99e4fd4124435e734f865a167a61e836945520005c4058bc41757216e8a325f  plasma-camera-2.1.1.tar.xz
 "

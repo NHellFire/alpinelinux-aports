@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=syntax-highlighting
-pkgver=6.17.0
+pkgver=6.28.1
 pkgrel=0
 pkgdesc="Syntax highlighting engine for structured text and code"
 # armhf blocked by qt6-qtdeclarative
@@ -24,9 +24,14 @@ makedepends="$depends_dev
 	qt6-qttools-dev
 	samurai
 	"
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+checkdepends="xwayland-run"
+subpackages="
+	$pkgname-dev
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/frameworks/syntax-highlighting.git"
-source="https://download.kde.org/stable/frameworks/${pkgver%.*}/syntax-highlighting-$pkgver.tar.xz"
+source="syntax-highlighting-$pkgver.tar.xz::https://download.kde.org/stable/frameworks/${pkgver%.*}/syntax-highlighting-$pkgver.tar.xz"
 
 build() {
 	export KDE_DOCS=/usr/share/kde/documentation
@@ -42,7 +47,7 @@ build() {
 }
 
 check() {
-	ctest --test-dir build -E "(test|html)highlighter_test"
+	wlheadless-run -- ctest --test-dir build -E "(test|html)highlighter_test"
 }
 
 package() {
@@ -53,5 +58,5 @@ package() {
 }
 
 sha512sums="
-0922ee36f1069722196f268d962a610d0e2e90068333143f9ce275a77bd0b86bfdcf553da97d6d020ae202df396a482e2c10681cea93cec14d221908acb3c972  syntax-highlighting-6.17.0.tar.xz
+8d9f2adb9058d1ca1a1bc599fa40ae45097202ed0875815eef57907d05e5b07bd9dcf088e1bed5a083a1a53da65328ee41969853912bf2fdd81823bebcedc62b  syntax-highlighting-6.28.1.tar.xz
 "

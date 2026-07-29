@@ -2,7 +2,7 @@
 # Maintainer: Duncan Bellamy <dunk@denkimushi.com>
 pkgname=py3-cryptography
 # version must be compatible with py3-openssl
-pkgver=44.0.3
+pkgver=47.0.0
 pkgrel=0
 pkgdesc="Cryptographic recipes and primitives for Python"
 url="https://cryptography.io/"
@@ -22,18 +22,15 @@ makedepends="
 	"
 checkdepends="
 	py3-certifi
-	py3-hypothesis
-	py3-iso8601
 	py3-pretend
 	py3-pytest
 	py3-pytest-benchmark
-	py3-pytest-subtests
 	py3-pytest-xdist
-	py3-tz
 	"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/c/cryptography/cryptography-$pkgver.tar.gz
 	https://files.pythonhosted.org/packages/source/c/cryptography_vectors/cryptography_vectors-$pkgver.tar.gz
+	vectors-build-backend-flit_core_patch
 	"
 builddir="$srcdir/cryptography-$pkgver"
 options="net"
@@ -46,6 +43,11 @@ loongarch64)	options="$options !check" ;;
 esac
 
 # secfixes:
+#   46.0.7-r0:
+#     - CVE-2026-34073
+#     - CVE-2026-39892
+#   46.0.5-r0:
+#     - CVE-2026-26007
 #   41.0.2-r0:
 #     - CVE-2023-38325
 #   39.0.1-r0:
@@ -54,6 +56,13 @@ esac
 #     - CVE-2020-36242
 #   3.2.1-r0:
 #     - CVE-2020-25659
+
+prepare() {
+	default_prepare
+
+	cd "$srcdir/cryptography_vectors-$pkgver"
+	patch pyproject.toml "$srcdir"/vectors-build-backend-flit_core_patch
+}
 
 build() {
 	gpep517 build-wheel \
@@ -80,6 +89,7 @@ package() {
 }
 
 sha512sums="
-505c3a4275dbaae827ebc7c478d3196c9a2bef71e460a391d56ee53b7ff8a054f7ac81c1a8a4a59829d04dd9a434c123df948627ab8f07ec39259ea0498a8c69  cryptography-44.0.3.tar.gz
-1287901703699053099bb8843928d0621884864d727de65d4a19d4f841271af8b2a773e8a0cbd7e850258db202bfb345439a72f57d8e5f69c6e1366618c1fa64  cryptography_vectors-44.0.3.tar.gz
+0d2fd9de7b6cfafef5f66e4fb10b7eaa8712bc0ed7bca19a017963b8ea707813a7bdc841f7d4aa512da7963eff3707792d46cb93058875fcc447961256c32d9e  cryptography-47.0.0.tar.gz
+82fbad5a395879ba4dac4aa015271522a832da126f7ec204274821d78100ed17c4047bf4d1526f82e7785bdf9d375741eecfe4cd24f3c5dcdcabc2c7cd01f67d  cryptography_vectors-47.0.0.tar.gz
+be7b102bf2220913996ee934a506c2f989c47e1e7f7c05b17848cd75ffbe6e396d1f46510bde37c2079f7a576c1f157190aef5f5fa17431bf231dcd08a52efaa  vectors-build-backend-flit_core_patch
 "

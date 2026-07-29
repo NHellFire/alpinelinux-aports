@@ -1,13 +1,13 @@
 # Contributor: Dermot Bradley <dermot_bradley@yahoo.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=fscrypt
-pkgver=0.3.5
-pkgrel=12
+pkgver=0.3.6
+pkgrel=7
 pkgdesc="Manage Linux native filesystem encryption"
 url="https://github.com/google/fscrypt"
 # Tests fail on ppc64le with SIGSEGV and memory lock errors
-arch="all !ppc64le"
+arch="all"
 license="Apache-2.0"
 makedepends="
 	findutils
@@ -16,10 +16,7 @@ makedepends="
 	"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/google/fscrypt/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+options="net" # go
 
 build() {
 	make
@@ -47,5 +44,5 @@ package() {
 }
 
 sha512sums="
-1d3dcd3bfa651a6a70709d58f2da07160646e779ebb65ce5213e257ba49b87123ad78428a1e3b5ed022386340ea1ba492bd43b148fb2f28b2b4bda971beed193  fscrypt-0.3.5.tar.gz
+ddabe9f9387faf4633de36eb778f1bb7986bc54db6bfa9f60521bf7faa69c7ad191e4a8eff30ea3be0742d9a4372270dd20e8018c6464806d2332636ebd7e110  fscrypt-0.3.6.tar.gz
 "

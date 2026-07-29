@@ -4,13 +4,13 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=khelpcenter
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Application to show KDE Applications' documentation"
 # armhf blocked by extra-cmake-modules
 # x86 blocked by reduced qtwebengine featureset
-# armv7, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !armv7 !ppc64le !s390x !riscv64"
+# armv7, s390x and riscv64 blocked by qt6-qtwebengine
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://userbase.kde.org/KHelpCenter"
 license="GPL-2.0-or-later AND GFDL-1.2-only"
 makedepends="
@@ -54,5 +54,5 @@ package() {
 }
 
 sha512sums="
-8e409737b73bb1e71614297837e688a4e77792f01c5a99ced86eadbb557096438f6dbeb90d5b3225ef4e6f762d7949fde67a0d84c719ef20520785527ecb4e3d  khelpcenter-25.08.0.tar.xz
+f7c6a5e48d2fd5cc47cf997dc2b45f6d2d64d2000621f6646145061ae8951995c1118a31b53e31fab1ad27874f37e3bd99fcac2ab82d03f36da3920970a0a22a  khelpcenter-26.04.3.tar.xz
 "

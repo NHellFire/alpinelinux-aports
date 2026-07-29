@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=rqlite
-pkgver=9.0.2
-pkgrel=0
+pkgver=9.4.1
+pkgrel=4
 pkgdesc="Lightweight, distributed relational database built on SQLite"
 url="https://github.com/rqlite/rqlite"
 arch="all"
@@ -15,12 +15,9 @@ subpackages="
 	$pkgname-bench
 	$pkgname-client
 	"
-source="$pkgname-$pkgver.tar.gz::https://github.com/rqlite/rqlite/archive/refs/tags/v$pkgver.tar.gz"
+source="https://github.com/rqlite/rqlite/archive/refs/tags/v$pkgver/rqlite-$pkgver.tar.gz"
 
 export GOFLAGS="$GOFLAGS -tags=libsqlite3"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build ./cmd/rqbench &
@@ -57,5 +54,5 @@ client() {
 }
 
 sha512sums="
-5f92cd4f19046a44260a6a2484046a08614d010bfd958af3503fac93241914cec288f099b80657a67ff8adaed9d2b59760296d9f0ba7f59f350de7fb940bc86c  rqlite-9.0.2.tar.gz
+e13dd2cd3ae346f0632dbc2d071604af474cbc4735cb687c78eccfe2a1bef3913a4a0411ef743cbb0b5415647d3ab2d50c32f082de11dc26e9f40fb928a1a1b0  rqlite-9.4.1.tar.gz
 "

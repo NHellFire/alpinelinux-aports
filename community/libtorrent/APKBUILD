@@ -2,7 +2,7 @@
 # Contributor: Bartłomiej Piotrowski <nospam@bpiotrowski.pl>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=libtorrent
-pkgver=0.15.4
+pkgver=0.16.12
 pkgrel=0
 pkgdesc="BitTorrent library written in C++"
 url="https://rakshasa.github.io/rtorrent"
@@ -11,6 +11,7 @@ license="GPL-2.0-or-later"
 makedepends="
 	autoconf
 	automake
+	curl-dev
 	libsigc++3-dev
 	libtool
 	linux-headers
@@ -44,5 +45,5 @@ package() {
 }
 
 sha512sums="
-a910e675d265ffa63137de513fc02cd4dd59e9509397f3a4f1a4dc2677bf00343f51aca0b8c6e4eb95b2b129befdead8b35ea577a0612a9ae37c743cf7872fc1  libtorrent-0.15.4.tar.gz
+8645300c79cfbc31f40d819d0f1bcef91f6241ff6c789c95cd0fa9437c9ed645fb0fb0b83431a0592a5d8c75eed0b3e9ddf01645db19f67d70ce8a8aa530afe4  libtorrent-0.16.12.tar.gz
 "

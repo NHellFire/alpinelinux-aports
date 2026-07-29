@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kcmutils
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Utilities for interacting with KCModules"
 # armhf blocked by qt6-qtdeclarative
@@ -64,5 +64,5 @@ package() {
 }
 
 sha512sums="
-3167a1e0ef28528531ffcb6de0d1919ac76f6fc9aa325955a1e630ad0bbd46e855ed99ee9e19efdc1e79f2f91f6bdc702b250c485caeb9485697a863155a16ee  kcmutils-6.17.0.tar.xz
+f0fa2e75df42aef09c6bbe0366db7bfdd488e77017bac3083b2efb6b1c2999fce964bddc42d7a6cb42f6b73f0613990cf6cd122b1805e30624fc417a0be0e0f6  kcmutils-6.28.0.tar.xz
 "

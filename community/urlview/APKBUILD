@@ -1,13 +1,13 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
 # Contributor: Leo <thinkabit.ukim@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=urlview
 # ghbump to update http://sprunge.us/bQYI
 _project="sigpipe/urlview"
 _sha=08767aa863cd27d1755ba0aff65b8cc1a0c1446a
 pkgver=20131023
-pkgrel=3
+pkgrel=4
 pkgdesc="Extract URLs from text files and select them via a menu"
 options="!check" # No testsuite
 url="https://github.com/sigpipe/urlview"

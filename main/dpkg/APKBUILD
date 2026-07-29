@@ -1,9 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=dpkg
-pkgver=1.22.21
+pkgver=1.23.7
 pkgrel=0
-pkgdesc="The Debian Package Manager"
+pkgdesc="Debian Package Manager"
 url="https://wiki.debian.org/Teams/Dpkg"
 arch="all"
 license="GPL-2.0-or-later AND BSD-2-Clause"
@@ -31,6 +31,8 @@ source="https://salsa.debian.org/dpkg-team/dpkg/-/archive/$pkgver/dpkg-$pkgver.t
 	"
 
 # secfixes:
+#   0:
+#     - CVE-2026-2219
 #   1.21.8-r0:
 #     - CVE-2022-1664
 
@@ -111,6 +113,6 @@ dev() {
 }
 
 sha512sums="
-e41814fa47b51b97f6b92bf452de5d4e77deec51d8cd1b2f50366a6802893b04fcdb568266ca27014a84ab278186515f93ac35b87691aaa56c3e3f52352e4861  dpkg-1.22.21.tar.bz2
+4d783f726d0a27c8075bc65194772741faa4f444a4e7e645f205150de17c0f54017681d48f456cb06ea0dfae8d22db8f3a947edf37ce5b822ba3d9c4dfdcc1c0  dpkg-1.23.7.tar.bz2
 dabb7e18ab353c2f62022df3c4b6c5a43ae62dee0d3e745a01dbbfd7de57c5fe965028a2c3f0e3bd10da52c5a31fbbc39b43252e779d97e78b0cb1242ad073ef  musl-realpath.patch
 "

@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=dash
-pkgver=0.5.12
-pkgrel=3
+pkgver=0.5.13.1
+pkgrel=2
 pkgdesc="Small and fast POSIX-compliant shell"
 url="http://gondor.apana.org.au/~herbert/dash/"
 arch="all"
@@ -11,8 +11,11 @@ depends="busybox"
 # needs 'nl' utility from coreutils
 makedepends="coreutils"
 install="$pkgname.post-install $pkgname.post-upgrade $pkgname.pre-deinstall"
-subpackages="$pkgname-doc $pkgname-binsh::noarch"
-source="http://gondor.apana.org.au/~herbert/dash/files/dash-$pkgver.tar.gz"
+subpackages="$pkgname-dbg $pkgname-doc $pkgname-binsh::noarch"
+source="http://gondor.apana.org.au/~herbert/dash/files/dash-$pkgver.tar.gz
+	shell-Fix-unsigned-char-promotion-and-truncation.patch
+	expand-fix-armv7-SIGBUS.patch
+	"
 
 build() {
 	./configure \
@@ -45,5 +48,7 @@ binsh() {
 }
 
 sha512sums="
-13bd262be0089260cbd13530a9cf34690c0abeb2f1920eb5e61be7951b716f9f335b86279d425dbfae56cbd49231a8fdffdff70601a5177da3d543be6fc5eb17  dash-0.5.12.tar.gz
+6b3d67f76e74853349fe99121b2ee96d32da9863042744e03984eb6a01bf437eee2f2e81fbdd0436090abfecacc2f5589960820c3d0d5f3dd580948d38d5dc1d  dash-0.5.13.1.tar.gz
+5ce11f8891730d5021cc8325cba3307e3f3a152234326376bc7bbb97757bb9e8806d3fdf63280768f9c27533672e72e680ac1a8efccc06b7b4a9478afc3d8c3b  shell-Fix-unsigned-char-promotion-and-truncation.patch
+a6b9dc58a2ce27173c7dd00852d77c795d4170c94bddd7df8f2b8640faacc57411692ecf7e911a414230ad8c32209d64d842123828793cbebe1d96d6696641c0  expand-fix-armv7-SIGBUS.patch
 "

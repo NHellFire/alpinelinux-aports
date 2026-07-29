@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=raku-io-socket-ssl
 pkgver=0.0.4
-pkgrel=1
+pkgrel=4
 pkgdesc="Interface for SSL connections"
 url="https://github.com/raku-community-modules/IO-Socket-SSL"
 arch="all !armhf !armv7 !x86" # raku-openssl

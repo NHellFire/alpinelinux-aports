@@ -1,19 +1,30 @@
 # Contributor: Guy Godfroy <guy.godfroy@gugod.fr>
 # Maintainer: Guy Godfroy <guy.godfroy@gugod.fr>
 pkgname=edit
-pkgver=1.2.0
+pkgver=2.0.0
 pkgrel=0
 pkgdesc="Simple editor for simple needs"
 url="https://github.com/microsoft/edit"
-arch="all"
+# s390x: oklab uses little-endian u32 layout (upstream bug)
+# loongarch64: stdext uses unstable stdarch_loongarch SIMD intrinsics
+arch="all !s390x !loongarch64"
 license="MIT"
-makedepends="cargo cargo-auditable"
+depends="icu-libs"
+makedepends="cargo cargo-auditable icu-dev"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/microsoft/edit/archive/refs/tags/v$pkgver.tar.gz"
 options="net"
 
 prepare() {
 	default_prepare
+
+	# edit dlopens ICU at runtime. Alpine ships only the versioned SONAME and
+	# uses versioned symbols (e.g. u_errorName_78), so point at libicuuc.so.N
+	# and re-enable renaming auto-detect (disabled implicitly when SONAME is set).
+	local icu_major=$(pkg-config --modversion icu-uc | cut -d. -f1)
+	export EDIT_CFG_ICUUC_SONAME="libicuuc.so.$icu_major"
+	export EDIT_CFG_ICUI18N_SONAME="libicui18n.so.$icu_major"
+	export EDIT_CFG_ICU_RENAMING_AUTO_DETECT=true
 
 	cargo fetch --target="$CHOST" --locked
 }
@@ -33,5 +44,5 @@ package() {
 }
 
 sha512sums="
-72d32f0b46c32195e9198a02be650ad607b3c4ebc36f62d73e38e36f2660b4ed3c51bd2a51a0326c639a45133e7b627a3002946e4047e04c8c5ef5169d6aca02  edit-1.2.0.tar.gz
+77f703c78fdec07f61567f02024b1325b9e8656c3bfa005c9bb68001da68a13bb07887a2cb99aa02f579380f60673e2d9892013e7d22395af0f9502b04b5e407  edit-2.0.0.tar.gz
 "

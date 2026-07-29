@@ -4,7 +4,7 @@
 pkgname=perl-yaml
 #_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=YAML
-pkgver=1.31
+pkgver=1.321
 pkgrel=0
 pkgdesc="YAML Ain't Markup Language™"
 url="https://metacpan.org/release/YAML/"
@@ -13,9 +13,13 @@ license="GPL-1.0-or-later OR Artistic-1.0-Perl"
 depends="perl"
 checkdepends="perl-test-yaml perl-test-deep"
 subpackages="$pkgname-doc"
-source="https://cpan.metacpan.org/authors/id/I/IN/INGY/YAML-$pkgver.tar.gz"
+source="https://cpan.metacpan.org/authors/id/T/TI/TINITA/YAML-$pkgver.tar.gz"
 builddir="$srcdir/$_pkgreal-$pkgver"
 options="!check" # checkdepends in community
+
+# secfixes:
+#   1.320.0-r0:
+#     - CVE-2026-63676
 
 build() {
 	export CFLAGS=$(perl -MConfig -E 'say $Config{ccflags}')
@@ -34,5 +38,5 @@ package() {
 }
 
 sha512sums="
-7f6af46348c4288541b611cb0d0f6d63a3d671417cadb3e9d60fed1c2c7664b35202b3ee8d15ef68400758604a3b2cb8a04c11b3e9badfd6f9222cf24f4a9edc  YAML-1.31.tar.gz
+ba58dc9e2db9d6789a91e610f9ffe285ca4014ebe5f7ec0e74266d2a1d2a23aa145c35a0c285648c67f538af9ba6ba060d855dc93ac001487eaab4404b0d2c18  YAML-1.321.tar.gz
 "

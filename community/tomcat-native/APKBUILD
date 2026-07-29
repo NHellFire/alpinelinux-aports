@@ -1,7 +1,7 @@
 # Contributor: Sean Summers <seansummers@gmail.com>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=tomcat-native
-pkgver=2.0.8
+pkgver=2.0.14
 pkgrel=0
 pkgdesc="Native resources optional component for Apache Tomcat"
 url="https://tomcat.apache.org/native-doc/"
@@ -19,6 +19,12 @@ subpackages="$pkgname-dev"
 source="https://archive.apache.org/dist/tomcat/tomcat-connectors/native/$pkgver/source/tomcat-native-$pkgver-src.tar.gz"
 builddir="$srcdir/$pkgname-$pkgver-src/native"
 options="!check" # package has no tests
+
+# secfixes:
+#   2.0.14-r0:
+#     - CVE-2026-24734
+#   2.0.12-r0:
+#     - CVE-2026-29145
 
 build() {
 	./configure \
@@ -44,5 +50,5 @@ dev() {
 }
 
 sha512sums="
-fd45533b9c34b008717d18ed49334c7286b93c849c487c1c42746f2998cc4a6ff0362e536a8b5124c6539847a92a9f7631c7638a21cd5d22134fe1a9bb0f0702  tomcat-native-2.0.8-src.tar.gz
+33d626fab35cbfa7398ca90cabd99950c6362ab4e19637012850fd84ecc78184e4c6c975ece92dc8d6461b6a8c2f83221cbc7374ff154422e7722606a4a144c7  tomcat-native-2.0.14-src.tar.gz
 "

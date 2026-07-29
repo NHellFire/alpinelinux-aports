@@ -1,8 +1,8 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=gucharmap
-pkgver=16.0.2
-pkgrel=1
+pkgver=17.0.2
+pkgrel=0
 pkgdesc="GNOME Unicode Charmap"
 url="https://gitlab.gnome.org/GNOME/gucharmap"
 arch="all"
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-39f73147d9687555cf60ba5ccee17c8aeaddef21ae38ba40c378f7b74979b1174150ab5f9ae9c986cab604199a6ffd78bb3bf3d6543edaa98888489058ea8b6e  gucharmap-16.0.2.tar.gz
+879863e1a303290ea5771ebe748b4aed5738d922d6b759164fed510c2729e4ee189e38c2854047b72e4e5b27fe86d02821fe1ebd6c6621c868281d2b93313b80  gucharmap-17.0.2.tar.gz
 "

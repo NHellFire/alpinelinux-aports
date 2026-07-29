@@ -1,0 +1,34 @@
+maintainer="Bart Ribbers <bribbers@disroot.org>"
+pkgname=nemo-qml-plugin-connectivity
+pkgver=0.3.2
+pkgrel=0
+pkgdesc="QML plugin for network connectivity"
+url="https://github.com/sailfishos/nemo-qml-plugin-connectivity"
+# armhf blocked by qt6-qtdeclarative
+# riscv64 blocked by libqofono
+arch="all !armhf !riscv64"
+license="BSD-3-Clause"
+depends_dev="qt6-qtdeclarative-dev"
+makedepends="$depends_dev
+	karchive-dev
+	libconnman-qt-dev
+	libqofono-dev
+	libqofonoext-dev
+	qt6-qtbase-dev
+	"
+subpackages="$pkgname-dev"
+source="$pkgname-$pkgver.tar.gz::https://github.com/sailfishos/nemo-qml-plugin-connectivity/archive/refs/tags/$pkgver.tar.gz"
+options="!check"
+
+build() {
+	qmake6 PREFIX=/usr
+	make
+}
+
+package() {
+	INSTALL_ROOT="$pkgdir" make install
+}
+
+sha512sums="
+e5cd60d70ddbd7de6afd5190979dc06788c37b401225fc44e6733b8fca7271b074d9c4d8f34a94f7581e75d9dc379c38810a97646d64dc68707354a83fb24c94  nemo-qml-plugin-connectivity-0.3.2.tar.gz
+"

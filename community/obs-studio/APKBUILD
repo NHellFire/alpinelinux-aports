@@ -1,14 +1,18 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=obs-studio
-pkgver=31.1.2
-pkgrel=3
+pkgver=32.2.1
+pkgrel=0
 pkgdesc="Free and open source software for live streaming and screen recording"
 url="https://obsproject.com/"
-arch="all !ppc64le !riscv64" # luajit
+arch="all !riscv64 !armhf" # luajit, openmp
 license="GPL-2.0-or-later"
 options="!check"
+depends_dev="
+	simde-dev
+	"
 makedepends="
+	$depends_dev
 	alsa-lib-dev
 	appstream-glib
 	cmake
@@ -34,9 +38,11 @@ makedepends="
 	libxkbcommon-dev
 	linux-headers
 	luajit-dev
-	mbedtls-static
+	mbedtls3-static
+	mbedtls3-dev
 	mesa-dev
 	nlohmann-json
+	openmp-dev
 	openssl-dev
 	pciutils-dev
 	pipewire-dev
@@ -59,15 +65,18 @@ makedepends="
 	x264-dev
 	"
 subpackages="$pkgname-dev"
-source="https://github.com/obsproject/obs-studio/archive/$pkgver/obs-studio-$pkgver.tar.gz
-fix-cmake-settings.patch"
+source="https://github.com/obsproject/obs-studio/archive/$pkgver/obs-studio-$pkgver.tar.gz"
 
 # Regression for VPL only available for x86_64
 # https://github.com/obsproject/obs-studio/issues/9578
 case $CARCH in
 	x86_64)
-		makedepends="$makedepends onevpl-dev"
+		makedepends="$makedepends libvpl-dev"
 		_vpl=ON
+	;;
+	loongarch64)
+		export CFLAGS="$CFLAGS -DSIMDE_NO_NATIVE -DSIMDE_NO_X86_SSE -DSIMDE_NO_X86_SSE2"
+		export CXXFLAGS="$CXXFLAGS -DSIMDE_NO_NATIVE -DSIMDE_NO_X86_SSE -DSIMDE_NO_X86_SSE2"
 	;;
 	*)
 		_vpl=OFF
@@ -80,12 +89,11 @@ prepare() {
 	# make them valid cmake subdirs that do nothing
 	touch plugins/obs-browser/CMakeLists.txt
 	touch plugins/obs-websocket/CMakeLists.txt
-	rm -rf deps/glad/include/EGL
-	rm -rf deps/glad/include/KHR
 }
 
 build() {
 	export CFLAGS="$CFLAGS  -Wno-incompatible-pointer-types"
+	export SIMDe_INCLUDE_DIR="/usr/include/simde"
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
@@ -95,9 +103,12 @@ build() {
 		-DCALM_DEPRECATION=ON \
 		-DOPENGL_opengl_LIBRARY=/usr/lib/libGL.so \
 		-DENABLE_AJA=OFF \
+		-DENABLE_DECKLINK=0 \
 		-DENABLE_LIBFDK=ON \
 		-DENABLE_JACK=ON \
 		-DENABLE_NVENC=OFF \
+		-DENABLE_FRONTEND=ON \
+		-DENABLE_WAYLAND=ON \
 		-DENABLE_FFMPEG_NVENC=OFF \
 		-DENABLE_WEBRTC=ON \
 		-DOpenGL_GL_PREFERENCE=GLVND \
@@ -107,7 +118,7 @@ build() {
 		-DENABLE_VLC=ON \
 		-DCMAKE_COMPILE_WARNING_AS_ERROR=OFF \
 		-Wno-dev
-	cmake --build build
+	cmake --build build -j$(nproc)
 }
 
 package() {
@@ -115,6 +126,5 @@ package() {
 }
 
 sha512sums="
-bee52406c2a0a2a1935d81e6eed76d6120d22c5b213bb807bfa414b6b063eb0a0ab0a6ad08db936bc0eadc0fa98a2d1adf18ff87fcc63472cb6a82c4b4f565ed  obs-studio-31.1.2.tar.gz
-fdb16f49be02e1ccc4c3ad7385184d6df19dffd368f4de616bf4dadf77db0af9fbca650ea893d342ac9daaedac00e7cb70e967e667c595144e79a0e9040fd218  fix-cmake-settings.patch
+04ebad0debfa179d9a9023d6589f49640aa1cc20003349c80f20db20b831b299be7e4f8bbf5bf7017dfbd1bc99a8579f0a0f050e000aa0a4c66a7d49587faa5a  obs-studio-32.2.1.tar.gz
 "

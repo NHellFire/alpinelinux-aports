@@ -2,9 +2,9 @@
 # Contributor: Timothy Legge <timlegge@gmail.com>
 # Maintainer: Timothy Legge <timlegge@gmail.com>
 pkgname=perl-devel-cover
-pkgver=1.50
+pkgver=1.52
 pkgrel=0
-#_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
+# _pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=Devel-Cover
 pkgdesc="Code coverage metrics for Perl"
 url="https://metacpan.org/release/Devel-Cover/"
@@ -43,5 +43,5 @@ doc() {
 }
 
 sha512sums="
-b9640174218ab27a3babcc63f2a9f54e1662bfb78e490d1431fb45451a790686d395e23f4c9bc89024d5b3d29d7968ae1ce485f4546c05cf0bf9050fbcf60964  Devel-Cover-1.50.tar.gz
+9959ebb3eed173fa5b0a35f64241f8a4fc924c4baf51fceb451cedf435d60e6d90159c19eec5f54e91fea817beb00f2f15649be41da87b26b7b6c95e5ccb066f  Devel-Cover-1.52.tar.gz
 "

@@ -1,14 +1,16 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=py3-caldav
-pkgver=2.0.1
-pkgrel=0
+pkgver=2.2.4
+pkgrel=1
 pkgdesc="caldav client library for Python"
 url="https://github.com/python-caldav/caldav"
 arch="noarch"
 license="GPL-3.0-only AND Apache-2.0"
 depends="
+	py3-dnspython
 	py3-icalendar
+	py3-icalendar-searcher
 	py3-lxml
 	py3-recurring-ical-events
 	py3-requests
@@ -47,5 +49,5 @@ package() {
 }
 
 sha512sums="
-f12a2fe75b0d13c170b0c2b1498f77d53c7a88d61aaff334c63329402df892b9972403a0623a80a498ca733ad2526d8eef93e58079f55938f0be79d955332c77  py3-caldav-2.0.1.tar.gz
+d7bb4e1c6c9851ee3081c97e784f6533804cf8b895d3c21d37b504edee7a0d18119aab7d9f59f2dc2aa97e6e8a0e6ada0c130e31253da0d1c8e373f35133e797  py3-caldav-2.2.4.tar.gz
 "

@@ -1,9 +1,9 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=tar
 pkgver=1.35
-pkgrel=4
+pkgrel=5
 pkgdesc="Utility used to store, backup, and transport files"
 url="https://www.gnu.org/software/tar/"
 arch="all"
@@ -29,9 +29,7 @@ source="https://ftp.gnu.org/gnu/tar/tar-$pkgver.tar.xz
 #     - CVE-2021-37701
 
 build() {
-	if [ -z "$BOOTSTRAP" ]; then
-		export CFLAGS="$CFLAGS -flto=auto"
-	fi
+	export CFLAGS="$CFLAGS -flto=auto"
 	gl_cv_func_gettimeofday_clobber=no \
 	gl_cv_func_tzset_clobber=no \
 	./configure \

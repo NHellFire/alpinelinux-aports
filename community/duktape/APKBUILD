@@ -1,9 +1,9 @@
 # Contributor: Cory Sanin <corysanin@outlook.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=duktape
 pkgver=2.7.0
-pkgrel=2
+pkgrel=3
 pkgdesc="Embeddable Javascript engine with a focus on portability and compact footprint"
 url="https://duktape.org"
 arch="all"

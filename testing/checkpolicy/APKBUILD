@@ -1,12 +1,17 @@
-# Maintainer: Tycho Andersen <tycho@docker.com>
+# Contributor: Tycho Andersen <tycho@docker.com>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=checkpolicy
-pkgver=3.6
+pkgver=3.11
 pkgrel=0
 pkgdesc="SELinux policy checker"
 url="https://selinuxproject.org/"
 arch="all"
 license="GPL-2.0"
-makedepends="libsepol-dev bison flex-dev"
+makedepends="
+	bison
+	flex-dev
+	libsepol-dev
+	"
 subpackages="$pkgname-doc"
 source="https://github.com/SELinuxProject/selinux/archive/checkpolicy-$pkgver.tar.gz"
 builddir="$srcdir/selinux-checkpolicy-$pkgver/checkpolicy"
@@ -24,5 +29,5 @@ package() {
 }
 
 sha512sums="
-a47db91c1277026ff724c6ec50500552e97c77fa63c8df30a0a8e7dce39d9f39b82fef84bd9fd2841ff6a608d2921296ff0e0e4992de53a414163e04ff51733f  checkpolicy-3.6.tar.gz
+e425e22cd0e0cc3feb697c18d78ee90f66780810ac81a496fb8682308e7abdc803572862df62cc7c6b3f0b806f16a58445d298b8e9fc4dc95915ea326cb6473b  checkpolicy-3.11.tar.gz
 "

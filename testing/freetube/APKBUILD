@@ -1,8 +1,8 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=freetube
-pkgver=0.23.8
-pkgrel=1
+pkgver=0.25.0
+pkgrel=0
 pkgdesc="An open source desktop YouTube player built with privacy in mind."
 arch="x86_64 aarch64" # blocked by electron
 license="AGPL-3.0-only"
@@ -13,13 +13,13 @@ depends="
 makedepends="
 	electron-tasje
 	nodejs
+	pnpm
 	yarn
 	"
 url="https://freetubeapp.io"
 source="
 	$pkgname-$pkgver.tar.gz::https://github.com/FreeTubeApp/FreeTube/archive/v$pkgver-beta.tar.gz
 	freetube.sh
-	tasje-dotdash.patch
 	"
 options="net !check" # No testsuite
 builddir="$srcdir"/FreeTube-$pkgver-beta
@@ -36,7 +36,7 @@ prepare() {
 build() {
 	yarn --cache-folder "$srcdir"/yarn-cache run pack
 
-	tasje --config _scripts/ebuilder.config.js pack
+	tasje --config _scripts/ebuilder.config.mjs pack
 }
 
 package() {
@@ -50,7 +50,6 @@ package() {
 }
 
 sha512sums="
-e7878b7c0eb4c62e5192a83373b2111b75e7b0195190393b8a3d23337f20438fadfa0ff2157688376b1d1ef2693e391d30544e071cd515515392c345d2259de1  freetube-0.23.8.tar.gz
+3ad9aeafbded94ebf93af3dfba51404c70ad1e652b059bf3ed910d9928f33bd7044085aa86636e65e5443ce1a71397c087c4ff17fa07d9907a57d94594138320  freetube-0.25.0.tar.gz
 2ce2effc794bb663789cefe968b5899122127983dbfa1b240aa33a2be383720b18204e6d01b4a550df72956f02b6636b79c93a58f470a970b09b770f5b8f2fc4  freetube.sh
-d27cb896b65a7e8d52ffe86e5f74eed72b6cf976b28e1a13012d34c7eceba5ff6f20298017738dfa93c0336ffa52b8ee4da7e06b02747062898db7e678819526  tasje-dotdash.patch
 "

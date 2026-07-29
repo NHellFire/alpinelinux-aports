@@ -1,6 +1,6 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=iotas
-pkgver=0.11.5
+pkgver=2026.6
 pkgrel=0
 pkgdesc="Distraction-free note taking via a mobile-first design"
 url="https://gitlab.gnome.org/World/iotas"
@@ -49,5 +49,5 @@ package() {
 }
 
 sha512sums="
-847e72b89f5fc76d9e094e6b9ea109167674ecdc9e62f0b9a9f6a9777b42967bd0d54b42ba3fcc553ce65e5da9848917258b2f44b6f1dc616fb9e704111426d3  iotas-0.11.5.tar.gz
+98bb7f1999ff1276ada13ea2967382600f33d48eed5e8ee0b1eafbc8a06a049df54a80bb26f5e836d41dc8ba6c1fe9674500ec9569364889e99928d768dacdb0  iotas-2026.6.tar.gz
 "

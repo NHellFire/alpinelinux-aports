@@ -4,7 +4,7 @@
 # Maintainer: Andy Postnikov <apostnikov@gmail.com>
 pkgname=php81-pecl-xdebug
 _extname=xdebug
-pkgver=3.4.5
+pkgver=3.5.3
 _pkgver=${pkgver/_/}
 pkgrel=0
 pkgdesc="PHP 8.1 extension that provides functions for function traces and profiling - PECL"
@@ -15,7 +15,8 @@ _phpv=81
 _php=php$_phpv
 depends="$_php-common"
 makedepends="$_php-dev linux-headers"
-source="php-pecl-$_extname-$pkgver.tgz::https://pecl.php.net/get/$_extname-$pkgver.tgz"
+#source="php-pecl-$_extname-$pkgver.tgz::https://pecl.php.net/get/$_extname-$pkgver.tgz"
+source="php-pecl-$_extname-$pkgver.tgz::https://github.com/xdebug/xdebug/archive/refs/tags/$pkgver.tar.gz"
 builddir="$srcdir/$_extname-$pkgver"
 provides="$_php-xdebug=$pkgver-r$pkgrel" # for backward compatibility
 replaces="$_php-xdebug" # for backward compatibility
@@ -50,5 +51,5 @@ package() {
 }
 
 sha512sums="
-b2b5cdad9f248d151cfed86bfccb384fd1aa7c7919ab043518735b48db2459323a65b73cc8de3d624062db3ff935de65d859c96c48b90d3eb9e7f3aa6c371386  php-pecl-xdebug-3.4.5.tgz
+06af6d20cd3ffd10e3d43b3e4493b74aa9577766a18e4ab821ed0a0e022cf10ca7b30592e76b0c59862052212a3cb3e7700c4d4bc4669a68eee34984ba489abc  php-pecl-xdebug-3.5.3.tgz
 "

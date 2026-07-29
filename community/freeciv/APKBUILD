@@ -2,7 +2,7 @@
 # Contributor: Maxim Karasev <begs@disroot.org>
 # Maintainer: Thomas Kienlen <kommander@laposte.net>
 pkgname=freeciv
-pkgver=3.1.5
+pkgver=3.2.4
 pkgrel=0
 pkgdesc="Free and Open Source empire-building strategy game (meta package)"
 url="http://www.freeciv.org"
@@ -72,9 +72,9 @@ build() {
 	./configure \
 		--prefix=/usr \
 		--sysconfdir=/etc \
-		--enable-client=gtk3.22,gtk4,qt,sdl2 \
+		--enable-client=gtk4,gtk3.22,qt,sdl2 \
 		--enable-debug=no \
-		--enable-fcmp=gtk3,qt,cli \
+		--enable-fcmp=gtk4,gtk3,qt,cli \
 		--enable-fcdb=sqlite3 \
 		--enable-ipv6=yes \
 		--with-readline \
@@ -89,6 +89,10 @@ check() {
 
 package() {
 	make DESTDIR="$pkgdir" install
+
+	# remove huge changelog files
+	rm "$pkgdir"/usr/share/doc/freeciv/ChangeLog
+	rm "$pkgdir"/usr/share/doc/freeciv/ChangeLog-1.0-S3_0
 }
 
 # subpackages
@@ -212,5 +216,5 @@ server() {
 }
 
 sha512sums="
-117c92300cffdf517d668243758d97f4457cda5511a8493c69530811d5e6e511ac40254069490b409466e9c35eb528dd3f1c10c46ff4730537445e21506c6b5c  freeciv-3.1.5.tar.xz
+23e5f40729671008281b3383782c722f03a4339602854ac33b7d07b4aee352f8cf0e8eea260aec99b9ea8a8428f88784d7b4ca3862495527febb1eb300b4ad83  freeciv-3.2.4.tar.xz
 "

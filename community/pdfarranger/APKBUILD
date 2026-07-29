@@ -1,6 +1,6 @@
 # Maintainer: Antoni Aloy <aaloytorrens@gmail.com>
 pkgname=pdfarranger
-pkgver=1.12.1
+pkgver=1.14.0
 pkgrel=0
 pkgdesc="Helps merge or split PDF documents and rotate, crop and rearrange pages"
 url="https://github.com/pdfarranger/pdfarranger"
@@ -41,5 +41,5 @@ package() {
 }
 
 sha512sums="
-50ae5016b00945f67cc2da881b57db484d247001ad25c6f43ebf5895c809ac72b07011c9d2145b36cbc1d102884873cf04a7b0d0dc6be48a5afcdd5070139bd3  pdfarranger-1.12.1.tar.gz
+4ad667eabced76ae83849e8059805a379a758c756b92d0363353b8697547008faa358bc8b96ea9348cf132b5c9851a9892dd1f301f9ffbe6b351a692cfd3a5df  pdfarranger-1.14.0.tar.gz
 "

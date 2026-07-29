@@ -1,15 +1,13 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=akonadi-contacts
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Libraries and daemons to implement Contact Management in Akonadi"
 # s390x, riscv64 blocked by akonadi
-# ppc64le, armhf blocked by qt6-qtwebengine -> akonadi
-arch="all !armhf !s390x !riscv64 !ppc64le"
+# armhf blocked by qt6-qtwebengine -> akonadi
+arch="all !armhf !s390x !riscv64"
 url="https://community.kde.org/KDE_PIM"
 license="LGPL-2.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause"
 depends_dev="
@@ -40,10 +38,12 @@ makedepends="$depends_dev
 	extra-cmake-modules
 	samurai
 	"
-checkdepends="xvfb-run"
+checkdepends="xwayland-run"
 subpackages="$pkgname-dev $pkgname-lang"
 _repo_url="https://invent.kde.org/pim/akonadi-contacts.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/akonadi-contacts-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/akonadi-contacts-$pkgver.tar.xz
+	0001-akonadi-contacts-KMime-from-KF6.patch
+	"
 
 build() {
 	cmake -B build -G Ninja \
@@ -54,12 +54,13 @@ build() {
 }
 
 check() {
-	xvfb-run -a ctest --test-dir build
+	wlheadless-run -- ctest --test-dir build
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-d05d05e1ab018ae2350149083c1122d62e31c063177c83875c99d626cbb735f325be436c0fa7c41970fb4c361ceb0c2b50e28ed9b471e2879326372d454c7228  akonadi-contacts-25.08.0.tar.xz
+2229b31f42ae989e5781453339674bb94f579fa58e74a29fb7338cb728c6a68ee10f7f8202954c5b3c0f20d83d4e64fd866401892ee21e18c0cc341e742ee2c4  akonadi-contacts-26.04.3.tar.xz
+6e96087c86429d7c3d576e323a78b0acb22f3e3dfad91607fb9e5458f4125978812bdd025242082b4d8ba2e5ab333482a7bbf5f4f638049008ca0c19f2efb386  0001-akonadi-contacts-KMime-from-KF6.patch
 "

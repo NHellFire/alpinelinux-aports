@@ -1,6 +1,6 @@
-# Maintainer: Raymond Hackley <raymondhackley@protonmail.com>
+maintainer="Saijin-Naib <Saijin-Naib_package-maintenance@outlook.com>"
 pkgname=mint-themes
-pkgver=2.3.1
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="Mint themes for GNOME/GTK desktops"
 options="!check" # It is a theme
@@ -8,18 +8,16 @@ url="https://github.com/linuxmint/mint-themes"
 arch="noarch"
 license="GPL-3.0-or-later"
 depends="mint-x-theme mint-y-theme"
-makedepends="python3 sassc"
+makedepends="py3-libsass"
 source="$pkgname-$pkgver.tar.gz::https://github.com/linuxmint/mint-themes/archive/$pkgver.tar.gz"
 subpackages="
 	$pkgname-doc
 	mint-x-theme:mint_x_theme
-	mint-x-theme-gtk2:mint_x_theme_gtk2
 	mint-x-theme-gtk3:mint_x_theme_gtk3
 	mint-x-theme-gtk4:mint_x_theme_gtk4
 	mint-x-theme-metacity:mint_x_theme_metacity
 	mint-x-theme-xfwm4:mint_x_theme_xfwm4
 	mint-y-theme:mint_y_theme
-	mint-y-theme-gtk2:mint_y_theme_gtk2
 	mint-y-theme-gtk3:mint_y_theme_gtk3
 	mint-y-theme-gtk4:mint_y_theme_gtk4
 	mint-y-theme-metacity:mint_y_theme_metacity
@@ -46,14 +44,6 @@ mint_x_theme() {
 	pkgdesc="Mint-X themes"
 	depends=""
 	amove usr/share/themes/Mint-X*/index.theme
-}
-
-mint_x_theme_gtk2() {
-	pkgdesc="GTK+2.0 assets for Mint themes"
-	depends="gtk-murrine-engine"
-	install_if="mint-x-theme=$pkgver-r$pkgrel gtk+2.0"
-
-	amove usr/share/themes/Mint-X*/gtk-2.0
 }
 
 mint_x_theme_gtk3() {
@@ -94,14 +84,6 @@ mint_y_theme() {
 	amove usr/share/themes/Mint-Y*/index.theme
 }
 
-mint_y_theme_gtk2() {
-	pkgdesc="GTK+2.0 assets for Mint-Y themes"
-	depends="gtk-murrine-engine"
-	install_if="mint-y-theme=$pkgver-r$pkgrel gtk+2.0"
-
-	amove usr/share/themes/Mint-Y*/gtk-2.0
-}
-
 mint_y_theme_gtk3() {
 	pkgdesc="GTK+3.0 assets for Mint-Y themes"
 	depends=""
@@ -135,5 +117,5 @@ mint_y_theme_metacity() {
 }
 
 sha512sums="
-1f156a233d28b1fb8ed8bb5bb7b570ae11c3c8d2a2ee0eb152f1c50b875a7379594704bfa692790be35b8d34eb65b51f9929b265dbeb238167ab47449e7282cf  mint-themes-2.3.1.tar.gz
+7a78c6acfbb88526b4d19a864ca018256af86e7923c6fde164e19d5146bbce564716f49ee7b32eb200c52efe75d123fc7a30a3684074b187037e00388a095c7f  mint-themes-2.4.0.tar.gz
 "

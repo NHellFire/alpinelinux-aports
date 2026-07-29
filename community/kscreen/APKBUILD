@@ -2,14 +2,19 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kscreen
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="KDE's screen management software"
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
 url="https://kde.org/plasma-desktop/"
 license="GPL-2.0-or-later AND LGPL-2.1-or-later"
-depends="hicolor-icon-theme"
+depends="
+	hicolor-icon-theme
+	kimageformats
+	kitemmodels
+	plasma5support
+	"
 makedepends="
 	extra-cmake-modules
 	kcmutils-dev
@@ -33,13 +38,14 @@ makedepends="
 	samurai
 	"
 checkdepends="xwayland-run"
-
+subpackages="
+	$pkgname-systemd
+	$pkgname-lang
+	"
 case "$pkgver" in
 	*.*.9*) _rel=unstable;;
 	*) _rel=stable;;
 esac
-
-subpackages="$pkgname-lang"
 _repo_url="https://invent.kde.org/plasma/kscreen.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/kscreen-$pkgver.tar.xz"
 options="!check" # Tests fail, need looking into
@@ -58,11 +64,8 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-e35b083cc8f5134fa00a43f63bd25d1661097697965f41e2de823d2f9883ac09597da19cd9ebb7bb2de94f5793b0c6a6340d456b6d1fc508e7d3706948f0761f  kscreen-6.4.5.tar.xz
+b7c8a028cca49027af606f846972349625a648f20a475a0e499d26ae8d3b39a5371b63c109ce9e6ef2472339b95825180c3c16c5615c5b6b290a9874cf4c4341  kscreen-6.7.3.tar.xz
 "

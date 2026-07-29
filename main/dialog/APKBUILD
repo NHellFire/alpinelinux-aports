@@ -1,9 +1,9 @@
 # Contributor: Michael Mason <ms13sp@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=dialog
-pkgver=1.3.20250817
-pkgrel=0
+pkgver=1.3.20260107
+pkgrel=1
 _pkgver=${pkgver%.*}-${pkgver##*.}
 pkgdesc="Script interpreter providing curses widgets"
 url="https://invisible-island.net/dialog/dialog.html"
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-c1b5f1df243b4ee44c7d0ab4cbed22b4fd66412ee8194a9dd715fecbd242db541dc53237e0d0ccf1eb11a61f81879aeeb3fe7578d8ad48a070fc5aa4b86c743e  dialog-1.3-20250817.tgz
+ef3dd7530c42489a08c2dcb0eb6597de32d22be9a22aad000b4841dc6e4fe4fc8681c0d6b3e8cc55caa8c9027f4f182f60fe3f2caa8cce39fbe50dcbff93875b  dialog-1.3-20260107.tgz
 "

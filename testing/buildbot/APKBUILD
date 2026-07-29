@@ -1,10 +1,10 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=buildbot
 pkgver=4.3.0
-pkgrel=0
+pkgrel=2
 pkgdesc="Python-based continuous integration testing framework"
 url="https://www.buildbot.net/"
-arch="noarch !armhf !loongarch64 !ppc64le !riscv64 !s390x !x86" # TODO: rollup
+arch="noarch"
 license="GPL-3.0-only"
 depends="
 	py3-alembic
@@ -23,6 +23,7 @@ makedepends="
 	py3-gpep517
 	py3-setuptools
 	py3-wheel
+	rollup
 	yarn
 	"
 checkdepends="py3-parameterized"
@@ -36,7 +37,10 @@ subpackages="
 	$pkgname-www
 	$pkgname-pyc
 	"
-source="$pkgname-$pkgver.tar.gz::https://github.com/buildbot/buildbot/archive/refs/tags/v$pkgver.tar.gz"
+source="
+	$pkgname-$pkgver.tar.gz::https://github.com/buildbot/buildbot/archive/refs/tags/v$pkgver.tar.gz
+	system-rollup.patch
+	"
 
 get_pyver() {
 	python -c "import sys; print('{}.{}'.format(*sys.version_info[:2]))"
@@ -46,7 +50,9 @@ build() {
 	for i in www/plugin_support www/data-module www/ui; do
 		cd "$builddir/$i" && msg "Building $i"
 
-		yarn install --pure-lockfile
+		yarn install --frozen-lockfile --ignore-scripts
+		rm -r node_modules/rollup
+		ln -s /usr/share/node_modules/rollup node_modules/rollup
 		yarn run build
 	done
 
@@ -146,4 +152,5 @@ www() {
 
 sha512sums="
 f86f7b1ed0b9abaad8ed6e6bc2e5d42dea43c09efc4bec93aa6a27dde8baff1f68df829a05cf890c82378a9d8bc91d26c7f24180876b15d316b1b80f3bbc0eed  buildbot-4.3.0.tar.gz
+438b98cf4fd8ade65cebe31b26933c49f5e46dac0eb0977322dda7f6c407d6f7e7a15c6911cf4c96d5b5e812ea807900b1857c4b29fb4016441addde05832adc  system-rollup.patch
 "

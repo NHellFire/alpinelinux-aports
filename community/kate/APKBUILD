@@ -1,12 +1,10 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kate
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
-# armhf blocked by extra-cmake-modules
+# armhf blocked by qt6-qtdeclarative -> ki18n
 arch="all !armhf"
 url="https://kde.org/applications/utilities/org.kde.kate"
 pkgdesc="A multi-document, multi-view text editor"
@@ -34,7 +32,10 @@ makedepends="
 	samurai
 	threadweaver-dev
 	"
-checkdepends="xvfb-run"
+checkdepends="
+	coreutils
+	xwayland-run
+	"
 subpackages="
 	$pkgname-doc
 	$pkgname-lang
@@ -65,7 +66,7 @@ build() {
 check() {
 	# kateapp-session_manager_test and kateapp-filetree_model_test are broken
 	# kateapp-sessions_action_test requires OpenGL
-	xvfb-run -a ctest --test-dir build/kate -E "kateapp-(session(_manager|s_action)|filetree_model|bytearraysplitter|diffwidget|location_history|kate_view_mgmt|kate_doc_manager)_test(|s)" -j1
+	wlheadless-run -- ctest --test-dir build/kate -E "kateapp-(session(_manager|s_action)|filetree_model|bytearraysplitter|diffwidget|location_history|kate_view_mgmt|kate_doc_manager|file_history)_test(|s)" -j1
 }
 
 package() {
@@ -83,6 +84,9 @@ kwrite() {
 	depends="kate-common"
 
 	DESTDIR="$subpkgdir" cmake --install "$builddir"/build/kwrite
+
+	# Already provided by Kate
+	rm "$subpkgdir"/usr/bin/exec_inspect.sh
 
 	# Man package only exists for Kate
 	rm -r \
@@ -125,5 +129,5 @@ kwrite_lang() {
 }
 
 sha512sums="
-eb469e224413f94273bd02667a5acfb7ba27cd72c712ec33a0fc32024eb00c8b56c2158f102d586bbad5f0fc4739eebfba1c3d905de2edd0f8071291d3f13aab  kate-25.08.0.tar.xz
+9d5f293292d8827c469a5ff499b409b75ee33b6428b6826b64aa661e6e6ef55d38108a4215fcbf43224cf988c1cb93347261bf511791fd1e72c758140c6b34c4  kate-26.04.3.tar.xz
 "

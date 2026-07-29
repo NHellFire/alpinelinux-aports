@@ -2,7 +2,7 @@
 # Contributor: Síle Ekaterin Liszka <sheila@vulpine.house>
 # Maintainer: Síle Ekaterin Liszka <sheila@vulpine.house>
 pkgname=perl-http-message
-pkgver=7.00
+pkgver=7.04
 pkgrel=0
 #_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=HTTP-Message
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-e3d62ddcc7be2641e4c9b294bec6c7f9558351c890a1d283d506eedbef29fb9d7cccf9631a0cbc4b690da2f52b14e9813f85076dae9eaec5cda1781946922546  HTTP-Message-7.00.tar.gz
+36e0f2a3819bcba799fa3cd424266c5667af943adf6e3dae2bff0f6cdb3b63a9bda47ac627e1fe3f4da2adb8f9f090dd0a1c810ceb340e842221a07d18159f14  HTTP-Message-7.04.tar.gz
 "

@@ -1,7 +1,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=py3-puremagic
 pkgver=1.30
-pkgrel=0
+pkgrel=1
 pkgdesc="Pure python implementation of identifying files based off their magic numbers"
 url="https://github.com/cdgriffith/puremagic"
 arch="noarch"
@@ -20,7 +20,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

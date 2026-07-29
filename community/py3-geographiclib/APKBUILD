@@ -1,9 +1,9 @@
 # Contributor: Alex Denes <caskd@redxen.eu>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-geographiclib
 pkgver=2.1
-pkgrel=0
+pkgrel=2
 pkgdesc="Geodesic routines from GeographicLib"
 url="https://geographiclib.sourceforge.io/Python/doc/"
 arch="noarch"

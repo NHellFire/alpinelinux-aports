@@ -1,7 +1,7 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=protoc-gen-go
-pkgver=1.36.6
-pkgrel=3
+pkgver=1.36.11
+pkgrel=6
 pkgdesc="Protocol Buffers Go generator"
 url="https://github.com/protocolbuffers/protobuf-go"
 arch="all"
@@ -12,14 +12,8 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/protocolbuffers/protobuf-go/
 builddir="$srcdir/protobuf-go-$pkgver"
 options="net" # download Go modules
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
-	go build -v \
-		-ldflags "-X google.golang.org/protobuf/internal/version.PreRelease=" \
-		./cmd/protoc-gen-go/
+	go build -v ./cmd/protoc-gen-go/
 }
 
 check() {
@@ -31,5 +25,5 @@ package() {
 }
 
 sha512sums="
-8da292743722bf7322691b93c6374fd87a11c6d6c87606684f437e089b928842578c7492e57f19effe23b5b01ad415fd0047701026cfe8cbbaa6281722426be0  protoc-gen-go-1.36.6.tar.gz
+6451cfe7321781cbd2523c2e98696cb3d28b808a3736f6adc1a9b08a6f3ff19ae65eb20ce44368568f493f6ca2fcc534b3410a7df5ce2995e1af66e55cd30e72  protoc-gen-go-1.36.11.tar.gz
 "

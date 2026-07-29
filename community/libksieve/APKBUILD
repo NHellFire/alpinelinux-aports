@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=libksieve
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="KDE PIM library for managing sieves"
 # armhf blocked by qt6-qtdeclarative -> ki18n
-# x86, armv7, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !armv7 !ppc64le !s390x !riscv64"
+# x86, armv7, s390x and riscv64 blocked by qt6-qtwebengine
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://kontact.kde.org/"
 license="GPL-2.0-only"
 depends_dev="
@@ -33,20 +33,31 @@ makedepends="$depends_dev
 	doxygen
 	extra-cmake-modules
 	graphviz
+	kde-qdoc-common
 	samurai
 	"
 checkdepends="xwayland-run"
-subpackages="$pkgname-dev $pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-dev
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/pim/libksieve.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/libksieve-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/libksieve-$pkgver.tar.xz
+	0001-libksieve-KMime-from-KF6.patch
+	"
 
 build() {
+	export KDE_DOCS=/usr/share/kde/documentation
 	cmake -B build -G Ninja \
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_QCH=ON
 	cmake --build build
+
+	#cmake --build build --target prepare_docs
+	#cmake --build build --target generate_docs
+	#cmake --build build --target generate_qch
 }
 
 check() {
@@ -56,8 +67,12 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
+
+	#DESTDIR="$pkgdir" cmake --build build --target install_html_docs
+	#DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
 }
 
 sha512sums="
-2aa820f49eac0da6b84c77882e30f54f0fd87d22911212b6cc0ffb57443388bfbb6bdeaa2faa5e338db86fe253146042f100b3bee5306eb37ac05b094a0b0d85  libksieve-25.08.0.tar.xz
+15635a4b3dfd250b94420768ad2db1dcf70556d30493a0772263d622a52024b24782962e6a4455e47754d5e3090924c274566e56fb2b0f3afa21a25619a076a3  libksieve-26.04.3.tar.xz
+a72cb32a62301d1552fe28866227db3a704bb7e43d0f5cd91346b5cf5d6f1feb0d5ec90ab359eb9669c7bd9474ae99868d676afb4d82d3ca692ba91b1dfecfae  0001-libksieve-KMime-from-KF6.patch
 "

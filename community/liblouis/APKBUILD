@@ -1,7 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=liblouis
-pkgver=3.35.0
+pkgver=3.38.0
 pkgrel=0
 pkgdesc="Braille translator and back-translator"
 url="https://liblouis.io/"
@@ -71,7 +72,13 @@ package() {
 
 _bin() {
 	pkgdesc="$pkgdesc (tools)"
-	depends="bash cmd:patgen make perl py3-$pkgname"
+	depends="bash make perl py3-$pkgname"
+
+	# s390 doesn't have patgen, but there's other scripts that don't require it
+	case "$CARCH" in
+	s390x) ;;
+	*) depends="$depends cmd:patgen" ;;
+	esac
 
 	amove usr/bin
 }
@@ -80,9 +87,9 @@ _py3() {
 	pkgdesc="$pkgdesc (python ctypes bindings)"
 	depends="$pkgname=$pkgver-r$pkgrel"
 
-	amove 'usr/lib/python*'
+	amove usr/lib/python*
 }
 
 sha512sums="
-02c39167e709baed413b3006eaf7d2a1b3eedb091d4289678dc36573e5122d1ed9bc6c287ec4ac08c492289932fdbfde1f851ee68d9a3d421409713db28194e3  liblouis-3.35.0.tar.gz
+eea856824c46a72acb797c80b1706aeca22d3503b9cbe6295d2f15177c94755707dee2f7ee6b783786df8f19716fc03bf7c79ccaa55b876cdd2516274f4cc199  liblouis-3.38.0.tar.gz
 "

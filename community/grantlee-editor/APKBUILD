@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=grantlee-editor
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Utilities and tools to manage themes in KDE PIM applications "
 # armhf blocked by extra-cmake-modules
-# x86, armv7, ppc64le, s390x and riscv64 blocked by qt6-qtwebengine
-arch="all !armhf !x86 !armv7 !ppc64le !s390x !riscv64"
+# x86, armv7, s390x and riscv64 blocked by qt6-qtwebengine
+arch="all !armhf !x86 !armv7 !s390x !riscv64"
 url="https://kontact.kde.org/"
 license="GPL-2.0-or-later AND GFDL-1.2-only"
 makedepends="
@@ -28,15 +28,19 @@ makedepends="
 	libkleo-dev
 	messagelib-dev
 	pimcommon-dev
-	qgpgme
 	qt6-qtbase-dev
 	qt6-qtwebengine-dev
 	samurai
 	syntax-highlighting-dev
 	"
-subpackages="$pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/pim/grantlee-editor.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/grantlee-editor-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/grantlee-editor-$pkgver.tar.xz
+	0001-grantlee-editor-KMime-from-KF6.patch
+	"
 options="!check" # No tests
 
 build() {
@@ -52,5 +56,6 @@ package() {
 }
 
 sha512sums="
-cbcd074b7a9ac48bdf7533e70aabe6049200acd59ff915310a08957483d0ebb31e433c27419b98a96afcaabd39f59fcf5e8028f243c864db9c91b7f179d6a0af  grantlee-editor-25.08.0.tar.xz
+8752f69aea737b4578b0676dd5b015117b92f1964bd3bd280b40299eb7d1a63103a317f15737aed941dbedea066ad47e5b645f0e51d0a0b42ebb2f36ff20057c  grantlee-editor-26.04.3.tar.xz
+109050f3b241a6314a776a41ed783811fef7f17f9c666fa051da3861c77d965dc324a800ebae993d9afce32ab7eeac38a2fab9b2d407c523524b19bad6604d06  0001-grantlee-editor-KMime-from-KF6.patch
 "

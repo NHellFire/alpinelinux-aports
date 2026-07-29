@@ -1,7 +1,7 @@
 # Contributor: ScrumpyJack <scrumpyjack@st.ilet.to>
 # Maintainer: ScrumpyJack <scrumpyjack@st.ilet.to>
 pkgname=bluefish
-pkgver=2.2.17
+pkgver=2.4.1
 pkgrel=0
 pkgdesc="Bluefish is an editor targeted towards programmers and webdevelopers"
 url="https://bluefish.openoffice.nl/"
@@ -29,5 +29,5 @@ package() {
 }
 
 sha512sums="
-9815316f265c48ea37afa513e6530470f4c4af37f27ddf0873a8b27c5a3f58b3927614e7465e950b4eb05a93f3daab458ccbc70547484539568c3ca1499f6a46  bluefish-2.2.17.tar.bz2
+a66e19c514b04b5a04539fe6b5c034894ea4f806a68b15cc26abd6b773c3d52f056d13e70089e8ada000f74aa0df93f3a9ab67b770dec26af5248e61124149e4  bluefish-2.4.1.tar.bz2
 "

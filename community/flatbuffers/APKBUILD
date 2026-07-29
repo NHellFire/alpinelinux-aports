@@ -1,8 +1,8 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=flatbuffers
-pkgver=25.2.10
-pkgrel=0
+pkgver=25.12.19
+pkgrel=1
 pkgdesc="Memory Efficient Serialization Library"
 url="https://flatbuffers.dev/"
 # armhf: blocked by bus error in tests
@@ -63,6 +63,6 @@ py3() {
 }
 
 sha512sums="
-7e6ae36b37c9fd322456312504156c8241852e07a2a23de6805eb2328b61b9f42b839d04b839f9d97623195721308437a1163a25071ca2af0d00a6417da74822  flatbuffers-25.2.10.tar.gz
-a5460ec027f2884f5801e01d3ef7f831be3ecd92fc9586ab33764467e3de79855f87c4b639806ad6884ec8eac41d6d6f6204644c84ddbcea9fba3798943b1e57  locale-headers.patch
+808c77536fbfb1c8a1145506873a2b4e5cb508e48bf35f8502a2d1349b64e7581bfe7ff2f587b3edb2642cc885c60c0170a8875fad245240a1288057f4c07a42  flatbuffers-25.12.19.tar.gz
+7908f8b95f881af6caa291383ea600be2e7b297c6c236021ad4a8789909ed3f92ba0cbfa038d8b84523d94fafc07939b00c279323b7e6eac8de9e36fba0a5c0b  locale-headers.patch
 "

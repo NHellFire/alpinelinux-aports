@@ -1,8 +1,8 @@
 # Contributor: Antoine Martin (ayakael) <dev@ayakael.net>
 # Maintainer: Antoine Martin (ayakael) <dev@ayakael.net>
 pkgname=dotnet8-sdk
-pkgver=8.0.120
-_bldver=8.0.20-r0
+pkgver=8.0.129
+_bldver=8.0.29-r0
 pkgrel=0
 
 # Following for dotnet build version 6.0 and up
@@ -23,7 +23,7 @@ pkgdesc="The .NET $_pkgver_macro SDK"
 # s390x | ppc64le: mono-based builds are not yet stable on musl
 # loongarch64: blocked by dotnet8-runtime
 arch="all !x86 !armhf !riscv64 !s390x !ppc64le !loongarch64"
-url=https://dotnet.microsoft.com
+url="https://dotnet.microsoft.com"
 license="MIT"
 makedepends="dotnet$_pkgver_name-runtime-bootstrap=$_bldver"
 subpackages="
@@ -34,7 +34,6 @@ subpackages="
 	dotnet-doc
 	netstandard21-targeting-pack:netstandard_targeting_pack:noarch
 	"
-provides="dotnet$_pkgver_name=$pkgver-r$pkgrel"
 options="!check" # No test suite
 builddir="$srcdir"
 _libdir="/usr/lib"

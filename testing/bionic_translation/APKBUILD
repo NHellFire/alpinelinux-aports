@@ -1,8 +1,8 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=bionic_translation
-pkgver=0_git20250829
+pkgver=0_git20260317
 pkgrel=0
-_commit="2165bcbaff028b83cb2517ff894dc22d0ffdf2d5"
+_commit="ee37eb21c91409fe0eed833d0a5a0aa6b931bb7b"
 pkgdesc="A set of libraries for loading bionic-linked .so files on musl/glibc"
 url="https://gitlab.com/android_translation_layer/bionic_translation"
 arch="x86_64 aarch64 armv7 x86"
@@ -15,8 +15,10 @@ makedepends="
 	meson
 	samurai
 	"
+checkdepends="bubblewrap"
 subpackages="$pkgname-dev $pkgname-dbg"
 source="https://gitlab.com/android_translation_layer/bionic_translation/-/archive/$_commit/bionic_translation-$_commit.tar.gz"
+options="!check" # Tests require bubblewrap which can not run in CI/containerized environments
 builddir="$srcdir/bionic_translation-$_commit"
 
 build() {
@@ -34,5 +36,5 @@ package() {
 }
 
 sha512sums="
-ce4278a8a0f80a71b3e3800d12fdf1ab1ba0e3dadc820d4d7153b2b325e64bee6e94ef44b5b5d106cfce3d50c7c7a40d4600577cd14dd9aada0d8ac9d53081b3  bionic_translation-2165bcbaff028b83cb2517ff894dc22d0ffdf2d5.tar.gz
+713f3a7c147e06781eb60f352d2c801b1b661e52bd33aa627ec1bbcb3587f15af33393f8068d9e341f6869777ac008bee6c8ef8a26f0826049a9fa226dcdbeac  bionic_translation-ee37eb21c91409fe0eed833d0a5a0aa6b931bb7b.tar.gz
 "

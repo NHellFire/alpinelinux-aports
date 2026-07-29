@@ -1,7 +1,7 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=toot
-pkgver=0.50.1
+pkgver=0.52.1
 pkgrel=0
 pkgdesc="mastodon cli & tui"
 url="https://github.com/ihabunek/toot"
@@ -19,12 +19,13 @@ depends="
 	py3-urwidgets
 	py3-wcwidth
 	"
-makedepends="py3-gpep517 py3-setuptools py3-wheel"
+makedepends="py3-gpep517 py3-setuptools py3-setuptools_scm py3-wheel"
 checkdepends="py3-pytest"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/t/toot/toot-$pkgver.tar.gz"
 
 build() {
+	SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver" \
 	gpep517 build-wheel \
 		--wheel-dir .dist \
 		--output-fd 3 3>&1 >&2
@@ -43,5 +44,5 @@ package() {
 }
 
 sha512sums="
-902fde04926cdc8364f7e3622af3ed761ef1179f2dd3a566feffc7ff51a2df5b1f308158aa12b347a683174a9f94f46f73d1c373a13d6531eae83b7e4dbdce78  toot-0.50.1.tar.gz
+bc292ad866bae848cfd990244766f3fd1891dfb3373b151b538b44a3f898ee07f25ead843fc28896cd86615746ccb12c9c05e9792f5309fa89d4c407a9c836b3  toot-0.52.1.tar.gz
 "

@@ -1,12 +1,10 @@
-# Contributor: Bart Ribbers <bribbers@disroot.org>
-
 # The group tag is just to easily find this APKBUILD by some scripts for automation
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kapidox
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
-arch="noarch !armhf" # armhf blocked by extra-cmake-modules
+arch="noarch"
 pkgdesc="Scripts and data for building API documentation (dox) in a standard format and style"
 url="https://community.kde.org/Frameworks"
 license="BSD-3-Clause"
@@ -42,5 +40,5 @@ package() {
 }
 
 sha512sums="
-2cd3914741d228bd1fa4cf71d4501000cd85a4c08aeb6bd92c2d3a6f2f6f654a1005fe0a43bb60a94927da95c453d04ef90c620d1b07fddc7d578b894c810993  kapidox-6.17.0.tar.xz
+7445e06c4566ff5b4b58a011d1266c535bbdcacd565fdf87373581725b26dcbfdee96019f8a9b5f3623de4fc8ee9fe159be2e154fbf3b20bca466fa3474f37c4  kapidox-6.28.0.tar.xz
 "

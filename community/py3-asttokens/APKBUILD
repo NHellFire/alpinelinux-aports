@@ -1,7 +1,7 @@
 # Contributor: Justin Berthault <justin.berthault@zaclys.net>
 # Maintainer: Will Sinatra <wpsinatra@gmail.com>
 pkgname=py3-asttokens
-pkgver=3.0.0
+pkgver=3.0.2
 pkgrel=0
 pkgdesc="Annotate AST trees with source code positions"
 url="https://github.com/gristlabs/asttokens"
@@ -12,7 +12,6 @@ makedepends="py3-gpep517 py3-setuptools_scm py3-wheel"
 checkdepends="py3-astroid py3-pytest"
 subpackages="$pkgname-pyc"
 source="https://files.pythonhosted.org/packages/source/a/asttokens/asttokens-$pkgver.tar.gz"
-
 builddir="$srcdir/"asttokens-$pkgver
 
 build() {
@@ -43,5 +42,5 @@ package() {
 }
 
 sha512sums="
-e4cab19517597c446043eab8e8eddd192fc4743dadf338720733f9dd1647829310a01386c2345a346ab242cabceb3454832ea5671cb252f434c59e3866460157  asttokens-3.0.0.tar.gz
+a1d055bf3f4f1f788b5e581585b5a2009b54b7fed5ff63ebbd49c97d8bc820f205be974668d9dcf46a2f5345fcc8714d52395c416fccbf1d14af7d157090b8e3  asttokens-3.0.2.tar.gz
 "

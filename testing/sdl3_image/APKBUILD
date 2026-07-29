@@ -1,8 +1,8 @@
 # Contributor: knuxify <knuxify@gmail.com>
-# Maintainer: knuxify <knuxify@gmail.com>
+maintainer="Wen Heping <wenhepingalpine@sohu.com>"
 pkgname=sdl3_image
-pkgver=3.2.4
-pkgrel=0
+pkgver=3.4.4
+pkgrel=1
 pkgdesc="A simple library to load images of various formats as SDL surfaces"
 url="https://github.com/libsdl-org/SDL_image"
 arch="all"
@@ -31,6 +31,8 @@ build() {
 }
 
 check() {
+	[ "$CARCH" = "ppc64le" ] && return 0   # skip the check on ppc64le
+
 	ctest --test-dir build
 }
 
@@ -39,5 +41,5 @@ package() {
 }
 
 sha512sums="
-397ff126f6f95351d9addb3ac2d2c228fa2e4c513ca46525b326a64c6e73c40fd651d232d503fd757a03c55a7fa372a885f07d5f72d80dd17a2850816295d82e  sdl3_image-3.2.4.tar.gz
+a20269e064e68dd892084d8d6d6f3d5d44a6a75994808a1579ed7deeedc22c4230ec982d1166a0b85aca0b9a3625ac84e6fe9093dccebb78bf0b7cc01bc6c711  sdl3_image-3.4.4.tar.gz
 "

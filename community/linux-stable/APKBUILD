@@ -1,15 +1,31 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 _flavor=stable
 pkgname=linux-$_flavor
-pkgver=6.16.7
+pkgver=7.1.5
 _kernver=${pkgver%.*}
 pkgrel=0
 pkgdesc="Linux stable kernel"
 url="https://www.kernel.org"
 depends="initramfs-generator"
 _depends_dev="perl gmp-dev mpc1-dev mpfr-dev elfutils-dev bash flex bison zstd"
-makedepends="$_depends_dev sed installkernel bc linux-headers linux-firmware-any openssl-dev>3 mawk
-	diffutils findutils zstd pahole python3 gcc>=13.1.1_git20230624 bpftool"
+makedepends="$_depends_dev
+	bc
+	bpftool
+	diffutils
+	elfutils
+	findutils
+	gcc>=13.1.1_git20230624
+	grep
+	installkernel
+	linux-firmware-any
+	linux-headers
+	mawk
+	openssl-dev>3
+	pahole
+	python3
+	sed
+	zstd
+	"
 provides="linux-edge=$pkgver-r$pkgrel"
 options="!strip !check"
 _config=${config:-config-stable.${CARCH}}
@@ -19,7 +35,8 @@ source="https://cdn.kernel.org/pub/linux/kernel/v${pkgver%%.*}.x/linux-$_kernver
 	0003-kexec-add-kexec_load_disabled-boot-option.patch
 	0004-objtool-respect-AWK-setting.patch
 	0005-powerpc-config-defang-gcc-check-for-stack-protector-.patch
-	0006-UPSTREAM-libbpf-Avoid-possible-use-of-uninitialized-.patch
+	0006-FROMLIST-x86-tools-Scope-uapi-include-dirs-to-vdso2c.patch
+	0007-FROMLIST-resolve_btfids-preserve-tag-and-parameter-n.patch
 
 	stable.aarch64.config
 	stable.armv7.config
@@ -181,8 +198,16 @@ build() {
 			AWK="${AWK:-mawk}" \
 			KBUILD_BUILD_VERSION="$((pkgrel + 1 ))-Alpine"
 
-		# Generate vmlinux.h
-		bpftool btf dump file vmlinux format c > vmlinux.h
+		if grep -q '^CONFIG_DEBUG_INFO_BTF=y' .config; then
+			# Generate vmlinux.h
+			bpftool btf dump file vmlinux format c > vmlinux.h
+
+			if [ "$CARCH" = "ppc64le" ]; then
+				# ppc64le installs the uncompressed vmlinux, which is extremely
+				# large with BTF debuginfo unless stripped
+				eu-strip --remove-comment vmlinux
+			fi
+		fi
 	done
 }
 
@@ -219,16 +244,6 @@ _package() {
 
 	install -D -m644 include/config/kernel.release \
 		"$_outdir"/usr/share/kernel/$_buildflavor/kernel.release
-
-	case "$CARCH" in
-	loongarch64)
-		mv  "$_outdir"/boot/config-$_abi_release \
-			"$_outdir"/boot/config-$_buildflavor
-
-		mv  "$_outdir"/boot/System.map-$_abi_release \
-			"$_outdir"/boot/System.map-$_buildflavor
-		;;
-	esac
 }
 
 # main flavor installs in $pkgdir
@@ -275,7 +290,9 @@ _dev() {
 	install -D -t "$dir"/certs "$_builddir"/certs/signing_key.x509 || :
 
 	# Install vmlinux.h
-	install -Dm644 "$_builddir"/vmlinux.h -t "$dir/"
+	if grep -q '^CONFIG_DEBUG_INFO_BTF=y' "$_builddir"/.config; then
+		install -Dm644 "$_builddir"/vmlinux.h -t "$dir/"
+	fi
 
 	make -C "$builddir" \
 		O="$dir" \
@@ -318,20 +335,21 @@ _dev() {
 }
 
 sha512sums="
-9351c2d01a914854831cd5db71aec3ebf9887161871ba7a00fdd234849121764b0af9ce4b08c5f275d9278268fc960e4aa4232edec15220e75113fc9610ca59e  patch-6.16.7.patch.xz
-55a00f89ad6db6db2e26ff5dc5cfc96bbf6654e5bd5d17d2a3b944a47640367e54139716d230923187bebc6cb7756edc9511a620fb8abc6f32c50a658a734784  linux-6.16.tar.xz
-daa3c9540612416084b6ff1319b64f2a628308a3ce4693621b95caa502d615bd4047aec0121d5e42a6e9aad099c106ee14708d8afefe7906350d58425ff0e86e  0001-powerpc-boot-wrapper-Add-z-notext-flag-for-ppc64le.patch
-07a9af2dda7f7abdadeb725243f69fae68baef38adc216dd96b94de524b9a3acdb1c2dcd209e9b8715413df5dc078972a319ac10ef4ae7cbb8acf15aaf331b60  0002-x86-Compress-vmlinux-with-zstd-19-instead-of-22.patch
-507574a7a7b406107ffdfed02c793f240990460db1f572fe404891dc5f76ee950876591d34163e4800e46d024b9a4015be12c072f9f595a30fddde167aba9711  0003-kexec-add-kexec_load_disabled-boot-option.patch
-cdc31bd684e620c2d39d1d5f15e645466e720a31d20e21735c1a7d2067c035ee3c623dc742a7e07ce1ccb6407001c026327db075083a386f80534f5d9926cede  0004-objtool-respect-AWK-setting.patch
-1cce03885a4b5f045fae2a31dc28ae419c1be164ae638774bd91e1c9f26dcf461c66ff423d6cac0538bc653b70d5e770a149e01e387f00202ab98b99b4633765  0005-powerpc-config-defang-gcc-check-for-stack-protector-.patch
-f8cac7ba8b68bce24016a03a1521bef5f4ad8558cc31ca61459d31c79b537d040c76fd2a87716fb52c5965d9c09993a2e4c232ea6676dd63841851d73c1cdab1  0006-UPSTREAM-libbpf-Avoid-possible-use-of-uninitialized-.patch
-8a787b520349704ad64fa6aedba7137cd66586442c359e2bddfa27fdaa22edb9f8656315f8b51c8b6191d3236524a3991d5413c39e879378120d5ff696b1d82c  stable.aarch64.config
-d7b37189b14f1cea940a4d172473483d47b8599c3df5171a72a4ae30934113879dfedba6b587140ea31ad7a9f46269cd410e1887971736b00f3febb09f8285d9  stable.armv7.config
-5ec3c458b37d0f06b6732c097c1be020cbff43f1f48e1e8bfbeb1400c546e680db4d6771f6334f93238c8f8be0c252bc4627ace220ecaea0b186f7a5f58d605f  stable.loongarch64.config
-8a51f303d1ae2048115fbba0807331c161ab51d8a2718892cd2b9b8aba9a952fae190be342c997ae11e053feb299489f0e35e09b8465c7ef9c8ddf160fc4beaa  stable.ppc64le.config
-8f14db43c90746b1864d2db343fdd92299695bc0a034c8ae54f5e05e75d341001683cec715ababaa2c8dbf0dff165451d069537ed44f1cab0a8025a7b0f3b97e  stable.riscv64.config
-77300726ab042d5356ecfce40c417072a0dcae80cd456ac2c860728b97561da5ec572d0c6b6d9b676e301ffbc09acc0ce921d06cd236aafa6a42c77943b120be  stable.s390x.config
-2de6576d1ac373392490942e24c420fffff406dca096a9637d256fec105bd4307e7b159fa31e23a6090f26a41ccf7ec1a1bcb9747721ddd902337485d764f469  stable.x86.config
-d837db3cddd49fdd3b1b48157c968c105afba925749bee48ddf0849dee35652f0931be424ccb3f52dfc06044222f0625f5dad257165b96f67ff48dab6aa6d501  stable.x86_64.config
+fc3cc487e2a633b9c2f0122a2dcdc3e515b4ad433c72372d7cf489b2c60ac186bc6b5ba9a1a7ea40683a5387c0300349ca6873d2938dc4ed2292e77f1743e01f  patch-7.1.5.patch.xz
+d4d9c45261813559341c67ea53d4a47f5a04d1ad15e3c2b8222a09b5483380d2bfd31b8c675e144db2eb91f560d6cb28f66187a5ea4f24f6dfb82a4ad48064cc  linux-7.1.tar.xz
+306d6b0a4f08b03f9ec5da3c67c097f97beba29f3445f4103d484ba183913c6030c5ea0e05af053cbcf63a68ab9b26ff3c62e434ede2223784189adf6040f14c  0001-powerpc-boot-wrapper-Add-z-notext-flag-for-ppc64le.patch
+13de75abaf01ff80be191f80af647f55af6056068aa8e9557de4a3b45d2c6669d7c9c8d3bf5ee67254839988ddf8674a203555fd4d41f56eb3bfabb1a230b8f5  0002-x86-Compress-vmlinux-with-zstd-19-instead-of-22.patch
+72a61f9d24d61948e040b7ff3982e9895d6b3cff92bd8c67bfef74507f8178b863365f6dcdad4e083ca6aae173f02da4df75857269c01ecb7724390e081222cd  0003-kexec-add-kexec_load_disabled-boot-option.patch
+38f1947531389a83fd41d7827c10b1bc563f219331f3dd65df8df1ad5f7323f79415bba481e5a2bbd80ff0edb4699c6cfc612f6447061801c5a0993a74167875  0004-objtool-respect-AWK-setting.patch
+bdde4341c92d24419136c7acfaf5d88672b38d19ca910a8db6deb816fd61a24efddc4109425c7766b6b5b0c49c78cd47d8e3ac7eef2e5d140fff5739bf1c75d2  0005-powerpc-config-defang-gcc-check-for-stack-protector-.patch
+55f0045f3dfb3ea71c32cde95e219ae41674219dee677d19841a509ace5337919b974feb2ae47c89b4f3de769bf35eef3a7c13364ecf37c693db8d0702259312  0006-FROMLIST-x86-tools-Scope-uapi-include-dirs-to-vdso2c.patch
+84df2d6df9524925a973f401e2a27faf23533bf9f99445570d925936bbbc3d54cf7f5673724a1c7e19b4e89ba765dd1bf06e0a972f1b7032c2f37a846ca598da  0007-FROMLIST-resolve_btfids-preserve-tag-and-parameter-n.patch
+228f056ed3551bc457e45fe795b21e9ad80dce2a5bc0ab2d52cd2b29bee27b95d177aed1ee361697eeecb6946a114cc2dd37f0f583b014d350e5d16e30b182a4  stable.aarch64.config
+968d8972e18fcb50f2c4365c2756aabb330f56d1b4de8a1b19b2e7ba2ceffefe3f6330d35886b4dbe1ac28220397be6cff52e7c3b51fb0ef68de3af02817cbcb  stable.armv7.config
+9eef04105c987dd47503e157921d27d6c9eee21fad531f8cfd4c85e9ff2d877b89d6b040489004bd4bca6f4989b78c7955915afbb75ad63d4ccb5c87045e8df0  stable.loongarch64.config
+1f0ab97e3c225d7156adaf62ba12884ad4971434206a7023f98182c745156de203d7c8effc9ebd41762c089d47217b1ef5c518dfec0af2f757dc847e37c46250  stable.ppc64le.config
+6e9e355f902a85286130031d20f4d895d43f4f623b33029fa1d18ce39a60c3adf095237319133fe5538cb2680d046a122049f2314e62f3f2ed5136089521764f  stable.riscv64.config
+5c57a53a3c9bdf340e0daf09405bf4f06a1d259c4454f7d5f21ba98e4e522f606a826e371a2b34613483f608816a6c7819cab87c63139b230a2e1f0432ba1fbb  stable.s390x.config
+45a8645a20349093ae64a3d3f92d62f303b0b297369a19dd5cb850064485ea53a8a9bcf89c812ab04b1a0ae79d3c18217b30b18efb456a5ac094f23c7f604d99  stable.x86.config
+8e288847124672ce8040ecbcc13e0cdf48e394a06f96e7aa8790419e80ff063d14fc8b0e12bbaa9705a1534f2b8f2893fb821819da3d4235e40a11d0213d8d79  stable.x86_64.config
 "

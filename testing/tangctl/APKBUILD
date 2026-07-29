@@ -3,13 +3,14 @@
 pkgname=tangctl
 pkgver=0_git20241007
 _gitrev=6e32b5887d691ad56e30806196f428f32d2b17ad
-pkgrel=7
+pkgrel=15
 pkgdesc="Tool implementing server-side ECMR exchange functionality (Tang server)"
 url="https://github.com/anatol/tang.go"
 license="BSD-3-Clause"
 arch="all"
 makedepends="go"
 checkdepends="clevis curl tang"
+options="net" # go
 source="https://github.com/anatol/tang.go/archive/$_gitrev/tang.go-$pkgver.tar.gz
 	tang-location.patch
 	"
@@ -17,9 +18,6 @@ builddir="$srcdir/tang.go-$_gitrev"
 
 export GOFLAGS="$GOFLAGS -trimpath -mod=readonly -modcacherw"
 export GOPATH="$srcdir"
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build ./cmd/tangctl

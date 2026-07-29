@@ -1,7 +1,7 @@
 # Contributor: Kevin Daudt <kdaudt@alpinelinux.org>
-# Maintainer: Kevin Daudt <kdaudt@alpinelinux.org>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=semodule-utils
-pkgver=3.9
+pkgver=3.11
 pkgrel=0
 pkgdesc="SELinux semodule utilities"
 url="https://github.com/SELinuxProject/"
@@ -21,5 +21,5 @@ package() {
 }
 
 sha512sums="
-169176f5c1b5a0d4a09c4aa3903a15baca4241f5a46c1380ebdd0bea6970b274f2885e5582e832a1be6e35bb1227291449e57d5fffc316e1aa4c2585fb9e1f4e  semodule-utils-3.9.tar.gz
+aafa17a03b5087e70df77f03860c86699e9cb727796dedf760de1bb10bd6e794221f8b4435a25c8e722f2d255010d8a9ef3766ffe998f2138c4e2f947faa05f6  semodule-utils-3.11.tar.gz
 "

@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=knavalbattle
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-ff106444afd1c18bca52db722478a936e2f09172ebdb018d10369e4f0ca707da8cf04e5907c69e8e76eb0a9553ef1d5876b030e76d292e8b5ea5b01a5e195bbd  knavalbattle-25.08.0.tar.xz
+c1b39990b89a31154a4bb15d4a132255323c9658ed0659582721a43cd6454caf6e5e26bb7c2da13b612756822df30f718a731480307a21cfc8c161d74b9d1831  knavalbattle-26.04.3.tar.xz
 "

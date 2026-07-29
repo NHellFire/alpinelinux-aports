@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kbookmarks
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Support for bookmarks and the XBEL format"
 # armhf blocked by qt6-qtdeclarative -> kconfig, qt6-qtmultimedia -> kcoreaddons
@@ -55,5 +55,5 @@ package() {
 }
 
 sha512sums="
-038927b0d569076cb56334f528490fb0be7f8a64899a6000d8b827544c3c984c6177092e8a0f6d557ae8b0cc40e0f9f42280cca118991c85ac07ad1a520fd608  kbookmarks-6.17.0.tar.xz
+29445bec3307345d22ad65c5061e9f3e05f22131cb45d0762ff866d46de66fe572463ed2bcbd491e05599f5d7cd50058143b16ce06045266e874447349ae8039  kbookmarks-6.28.0.tar.xz
 "

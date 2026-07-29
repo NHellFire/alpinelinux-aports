@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=gnome-maps
-pkgver=49.0
+pkgver=50.2
 pkgrel=0
 pkgdesc="simple map client"
 url="https://apps.gnome.org/Maps"
@@ -17,9 +17,11 @@ depends="
 	rest1
 	"
 makedepends="
+	blueprint-compiler
+	desktop-file-utils
 	folks-dev
 	geoclue-dev
-	geocode-glib-dev>=3.26.4-r1
+	geocode-glib-dev
 	gjs-dev
 	glib-dev
 	gobject-introspection-dev
@@ -29,7 +31,7 @@ makedepends="
 	libgweather4-dev
 	libportal-dev
 	librsvg-dev
-	libshumate-dev>=1.0.1-r1
+	libshumate-dev
 	libxml2-dev
 	meson
 	rest1-dev
@@ -55,5 +57,5 @@ package() {
 }
 
 sha512sums="
-7f6a997148b34f7fbcc0f18500b93d6d51345052b6f50dd6bdeb39bcda4b0bff928f578d9a94c88dcec0d834c7c458820535daa50f552f3830125f5238fb0124  gnome-maps-49.0.tar.xz
+8fa77e202b6a59ee57314aea2e4508d2f67771ddca1cb26ff20c98221ab715939e5d3683dc572c6c23748e5c96b9aa797b9b24fe1ac6aec0a40d2d0558da0aba  gnome-maps-50.2.tar.xz
 "

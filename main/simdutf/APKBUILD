@@ -1,11 +1,12 @@
 # Contributor: lauren n. liberda <lauren@selfisekai.rocks>
 # Maintainer: lauren n. liberda <lauren@selfisekai.rocks>
 pkgname=simdutf
-pkgver=7.3.6
+pkgver=9.0.0
 pkgrel=0
 pkgdesc="Unicode validation and transcoding at billions of characters per second"
 url="https://simdutf.github.io/simdutf/"
 arch="all"
+_llvmver=21
 makedepends="
 	cmake
 	samurai
@@ -19,6 +20,17 @@ subpackages="
 	"
 source="https://github.com/simdutf/simdutf/archive/v$pkgver/simdutf-$pkgver.tar.gz
 	"
+
+case "$CARCH" in
+	loongarch64)
+		# lasx impl fails on gcc with https://gcc.gnu.org/bugzilla/show_bug.cgi?id=65873
+		makedepends="$makedepends clang$_llvmver"
+		export CC="clang-$_llvmver"
+		export CXX="clang++-$_llvmver"
+		export CXXFLAGS="$CXXFLAGS -mlasx -mlsx"
+		;;
+	*) ;;
+esac
 
 build() {
 	if [ "$CBUILD" != "$CHOST" ]; then
@@ -44,12 +56,9 @@ package() {
 	install -Dm644 LICENSE-MIT -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
-doc() {
-	amove usr/share/licenses
-}
-
 fastbase64() {
 	amove usr/bin/fastbase64
+	amove usr/bin/fastbase64.coreutils
 }
 
 sutf() {
@@ -57,5 +66,5 @@ sutf() {
 }
 
 sha512sums="
-d3fcf6277036bb5b87be74489f6003f720b9f5b9323368bdc692f625fa846496ef34bda6903c9825a1de7e346930034db70e23657456311609874ea11523000b  simdutf-7.3.6.tar.gz
+0c74226247cbe95368efa87ab84f5217485f16bcdf7a9def8741c6086cb86e6c378f0c437030d2be0934726e3ea9c28b5df2e593d0c654c78291c455a8d1e103  simdutf-9.0.0.tar.gz
 "

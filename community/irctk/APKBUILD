@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=irctk
 pkgver=1.1.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Extensible GUI IRC client written in Tcl/Tk"
 url="https://lab.abiscuola.com/irctk/"
 arch="all"
@@ -13,7 +13,9 @@ subpackages="
 	$pkgname-doc
 	$pkgname-transport-fossil:_transport_fossil
 	"
-source="https://lab.abiscuola.com/irctk/tarball/$pkgver/irctk-$pkgver.tar.gz"
+source="https://dev.alpinelinux.org/archive/irctk/irctk-$pkgver.tar.gz"
+# bot check
+#source="https://lab.abiscuola.com/irctk/tarball/$pkgver/irctk-$pkgver.tar.gz"
 options="!check" # no test suite
 
 build() {

@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=knewstuff
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Framework for downloading and sharing additional application data"
 # armhf blocked by qt6-qtdeclarative
@@ -77,5 +77,5 @@ package() {
 }
 
 sha512sums="
-a3b88032e9f864260fdc9d414e79e8d868ac1b780ff09ae7ddbb20ad61702f3015f1f31ff4ff8183ecce356cb774cdce0962b6132ef442b4099119bb22179d5c  knewstuff-6.17.0.tar.xz
+0b53f8e3e62220fca3e58f441d24831f308324614e00b028687192d67973119293fd9615d9be21cd269e92cb5b40fe8f70e34133431ee6a007c2dd58d1677c53  knewstuff-6.28.0.tar.xz
 "

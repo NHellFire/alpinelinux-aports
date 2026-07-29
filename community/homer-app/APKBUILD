@@ -1,7 +1,7 @@
 # Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
 pkgname=homer-app
 pkgver=1.5.10
-pkgrel=2
+pkgrel=10
 pkgdesc="HOMER 7.x Front-End and API Server"
 url="http://sipcapture.io"
 arch="all"
@@ -16,10 +16,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/sipcapture/homer-app/archive
 
 	0001-change-web-and-config-paths.patch
 	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 prepare() {
 	default_prepare

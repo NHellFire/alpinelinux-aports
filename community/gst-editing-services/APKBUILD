@@ -1,8 +1,10 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-maintainer="Krassy Boykinov <kboykinov@teamcentrixx.com>"
+maintainer="team/alpine-desktop <achill@achill.org>"
 pkgname=gst-editing-services
-pkgver=1.26.6
+pkgver=1.28.5
 pkgrel=0
+# NOTE: Upgrade together with the whole GStreamer suite &
+# only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
 pkgdesc="GStreamer Editing Services Library"
 url="https://gstreamer.freedesktop.org"
 arch="all"
@@ -22,8 +24,9 @@ makedepends="
 	python3
 	"
 subpackages="$pkgname-dev $pkgname-doc $pkgname-pyc"
-source="https://gstreamer.freedesktop.org/src/gst-editing-services/gst-editing-services-$pkgver.tar.xz"
-options="!check" # https://gitlab.freedesktop.org/gstreamer/gst-editing-services/-/issues/125
+source="https://gstreamer.freedesktop.org/src/gst-editing-services/gst-editing-services-$pkgver.tar.xz
+	s390x-test-failure.patch
+	"
 
 build() {
 	CFLAGS="$CFLAGS -O2" \
@@ -45,5 +48,6 @@ package() {
 }
 
 sha512sums="
-64c5e70fa08662b983dc1ca7d31e24bab10bf1fccdc525092d4a5ea3645bc70ac134b69c6a3eaa389393a1295d91ac017b1cc2cfdc6c46c8464f7c8776bddea6  gst-editing-services-1.26.6.tar.xz
+4dd7d937b799e0474759d4c2589d40619179b370efb872e77c96bcdb1c7be2b6d2a915b87fc8c9068e8c9931342748474545dbe73066cef73863cdd7578bb91d  gst-editing-services-1.28.5.tar.xz
+55e8bb90b8edb52bf1e1cf51cb08abd60993673954c08c1ffd6249bc35cb33931e8116e4c4a3275d0f1abd5e92aaa178e7a8abe22b4f2498830bdbf5dea765d7  s390x-test-failure.patch
 "

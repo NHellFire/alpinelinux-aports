@@ -1,0 +1,44 @@
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
+pkgname=scenefx
+pkgver=0.5
+pkgrel=0
+pkgdesc="A drop-in replacement for the wlroots scene API with eye-candy effects"
+arch="all"
+url="https://github.com/wlrfx/scenefx"
+license="MIT"
+subpackages="$pkgname-dev $pkgname-doc"
+makedepends="glslang
+	lcms2-dev
+	libxkbcommon-dev
+	muon
+	pkgconf
+	samurai
+	wayland-protocols
+	wlroots0.20-dev
+	"
+options="!check" # No tests
+source="$pkgname-$pkgver.tar.gz::https://github.com/wlrfx/scenefx/archive/refs/tags/$pkgver.tar.gz
+	add-missing-include-for__always_inline.patch
+	"
+
+depends_dev="$pkgname=$pkgver-r$pkgrel"
+
+build() {
+	abuild-muon \
+		-Dauto_features=enabled \
+		-Dexamples=false \
+		output .
+	ninja -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" muon -C output install
+
+	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+}
+
+sha512sums="
+055511e88ba4036e6bb4a9f1c5f3a16c4841c518a57b98ad824dd0ecd53c251541a9801be9c760ebf78936400918a51c3b04300f22a47437077d444bc7bc2f08  scenefx-0.5.tar.gz
+d7c75ad296f9a9e88ca170161bdef3b579eaab6e5493b479bd1444533f7c02005491b90267cdfbb0370bd7b450f42d3eab03279996c5053fcc54629edee5bda4  add-missing-include-for__always_inline.patch
+"

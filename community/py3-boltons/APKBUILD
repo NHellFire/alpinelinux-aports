@@ -1,7 +1,7 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 # Maintainer:
 pkgname=py3-boltons
-pkgver=24.0.0
+pkgver=26.1.0
 pkgrel=0
 pkgdesc="Bolted-on functionality for python3"
 url="https://github.com/mahmoud/boltons"
@@ -12,10 +12,13 @@ makedepends="
 	py3-gpep517
 	py3-setuptools
 	py3-wheel
+	py3-flit-core
 	"
 checkdepends="py3-pytest-xdist py3-pytest-cov"
 subpackages="$pkgname-pyc"
-source="$pkgname-$pkgver-2.tar.gz::https://github.com/mahmoud/boltons/archive/$pkgver.tar.gz"
+source="
+	$pkgname-$pkgver-2.tar.gz::https://github.com/mahmoud/boltons/archive/$pkgver.tar.gz
+	"
 builddir="$srcdir/boltons-$pkgver"
 
 build() {
@@ -36,5 +39,5 @@ package() {
 }
 
 sha512sums="
-17a22e2e1d35e0aca97dc15502432cbe2ce4b2e483403b7387bd6ad4efc4ec701fc88d984a487c235ca3e3feb400df08419eae6460ad1e40c951a31beedd06eb  py3-boltons-24.0.0-2.tar.gz
+b7b1b82949be09c8840d474ad99392cd5c558a9a114b036c765248fe08286ec1280a4b70e6294056bc3f3217211d537ad7ac67a03665d85384b9980f15402a34  py3-boltons-26.1.0-2.tar.gz
 "

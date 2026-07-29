@@ -3,7 +3,7 @@
 pkgname=py3-pytest-benchmark
 _pkgname=pytest-benchmark
 pkgver=4.0.0
-pkgrel=4
+pkgrel=5
 pkgdesc="pytest fixture for benchmarking code"
 url="https://github.com/ionelmc/pytest-benchmark"
 arch="noarch"
@@ -40,7 +40,8 @@ check() {
 		--deselect tests/test_cli.py::test_help_list \
 		--deselect tests/test_cli.py::test_help_command \
 		--deselect tests/test_cli.py::test_help \
-		--deselect tests/test_utils.py::test_commit_info_error
+		--deselect tests/test_utils.py::test_commit_info_error \
+		--deselect tests/test_benchmark.py::test_help
 }
 
 package() {

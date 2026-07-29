@@ -1,8 +1,8 @@
 # Contributor: Dhruvin Gandhi <contact@dhru.vin>
 # Maintainer: qaqland <qaq@qaq.land>
 pkgname=py3-debian
-pkgver=1.0.1
-pkgrel=1
+pkgver=1.1.1
+pkgrel=0
 pkgdesc="Debian package related python modules"
 url="https://salsa.debian.org/python-debian-team/python-debian"
 arch="noarch"
@@ -15,6 +15,7 @@ source="$pkgname-$pkgver-1.tar.gz::https://salsa.debian.org/python-debian-team/p
 builddir="$srcdir/python-debian-$pkgver"
 
 build() {
+	export SETUPTOOLS_SCM_PRETEND_VERSION="$pkgver"
 	gpep517 build-wheel \
 		--wheel-dir .dist \
 		--output-fd 3 3>&1 >&2
@@ -32,5 +33,5 @@ package() {
 }
 
 sha512sums="
-3cb84ffe8b804652dcb31ea49577122dfc777b7953a375d5484d4a591ddb68895f633763b6092c94fe94dd41820f6ddd8ae662c3b28925ddafc5caf4b3661443  py3-debian-1.0.1-1.tar.gz
+ef4078b02eac26a40ea3cd2962d3b9a922b9b4b5a9311e6b2a3eb8a1d55afba8ad6bc34707216bd1d5acb3e40eca23ac4b587a61a2b0730d9cd5894df66402f4  py3-debian-1.1.1-1.tar.gz
 "

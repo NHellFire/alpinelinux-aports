@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=ksystemstats
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="A plugin based system monitoring daemon"
 # armhf blocked by qt6-qtdeclarative -> kio
@@ -28,7 +28,10 @@ case "$pkgver" in
 	*.*.9*) _rel=unstable;;
 	*) _rel=stable;;
 esac
-subpackages="$pkgname-lang"
+subpackages="
+	$pkgname-systemd
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/plasma/ksystemstats.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/ksystemstats-$pkgver.tar.xz"
 case "$CARCH" in
@@ -53,18 +56,15 @@ check() {
 		*) ;;
 	esac
 	for test in $tests; do
-		skipped_tests="$skipped_tests|"
+		skipped_tests="$skipped_tests|$test"
 	done
 	wlheadless-run -- ctest --test-dir build -E "$skipped_tests"
 }
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-aadd050eb0acbfb1402fdbc2e7419a1eb89e4a4b9982353b857f8c3e17b86755b3c49ab2cde4c8446ca9a6a690df39eccdebf7357c3ad7f331b588bf76a46303  ksystemstats-6.4.5.tar.xz
+0573115c783d988adedcde085c3f33ca606dd510d5752ae8fce6e1e223c364caca334e7a2f15e1149d6834f482d41112d33c2e46f14e82c35d73490a4de3eec6  ksystemstats-6.7.3.tar.xz
 "

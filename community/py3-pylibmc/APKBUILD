@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-pylibmc
 pkgver=1.6.3
-pkgrel=1
+pkgrel=3
 pkgdesc="Python wrapper around the libmemcached interface from TangentOrg"
 url="https://sendapatch.se/projects/pylibmc/"
 arch="all"

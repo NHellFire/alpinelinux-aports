@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=procps-ng
-pkgver=4.0.4
-pkgrel=3
+pkgver=4.0.6
+pkgrel=0
 pkgdesc="Utilities for monitoring your system and processes on your system"
 url="https://gitlab.com/procps-ng/procps"
 arch="all"
@@ -92,6 +92,6 @@ libproc2() {
 }
 
 sha512sums="
-94375544e2422fefc23d7634063c49ef1be62394c46039444f85e6d2e87e45cfadc33accba5ca43c96897b4295bfb0f88d55a30204598ddb26ef66f0420cefb4  procps-ng-4.0.4.tar.xz
-de97f76465ecb3f4a118a809111039a461070cd585073ee49ee76c105568f0caf5fc5a66ba049193ccb01bd18326ec1f6feb668c90df1cdbd9e1fb2ad4d77dd3  disable-test_pids-check.patch
+c499aa14b6c94eda3a455bfe0d2d3c74c79dd718bffbd20207bd0831cb87725b83a76e4ee537a49ddf112bd1248a156d35da00035cbcd4c22037a20dcb4bdc9c  procps-ng-4.0.6.tar.xz
+e4ea61dfe0ffc09bd28e6fe60eb33156cac1372e2c68272db8d61aab62151ba03426586f218a78c79aa9cd56a82bf4327817290197238ca799dda5079d4293b3  disable-test_pids-check.patch
 "

@@ -1,11 +1,12 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=speech-dispatcher
 pkgver=0.12.1
-pkgrel=0
+pkgrel=5
 pkgdesc="Common high-level interface to speech synthesis"
 url="https://freebsoft.org/speechd"
 arch="all"
 license="LGPL-2.1-or-later"
+depends="py3-$pkgname=$pkgver-r$pkgrel"
 makedepends="
 	espeak-ng-dev
 	gettext
@@ -15,7 +16,7 @@ makedepends="
 	libtool
 	pulseaudio-dev
 	"
-subpackages="$pkgname-lang $pkgname-dev $pkgname-doc"
+subpackages="$pkgname-lang $pkgname-dev $pkgname-doc $pkgname-pyc py3-$pkgname:python $pkgname-systemd"
 source="https://github.com/brailcom/speechd/releases/download/$pkgver/speech-dispatcher-$pkgver.tar.gz
 	gcc14.patch
 	"
@@ -32,7 +33,9 @@ build() {
 		--with-kali=no \
 		--with-baratinoo=no \
 		--with-voxin=no \
-		--without-flite
+		--without-flite \
+		--with-systemdsystemunitdir=/usr/lib/systemd/system \
+		--with-systemduserunitdir=/usr/lib/systemd/user
 	make
 }
 
@@ -42,6 +45,14 @@ check() {
 
 package() {
 	make DESTDIR="$pkgdir" install
+}
+
+python() {
+	pkgdesc="Python bindings for $pkgname"
+	depends="python3 py3-xdg"
+	amove usr/lib/python*
+	# python script
+	amove usr/bin/spd-conf
 }
 
 sha512sums="

@@ -1,7 +1,7 @@
 # Maintainer: Ian Dunbar-Hall <ian.dunbarhall@gmail.com>
 pkgname=bomctl
 pkgver=0.1.9
-pkgrel=9
+pkgrel=17
 pkgdesc="Format agnostic SBOM tooling"
 url="https://github.com/bomctl/bomctl"
 arch="all"
@@ -15,10 +15,6 @@ subpackages="
 source="$pkgname-$pkgver.tar.gz::https://github.com/bomctl/bomctl/archive/refs/tags/v$pkgver.tar.gz
 	gomod-update.patch"
 options="chmod-clean net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	export major_minor_patch=$(echo $pkgver | grep -o '[0-9]*\.[0-9]*\.[0-9]*' | head -n 1)

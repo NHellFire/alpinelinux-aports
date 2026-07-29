@@ -1,54 +1,57 @@
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Maintainer: Francesco Colista <fcolista@alpinelinux.org>
 pkgname=baresip
-pkgver=3.20.0
-pkgrel=1
+pkgver=4.10.0
+pkgrel=0
 pkgdesc="Baresip is a modular SIP User-Agent with audio and video support"
 url="https://github.com/baresip/baresip"
 arch="all"
 license="BSD-3-Clause"
-makedepends="cmake ninja libre-dev
-alsa-lib-dev
-aom-dev
-directfb-dev
-fdk-aac-dev
-ffmpeg-dev
-glib-dev
-gsm-dev
-gst-plugins-bad-dev
-gst-plugins-base-dev
-gst-plugins-good
-gst-plugins-rs-dev
-gst-plugins-ugly
-gtk+3.0-dev
-jack-dev
-lame-dev
-libfreeaptx-dev
-libpng-dev
-libre-dev
-libsndfile-dev
-libvpx-dev
-mosquitto-dev
-mpg123-dev
-opencore-amr-dev
-openssl-dev
-opus-dev
-pipewire-dev
-portaudio-dev
-pulseaudio-dev
-python3-dev
-sdl12-compat-dev
-sdl2-dev
-spandsp3-dev
-speexdsp-dev
-v4l-utils-dev
-"
+makedepends="
+	alsa-lib-dev
+	aom-dev
+	cmake
+	directfb-dev
+	fdk-aac-dev
+	ffmpeg-dev
+	glib-dev
+	gsm-dev
+	gst-plugins-bad-dev
+	gst-plugins-base-dev
+	gst-plugins-good
+	gst-plugins-rs
+	gst-plugins-ugly
+	gtk+3.0-dev
+	jack-dev
+	lame-dev
+	libfreeaptx-dev
+	libpng-dev
+	libre-dev
+	libre-dev
+	libsndfile-dev
+	libvpx-dev
+	mosquitto-dev
+	mpg123-dev
+	ninja
+	opencore-amr-dev
+	openssl-dev
+	opus-dev
+	pipewire-dev
+	portaudio-dev
+	pulseaudio-dev
+	python3-dev
+	sdl12-compat-dev
+	sdl2-dev
+	spandsp3-dev
+	speexdsp-dev
+	v4l-utils-dev
+	"
 subpackages="$pkgname-dev"
-source="$pkgname-$pkgver.tar.gz::https://github.com/baresip/baresip/archive/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://github.com/baresip/baresip/archive/refs/tags/v$pkgver.tar.gz"
 
 build() {
 	cmake -B . -G Ninja \
-		-DCMAKE_BUILD_TYPE='Release' \
+		-DCMAKE_BUILD_TYPE=Release \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-Wno-dev
 	cmake --build .
@@ -56,12 +59,12 @@ build() {
 
 check() {
 	cd test && python3 ccheck.py
-}	
+}
 
 package() {
 	DESTDIR="$pkgdir" cmake --install .
 }
 
 sha512sums="
-bd77e553dd9dfe49fe4a1b06f4ec21c72edaaa90d6d798a078a3286ce7d809679327cbaf0b803bda3b7050ba5c5e3483d78b1451625f5f4d91352019129cde5e  baresip-3.20.0.tar.gz
+bca9b82695dceca2bf2dabe39343d4a04522f1a3e3355e2e7ad26add7a85000e36df899fd8e5d864037520bc6a3c06e1e200567af38925273ace68d39994a87b  baresip-4.10.0.tar.gz
 "

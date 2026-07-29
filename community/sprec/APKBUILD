@@ -2,7 +2,7 @@
 # Maintainer: John Gebbie <me@johngebbie.com>
 pkgname=sprec
 pkgver=0.1
-pkgrel=13
+pkgrel=21
 pkgdesc="Speech recognition command"
 url="https://sr.ht/~geb/sprec"
 # limited by vosk-api
@@ -13,10 +13,6 @@ checkdepends="vosk-model-small-en-us"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~geb/sprec/archive/$pkgver.tar.gz"
 options="net" # golang
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	export SPREC_VERSION="$pkgver"

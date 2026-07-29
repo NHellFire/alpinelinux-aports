@@ -1,5 +1,3 @@
-diff --git a/compiler/rustc_target/src/spec/targets/aarch64_unknown_uefi.rs b/compiler/rustc_target/src/spec/targets/aarch64_unknown_uefi.rs
-index 9656024ddaa..787db13e382 100644
 --- a/compiler/rustc_target/src/spec/targets/aarch64_unknown_uefi.rs
 +++ b/compiler/rustc_target/src/spec/targets/aarch64_unknown_uefi.rs
 @@ -10,6 +10,7 @@ pub(crate) fn target() -> Target {
@@ -9,16 +7,16 @@ index 9656024ddaa..787db13e382 100644
 +    base.linker = Some("lld".into());
      Target {
          llvm_target: "aarch64-unknown-windows".into(),
-         metadata: crate::spec::TargetMetadata {
+         metadata: TargetMetadata {
 diff --git a/compiler/rustc_target/src/spec/targets/x86_64_unknown_uefi.rs b/compiler/rustc_target/src/spec/targets/x86_64_unknown_uefi.rs
-index a11a79ff41a..d4900fbf536 100644
+index 0cf6a8794621..b7ed54eb8cdd 100644
 --- a/compiler/rustc_target/src/spec/targets/x86_64_unknown_uefi.rs
 +++ b/compiler/rustc_target/src/spec/targets/x86_64_unknown_uefi.rs
-@@ -27,6 +27,7 @@ pub(crate) fn target() -> Target {
-     // arguments, thus giving you access to full MMX/SSE acceleration.
+@@ -29,6 +29,7 @@ pub(crate) fn target() -> Target {
      base.features = "-mmx,-sse,+soft-float".into();
+     base.rustc_abi = Some(RustcAbi::Softfloat);
  
 +    base.linker = Some("lld".into());
      Target {
          llvm_target: "x86_64-unknown-windows".into(),
-         metadata: crate::spec::TargetMetadata {
+         metadata: TargetMetadata {

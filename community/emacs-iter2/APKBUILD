@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=emacs-iter2
 pkgver=2.2
-pkgrel=0
+pkgrel=1
 _pkgreal=iter2
 pkgdesc="Reimplementation of Elisp generators"
 url="https://github.com/doublep/iter2"

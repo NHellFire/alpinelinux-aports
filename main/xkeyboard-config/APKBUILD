@@ -1,6 +1,6 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=xkeyboard-config
-pkgver=2.45
+pkgver=2.48
 pkgrel=0
 pkgdesc="X keyboard configuration files"
 url="https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config"
@@ -28,11 +28,11 @@ package() {
 
 	# apk bug: can't migrate directory -> symlink
 	# https://gitlab.alpinelinux.org/alpine/apk-tools/-/issues/11110
-	rm "$pkgdir"/usr/share/X11/xkb/
+	rm "$pkgdir"/usr/share/X11/xkb
 	mv "$pkgdir"/usr/share/xkeyboard-config-2/ "$pkgdir"/usr/share/X11/xkb/
 	ln -s X11/xkb "$pkgdir"/usr/share/xkeyboard-config-2
 }
 
 sha512sums="
-695c9c3728e1f577bd7669d492fe4f001d3dad6cd6dc2d972c6983b16b79d1cdb8aa7eaacdb4b9496b6c935c1881044079a644c0aca94f74c6382b885c03d94e  xkeyboard-config-xkeyboard-config-2.45.tar.gz
+7fc550af99b66c5032a2162e60c86519e3a2cca67966c9b3264d046d827436a248293946408d61fde590e915c621f1db4a533b7529908946f420c22a719a6b23  xkeyboard-config-xkeyboard-config-2.48.tar.gz
 "

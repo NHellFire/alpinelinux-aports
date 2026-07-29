@@ -1,10 +1,10 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
 # Contributor: Francesco Colista <fcolista@alpinelinux.org>
 # Contributor: Krassy Boykinov <kboykinov@teamcentrixx.com>
-# Maintainer: Francesco Colista <fcolista@alpinelinux.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=evolution-data-server
-pkgver=3.58.0
-pkgrel=0
+pkgver=3.60.2
+pkgrel=5
 # NOTE: Upgrade only to even-numbered versions (e.g. 1.18.x, 1.20.x)!
 pkgdesc="data server for evolution"
 options="!check" # Tests fail on the builders, passes CI
@@ -14,7 +14,6 @@ license="GPL-2.0-or-later"
 depends_dev="
 	gcr-dev
 	icu-dev
-	libgdata-dev
 	"
 makedepends="$depends_dev
 	bison
@@ -28,6 +27,7 @@ makedepends="$depends_dev
 	gperf
 	gtk+3.0-dev
 	gtk4.0-dev
+	intltool
 	json-glib-dev
 	krb5-dev
 	libcanberra-dev
@@ -46,7 +46,7 @@ makedepends="$depends_dev
 	"
 
 checkdepends="db-utils"
-subpackages="$pkgname-dev $pkgname-lang"
+subpackages="$pkgname-dev $pkgname-lang $pkgname-systemd"
 source="https://download.gnome.org/sources/evolution-data-server/${pkgver%.*}/evolution-data-server-$pkgver.tar.xz"
 
 build() {
@@ -76,10 +76,8 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	rm -rf "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-fdade08526bd6e8ae804e2d4d8769b5b7501e40c370f38acf9fb7012bdec61073e8f5e830e28b9bc430e52b1bcb3f935663e3440f6c2235bf31a4093d1e1ff2a  evolution-data-server-3.58.0.tar.xz
+a471016ca1f5500009487ac66730b3a018d382c8fdc26f409c5cfaaf8924d58aa497c1073d179498089264e3f8b9da01557c8e7a69ed1eefdfdbcd4ac54c4505  evolution-data-server-3.60.2.tar.xz
 "

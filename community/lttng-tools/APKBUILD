@@ -1,9 +1,9 @@
 # Contributor: Michael Jeanson <mjeanson@efficios.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=lttng-tools
 pkgver=2.14.0
-pkgrel=0
+pkgrel=1
 pkgdesc="LTTng 2.0 control and utility programs"
 url="https://lttng.org"
 arch="all"

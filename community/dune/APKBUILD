@@ -1,10 +1,10 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Contributor: omni <omni+alpine@hack.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=dune
-pkgver=3.20.2
-pkgrel=0
+pkgver=3.22.2
+pkgrel=2
 pkgdesc="Composable build system for OCaml (formerly Jbuilder)"
 url="https://dune.build/"
 arch="all"
@@ -19,6 +19,8 @@ options="!check"  # FIXME requires ocaml-menhir
 # When enabling dune-configurator for riscv64,
 # create an OCaml 5 variant of ocaml4-abuild-find.
 _configurator="dune-configurator"
+_xdg="ocaml-xdg"
+_build_info="dune-build-info"
 
 case "$CARCH" in
 	arm*|x86) options="$options textrels" ;;
@@ -28,15 +30,17 @@ case "$CARCH" in
 		;;
 esac
 
-subpackages="$subpackages $_configurator"
+subpackages="$subpackages $_configurator $_xdg:xdg $_build_info:build_info"
 
 prepare() {
 	default_prepare
 
 	# This allows 'dune --version' to output the correct version instead of "n/a"
 	sed -i "/^(name dune)/a (version $pkgver)" dune-project
-	# This enables dune-configurator to use the vendored csexp module
-	sed -i 's/stdune.csexp/dune-configurator.csexp/' vendor/csexp/src/dune
+	# This enables dune-configurator to use the vendored csexp module, avoiding a circular dep
+	cp -R vendor/csexp otherlibs/configurator/
+	echo '(library (name csexp) (public_name dune-configurator.csexp))' \
+		> otherlibs/configurator/csexp/src/dune
 }
 
 build() {
@@ -47,7 +51,7 @@ build() {
 
 	ocaml boot/bootstrap.ml --verbose
 	./dune.exe build \
-		-p dune,dune-configurator \
+		-p dune,dune-configurator,xdg,dune-build-info \
 		--profile dune-bootstrap --verbose
 }
 
@@ -58,10 +62,12 @@ check() {
 package() {
 	./dune.exe install \
 		--destdir="$pkgdir" \
-		dune $_configurator
+		dune $_configurator xdg dune-build-info
 
 	# Duplicate of usr/share/doc/dune
-	rm -Rf "$pkgdir"/usr/share/doc/dune-configurator
+	if [ -n "$_configurator" ]; then
+		rm -R "$pkgdir"/usr/share/doc/dune-configurator
+	fi
 }
 
 emacs() {
@@ -77,6 +83,20 @@ configurator() {
 	provides="$subpkgname-dev=$pkgver-r$pkgrel"
 
 	amove usr/lib/ocaml/"$subpkgname"
+}
+
+xdg() {
+	pkgdesc="XDG Base Directory Specification support for OCaml"
+	provides="$subpkgname-dev=$pkgver-r$pkgrel"
+
+	amove usr/lib/ocaml/xdg
+}
+
+build_info() {
+	pkgdesc="Embed build information inside executables"
+	provides="$subpkgname-dev=$pkgver-r$pkgrel"
+
+	amove usr/lib/ocaml/dune-build-info
 }
 
 prepare_py_provides() {
@@ -104,5 +124,5 @@ scan_python3_dependency() {
 }
 
 sha512sums="
-efb4376e03a3e760ee230c22ba8ac788623382437d9e3551fdd6bacdca1c6aa2db90246feb011d3d0e7ba3afa47161ebd06c80cfb24e357a82f7764bf003e355  dune-3.20.2.tar.gz
+1cdde88dcb0d738287c08afa2870cdc1a9850952b5fb49c834a20f90335b71a8ec129a01639b5c56926b9bcbd716aebecfe6d33d2440839850ebacc81615308c  dune-3.22.2.tar.gz
 "

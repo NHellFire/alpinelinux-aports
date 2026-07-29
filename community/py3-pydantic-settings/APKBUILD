@@ -1,7 +1,7 @@
 # Contributor: Steven Guikal <void@fluix.one>
 # Maintainer: Steven Guikal <void@fluix.one>
 pkgname=py3-pydantic-settings
-pkgver=2.9.1
+pkgver=2.13.1
 pkgrel=0
 pkgdesc="Settings management using pydantic"
 arch="noarch"
@@ -49,5 +49,5 @@ package() {
 }
 
 sha512sums="
-51e2ca06da7afab1bb0609945890c0ea8635d83d76ce0b84ab5937a93d8c4c62dae8ea830fccbbf48887c0aee409dbe4ababf55464c82cd71906bdba31c0dc13  py3-pydantic-settings-2.9.1.tar.gz
+047eb495622db968de7034748177c957a9a83640f8d2879a52e3a48fd9b3e1454a76770aea39791ac79c9bf02c2fb0b6c98b34d3f2f3448f63b7523a572265a7  py3-pydantic-settings-2.13.1.tar.gz
 "

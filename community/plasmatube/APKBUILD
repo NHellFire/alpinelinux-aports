@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasmatube
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="Kirigami YouTube video player based on Invidious"
 # armhf blocked by qt6-qtdeclarative
@@ -58,5 +58,5 @@ package() {
 }
 
 sha512sums="
-d3dee1830ca547f34b4d73f9e209774dd0a9cefc97f8dacd01389d35f24faf473dd03f7d961ddcbf703ca0afb39b8e72ab34656fdecd2582ef0f659ca2687a47  plasmatube-25.08.0.tar.xz
+bdce7d110156b4729f40028e183e9715a60723c90d1366aa1606baa0431b67266bb7b32c0ab2aba7a479cd4387a36368570a6aa5ec8d4035969e3886b1fb8c9e  plasmatube-26.04.3.tar.xz
 "

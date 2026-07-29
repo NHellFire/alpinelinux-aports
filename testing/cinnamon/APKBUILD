@@ -1,0 +1,56 @@
+maintainer="Achill Gilgenast <achill@achill.org>"
+pkgname=cinnamon
+pkgver=6.6.9
+pkgrel=0
+pkgdesc="Desktop environment featuring a traditional layout (fork of gnome-session)"
+url="https://github.com/linuxmint/cinnamon"
+arch="all !armhf !armv7"
+# armhf: cjs -> mozjs
+# armv7: fails
+license="GPL-2.0-only"
+depends="
+	gtk+3.0
+	keybinder3
+	py3-gobject3
+	py3-psutil
+	py3-setproctitle
+	"
+makedepends="
+	cinnamon-menus-dev
+	cjs-dev
+	dbus-dev
+	gcr-dev
+	gobject-introspection-dev
+	gstreamer-dev
+	libsecret-dev
+	meson
+	muffin-dev
+	networkmanager-dev
+	perl
+	polkit-dev
+	sassc
+	xapp-dev
+	"
+subpackages="
+	$pkgname-doc
+	$pkgname-pyc
+	"
+source="https://github.com/linuxmint/cinnamon/archive/$pkgver/cinnamon-$pkgver.tar.gz"
+
+build() {
+	abuild-meson \
+		output .
+	meson compile -C output
+}
+
+check() {
+	meson test --print-errorlogs -C output
+}
+
+package() {
+	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+}
+
+sha512sums="
+8f9e7252a83f6891129263c90102b9cf6062b258e2fd27d82d39ffff9897bb3140670c6418e573d7adbef49ab6321902679e81a2d0ab14dbd315e95c97560be9  cinnamon-6.6.9.tar.gz
+"

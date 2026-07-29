@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=baloo
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="A framework for searching and managing metadata"
 # armhf blocked by qt6-qtdeclarative
@@ -42,6 +42,7 @@ subpackages="
 	$pkgname-libs
 	$pkgname-doc
 	$pkgname-lang
+	$pkgname-systemd
 	"
 _repo_url="https://invent.kde.org/frameworks/baloo.git"
 source="https://download.kde.org/stable/frameworks/${pkgver%.*}/baloo-$pkgver.tar.xz"
@@ -70,7 +71,7 @@ check() {
 		riscv64) exclude='|querytest|writetransactiontest|basicindexingbenchmark_ts|metadatamovertest|filefetchjobtest' ;;
 		s390x) exclude='|positioncodectest|fileindexerconfigtest' ;;
 	esac
-	dbus-run-session -- ctest --test-dir build -E "filewatchtest|fileindexerconfigtest$exclude"
+	dbus-run-session -- ctest --test-dir build -E "filewatchtest|fileindexerconfigtest|kinotifytest$exclude"
 }
 
 package() {
@@ -78,9 +79,6 @@ package() {
 
 	DESTDIR="$pkgdir" cmake --build build --target install_html_docs
 	DESTDIR="$pkgdir" cmake --build build --target install_qch_docs
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 libs() {
@@ -90,5 +88,5 @@ libs() {
 }
 
 sha512sums="
-2f34a9d6285bfc5706cccef6cb7ea0adf8907520cec25966bed814fe2ca0320be1af8082a0d8a1613ef17af8e3feaf05c046615fe4ce1be0618afe87b40c5ffc  baloo-6.17.0.tar.xz
+ad7f3b337c05c8aac6d67f4143f4ff2784585a0a4692032520e42af8f6a625ad7b4ff5c2d0cd5a5df2ba6861f8b61437f72b0f2f58f8ebf767cb90cf15288e48  baloo-6.28.0.tar.xz
 "

@@ -3,7 +3,7 @@
 description="IfState"
 
 depend() {
-	need localmount
+	need localmount machine-id
 	after bootmisc hwdrivers modules
 	provide net
 	keyword -shutdown -stop -jail -prefix -vserver -docker
@@ -19,6 +19,15 @@ restart() {
 	ifstatecli apply
 }
 
+reload() {
+	ebegin "Reloading IfState"
+	ifstatecli apply
+}
+
 status() {
 	ifstatecli check
+}
+
+checkconfig() {
+	ifstatecli validate
 }

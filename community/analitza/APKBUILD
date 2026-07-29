@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=analitza
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -44,5 +44,5 @@ package() {
 }
 
 sha512sums="
-cbaf54fcac8c762f5c53f144d57ca6f006ad09080c85a0284749b63f2559f2559a2f8612992e99f8f2394afc8c2f164f9be0c4412475d3c881fddd7477a34ce9  analitza-25.08.0.tar.xz
+39a517ad081fe02dd19180a4e60c5f45cce1dbb62accb9d344ef8791c3c89f8ecf6b850ae12a5b21e821e959500616658d5df353bf49a133e43383d9d54fd2f1  analitza-26.04.3.tar.xz
 "

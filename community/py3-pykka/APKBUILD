@@ -1,8 +1,7 @@
-# Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer: Bart Ribbers <bribbers@disroot.org>
+maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=py3-pykka
-pkgver=4.2.0
-pkgrel=0
+pkgver=4.4.2
+pkgrel=1
 pkgdesc="Concurrency abstractions for Python3 using the actor model"
 url="https://pykka.readthedocs.org/"
 arch="noarch"
@@ -42,5 +41,5 @@ package() {
 }
 
 sha512sums="
-55de2fb603e642ffa91887d0fc69b3785bfae7de71911b45b336285f487c38feb07bd8033188b3ddaef884d5b0c0b789809be8ad8c0cfa9ac84c95485870178d  pykka-4.2.0.tar.gz
+8c704ed2770e61373f5455f77d7eb03c875c31304dd3404a01c54263d3e61c53e21c55b4c9242cb5fd5afd1e41e4486ddea775789abb79590446269fa57212de  pykka-4.4.2.tar.gz
 "

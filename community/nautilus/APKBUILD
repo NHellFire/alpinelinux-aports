@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=nautilus
-pkgver=49.0
+pkgver=50.1
 pkgrel=0
 pkgdesc="GNOME file manager"
 url="https://apps.gnome.org/Nautilus"
@@ -18,15 +18,18 @@ depends_dev="
 	"
 makedepends="
 	$depends_dev
+	libselinux-dev
+	blueprint-compiler
 	docbook-xml
 	docbook-xsl
-	gexiv2-dev
+	gexiv2-0.16-dev
 	gst-plugins-base-dev
 	itstool
 	jpeg-dev
 	libadwaita-dev
 	libcloudproviders-dev
 	libexif-dev
+	libglycin-gtk4-dev
 	libportal-dev
 	librsvg-dev
 	libseccomp-dev
@@ -53,6 +56,7 @@ build() {
 	abuild-meson \
 		-Db_lto=true \
 		-Dtests=headless \
+		-Dselinux=enabled \
 		. output
 	meson compile -C output
 }
@@ -69,5 +73,5 @@ package() {
 }
 
 sha512sums="
-54ffed1bc5e194dccd19d69329c607d69d3ef7088ca3bf094c72bc89252dd14dea6b97b04e0acf5ea8676c57ff72dea8a4e516c41445e52f2e4351739a6f6cd2  nautilus-49.0.tar.xz
+8e7006c2f60ccffe3268b73ab8220baf3978f19b90e712b1a8650c37c5d97cc586d7c60106c638320b0a35744bb6f6255029779ef751bcbaa238ba2a6d4495a9  nautilus-50.1.tar.xz
 "

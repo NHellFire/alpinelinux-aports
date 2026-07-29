@@ -2,32 +2,35 @@
 # Contributor: Sören Tempel <soeren+alpine@soeren-tempel.net>
 # Contributor: Andrew Hills <ahills@ednos.net>
 # Contributor: Jean-Louis Fuchs <safe.pen2857@rhizoome.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=zathura
-pkgver=0.5.12
+pkgver=2026.07.18
 pkgrel=0
 pkgdesc="Highly customizable and functional document viewer"
 url="https://pwmt.org/projects/zathura/"
 arch="all"
 license="Zlib"
 makedepends="
-	appstream-glib
+	appstream
 	check-dev
+	desktop-file-utils
 	file-dev
 	girara-dev
+	gtk4.0-dev
 	json-glib-dev
 	libseccomp-dev
 	muon
 	ncurses
 	py3-docutils
 	py3-sphinx
-	desktop-file-utils
 	sqlite-dev
+	xxhash-dev
 	"
 checkdepends="
 	dbus
 	mesa-dri-gallium
+	weston
 	xvfb-run
 	"
 subpackages="
@@ -41,7 +44,7 @@ subpackages="
 source="https://pwmt.org/projects/zathura/download/zathura-$pkgver.tar.xz"
 
 case "$CARCH" in
-ppc64le|s390x|riscv64|loongarch64)
+s390x)
 	_synctex=disabled
 	;;
 *)
@@ -56,7 +59,6 @@ build() {
 		-Dseccomp=enabled \
 		-Dlandlock=enabled \
 		-Dmanpages=enabled \
-		-Dtests="$(want_check && echo enabled || echo disabled)" \
 		-Dconvert-icon=disabled \
 		build .
 	ninja -C build
@@ -71,5 +73,5 @@ package() {
 }
 
 sha512sums="
-944e16042c3344033f742350e7be50b1f5e4051752b0be2ae3c513bde2ee40698c912868b0aabf593f6da0719f5afd32ea55953aff07ecd3a4adefe49e98a923  zathura-0.5.12.tar.xz
+021e578beb20e74218f84097fd606302eae5232ed1a792c0003bef19c874c4f069339b52a061006e4d3c240e7f7231d2bc34e8c462bcc375e8953f1f83bc2b65  zathura-2026.07.18.tar.xz
 "

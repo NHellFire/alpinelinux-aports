@@ -1,6 +1,6 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=sslscan
-pkgver=2.2.0
+pkgver=2.2.2
 pkgrel=0
 pkgdesc="fast SSL/TLS configuration scanner"
 url="https://github.com/rbsec/sslscan"
@@ -20,5 +20,5 @@ package() {
 }
 
 sha512sums="
-b01cc5fc903cd15d6895675724c3e6f8060a97b1f1536af6e88e28d63cc5cfdd32beaf61f7a717ecfe0e802d61e092d5189f7b6259fbc9866b82562d3e82ad78  sslscan-2.2.0.tar.gz
+452ef1df4c272eb15261383cb084155f128d77c7c5add05245a1117a4c1b777d2c702ae674647dbfc2796ec0ec61cfab9053b3c09a2416d92d9f23abfa0c6048  sslscan-2.2.2.tar.gz
 "

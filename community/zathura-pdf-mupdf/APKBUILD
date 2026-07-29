@@ -1,8 +1,9 @@
 # Contributor: Milan P. Stanić <mps@arvanta.net>
-# Maintainer: Milan P. Stanić <mps@arvanta.net>
+# Maintainer: omni <omni+alpine@hack.org>
+maintainer="omni <omni+alpine@hack.org>"
 pkgname=zathura-pdf-mupdf
-pkgver=0.4.4
-pkgrel=10
+pkgver=2026.07.18
+pkgrel=0
 pkgdesc="mupdf plugin to zathura"
 url="https://pwmt.org/projects/zathura-pdf-mupdf/"
 arch="all"
@@ -15,13 +16,12 @@ makedepends="
 	ninja
 	zathura-dev
 	"
-source="https://pwmt.org/projects/zathura-pdf-mupdf/download/zathura-pdf-mupdf-$pkgver.tar.xz
-	fix-meson.build.patch
-	"
+source="https://pwmt.org/projects/zathura-pdf-mupdf/download/zathura-pdf-mupdf-$pkgver.tar.xz"
 
 build() {
 	abuild-meson build
 	meson compile -C build
+	# TODO: build with muon, find out why it will build this differently
 }
 
 package() {
@@ -29,6 +29,5 @@ package() {
 }
 
 sha512sums="
-32be4b4458547860e28bb90bf8b8f0f2e5c26f369d55f6f25e0e73b9e7c4a82b6110fd42bd55120f1be358b9d7a6c72cc1c883e192d007a05a85f501c504e1a1  zathura-pdf-mupdf-0.4.4.tar.xz
-f88da2384d2b9f882a949880ff57b635a20dd1e1146d5c933871d7ed58543b4770ffa5775dadd13b160b3a430fcc7306a6083abbf97355d3b4ee73ef357c78f5  fix-meson.build.patch
+79f699666e59d26e8b1d4ac039a86385bcd278d001f8ebc22e31a59366d85799601626c9ab49163286f4ca2b95307cece813ccc1c9f7ca2760aad8de6a68c728  zathura-pdf-mupdf-2026.07.18.tar.xz
 "

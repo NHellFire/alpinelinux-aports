@@ -3,7 +3,7 @@
 pkgname=py3-us
 _pkgname=us
 pkgver=3.2.0
-pkgrel=0
+pkgrel=1
 pkgdesc="US state meta information and other fun stuff"
 url="https://github.com/unitedstates/python-us"
 arch="noarch"
@@ -26,7 +26,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

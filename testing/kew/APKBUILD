@@ -1,10 +1,10 @@
 # Contributor: Saijin-Naib <Saijin-Naib_package-maintenance@outlook.com>
 # Maintainer: Saijin-Naib <Saijin-Naib_package-maintenance@outlook.com>
 pkgname=kew
-pkgver=3.4.1
+pkgver=4.1.7
 pkgrel=0
 pkgdesc="A terminal music player with album art & visualizer"
-url="https://github.com/ravachol/kew"
+url="https://codeberg.org/ravachol/kew"
 arch="all"
 license="GPL-2.0-or-later"
 makedepends="
@@ -20,11 +20,12 @@ makedepends="
 	taglib-dev
 "
 subpackages="$pkgname-doc"
-source="$pkgname-$pkgver.tar.gz::https://github.com/ravachol/kew/archive/refs/tags/v$pkgver.tar.gz"
+source="$pkgname-$pkgver.tar.gz::https://codeberg.org/ravachol/kew/archive/v$pkgver.tar.gz"
+builddir="$srcdir/$pkgname/"
 options="!check" # No upstream testsuite defined
 
 build() {
-	make USE_DBUS=1
+	make all USE_DBUS=1
 }
 
 package() {
@@ -32,5 +33,5 @@ package() {
 }
 
 sha512sums="
-ab07ba1d87bc131681660c9aea3c6af633537c6478000a46cdee828462fd79b0311636c5673b2fcc46ad43a4cadd4b2bf9f1d24ffcd534df2a7a2a71e52c7eec  kew-3.4.1.tar.gz
+669f5c80ee5b5c391ff060bc84cd75b250a1af30e6960efd4c2e71e807772b8e7e5f6b0453c77705496bcd1087c9a70fb9669e7017d6a28be11b450e2ad5e8ec  kew-4.1.7.tar.gz
 "

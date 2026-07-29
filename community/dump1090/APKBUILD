@@ -1,19 +1,18 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=dump1090
-pkgver=10.2
-pkgrel=1
+pkgver=11.1
+pkgrel=0
 pkgdesc="Simple Mode S decoder for RTLSDR devices"
-arch="all"
+arch="all !s390x" # tests fail
 url="https://github.com/flightaware/dump1090"
 license="GPL-2.0-or-later"
 makedepends="
-	ncurses-dev
-	librtlsdr-dev
 	bladerf-dev
+	librtlsdr-dev
+	linux-headers
+	ncurses-dev
 	"
-source="$pkgname-$pkgver.tar.gz::https://github.com/flightaware/dump1090/archive/refs/tags/v$pkgver.tar.gz
-	gcc15.patch
-	"
+source="$pkgname-$pkgver.tar.gz::https://github.com/flightaware/dump1090/archive/refs/tags/v$pkgver.tar.gz"
 
 build() {
 	make all faup1090 EXTRACFLAGS=-DHTMLPATH=\\\"/usr/share/dump1090/html\\\"
@@ -31,6 +30,5 @@ package() {
 }
 
 sha512sums="
-367958e624447b9ae9d5ab523c68662c94343579f644f5ea8382c3822c973622085634c76ddd2dec6d0f910cd4f18880b6e0d62b3af9899bee4adfad2e2a18e5  dump1090-10.2.tar.gz
-bda786e1cd9463d5802ecfe8912c3d650f7cbd2d44b363c9b55025d09e600d10a3a0d9d14ca5c72affd68633189aea61d93e2ec3b1d7634189e2243e174f4545  gcc15.patch
+6c2bf3af4a5d74182b046370d57d80ffa336f82f209c5e7fbf824ccd39fd41080a2fdc9199b1e7d344cb57856b882a6d3427b7b1dd1d71184c06e8788a574170  dump1090-11.1.tar.gz
 "

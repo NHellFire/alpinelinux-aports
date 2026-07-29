@@ -1,9 +1,9 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=makepasswd
 pkgver=0.5.4
-pkgrel=3
+pkgrel=4
 pkgdesc="Generates (pseudo-)random passwords of a desired length"
 url="https://www.defora.org/os/project/117/makepasswd"
 arch="all"

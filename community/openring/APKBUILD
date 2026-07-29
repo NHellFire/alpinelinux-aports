@@ -2,18 +2,15 @@
 # Maintainer: Anjandev Momi <anjan@momi.ca>
 pkgname=openring
 pkgver=1.0.1
-pkgrel=29
+pkgrel=37
 pkgdesc="a webring for static site generators"
 url="https://sr.ht/~sircmpwn/openring/"
 arch="all"
 license="GPL-3.0-only and CC0-1.0"
 makedepends="go binutils"
-options="!check"
+options="!check net" # go
 source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~sircmpwn/openring/archive/$pkgver.tar.gz"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 export GOFLAGS="$GOFLAGS -modcacherw"
 
 build() {

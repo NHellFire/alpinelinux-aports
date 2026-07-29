@@ -1,8 +1,8 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=dino
-pkgver=0.5.0
-pkgrel=1
+pkgver=0.5.1
+pkgrel=2
 pkgdesc="Modern Jabber/XMPP client"
 url="https://dino.im"
 arch="all"
@@ -60,5 +60,5 @@ notificationsound() {
 }
 
 sha512sums="
-9cb6db27e6afd42204990c836019bc84a2a61af839d59cf8378520308d3016e6ac674ea4abd3044dfdf18e21e8431ef3cc85ad70d02c89d95c4dc702b32e05d2  dino-0.5.0.tar.gz
+72b4d38963a8498a31cad0b3cee88856f1dfcf7b63669fead45c427377ff530a8a045bd88dbd35ce8f2b1b6265716389d0c40d97386a1105344e76e3c102f1f1  dino-0.5.1.tar.gz
 "

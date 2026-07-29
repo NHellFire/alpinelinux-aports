@@ -1,9 +1,9 @@
 # Contributor: Valery Kartel <valery.kartel@gmail.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=libnsl
 pkgver=2.0.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Public client interface for NIS(YP) and NIS+ in a IPv6 ready version"
 url="https://github.com/thkukuk/libnsl"
 arch="all"

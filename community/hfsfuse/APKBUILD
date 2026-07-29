@@ -1,19 +1,22 @@
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=hfsfuse
-pkgver=0.289
+pkgver=0.425
 pkgrel=0
 pkgdesc="FUSE driver for HFS+ filesystems"
 url="https://github.com/0x09/hfsfuse"
 arch="all"
 license="MIT BSD-2-Clause"
 makedepends="
-	fuse-dev
+	fuse3-dev
 	linux-headers
 	utf8proc-dev
 	zlib-dev
 	"
-source="https://github.com/0x09/hfsfuse/releases/download/$pkgver/hfsfuse-$pkgver.tar.gz"
+source="
+	$pkgname-$pkgver.tar.gz::https://github.com/0x09/hfsfuse/archive/refs/tags/$pkgver.tar.gz
+	use-standard-u16-type.patch
+	"
 options="!check"  # no tests provided
 
 prepare() {
@@ -32,5 +35,6 @@ package() {
 }
 
 sha512sums="
-28ac419808d7e2025172d4e7823fad16458c6b4ff927f032898c0a308fde30ba2ea82802f07997cc8c807a19bdc1026779b2001e6900e51661aad03448f45cf8  hfsfuse-0.289.tar.gz
+0a2955fc529dadc2e5a27b6a115897f967631e2c7ee4e3df57179552aafb3dd8ca0ce920aef79598076b179c7511f789100e3c1759f285f4b394d39daeab1662  hfsfuse-0.425.tar.gz
+c30a6471c8f71aae9a4eac949da0ef694dde77fe3959e197825e06ee677b81c1e2756c6b54e7492935fdfa919456ec76efd1928fed26409f58083fd3d496772a  use-standard-u16-type.patch
 "

@@ -4,7 +4,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kgoldrunner
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by extra-cmake-modules
 arch="all !armhf"
@@ -46,5 +46,5 @@ package() {
 }
 
 sha512sums="
-3baeb77627da02d43443505373d1ba96f73ad796f0f26da4db35536d8f9646b2085830beb7db400c2b95e293f76cf4a11e4b7cb8607540abc9953be37ab6299e  kgoldrunner-25.08.0.tar.xz
+3ccc799d7df9db338c75e2fd65ff09e8debe29cda56d9b9d95c30063a2f98a5c70a2cc5b553774c05134ada786707f4800f0f14b47f2872fa103984564596c4e  kgoldrunner-26.04.3.tar.xz
 "

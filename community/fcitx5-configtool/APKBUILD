@@ -1,7 +1,7 @@
 # Contributor: ProgCat <progcat@protonmail.com>
 # Maintainer: Lindsay Zhou <i@lin.moe>
 pkgname=fcitx5-configtool
-pkgver=5.1.10
+pkgver=5.1.14
 pkgrel=0
 pkgdesc="A configure tool for Fcitx5"
 url="https://github.com/fcitx/fcitx5-configtool"
@@ -15,18 +15,13 @@ makedepends="
 	gettext-dev
 	iso-codes
 	iso-codes-dev
-	kcoreaddons5-dev
-	kdeclarative5-dev
-	ki18n5-dev
-	kiconthemes5-dev
-	kirigami2-dev
-	kpackage5-dev
-	kwidgetsaddons5-dev
+	kirigami-dev
 	libxkbcommon-dev
 	libxkbfile-dev
 	qt6-qtsvg-dev
 	libplasma-dev
 	qt6-qtdeclarative-dev
+	qt6-qtdeclarative-private-dev
 	samurai
 	xkeyboard-config-dev
 	"
@@ -42,7 +37,6 @@ build() {
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_SHARED_LIBS=True \
-		-DUSE_QT6=True \
 		-DCMAKE_BUILD_TYPE=None \
 		$CMAKE_CROSSOPTS
 	cmake --build build
@@ -58,5 +52,5 @@ package() {
 }
 
 sha512sums="
-808117f016b9ce6396c5845d2d24e71c3946e921a04cf5bcb51cfa126f17a532cb83e566698231bb4faa987ca81e516921b40ee0dda921ef5501b581b45af975  fcitx5-configtool-5.1.10.tar.gz
+ad70bc8b10145efe35ff977e8560af9bff1d60bd18662861c977f72aca3c291f9d5bc725f0ae239c57c5a4fcfd0bf626cad7c8977269d544ace6925c8100097c  fcitx5-configtool-5.1.14.tar.gz
 "

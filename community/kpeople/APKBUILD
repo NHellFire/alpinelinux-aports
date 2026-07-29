@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kpeople
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="A library that provides access to all contacts and the people who hold them"
 # armhf blocked by qt6-qtdeclarative
@@ -57,5 +57,5 @@ package() {
 }
 
 sha512sums="
-8e48d6561e9efc1cc10662a35ed4fd68ba3a606db12e07982fe9d39a61fa0c62a71678e3e0ff005004464e8ab3ed91d54a8822f19d3e072f2d8e4ad38bbdb84f  kpeople-6.17.0.tar.xz
+cddb516b7ef072315886b5b9772e0d92045ba0dd296255a4e18df80b521e763c65d07de18f8541a32a33b366210e241b1e0a89938ecbf0f5ffe34dec09e15f04  kpeople-6.28.0.tar.xz
 "

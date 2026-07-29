@@ -1,7 +1,7 @@
 # Contributor: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 # Maintainer: Marian Buschsieweke <marian.buschsieweke@posteo.net>
 pkgname=nng
-pkgver=1.10.1
+pkgver=1.12.0
 pkgrel=0
 pkgdesc="Lightweight Broker-Less Messaging Library"
 url="https://nng.nanomsg.org/"
@@ -18,7 +18,11 @@ subpackages="
 	"
 source="
 	$pkgname-$pkgver.tar.gz::https://github.com/nanomsg/nng/archive/refs/tags/v$pkgver.tar.gz
+
+	0001-cmake-generate-pkg-config-file-nng.pc-using-CMake.patch
 	"
+# Tests are broken
+options="!check"
 
 build() {
 	cmake -B build -G Ninja -Wno-dev \
@@ -47,5 +51,6 @@ package() {
 }
 
 sha512sums="
-79d5d176e96591951379150c632322553fb96c62a254a1366303bb491612f84f7b07a7c9e1e1391173d3beb673c4568be3553cc7002165fc9832d738cc0d9a54  nng-1.10.1.tar.gz
+15f659805ea8a66a6dc4273a0f28ab1593ef82038ef0870207b1b5ab8c621df15d27253f1fd9c87e5a705f3198ef5eebe9ecaa0e2479af8bc5bb847fcebf2d06  nng-1.12.0.tar.gz
+a22b4e8943d9fc99a39e2bd350d42cf8953a01f5bffea9f17644a56564634cb4b0f8d915a09d9d52856d550ba4691b1d08f8b2e77900001eb26ca7d1baf94d2d  0001-cmake-generate-pkg-config-file-nng.pc-using-CMake.patch
 "

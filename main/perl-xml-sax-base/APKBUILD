@@ -1,9 +1,9 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=perl-xml-sax-base
 pkgver=1.09
-pkgrel=5
+pkgrel=6
 pkgdesc="Base class SAX Drivers and Filters"
 url="https://metacpan.org/release/XML-SAX-Base"
 arch="noarch"

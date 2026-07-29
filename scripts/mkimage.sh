@@ -1,10 +1,11 @@
 #!/bin/sh
 
 # apk add \
-#	abuild apk-tools alpine-conf busybox fakeroot syslinux xorriso cmd:mksquashfs
-#	(for efi:) mtools grub
+#	abuild apk-tools alpine-conf busybox fakeroot syslinux xorriso cmd:mksquashfs mtools
+#	(for efi:) grub
 #	(for s390x:) s390-tools
 #	(for ppc64le:) grub
+#	(for pi:) sfdisk dosfstools
 
 # FIXME: clean workdir out of unneeded sections
 # FIXME: --release: cp/mv images to REPODIR/$ARCH/releases/
@@ -18,32 +19,14 @@ set -e
 scriptdir="$(dirname "$0")"
 git=$(command -v git) || git=true
 
-# echo '-dirty' if git is not clean
-git_dirty() {
-	[ $($git status -s -- "$scriptdir" | wc -l) -ne 0 ] && echo "-dirty"
-}
-
-# echo last commit hash id
-git_last_commit() {
-	$git log --format=oneline -n 1 -- "$scriptdir" | awk '{print $1}'
-}
-
-# date of last commit
-git_last_commit_epoch() {
-	$git log -1 --format=%cd --date=unix "$1" -- "$scriptdir"
-}
-
 set_source_date() {
 	# dont error out if we're not in git
 	if ! $git rev-parse --show-toplevel >/dev/null 2>&1; then
 		git=true
 	fi
 	# set time stamp for reproducible builds
-	if [ -z "$ABUILD_LAST_COMMIT" ]; then
-		export ABUILD_LAST_COMMIT="$(git_last_commit)$(git_dirty)"
-	fi
-	if [ -z "$SOURCE_DATE_EPOCH" ] && [ "${ABUILD_LAST_COMMIT%-dirty}" = "$ABUILD_LAST_COMMIT" ]; then
-		SOURCE_DATE_EPOCH=$(git_last_commit_epoch "$ABUILD_LAST_COMMIT")
+	if [ -z "$SOURCE_DATE_EPOCH" ] && [ $($git -C "$scriptdir" status -s | wc -l) -ne 0 ]; then
+		SOURCE_DATE_EPOCH=$($git -C "$scriptdir" log -1 --format=%cd --date=unix)
 	fi
 	if [ -z "$SOURCE_DATE_EPOCH" ]; then
 		SOURCE_DATE_EPOCH=$(date -u "+%s")
@@ -139,7 +122,6 @@ build_section() {
 	local args="$@"
 
 	if [ -z "$_dir" ]; then
-		_fail="yes"
 		return 1
 	fi
 
@@ -149,14 +131,9 @@ build_section() {
 		if [ -z "$_simulate" ]; then
 			rm -rf "$DESTDIR"
 			mkdir -p "$DESTDIR"
-			if build_${section} "$@"; then
-				mv "$DESTDIR" "$WORKDIR/${_dir}"
-				_dirty="yes"
-			else
-				rm -rf "$DESTDIR"
-				_fail="yes"
-				return 1
-			fi
+			build_${section} "$@"
+			mv "$DESTDIR" "$WORKDIR/${_dir}"
+			_dirty="yes"
 		fi
 	fi
 	unset DESTDIR
@@ -168,7 +145,6 @@ build_profile() {
 	local _id _dir _spec
 	_my_sections=""
 	_dirty="no"
-	_fail="no"
 
 	profile_$PROFILE
 	list_has $ARCH $arch || return 0
@@ -177,9 +153,8 @@ build_profile() {
 
 	# Collect list of needed sections, and make sure they are built
 	for SECTION in $all_sections; do
-		section_$SECTION || return 1
+		section_$SECTION
 	done
-	[ "$_fail" = "no" ] || return 1
 
 	# Defaults
 	[ -n "$image_name" ] || image_name="alpine-${PROFILE}"
@@ -207,7 +182,7 @@ build_profile() {
 	if [ "$_dirty" = "yes" -o ! -e "$output_file" ]; then
 		# Create image
 		[ -n "$output_format" ] || output_format="${image_ext//[:\.]/}"
-		create_image_${output_format} || { _fail="yes"; return 1; }
+		create_image_${output_format}
 
 		if [ "$_checksum" = "yes" ]; then
 			for _c in $all_checksums; do
@@ -225,7 +200,9 @@ build_profile() {
 
 # load plugins
 load_plugins "$scriptdir"
-[ -z "$HOME" ] || load_plugins "$HOME/.mkimage"
+if [ -n "$HOME" ]; then
+	load_plugins "$HOME/.mkimage"
+fi
 
 mkimage_yaml="$(dirname $0)"/mkimage-yaml.sh
 
@@ -290,10 +267,8 @@ mkdir -p "$OUTDIR"
 # get abuild pubkey used to sign the apkindex
 # we need inject this to the initramfs or we will not be able to use the
 # boot repository
-if [ -z "$_hostkeys" ]; then
-	_pub=${PACKAGER_PRIVKEY:+${PACKAGER_PRIVKEY}.pub}
-	_abuild_pubkey="${PACKAGER_PUBKEY:-$_pub}"
-fi
+_pub=${PACKAGER_PRIVKEY:+${PACKAGER_PRIVKEY}.pub}
+_abuild_pubkey="${PACKAGER_PUBKEY:-$_pub}"
 
 # create images
 for ARCH in $req_arch; do
@@ -301,11 +276,13 @@ for ARCH in $req_arch; do
 	if [ ! -e "$APKROOT" ]; then
 		# create root for caching packages
 		mkdir -p "$APKROOT/etc/apk/cache" "$APKROOT"/etc/apk/keys
-		[ -d /usr/share/apk/keys/"$ARCH" ] &&
+		if [ -d /usr/share/apk/keys/"$ARCH" ]; then
 			cp /usr/share/apk/keys/"$ARCH"/* "$APKROOT"/etc/apk/keys
+		fi
 		if [ -n "$_hostkeys" ]; then
 			cp /etc/apk/keys/* "$APKROOT"/etc/apk/keys
-		else
+		fi
+		if [ -n "$_abuild_pubkey" ]; then
 			cp "$_abuild_pubkey" "$APKROOT"/etc/apk/keys
 		fi
 		apk --arch "$ARCH" --root "$APKROOT" add --initdb --no-chown
@@ -326,7 +303,7 @@ for ARCH in $req_arch; do
 		echo "---" > "$_yaml_out"
 	fi
 	for PROFILE in $req_profiles; do
-		(set -eo pipefail; build_profile) || exit 1
+		(set -eo pipefail; build_profile)
 	done
 done
 echo "Images generated in $OUTDIR"

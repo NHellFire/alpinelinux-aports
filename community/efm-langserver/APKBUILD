@@ -1,8 +1,8 @@
 # Contributor: Galen Abell <galen@galenabell.com>
 # Maintainer: Galen Abell <galen@galenabell.com>
 pkgname=efm-langserver
-pkgver=0.0.54
-pkgrel=8
+pkgver=0.0.57
+pkgrel=1
 pkgdesc="General purpose language server"
 url="https://github.com/mattn/efm-langserver"
 arch="all"
@@ -11,10 +11,6 @@ makedepends="go"
 options="net chmod-clean"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/mattn/efm-langserver/archive/refs/tags/v$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -ldflags="-X main.revision=$pkgver" -o $pkgname .
@@ -30,5 +26,5 @@ package() {
 }
 
 sha512sums="
-9c599930b44486f4e158ba31802277ea12d3e8a7dc7e79556d0960f5c9e874b6bd6cdf91f2751123b9e7704eb6ea3c1fc3a5f2a889ac31b3ef90ce92f9a2afde  efm-langserver-0.0.54.tar.gz
+df521f12ca0e4d1da6160ba7d974c3590177e3a54e3b26659f05c801cc1aac93c1721b4af2aa2865d8b5c9dd1924ce04bb3cdb8fa3582d785e46e1a82f6873f2  efm-langserver-0.0.57.tar.gz
 "

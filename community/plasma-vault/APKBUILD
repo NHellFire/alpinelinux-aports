@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-vault
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Plasma applet and services for creating encrypted vaults"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -21,7 +21,7 @@ makedepends="
 	kwidgetsaddons-dev
 	libksysguard-dev
 	networkmanager-qt-dev
-	plasma-activities-dev>=$pkgver
+	plasma-activities-dev
 	libplasma-dev
 	qt6-qtbase-dev
 	samurai
@@ -51,5 +51,5 @@ package() {
 }
 
 sha512sums="
-74012dba894e1cdb25937ff07cfec42f18ef825b80f05c6022812d37849ce6ae0d6ca4c0a01c7f1c6e459ad3c9b86a2582b0f26a340a95edb173e6b60d238ab4  plasma-vault-6.4.5.tar.xz
+da2e32b7311d29ef5d1cf7b69103e1948899814981da2fe54b67386d8e42ee4b23e291c4a094743502c6d188a32717aeb4d7995a66e44061e7f6c66145aaed5d  plasma-vault-6.7.3.tar.xz
 "

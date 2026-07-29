@@ -1,7 +1,7 @@
 # Contributor: Fabian Affolter <fabian@affolter-engineering.ch>
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-pytest
-pkgver=8.4.2
+pkgver=9.1.1
 pkgrel=0
 pkgdesc="Python3 testing library"
 url="https://docs.pytest.org/en/latest/"
@@ -48,8 +48,11 @@ package() {
 
 	python3 -m installer -d "$pkgdir" \
 		.dist/pytest*.whl
+
+	# remove shim for pylib, since we depend on py3-py anyway
+	rm -f "$pkgdir"/usr/lib/python3*/site-packages/py.py
 }
 
 sha512sums="
-a6732666e7b59b2c28b47b1020a8381d31073cf9113086c562295429fddfa6b4ef2afda3cdcce0ec60bf60d038ad2bf8e921a2a409f3d56e31d94ca39e5ea81b  pytest-8.4.2.tar.gz
+10065997d09e8614ccf064b673e9dde8a4048eb0d701dd1e1e45b9b3751788d1060093aded2b180779852d981b3521b6d08e27fc86fb087b31933e55f57e8292  pytest-9.1.1.tar.gz
 "

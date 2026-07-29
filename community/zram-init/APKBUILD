@@ -2,7 +2,7 @@
 # Contributor: Pedro Filipe <xpecex@outlook.com>
 # Maintainer: Stuart Cardall <developer@it-offshore.co.uk>
 pkgname=zram-init
-pkgver=13.0
+pkgver=13.3
 pkgrel=0
 pkgdesc="wrapper script for the zram kernel module"
 arch="noarch"
@@ -13,6 +13,7 @@ subpackages="
 	$pkgname-zsh-completion:zshcomp
 	$pkgname-openrc
 	$pkgname-doc
+	$pkgname-systemd
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/vaeth/zram-init/archive/v$pkgver.tar.gz
 	"
@@ -29,6 +30,8 @@ package() {
 	install -Dm644 openrc/conf.d/zram-init "$pkgdir"/etc/conf.d/zram-init
 	install -Dm755 openrc/init.d/zram-init "$pkgdir"/etc/init.d/zram-init
 
+	install -Dm644 systemd/system/*.service -t "$pkgdir"/usr/lib/systemd/system/
+
 	install -Dm644 man/zram-init.8 -t "$pkgdir"/usr/share/man/man8
 }
 
@@ -41,5 +44,5 @@ zshcomp() {
 }
 
 sha512sums="
-66345d24ff25fff022e8326e04de0fdaac06a4423bd59bf80a409ce0fc94eb8ebb707129c5bf0ec4f5a922f6f835d5bed06a8561027d03c4d4e8f8659d25d01b  zram-init-13.0.tar.gz
+8b20cf084d8df126e1b5dfa211eb21b8466b79c43cbff63cf2cc427d94166b8543aa256ddfd51a736db296fd6d64d5c2a191f38b0996bdfd43b557034312e077  zram-init-13.3.tar.gz
 "

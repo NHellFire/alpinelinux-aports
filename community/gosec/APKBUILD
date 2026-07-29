@@ -1,28 +1,23 @@
 # Contributor: Clayton Craft <clayton@craftyguy.net>
 # Maintainer: Clayton Craft <clayton@craftyguy.net>
 pkgname=gosec
-pkgver=2.22.3
-pkgrel=5
+pkgver=2.23.0
+pkgrel=4
 pkgdesc="Go source code static analyzer, focusing on security"
 url="https://github.com/securego/gosec"
 arch="all"
 license="Apache-2.0"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/securego/gosec/archive/refs/tags/v$pkgver.tar.gz"
-# downloads go deps into GOBIN and runs them
-options="!check net"
-
-export GOBIN=/tmp
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+# downloads go deps
+options="net"
 
 build() {
 	make PREFIX="/usr" VERSION="$pkgver"
 }
 
 check() {
-	make test
+	go run github.com/onsi/ginkgo/v2/ginkgo -- --ginkgo.v --ginkgo.fail-fast
 }
 
 package() {
@@ -30,5 +25,5 @@ package() {
 }
 
 sha512sums="
-7dacf2f91a753b3ebe19d47eccaee9d75b8e84ac1582c433321eede6dea28513d68aaaee7579aab21e7f6839c2a1cfc7b5465c79243377cc45d87a7a4dba5d31  gosec-2.22.3.tar.gz
+e38d937020a2158e022a49ab32b3db5785a8ce5da5085c1ced0c8ea9ff478fb532b9431e8eaa6795c62fb0909923c7f7a8255f30f34c3d129a8715575f9debd0  gosec-2.23.0.tar.gz
 "

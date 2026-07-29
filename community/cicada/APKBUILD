@@ -1,8 +1,8 @@
 # Contributor: Hugo Wang <w@mitnk.com>
 # Maintainer: Hugo Wang <w@mitnk.com>
 pkgname=cicada
-pkgver=1.1.2
-pkgrel=0
+pkgver=1.2.2
+pkgrel=1
 pkgdesc="A bash-like Unix shell"
 url="https://github.com/mitnk/cicada"
 arch="all"
@@ -14,6 +14,7 @@ install="$pkgname.post-install $pkgname.pre-deinstall"
 subpackages="$pkgname-doc"
 source="$pkgname-$pkgver.tar.gz::https://github.com/mitnk/cicada/archive/v$pkgver.tar.gz
 	unbundle-sqlite.patch
+	bump-nix-crate.patch
 	"
 
 
@@ -27,7 +28,7 @@ build() {
 }
 
 check() {
-	cargo test --frozen --release --bins
+	cargo test --frozen --bins
 }
 
 package() {
@@ -37,6 +38,7 @@ package() {
 }
 
 sha512sums="
-fdb0c8284557a0a0c28808633e2e9fdce600908b7d676273fa918036f01c6cb34d40aaee1bd3140a2ef77389f2cce784856e7b10aaf0221bc0255a39441d4c41  cicada-1.1.2.tar.gz
-65dde847e839accdf751a747c9098fab0dbcdb1d783fdc69279d0b344ad0312a799256064190fa372e86dcaa600e698ab3b253e0db73706174cd8e945ab64ecf  unbundle-sqlite.patch
+27ee9c7f23783861f7a370630148f96c69c38622cb2624c76d4c8a144d82011f44560510b9601fb248c6979e9268d5c1f7fee46b6dcd8dc9594ae00909079d19  cicada-1.2.2.tar.gz
+0e5d9d52404e18df555ad82a4bf8ffe12420ec150417dce060b0ccdf60662ec5b76f1cde321da19c936a2bb89ce7e1d5485d23acbbb9032f8069b25cc9e80110  unbundle-sqlite.patch
+f2df0d2b2d02ea38595d76774cf257bc3d4308fc319f9e5bd9edae42a0bce031fbded88760916a3094d4d7e72253087306abbc9f91a619e4b7c49a6525dfb720  bump-nix-crate.patch
 "

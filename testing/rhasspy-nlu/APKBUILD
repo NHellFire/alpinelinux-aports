@@ -2,7 +2,7 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=rhasspy-nlu
 pkgver=0.4.0
-pkgrel=3
+pkgrel=4
 pkgdesc="Natural language understanding library for Rhasspy"
 url="https://github.com/rhasspy/rhasspy-nlu"
 arch="noarch"
@@ -21,7 +21,7 @@ build() {
 
 check() {
 	python3 -m venv --clear --without-pip --system-site-packages .testenv
-	gpep517 install-wheel --destdir .testenv --prefix '' .dist/*.whl
+	.testenv/bin/python3 -m installer .dist/*.whl
 	.testenv/bin/python3 -m pytest
 }
 

@@ -1,0 +1,33 @@
+# Contributor: Hannes Braun <hannes@hannesbraun.net>
+# Maintainer: Hannes Braun <hannes@hannesbraun.net>
+pkgname=py3-libpyshell
+pkgver=0.6.0
+pkgrel=0
+pkgdesc="Support for writing shell scripts in Python"
+url="https://github.com/skogsbaer/libPyshell"
+arch="noarch"
+license="BSD-3-Clause"
+depends="python3"
+makedepends="py3-gpep517 py3-setuptools py3-wheel"
+subpackages="$pkgname-pyc"
+source="$pkgname-$pkgver.tar.gz::https://github.com/skogsbaer/libPyshell/archive/$pkgver.tar.gz"
+builddir="$srcdir/libPyshell-$pkgver"
+
+build() {
+	gpep517 build-wheel --wheel-dir .dist --output-fd 3 3>&1 >&2
+}
+
+check() {
+	cd tests
+	python3 -m venv --clear --without-pip --system-site-packages .testenv
+	.testenv/bin/python3 -m installer ../.dist/*.whl
+	.testenv/bin/python3 shellTests.py
+}
+
+package() {
+	python3 -m installer -d "$pkgdir" .dist/*.whl
+}
+
+sha512sums="
+be83988b703e574fdeda6e07419958dffad971a65f9644df101f68383bf821e0cd5524574472ca539eeef999787bb853a23cdf988d5d823777472519da1529a0  py3-libpyshell-0.6.0.tar.gz
+"

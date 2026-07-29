@@ -2,7 +2,7 @@
 # Maintainer: Edd Salkield <edd@salkield.uk>
 pkgname=nwg-bar
 pkgver=0.1.6
-pkgrel=13
+pkgrel=21
 pkgdesc="GTK3-based button bar for sway and other wlroots-based compositors"
 url="https://github.com/nwg-piotr/nwg-bar/"
 arch="all"
@@ -10,10 +10,6 @@ license="MIT"
 makedepends="go glib-dev cairo-dev gtk+3.0-dev gtk-layer-shell-dev"
 source="https://github.com/nwg-piotr/nwg-bar/archive/v$pkgver/nwg-bar-v$pkgver.tar.gz"
 options="!check net"	# no upstream tests
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -o bin/nwg-bar .

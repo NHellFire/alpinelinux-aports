@@ -1,7 +1,7 @@
 # Contributor: NeYurii <neyuriizkh@proton.me>
 # Maintainer: NeYurii <neyuriizkh@proton.me>
 pkgname=wiremix
-pkgver=0.7.0
+pkgver=0.10.0
 pkgrel=0
 pkgdesc="Simple TUI audio mixer for PipeWire"
 url="https://github.com/tsowell/wiremix"
@@ -20,7 +20,7 @@ prepare() {
 }
 
 build() {
-	VERGEN_GIT_DESCRIBE="$pkgver-$pkgrel" cargo auditable build --frozen --release
+	cargo auditable build --frozen --release
 }
 
 check() {
@@ -35,5 +35,5 @@ package() {
 }
 
 sha512sums="
-8cd98f902a535edb05308aad8ddd00f9c92a6f198451d09ad3729b75ef8b1dafe59b564d1f984eb0863baefe1bc08b49ead56ea62b04adfa0be363e6bee50295  wiremix-0.7.0.tar.gz
+ef071c244d20c090cc86804ad8763615e5b77448bf5680a991e5051efdbf3e80d26ac2a679b9c307ed2b9a9df18df484143a172de2d662429885f8359adeffd8  wiremix-0.10.0.tar.gz
 "

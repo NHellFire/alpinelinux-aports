@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=breeze-grub
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Breeze theme for GRUB"
 arch="noarch !s390x" # s390x blocked by grub
@@ -35,6 +35,6 @@ package() {
 	cp -r breeze "$pkgdir"/usr/share/grub/themes
 }
 sha512sums="
-ff23ad4688262f9cc6c4520f54b5d7589f26b930a48c2e40c007245246382d8f1dc5f1e24c28355a49775ce6bb97ede664790e360f5e9db751ec21c05a8acf65  breeze-grub-6.4.5.tar.xz
+55e6799f50b0e777af22af64ccd2504c8b7f90b9b0feeff9453331a8383f285264c4e763f4143bf01a30c9e84ff9c872104b9d80fdf12a9825abce1575bf058f  breeze-grub-6.7.3.tar.xz
 3cc8ea5d676ad192b6831f5989a5113815d92bc2a413f73efc7fc91611b26712626eeec8048a3d6d31c4b0ead84a200fd708d9a125853a775c6a5748efcca13d  fontpath.patch
 "

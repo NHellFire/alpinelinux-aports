@@ -2,18 +2,17 @@
 # Contributor: jv <jens@eisfair.org>
 # Contributor: Adrian Guenter <adrian@gntr.me>
 # Contributor: Jakub Jirutka <jakub@jirutka.cz>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=syslog-ng
-pkgver=4.9.0
+pkgver=4.11.0
 pkgrel=0
 pkgdesc="Next generation logging daemon"
 url="https://www.syslog-ng.com/products/open-source-log-management/"
 arch="all"
 license="GPL-2.0-or-later"
-options="!check" # unit tests require https://github.com/Snaipe/Criterion with deps
 makedepends="
-	autoconf automake libtool
+	autoconf
+	automake
 	bison
 	curl-dev
 	eventlog-dev
@@ -24,6 +23,8 @@ makedepends="
 	ivykis-dev
 	json-c-dev
 	libdbi-dev
+	libmaxminddb-dev
+	libtool
 	openssl-dev
 	pcre2-dev
 	py3-setuptools
@@ -45,11 +46,13 @@ source="https://github.com/balabit/syslog-ng/releases/download/syslog-ng-$pkgver
 	$pkgname.logrotate
 	$pkgname.initd
 	"
+options="!check" # unit tests require https://github.com/Snaipe/Criterion with deps
 
 _modules="
 	add-contextual-data
 	amqp:afamqp
 	examples
+	geoip:geoip2-plugin
 	graphite
 	http
 	json:json-plugin
@@ -85,7 +88,6 @@ build() {
 		--enable-ipv6 \
 		--enable-manpages \
 		\
-		--disable-geoip2 \
 		--disable-java \
 		--disable-java-modules \
 		--disable-linux-caps \
@@ -95,7 +97,7 @@ build() {
 		--disable-smtp \
 		--disable-systemd \
 		--enable-amqp \
-		--enable-geoip \
+		--enable-geoip2 \
 		--enable-http \
 		--enable-json \
 		--enable-native \
@@ -144,9 +146,8 @@ scl() {
 dev() {
 	default_dev
 
-	amove \
-		usr/share/syslog-ng/tools \
-		usr/share/syslog-ng/xsd
+	amove usr/share/syslog-ng/tools
+	amove usr/share/syslog-ng/xsd
 
 	# this has to remain in main package
 	mkdir -p "$pkgdir"/usr/share/syslog-ng/include/
@@ -157,10 +158,9 @@ dev() {
 python() {
 	pkgdesc="$pkgdesc (python module)"
 
-	amove \
-		usr/lib/syslog-ng/libmod-python.so \
-		usr/lib/syslog-ng/python \
-		etc/syslog-ng/python
+	amove usr/lib/syslog-ng/libmod-python.so
+	amove usr/lib/syslog-ng/python
+	amove etc/syslog-ng/python
 }
 
 _module() {
@@ -174,7 +174,7 @@ _module() {
 }
 
 sha512sums="
-834f2da2259dfb9a5acd53f74c57f7de25480998d9395462ca26aa9e08f09b533170bb09dde7179d89ef3d3bfe5b7e1a7de7f5591ccd669bd373cb1a2a84d4b1  syslog-ng-4.9.0.tar.gz
+e241312dc7024cb51340c6fdb934ff064b18cdc3c80c0455abcff971632c0b0074eb237fdc505f36d687d6eda3c573c0d0d742a0d3792801ee715331f12938ad  syslog-ng-4.11.0.tar.gz
 f114fbaccc2726029e895d65380663ffbdca8dfecdac8f359b785e344c968443f468800107bdc1612cd95f2c81b44fa504eb8fcd0bf258a335e0675232171c04  pyversion.patch
 219efb21a87f4549d79850cd3bc5c3ffbae0e9bad46506aeae2cd07cc098d5ae9ac0b9bfe392e703122a58feb4e6096f17d65b342d5db55c408533953038467d  link-stdc++.patch
 06f79f7350d08c968a2b2b8e0511857a35b784bf6e8e4ba047d0ff24ad0e05f0f0915af049b10deb4ae8c9be788f3824f3818e350e07796ceed93e144838c6a5  syslog-ng.conf

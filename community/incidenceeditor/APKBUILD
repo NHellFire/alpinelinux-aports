@@ -2,12 +2,12 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=incidenceeditor
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 pkgdesc="KDE PIM incidence editor"
 # armhf blocked by qt6-qtdeclarative -> ki18n
-# x86, ppc64le, s390x, riscv64 and armv7 blocked by qt6-qtwebengine -> akonadi
-arch="all !armhf !x86 !ppc64le !s390x !riscv64 !armv7"
+# x86, s390x, riscv64 and armv7 blocked by qt6-qtwebengine -> akonadi
+arch="all !armhf !x86 !s390x !riscv64 !armv7"
 url="https://kontact.kde.org/"
 license="LGPL-2.0-or-later AND GPL-2.0-or-later"
 depends_dev="
@@ -24,6 +24,7 @@ depends_dev="
 	kio-dev
 	kldap-dev
 	kmailtransport-dev
+	kmime-dev
 	ktextwidgets-dev
 	kmime-dev
 	libkdepim-dev
@@ -38,7 +39,9 @@ makedepends="$depends_dev
 checkdepends="xwayland-run"
 subpackages="$pkgname-dev $pkgname-lang"
 _repo_url="https://invent.kde.org/pim/incidenceeditor.git"
-source="https://download.kde.org/stable/release-service/$pkgver/src/incidenceeditor-$pkgver.tar.xz"
+source="https://download.kde.org/stable/release-service/$pkgver/src/incidenceeditor-$pkgver.tar.xz
+	0001-incidenceeditor-KMime-from-KF6.patch
+	"
 
 build() {
 	cmake -B build -G Ninja \
@@ -59,5 +62,6 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-bcb89b598de955773183a614fac851f062408c3f6b3398600ce901a0077f4283275f1413aafcc33323735e93f070fc02f9d873b2311d94ba7706205ff75fe36e  incidenceeditor-25.08.0.tar.xz
+c15483a2e1a7ddf42ce17ec7079f0625ff91b19d27465091d815760f527184e9ec86c851150e582ab93a860a0dcf5246c98866017d7cd424ed8226f3495aa293  incidenceeditor-26.04.3.tar.xz
+2bf7ba2fedfcd32b4c55e470964bfe6a278a6e795c74663ea043f47117d359197e86a913c5dab0988a44628aa06c4fd40fddbc5ab7d471b9d6fef31cd06a242c  0001-incidenceeditor-KMime-from-KF6.patch
 "

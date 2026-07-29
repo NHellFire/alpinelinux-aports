@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: qaqland <qaq@qaq.land>
+maintainer="qaqland <qaq@qaq.land>"
 pkgname=debian-devscripts
-pkgver=2.25.19
-pkgrel=0
+pkgver=2.26.5
+pkgrel=1
 pkgdesc="Debian developer scripts"
 url="https://tracker.debian.org/pkg/devscripts"
 arch="noarch"
@@ -65,5 +65,5 @@ harden() {
 }
 
 sha512sums="
-f41041f2ce1c63a1d249e837a79cd672faf9b160616b3251946939b6e680e902743891e34e092f62278d894ebca22dda85ebcdfa3f51f8c2ec5c8a6de2b6d489  debian-devscripts-2.25.19.tar.gz
+99f1e7581bdcd8a3ce42fcb6779b61d07b04d9c7d4dd4bc18418a76785fd801a306314573f9c664c415c96bdfdec69f04c95eff5e144803d2ee15a49b28c658c  debian-devscripts-2.26.5.tar.gz
 "

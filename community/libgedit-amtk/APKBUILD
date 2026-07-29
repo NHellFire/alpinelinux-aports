@@ -2,7 +2,7 @@
 # Maintainer: mio <miyopan@e.email>
 maintainer="mio <miyopan@e.email>"
 pkgname=libgedit-amtk
-pkgver=5.9.1
+pkgver=5.10.0
 pkgrel=0
 pkgdesc="Gedit Technology — actions, menus and toolbars kit"
 url="https://gitlab.gnome.org/World/gedit/libgedit-amtk"
@@ -38,5 +38,5 @@ package() {
 }
 
 sha512sums="
-7f96f0d9fb43384369c975c15fa8577c1a93bdc0a87a93dcc1039de783a72fe2c332172ce72755fe1e37e92d6d51821c21b16dd5e4d427076a842d8328e2baac  libgedit-amtk-5.9.1.tar.gz
+8661b60da70da86bd983394dad00608e51c80a25f4acdf51c4645e19eeeed85bf4eaee3f5e717a36a43c5a053968c7c8625a6b11202e70a6485d1c7778342504  libgedit-amtk-5.10.0.tar.gz
 "

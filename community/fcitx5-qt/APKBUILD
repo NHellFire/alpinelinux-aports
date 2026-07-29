@@ -2,8 +2,8 @@
 # Maintainer: Lindsay Zhou <i@lin.moe>
 maintainer="Lindsay Zhou <i@lin.moe>"
 pkgname=fcitx5-qt
-pkgver=5.1.10
-pkgrel=3
+pkgver=5.1.14
+pkgrel=0
 pkgdesc="Qt library and IM module for Fcitx5"
 url="https://github.com/fcitx/fcitx5-qt"
 arch="all"
@@ -56,5 +56,5 @@ package() {
 }
 
 sha512sums="
-210a5e97a51e5cbb9cb77c5ac7cdcbcbe884677201c89baaad9e875b15e886cce8c582e52961cf19a6c1c5b109b7baa03e3632043e13134b827d75e7615e801c  fcitx5-qt-5.1.10.tar.gz
+29d1ad229f1adb3bbc9741fefc59e829ff055ad1221f42951b5483ad1ae8e1471270bf40365525c78412b189b99b56bc30059472d4f02a1e5b76c5659631c5e4  fcitx5-qt-5.1.14.tar.gz
 "

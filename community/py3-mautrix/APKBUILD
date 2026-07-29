@@ -1,7 +1,7 @@
 maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=py3-mautrix
-pkgver=0.20.8
-pkgrel=1
+pkgver=0.21.1
+pkgrel=0
 pkgdesc="Python 3 asyncio Matrix framework"
 url="https://github.com/mautrix/python"
 arch="noarch"
@@ -18,6 +18,7 @@ depends="
 	py3-ruamel.yaml
 	py3-sqlalchemy
 	py3-unpaddedbase64
+	py3-base58
 	python3
 	"
 makedepends="
@@ -52,5 +53,5 @@ package() {
 }
 
 sha512sums="
-ca7a43b073b43794f8ca675f57d4249e4ad3f9326e4cec391239512e56b05ccd7ea407112cf93d8ebb8df86f0501adfb61af4ede8f7748027f53715f910df163  py3-mautrix-0.20.8.tar.gz
+39f59fe40d4e72b5be31057418f81f141a3c910c3b27465b0b84e0f6c0277c17c854ea9aa4bb8dad21cdec72bedf9b78ed702189f35d391a6e0b58de9eb6ec6b  py3-mautrix-0.21.1.tar.gz
 "

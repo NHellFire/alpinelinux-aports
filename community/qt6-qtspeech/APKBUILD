@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtspeech
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Qt6 module to make text to speech and speech recognition easy"
 url="https://qt.io/"
@@ -63,5 +63,5 @@ dev() {
 }
 
 sha512sums="
-68116bf2a91a72167a33ead0b5daca89514092bf6411035cc4667610bc256af0aa34af1132f09703f674ae09050a08e5e05f47ef089d41bf4a16782dbc489b68  qtspeech-everywhere-src-6.9.2.tar.xz
+99958a370cbbd65d1c6b83904902550dcd0219be846b23e0cf3c23f2450bb2486768885107e4e18aca02bff06fd810332fda98240ad03fa8aa9d1e674d7d506a  qtspeech-everywhere-src-6.11.1.tar.xz
 "

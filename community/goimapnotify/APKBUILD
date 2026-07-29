@@ -2,19 +2,16 @@
 # Contributor: Thomas Böhler <witcher@wiredspace.de>
 # Maintainer: Clayton Craft <clayton@craftyguy.net>
 pkgname=goimapnotify
-pkgver=2.4
-pkgrel=8
+pkgver=2.5.4
+pkgrel=4
 pkgdesc="execute scripts on IMAP mailbox changes using IDLE, golang version"
 url="https://gitlab.com/shackra/goimapnotify"
 arch="all"
 license="GPL-3.0-or-later"
 makedepends="go"
 options="net"
+subpackages="$pkgname-systemd"
 source="https://gitlab.com/shackra/goimapnotify/-/archive/$pkgver/goimapnotify-$pkgver.tar.gz"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	export CGO_CPPFLAGS="$CPPFLAGS"
@@ -35,8 +32,9 @@ package() {
 	install -Dm644 LICENSE "$pkgdir"/usr/share/licenses/"$pkgname"/LICENSE
 	install -Dm644 README.md "$pkgdir"/usr/share/doc/"$pkgname"/README.md
 	install -Dm644 CHANGELOG.md "$pkgdir"/usr/share/doc/"$pkgname"/CHANGELOG.md
+	install -Dm644 goimapnotify@.service "$pkgdir"/usr/lib/systemd/user/goimapnotify@.service
 }
 
 sha512sums="
-cda7ad81239fce7930b5a4c64728d09791f65061ce5570cd9f3c4c2640eb46ea912ec0c6349cfdf5355f77667357c05f0b194563c370f3296b65a5881e047d15  goimapnotify-2.4.tar.gz
+1ea777ff9fd3fe06d4dff205293085d62d79f039999f9bee6fa0805d901adda127112650bd7f764bac5ed3f8c6cfb2c03b8d79f9df61dd243a73a2f8dd80e06d  goimapnotify-2.5.4.tar.gz
 "

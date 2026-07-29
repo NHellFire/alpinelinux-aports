@@ -1,22 +1,20 @@
 # Contributor: Michał Polański <michal@polanski.me>
 # Contributor: Daniel Isaksen <d@duniel.no>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: DWwanghao <wanghao03@loongson.cn>
+maintainer="DWwanghao <wanghao03@loongson.cn>"
 pkgname=elvish
 pkgver=0.21.0
-pkgrel=9
+pkgrel=17
 pkgdesc="Friendly and expressive Unix shell"
 url="https://elv.sh/"
 arch="all"
 license="BSD-2-Clause"
 makedepends="go"
+options="net" # go
 source="https://github.com/elves/elvish/archive/v$pkgver/elvish-$pkgver.tar.gz
 	s390x-atan2-test.patch
 	"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 export GOFLAGS="$GOFLAGS -mod=readonly"
 
 build() {

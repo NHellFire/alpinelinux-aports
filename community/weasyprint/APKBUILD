@@ -1,16 +1,17 @@
 # Maintainer: Patrycja Rosa <alpine@ptrcnull.me>
 pkgname=weasyprint
-pkgver=65.1
+pkgver=69.0
 pkgrel=0
 pkgdesc="A visual rendering engine for HTML and CSS that can export to PDF"
 url="https://weasyprint.org"
 arch="noarch"
 license="BSD-3-Clause"
 depends="
+	harfbuzz-subset
 	pango
 	py3-brotli
-	py3-cssselect2
 	py3-cffi
+	py3-cssselect2
 	py3-fonttools
 	py3-pillow
 	py3-pydyf
@@ -27,12 +28,18 @@ checkdepends="
 	font-dejavu
 	ghostscript
 	py3-pytest
-	py3-pytest-xdist
 	"
 replaces="py-weasyprint py3-weasyprint"  # for backward compatibility
 provides="py-weasyprint=$pkgver-r$pkgrel py3-weasyprint=$pkgver-r$pkgrel"  # for backward compatibility
 subpackages="$pkgname-pyc"
-source="https://files.pythonhosted.org/packages/source/w/weasyprint/weasyprint-$pkgver.tar.gz"
+source="
+	https://files.pythonhosted.org/packages/source/w/weasyprint/weasyprint-$pkgver.tar.gz
+	"
+options="!check" # https://github.com/Kozea/WeasyPrint/issues/2821
+
+# secfixes:
+#   69.0-r0:
+#     - CVE-2026-49452
 
 build() {
 	gpep517 build-wheel \
@@ -41,8 +48,20 @@ build() {
 }
 
 check() {
-	pytest --deselect tests/draw/test_text.py::test_otb_font \
-		--deselect tests/test_api.py::test_cmap_rtl
+	# FIXME test_api.py fails on s390x
+	# the gradient tests fails with ghostscript 10.07.0
+	pytest \
+		--deselect tests/test_api.py::test_to_unicode_rtl \
+		--deselect tests/draw/svg/test_bounding_box.py::test_bounding_box_circle \
+		--deselect tests/draw/svg/test_bounding_box.py::test_bounding_box_ellipse \
+		--deselect tests/draw/svg/test_gradients.py::test_linear_gradient_transform_repeat \
+		--deselect tests/draw/svg/test_gradients.py::test_linear_gradient_transform_repeat_userspace \
+		--deselect tests/draw/svg/test_gradients.py::test_radial_gradient_repeat \
+		--deselect tests/draw/svg/test_gradients.py::test_radial_gradient_reflect \
+		--deselect tests/draw/test_background.py::test_canvas_background_size \
+		--deselect tests/draw/test_gradient.py::test_linear_gradients_5 \
+		--deselect tests/draw/test_gradient.py::test_radial_gradients_negative
+
 }
 
 package() {
@@ -51,5 +70,5 @@ package() {
 }
 
 sha512sums="
-6b36b66b471c8b6a853f783a0c6d9548f27ac2ee51be0a54d1e75eb9451c94da931484d1877e716ee99c9624a9fec4c8f28bfea5959f44344dc5938272c8bef1  weasyprint-65.1.tar.gz
+fb56d7f6173f8a67f8ef4c31408c03625b0a774d0efde003f779e3da054737c88afe9f44ee40b6dda5fc92cfacfa5709d4d96bf1a112862d309eaf2d93881ef6  weasyprint-69.0.tar.gz
 "

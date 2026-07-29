@@ -1,14 +1,18 @@
-# Maintainer:
+maintainer="Leon White <badfunkstripe@gmail.com>"
 pkgname=protoc-gen-js
-pkgver=3.21.4
-pkgrel=1
+pkgver=4.0.2
+pkgrel=0
 pkgdesc="protoc-gen-js javascript protobuf generator"
 url="https://github.com/protocolbuffers/protobuf-javascript"
 # bazel
 arch="x86_64 aarch64"
 license="BSD-3-Clause AND Apache-2.0"
 depends="protoc"
-makedepends="bazel7 linux-headers"
+makedepends="
+	bazel8
+	linux-headers
+	nodejs
+	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/protocolbuffers/protobuf-javascript/archive/refs/tags/v$pkgver.tar.gz"
 builddir="$srcdir/protobuf-javascript-$pkgver"
 # bazel stuff, no tests
@@ -26,5 +30,5 @@ package() {
 }
 
 sha512sums="
-8fc8e037969466e678036e59ac7892d6493657e40ab09f109e78e6f3457d81bf644cd98e6603da31912c1841d51e9fe49ca16214b81fe6039e2268454921601d  protoc-gen-js-3.21.4.tar.gz
+c0569ddc2718a9719588016b1ae32d35edfdc472058fb91562679cff489d11947159f94f7637dbc9f1ce8ce6a2c44f439f3aa056fa771ae073608b4d60c5b9cb  protoc-gen-js-4.0.2.tar.gz
 "

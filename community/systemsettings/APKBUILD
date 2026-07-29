@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=systemsettings
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Plasma system manager for hardware, software, and workspaces"
 # armhf blocked by qt6-qtdeclarative
@@ -30,7 +30,7 @@ makedepends="
 	kwidgetsaddons-dev
 	kwindowsystem-dev
 	kxmlgui-dev
-	plasma-activities-dev>=$pkgver
+	plasma-activities-dev
 	plasma-activities-stats-dev
 	plasma-workspace-dev
 	qt6-qtbase-dev
@@ -62,5 +62,5 @@ package() {
 }
 
 sha512sums="
-90e5aca63ed0855f396df52d3fe65bdcff609dac384548f533dc9891b207664b6bfd80687f19f5d32e25c78a4ee281810c039cfa3629215913b9ad3749f4b307  systemsettings-6.4.5.tar.xz
+33059c4df2dc413651d5cfaf8cc6c4dfd8a0bca811e17568ece08ba1990523e3ba8f4bb558a74e040b6a7aa89b9301e7007a730e37ed872ab10d858d76a90eb3  systemsettings-6.7.3.tar.xz
 "

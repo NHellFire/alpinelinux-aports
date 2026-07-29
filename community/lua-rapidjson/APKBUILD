@@ -2,8 +2,8 @@
 # Maintainer: Jakub Jirutka <jakub@jirutka.cz>
 pkgname=lua-rapidjson
 _rockname=rapidjson
-pkgver=0.7.1
-pkgrel=0
+pkgver=0.7.2
+pkgrel=1
 pkgdesc="A JSON module for Lua based on the very fast RapidJSON library"
 url="https://github.com/xpol/lua-rapidjson"
 arch="all"
@@ -20,7 +20,7 @@ ppc64le|riscv64|loongarch64) _luajit="" ;;
 *) checkdepends="$checkdepends luajit"; _luajit="jit" ;;
 esac
 
-_luaversions="5.1 5.2 5.3"
+_luaversions="5.1 5.2 5.3 5.4"
 for _v in $_luaversions; do
 	makedepends="$makedepends lua$_v-dev"
 	checkdepends="$checkdepends lua$_v lua$_v-busted lua$_v-dromozoa-utf8"
@@ -81,7 +81,7 @@ _subpackage() {
 }
 
 sha512sums="
-e84157ddf000605cf41faf359eb51223867203cccd3c0d3597b1bc8e237ad6eda85ddf7854d97f1c57551e601f9a4389ac51143b4c51c27d21344b71e5a084dd  lua-rapidjson-0.7.1.tar.gz
+6458705e6b04708b8954891df2c7796cff89d96e9fd2e1df46646a06f2d37e275ba06c45dad4e538cda8d87b22a9aab234a33da925b31e352929fb163a3cafd2  lua-rapidjson-0.7.2.tar.gz
 90c17874ea1f5d62f5c812fbcc45bf56c734589a6ab07247dadfe76d0f8aaadb4e7e490b7ff89bc742f5b11ccf9d88a339507c321826cb91a99586f42058a757  disable-c-cxx-flag-march.patch
 f42ec35dac0dec1cdd33f7275ec9576f5b2e5f7dc473a6ff434eab483632b30d884c3918d72a3ba495e2e2cfbc56488172e128eb2f9cb65c6b1c840e46ccd70a  use-dromozoa-utf8.patch
 "

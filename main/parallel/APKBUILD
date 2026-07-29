@@ -1,8 +1,8 @@
 # Contributor: Bartłomiej Piotrowski <bpiotrowski@alpinelinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=parallel
-pkgver=20250822
+pkgver=20260722
 pkgrel=0
 pkgdesc="Shell tool for executing jobs in parallel"
 arch="noarch"
@@ -12,6 +12,13 @@ options="!check" # Test suite not part of src pkg
 depends="perl"
 subpackages="$pkgname-doc $pkgname-bash-completion $pkgname-zsh-completion"
 source="https://ftp.gnu.org/gnu/parallel/parallel-$pkgver.tar.bz2"
+
+prepare() {
+	default_prepare
+
+	# Ensure compatibility: replace shell with /bin/sh
+	sed -i Makefile.in -e 's|SHELL = /bin/bash|SHELL = /bin/sh|'
+}
 
 build() {
 	./configure \
@@ -29,5 +36,5 @@ package() {
 }
 
 sha512sums="
-d4d5cea46c16d113594d35b8d81f8592c5663dc185ffb7b8045df7357bfece37c211040b1d98542780e3f36991e4f656cb8300d65e5a3716ba3234af08925eb5  parallel-20250822.tar.bz2
+d25139f6afa0ed5571845499e5e57b8dec314263981b7bbf729b9d58f155d9a1e842b410af37ad37c9cca52f9c7e15c54a124a16731b75bf37dfe7077d70c1ea  parallel-20260722.tar.bz2
 "

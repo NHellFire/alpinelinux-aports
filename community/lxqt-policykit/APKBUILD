@@ -1,7 +1,7 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=lxqt-policykit
-pkgver=2.2.0
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="LXQt PolicyKit agent"
 url="https://github.com/lxqt/lxqt-policykit"
@@ -39,5 +39,5 @@ lang() {
 }
 
 sha512sums="
-19981aff54c835da30cde31e7711e852a4ce01dba523eae7b3de842663555884fd22acb14b501d0422d371a3e9180eb677eb0b7f725c5ecac4ad6a7b1480a0f5  lxqt-policykit-2.2.0.tar.xz
+f814691b83901873bf54862c00d5439de633878ba9bb33a69e51930de031d04c1c3a2d2e433ad642488601fa3bd0b39f6eb1cf1ae174743362a3a95857add3cc  lxqt-policykit-2.4.0.tar.xz
 "

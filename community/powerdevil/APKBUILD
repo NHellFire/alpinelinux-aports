@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=powerdevil
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="Manages the power consumption settings of a Plasma Shell"
 # armhf blocked by qt6-qtdeclarative -> ki18n
@@ -30,7 +30,7 @@ depends_dev="
 	kwayland-dev
 	libkscreen-dev
 	networkmanager-qt-dev
-	plasma-activities-dev>=$pkgver
+	plasma-activities-dev
 	plasma-workspace-dev
 	qt6-qtbase-dev
 	solid-dev
@@ -48,7 +48,13 @@ case "$pkgver" in
 	*) _rel=stable;;
 esac
 
-subpackages="$pkgname-dev $pkgname-libs $pkgname-doc $pkgname-lang"
+subpackages="
+	$pkgname-systemd
+	$pkgname-dev
+	$pkgname-libs
+	$pkgname-doc
+	$pkgname-lang
+	"
 _repo_url="https://invent.kde.org/plasma/powerdevil.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/powerdevil-$pkgver.tar.xz"
 
@@ -66,11 +72,8 @@ check() {
 
 package() {
 	DESTDIR="$pkgdir" cmake --install build
-
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
 }
 
 sha512sums="
-0b364eca1cb0d42fd30990d79de8b872f75b6a26345591ad990628b6e259a9eb209f680c29173dfce850beeaf2b4ff0b382a14175521e96f0a0b25630dfb7475  powerdevil-6.4.5.tar.xz
+13012c4f8c1f366ef82a9b181f3524291b29c75d22a19a217a274587135161aa9cf3d4fba9e0102994c6bed8da05e35a35766b770368e67a3660f6d43b4162b1  powerdevil-6.7.3.tar.xz
 "

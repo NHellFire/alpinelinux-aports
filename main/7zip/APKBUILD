@@ -1,6 +1,6 @@
-# Maintainer: Alex Xu (Hello71) <alex_y_xu@yahoo.ca>
+maintainer="Achill Gilgenast <achill@achill.org>"
 pkgname=7zip
-pkgver=25.01
+pkgver=26.02
 _pkgver=${pkgver//./}
 pkgrel=0
 pkgdesc="File archiver with a high compression ratio"
@@ -20,6 +20,17 @@ replaces="p7zip"
 provider_priority=100
 
 patch_args="-p1 --binary"
+
+# secfixes:
+#   26.01-r0:
+#     - CVE-2026-48092
+#     - CVE-2026-48095
+#     - CVE-2026-48101
+#     - CVE-2026-48102
+#     - CVE-2026-48103
+#     - CVE-2026-48104
+#     - CVE-2026-48111
+#     - CVE-2026-48112
 
 build() {
 	cd CPP/7zip/Bundles/Alone2
@@ -58,7 +69,7 @@ package() {
 }
 
 sha512sums="
-5ee146ce993c6d12ad19333dc3545e6c3429212260c22d456390e49ca150e6fcbfc6eae45b5ec61138ae1598d7b4a79d6f2e3ff02929af38039c0ca59823e729  7z2501-src.tar.xz
+85449360904b295cb47a86597cca5e6623f4119e4e5ad3491d67bea8cd416bad68c4bfb69b9ec521ccee6e431a080d9e8aa8f5eecb69d8305c66973048e56a16  7z2602-src.tar.xz
 1bacb622842e48b12e7d0557b2cae11aa2a51119308857bfd3479e11d13410b7bbde2fdee74a3645459cf2ca9a9a98c56bde82beee79ec59a46a2f406f7310f5  7-zip-flags.patch
 dd5c38548c348a850d6e82ed42ba2bdc4b9e363fa946e67158a1f042179d8155a8837c89d732f748ffd1ba948bf2b7cd456f6db50e122ebbd7ba9c8a1cd7b04b  7-zip-musl.patch
 "

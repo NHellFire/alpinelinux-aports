@@ -1,0 +1,41 @@
+# Maintainer: Andy Postnikov <apostnikov@gmail.com>
+pkgname=php86-pecl-zstd
+_extname=zstd
+pkgver=0.17.0
+pkgrel=0
+pkgdesc="PHP 8.6 Zstandard extension - PECL"
+url="https://pecl.php.net/package/zstd"
+arch="all"
+license="MIT"
+_phpv=86
+_php=php$_phpv
+depends="$_php-common"
+makedepends="$_php-dev $_php-pecl-apcu zstd-dev"
+checkdepends="$_php-openssl $_php-cgi"
+source="php-pecl-$_extname-$pkgver.tgz::https://pecl.php.net/get/$_extname-$pkgver.tgz"
+builddir="$srcdir/$_extname-$pkgver"
+
+build() {
+	phpize$_phpv
+	./configure --prefix=/usr --with-php-config=php-config$_phpv --enable-apcu --with-libzstd
+	make
+}
+
+check() {
+	local _modules=/usr/lib/$_php/modules
+	make NO_INTERACTION=1 REPORT_EXIT_STATUS=1 test PHP_TEST_SHARED_EXTENSIONS=" \
+		-d extension=$_modules/apcu.so \
+		-d extension=$_modules/openssl.so \
+		-d extension=modules/$_extname.so" TESTS=--show-diff
+}
+
+package() {
+	make INSTALL_ROOT="$pkgdir" install
+	local _confdir="$pkgdir"/etc/$_php/conf.d
+	install -d $_confdir
+	echo "extension=$_extname" > $_confdir/$_extname.ini
+}
+
+sha512sums="
+7ca31b17511a6d43653312cff3a300f7d4953252d43b1c0ec7a685c7ab15e45060ef7ad3eb95dc3fc164c5d26888f09285a3eb79998cfd9a797d10b4072233e3  php-pecl-zstd-0.17.0.tgz
+"

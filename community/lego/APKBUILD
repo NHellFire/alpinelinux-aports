@@ -1,8 +1,8 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
 # Maintainer: Carlo Landmeter <clandmeter@alpinelinux.org>
 pkgname=lego
-pkgver=4.24.0
-pkgrel=3
+pkgver=4.35.2
+pkgrel=2
 pkgdesc="Let's Encrypt client and ACME library written in Go"
 url="https://github.com/go-acme/lego"
 license="MIT"
@@ -12,13 +12,7 @@ depends="ca-certificates"
 makedepends="go libcap-utils"
 checkdepends="bash tzdata"
 subpackages="$pkgname-doc"
-source="https://github.com/go-acme/lego/archive/v$pkgver/lego-$pkgver.tar.gz
-	go-mod-yandex-go-genproto-v0.4.0.patch
-	"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
+source="https://github.com/go-acme/lego/archive/v$pkgver/lego-$pkgver.tar.gz"
 
 build() {
 	go build -v -trimpath -ldflags "-X main.version=$pkgver" -o ./bin/lego ./cmd/lego
@@ -37,6 +31,5 @@ package() {
 }
 
 sha512sums="
-ff48344c8232819321e102f17d5ba9a518660bd15c967ae2d015b2e9e5463dc6272c3290db608bd3aaba70cd6a038d01a61124e33faa4412d466e5f8c5b2f341  lego-4.24.0.tar.gz
-a4c6ffadd7ab9913a17a49bb49b52d85ab74ffc128d76cb375decc0a81749959ba9de70adb65eb81b9a1b4ccb280a8b00e9d905127d7cb50ab87001fdef41879  go-mod-yandex-go-genproto-v0.4.0.patch
+17b6cc848af92ec3cb9e9bfa736c746e448c3297d041bb42db0ef95cfdba0e3eb384b192ef4f0bb4ef0ce463977df406e0ede7b26a4e90d67e0585a5e46418cd  lego-4.35.2.tar.gz
 "

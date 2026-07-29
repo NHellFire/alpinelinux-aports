@@ -2,11 +2,11 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=okular
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
-# ppc64le, s390x, riscv64 and loongarch64 blocked by qt5-qtwebengine -> purpose
-arch="all !armhf !ppc64le !s390x !riscv64 !loongarch64"
+# s390x and riscv64 blocked by qt6-qtwebengine -> purpose
+arch="all !armhf !s390x !riscv64"
 url="https://okular.kde.org/"
 pkgdesc="A universal document viewer"
 license="GPL-2.0-or-later AND LGPL-2.0-or-later"
@@ -35,7 +35,7 @@ depends_dev="
 	libspectre-dev
 	phonon-dev
 	plasma-activities-dev
-	poppler-qt5-dev
+	poppler-qt6-dev
 	purpose-dev
 	qca-dev
 	qt6-qtbase-dev
@@ -118,5 +118,5 @@ mobile() {
 }
 
 sha512sums="
-46f1a4c70560d07b37309529161be0a0f4f21f57e61c105c75ef6366c8a592084a19bb749ae7ea0141efccab2a5e95c4acc99df0a9fa99d4edbb813718c42b9c  okular-25.08.0.tar.xz
+2699af7ec0cf1a328f16556c06ebe10f6fe2e12b8771e3aa5652e5799a42d49f2136b7d0db4a6786d642e23c167bfe40983fd8a222fd253183795684496968a6  okular-26.04.3.tar.xz
 "

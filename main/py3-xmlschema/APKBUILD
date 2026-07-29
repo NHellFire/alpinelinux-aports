@@ -1,9 +1,9 @@
 # Contributor: Aiden Grossman <agrossman154@yahoo.com>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=py3-xmlschema
-pkgver=4.1.0
-pkgrel=0
+pkgver=4.3.1
+pkgrel=2
 pkgdesc="XML schema validator and conversion library"
 url="https://github.com/sissaschool/xmlschema"
 arch="noarch"
@@ -34,5 +34,5 @@ package() {
 }
 
 sha512sums="
-487f8c5b0cae1f6c7cc57cde937ef853748c5b2042af7d8c9c81a9ed63673bec2acafcf36625acde0a097ea77554df7b0db349afaf18e90d536cdc54d6f5d25b  py3-xmlschema-4.1.0.tar.gz
+494d5ce1e292383f2470617a7efbcde1d30c3daad82780431b453e68cbfeade368e776bb0471834ce36205468c72e25c15ce1392f2a7d31b4b2c141b52bc8475  py3-xmlschema-4.3.1.tar.gz
 "

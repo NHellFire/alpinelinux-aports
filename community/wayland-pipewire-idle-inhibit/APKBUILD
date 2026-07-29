@@ -1,7 +1,7 @@
 # Maintainer: Lauri Tirkkonen <lauri@hacktheplanet.fi>
 pkgname=wayland-pipewire-idle-inhibit
-pkgver=0.6.0
-pkgrel=1
+pkgver=0.7.1
+pkgrel=0
 pkgdesc="Suspends automatic wayland idling when media is being played through Pipewire"
 url="https://github.com/rafaelrc7/wayland-pipewire-idle-inhibit"
 # s390x: fails to build nix crate (< 0.28.0; upstream uses 0.27.1)
@@ -39,6 +39,6 @@ package() {
 	install -D -m 0755 $srcdir/wayland-pipewire-idle-inhibit.initd "$pkgdir"/etc/user/init.d/wayland-pipewire-idle-inhibit
 }
 sha512sums="
-eb8985ea99189eeb14b7c07eabb36a87074faf73b02f82c40877bf27632555efeb74a8b1da96574371c4ac27c9baea077b895688589223222005b3f3dceb61d7  v0.6.0.tar.gz
+638a0ebc5e1d8c1132015ec008fb20864c0fe797ffdc67f743e78dc4923c24d4e6f7f479c1adaf133d9358a245c0ec33f0dd02a08b8166bbd8e69ab25259033c  v0.7.1.tar.gz
 d7c569f3732b8a4dae799c48b02f59adc3ec45c03598db381b00484b003f67e603cae1f07578b5837fe574beea982b788211de386bb5009c92fa4d1f71d2c11a  wayland-pipewire-idle-inhibit.initd
 "

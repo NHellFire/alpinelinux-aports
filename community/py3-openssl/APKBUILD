@@ -1,7 +1,7 @@
 # Maintainer: Natanael Copa <ncopa@alpinelinux.org>
 pkgname=py3-openssl
 # version needs to be compatible with py3-cryptography
-pkgver=25.0.0
+pkgver=26.1.0
 pkgrel=0
 pkgdesc="Python3 wrapper module around the OpenSSL library"
 url="https://github.com/pyca/pyopenssl"
@@ -25,6 +25,12 @@ builddir="$srcdir/pyopenssl-$pkgver"
 replaces="py-openssl" # Backwards compatibility
 provides="py-openssl=$pkgver-r$pkgrel" # Backwards compatibility
 
+# secfixes:
+#   26.1.0-r0:
+#     - CVE-2026-27448
+#     - CVE-2026-27459
+#     - CVE-2026-40475
+
 build() {
 	gpep517 build-wheel \
 		--wheel-dir .dist \
@@ -44,5 +50,5 @@ package() {
 }
 
 sha512sums="
-77f9f03610a4ddaf115d581b873e728a79ba0e8d762ddeffacb600b6bc4a50bde2edfc114aebe12b9e177f3d53c19fe0c2bf0a5821e609489b8640e23c324376  pyopenssl-25.0.0.tar.gz
+084117296b7013d665d7f30705b26ad5dd2758febfc7080ae656328d40a2e992b74c52abcc39b9243bc9a918b4611f1f497e56928a5789ffc63c0b521357eb9c  pyopenssl-26.1.0.tar.gz
 "

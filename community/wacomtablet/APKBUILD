@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=wacomtablet
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="GUI for Wacom Linux drivers that supports different button/pen layout profiles"
 # armhf blocked by qt6-qtdeclarative
@@ -40,6 +40,7 @@ esac
 
 _repo_url="https://invent.kde.org/system/wacomtablet.git"
 source="https://download.kde.org/$_rel/plasma/$pkgver/wacomtablet-$pkgver.tar.xz"
+options="!check" # Exits as failed even though tests succeed
 
 build() {
 	cmake -B build -G Ninja \
@@ -57,5 +58,5 @@ package() {
 	DESTDIR="$pkgdir" cmake --install build
 }
 sha512sums="
-5094240cbf3fdec0c59feb21bb034c0e8dc0e12541fbf5c8366883db5b954f4036a3209a47a8471ca7eced5a6d7ffe0ba853b0bed5140101d28355fc009c37bd  wacomtablet-6.4.5.tar.xz
+71499d72370f40e7d7338bece27d0b602a183b3442a4317bc938382f3bb24f494a991552ffa27434518144b4fbdbc658d284b9f8d9ab6f39fe3f77be6de08cda  wacomtablet-6.7.3.tar.xz
 "

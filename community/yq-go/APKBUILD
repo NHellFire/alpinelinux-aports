@@ -3,8 +3,8 @@
 maintainer="Kevin Daudt <kdaudt@alpinelinux.org>"
 pkgname=yq-go
 _projname=yq
-pkgver=4.47.2
-pkgrel=0
+pkgver=4.53.3
+pkgrel=1
 pkgdesc="Portable command-line YAML processor written in Go"
 url="https://github.com/mikefarah/yq"
 arch="all"
@@ -60,5 +60,5 @@ package() {
 }
 
 sha512sums="
-879c3efbb67a4d874ab4fdd6139b7eb658205c2af54bb1e16bc7007998d1425c8d67de2da4999c67efae6ac58668bb15464fdf86571f5721f2cf4fb047920004  yq-go-4.47.2.tar.gz
+420825768e0806ee82393dd80dccedcd8f62a31a2ed14b1ba1a22c89a8fcf34c5100cb1efa7e38bea9f4f6db07450417701dd1193588e5f48b04f9baad8cb28e  yq-go-4.53.3.tar.gz
 "

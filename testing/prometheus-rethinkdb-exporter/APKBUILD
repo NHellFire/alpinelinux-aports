@@ -2,7 +2,7 @@
 # Maintainer: TBK <alpine@jjtc.eu>
 pkgname=prometheus-rethinkdb-exporter
 pkgver=1.0.1
-pkgrel=31
+pkgrel=39
 pkgdesc="Prometheus exporter for RethinkDB"
 url="https://github.com/rethinkdb/prometheus-exporter"
 license="Apache-2.0"
@@ -15,10 +15,6 @@ source="$pkgname-$pkgver.tar.gz::https://github.com/rethinkdb/prometheus-exporte
 	update-gomod.patch
 	"
 builddir="$srcdir/prometheus-exporter-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make

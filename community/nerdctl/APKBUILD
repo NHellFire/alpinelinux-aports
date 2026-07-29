@@ -1,7 +1,7 @@
 maintainer="Hoang Nguyen <folliekazetani@protonmail.com>"
 pkgname=nerdctl
-pkgver=2.1.3
-pkgrel=2
+pkgver=2.3.4
+pkgrel=0
 pkgdesc="Docker-compatible CLI for containerd"
 url="https://github.com/containerd/nerdctl/"
 arch="all"
@@ -16,10 +16,6 @@ subpackages="
 	"
 source="$pkgname-$pkgver.tar.gz::https://github.com/containerd/nerdctl/archive/refs/tags/v$pkgver.tar.gz"
 options="net" # download Go modules
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	go build -v \
@@ -55,5 +51,5 @@ package() {
 }
 
 sha512sums="
-8c9826d8b49982612c4d9c5e6f04eefaa0d3200e5cabb5f2ff816755161e6c9cbccb90eba4acf58d3c229e2a13d46b1360918561722109a0adb94efb1c792f39  nerdctl-2.1.3.tar.gz
+22a0ed9ff6cffccfaf3786c8c1bb32103fb69608e4de2f8b6eb103fb5cda2cc23fbdfdbfcfa36757f395aa8e5758f52ebb82c3608448c823881e43e600063957  nerdctl-2.3.4.tar.gz
 "

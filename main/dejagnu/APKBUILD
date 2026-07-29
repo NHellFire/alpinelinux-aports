@@ -1,9 +1,9 @@
 # Contributor: A. Wilcox <awilfox@adelielinux.org>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=dejagnu
 pkgver=1.6.3
-pkgrel=0
+pkgrel=1
 pkgdesc="A framework for testing other programs"
 url="https://www.gnu.org/software/dejagnu/"
 arch="noarch"

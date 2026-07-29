@@ -1,7 +1,7 @@
 # Contributor: Robin Candau <robincandau@protonmail.com>
 # Maintainer: Robin Candau <robincandau@protonmail.com>
 pkgname=nwg-panel
-pkgver=0.10.12
+pkgver=0.10.15
 pkgrel=0
 pkgdesc="GTK3-based panel for sway and Hyprland Wayland compositors"
 url="https://github.com/nwg-piotr/nwg-panel"
@@ -29,5 +29,5 @@ package() {
 }
 
 sha512sums="
-9448a0092b08da1db8ad039ad70487f1c63d9a017100ce592864c7a6b4251d9e3955f2ea4d4e355b479dc60024778c20fe4d6809eacb9aa2dbe9b9870d2944b2  nwg-panel-0.10.12.tar.gz
+f03977afb8f95a4d07527fd17a3b29ff58671d8a64617473b9676d05b3370090f7ba05a9c147c1681346074fb4679534c3db0b85c810ce652be821ad1c0db97a  nwg-panel-0.10.15.tar.gz
 "

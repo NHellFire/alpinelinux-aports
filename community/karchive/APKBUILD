@@ -2,7 +2,7 @@
 # group=kde-frameworks
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=karchive
-pkgver=6.17.0
+pkgver=6.28.0
 pkgrel=0
 pkgdesc="Qt addon providing access to numerous types of archives"
 arch="all"
@@ -43,7 +43,7 @@ build() {
 }
 
 check() {
-	ctest --test-dir build
+	ctest --test-dir build -E "(karchive|kfilter)test"
 }
 
 package() {
@@ -54,5 +54,5 @@ package() {
 }
 
 sha512sums="
-e82f8af694f49951b5eabfabfa22228ba6f704e02ed4c797a2c0d7fd5e3a043f45f93d1e9ee45dede650441e066b8f1f1f5c489b9c3d370ebef1bb5657b1b888  karchive-6.17.0.tar.xz
+63790893d7fede6f56a5f696ec464227e746d974d83a884671a9d01d327cc2ac87da892e8a05bda4a89c8277bd09a2d2e9e870693ca2191063ce57646eee5cb3  karchive-6.28.0.tar.xz
 "

@@ -3,7 +3,7 @@
 pkgname=prometheus-openrc-exporter
 _pkgname=openrc-exporter
 pkgver=0.0.2
-pkgrel=28
+pkgrel=36
 pkgdesc="Prometheus exporter which exposes metrics on services managed by OpenRC"
 url="https://git.sr.ht/~tomleb/openrc-exporter"
 arch="all"
@@ -16,12 +16,8 @@ source="$pkgname-$pkgver.tar.gz::https://git.sr.ht/~tomleb/$_pkgname/archive/$pk
 	update-go-mod.patch
 	$_pkgname.initd
 	$_pkgname.confd"
-options="!check"
+options="!check net" # go
 builddir="$srcdir/$_pkgname-$pkgver"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	make

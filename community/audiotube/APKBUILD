@@ -2,8 +2,8 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=audiotube
-pkgver=25.08.0
-pkgrel=1
+pkgver=26.04.3
+pkgrel=0
 pkgdesc="Client for YouTube Music"
 url="https://invent.kde.org/plasma-mobile/audiotube"
 # armhf blocked by qt6-qtdeclarative
@@ -14,6 +14,7 @@ depends="
 	gst-plugins-good
 	kirigami-addons
 	kirigami
+	kitemmodels
 	prison
 	purpose
 	py3-ytmusicapi
@@ -25,6 +26,7 @@ makedepends="
 	futuresql-dev
 	kcrash-dev
 	ki18n-dev
+	kiconthemes-dev
 	kirigami-addons-dev
 	kirigami-dev
 	py3-pybind11-dev
@@ -55,5 +57,5 @@ package() {
 }
 
 sha512sums="
-4c6bae39a2040ac81ed29884204c2077b0d2e7afe81714364e81d20dd6c165cee2e121967059844fec3c6f00ee3f271e636df3a7c27ae4c20fff62c360efae08  audiotube-25.08.0.tar.xz
+39b98bf94df24d6b9006768a6c8db951138d091a2edeff28ea296736a03bf2d2aecf191f4e4eca6d2a2dca9434310f9d9dc815e0d11c9cde21ec9d7d975abd48  audiotube-26.04.3.tar.xz
 "

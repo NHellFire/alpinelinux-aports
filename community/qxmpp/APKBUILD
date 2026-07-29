@@ -1,23 +1,29 @@
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qxmpp
-pkgver=1.11.2
+pkgver=1.16.3
 pkgrel=0
 pkgdesc="Cross-platform C++ XMPP client and server library"
-arch="all"
-url="https://github.com/qxmpp-project/qxmpp"
+# armhf blocked by failing generation of documentation
+arch="all !armhf"
+url="https://invent.kde.org/libraries/qxmpp"
 license="LGPL-2.1-or-later"
 makedepends="
-	cmake
+	extra-cmake-modules
 	doxygen
 	graphviz
+	gstreamer-dev
 	libomemo-c-dev
 	qca-qt6-dev
-	qt6-qtbase-dev
 	qt6-qt5compat-dev
+	qt6-qtbase-dev
+	qt6-qttools-dev
 	samurai
 	"
+subpackages="
+	$pkgname-dev
+	$pkgname-doc
+	"
 source="https://download.kde.org/unstable/qxmpp/qxmpp-$pkgver.tar.xz"
-subpackages="$pkgname-dev $pkgname-doc"
 
 build() {
 	cmake -B build -G Ninja \
@@ -26,13 +32,14 @@ build() {
 		-DCMAKE_INSTALL_LIBDIR=lib \
 		-DBUILD_EXAMPLES=OFF \
 		-DBUILD_DOCUMENTATION=ON \
-		-DBUILD_OMEMO=ON
+		-DBUILD_OMEMO=ON \
+		-DWITH_GSTREAMER=ON
 	cmake --build build
 }
 
 check() {
 	# tst_qxmppiceconnection and tst_qxmpptransfermanager require a network connection
-	ctest --test-dir build -E "tst_qxmpp(iceconnection|transfermanager)"
+	ctest --test-dir build -E "tst_qxmpp(iceconnection|transfermanager|callmanager|jinglemessageinitiationmanager)"
 }
 
 package() {
@@ -40,5 +47,5 @@ package() {
 }
 
 sha512sums="
-42d23af9d64c474705061a68569d0771f0946ab6bca02d4d951cf174ff96d420052cf47613014274b9a09afd5ca296c6287f4535e8891f766a343d1858b53bc6  qxmpp-1.11.2.tar.xz
+9c0be1fa79020b26e8cd97ec70ead056b2c18017cb1e27351ca8bb8d7a03784ab0f9c6e2ecca22ac6223947e3c0b54910bea7243820f24a952dabd4c3b5d49a4  qxmpp-1.16.3.tar.xz
 "

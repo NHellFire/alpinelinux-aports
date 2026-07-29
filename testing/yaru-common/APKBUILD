@@ -1,10 +1,10 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
 maintainer="Aster Boese <asterboese@mailbox.org>"
 pkgname=yaru-common
-_pkgname=yaru
-pkgver=25.10.1
+pkgver=26.10.1
 pkgrel=0
-pkgdesc="Yaru theme common files"
+_pkgname=yaru
+pkgdesc="Yaru theme common sources"
 options="!check" # No testsuite
 url="https://community.ubuntu.com/c/desktop/theme-refresh"
 arch="noarch"
@@ -13,12 +13,14 @@ makedepends="
 	bash
 	coreutils
 	dbus
+	findutils
 	glib-dev
 	meson
 	sassc
 	xvfb-run
 	"
 subpackages="
+	$_pkgname-gtksourceview:_gtksourceview
 	$_pkgname-icon-theme-bark:_icon_theme
 	$_pkgname-icon-theme-blue:_icon_theme
 	$_pkgname-icon-theme-magenta:_icon_theme
@@ -29,6 +31,8 @@ subpackages="
 	$_pkgname-icon-theme-red:_icon_theme
 	$_pkgname-icon-theme-sage:_icon_theme
 	$_pkgname-icon-theme-viridian:_icon_theme
+	$_pkgname-icon-theme-wartybrown:_icon_theme
+	$_pkgname-icon-theme-yellow:_icon_theme
 	$_pkgname-icon-theme:_icon_theme_yaru
 	$_pkgname-schemas:_schemas
 	$_pkgname-shell:_shell
@@ -44,6 +48,8 @@ subpackages="
 	$_pkgname-theme-red:_theme
 	$_pkgname-theme-sage:_theme
 	$_pkgname-theme-viridian:_theme
+	$_pkgname-theme-wartybrown:_theme
+	$_pkgname-theme-yellow:_theme
 	$_pkgname-theme:_theme_yaru
 	"
 source="$_pkgname-$pkgver.tar.gz::https://github.com/ubuntu/yaru/archive/refs/tags/$pkgver.tar.gz"
@@ -79,6 +85,14 @@ build() {
 
 package() {
 	DESTDIR="$pkgdir" meson install --no-rebuild -C output
+}
+
+_gtksourceview() {
+	pkgdesc="Yaru theme (gtksourceview files)"
+	install_if="$pkgname=$pkgver-r$pkgrel libgedit-gtksourceview"
+
+	amove usr/share/gtksourceview*
+	amove usr/share/libgedit-gtksourceview-300
 }
 
 _icon_theme() {
@@ -137,7 +151,7 @@ _shell() {
 	amove usr/share/gnome-shell
 	amove usr/share/wayland-sessions
 	amove usr/share/xsessions
-	amove 'usr/share/themes/*/gnome-shell'
+	amove usr/share/themes/*/gnome-shell
 }
 
 _sounds() {
@@ -148,5 +162,5 @@ _sounds() {
 }
 
 sha512sums="
-63f6646a15f8ebc38b6cb48f31e90ea34786902c2633ef640b719079d2babdfc07ac3d083dd457763d527fb914e9e5faae27e9fc544cdb9847f05a5e67da441e  yaru-25.10.1.tar.gz
+d0e59e72b8851824fc90a4dafa229bd1f01ca744aef1bd13fd674637dc61512205ecbdb43c99d48f33bfc5b348f57a86fcea814a272be9db123869b4dff6dc9e  yaru-26.10.1.tar.gz
 "

@@ -3,7 +3,7 @@
 pkgname=lua-yaml
 _pkgname=yaml
 pkgver=1.1.2
-pkgrel=7
+pkgrel=9
 pkgdesc="LibYaml binding for Lua"
 url="https://lubyk.github.io/lubyk/yaml.html"
 arch="all"

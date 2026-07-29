@@ -2,7 +2,7 @@
 # Contributor: Wen Heping <wenheping2000@hotmail.com>
 # Maintainer: Wen Heping <wenheping2000@hotmail.com>
 pkgname=perl-dancer2
-pkgver=1.1.2
+pkgver=2.1.0
 pkgrel=0
 #_pkgreal is used by apkbuild-cpan to find modules at MetaCpan
 _pkgreal=Dancer2
@@ -11,7 +11,8 @@ url="https://metacpan.org/release/Dancer2/"
 arch="noarch"
 license="GPL-1.0-or-later OR Artistic-1.0-Perl"
 depends="
-	perl perl-cli-osprey perl-clone perl-config-any perl-exporter-tiny perl-file-share
+	perl perl-cli-osprey perl-clone perl-config-any perl-data-censor perl-exporter-tiny
+	perl-file-share
 	perl-file-which perl-http-date perl-http-headers-fast perl-hash-merge-simple
 	perl-hash-multivalue perl-import-into perl-json-maybexs perl-module-pluggable
 	perl-module-runtime perl-moo perl-path-tiny perl-plack
@@ -22,7 +23,7 @@ depends="
 makedepends="perl-file-sharedir-install"
 checkdepends="
 	perl-capture-tiny perl-http-cookies perl-http-message perl-test-eol
-	perl-test-fatal
+	perl-test-exception perl-test-fatal
 	"
 subpackages="$pkgname-doc"
 source="https://cpan.metacpan.org/authors/id/C/CR/CROMEDOME/Dancer2-$pkgver.tar.gz"
@@ -54,5 +55,5 @@ doc() {
 }
 
 sha512sums="
-31123ed31ba4142615ccbb4419b7ab2c72d2fe40018d06e4781a35234cd5ea9d706f8b54687b6fb36fd9c027d435c8061aba2f303c4a9e63991c5c1a3e2962b5  Dancer2-1.1.2.tar.gz
+90d393706dc6554960acb53eea4c6657dc7fd02bf39da1b0f8595f3151cd0195c5f3eafc7208e6791cfd4fb9df6afa33923539867e4a25ee02ecd1dcb60cc5f4  Dancer2-2.1.0.tar.gz
 "

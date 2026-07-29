@@ -1,16 +1,18 @@
 # Contributor: Holger Jaekel <holger.jaekel@gmx.de>
 maintainer="Holger Jaekel <holger.jaekel@gmx.de>"
 pkgname=qgis
-pkgver=3.40.9
-pkgrel=0
+pkgver=3.44.10
+pkgrel=1
 pkgdesc="Geographic Information System (GIS) that supports vector, raster & database formats"
 url="https://qgis.org/"
-# armhf: py3-qscintilla qt5-qt3d-dev qt5-qtlocation-dev missing
-# ppc64le, riscv64 and loongarch64: qt5-qtwebengine-dev missing
-# s390x: grass-gis-dev netcdf-dev qt5-qtwebengine-dev missing
-arch="all !armhf !ppc64le !riscv64 !s390x !loongarch64"
+# x86: qt6-qtwebengine-dev missing
+# armhf: py3-qscintilla qt6-qt3d-dev missing
+# armv7: py3-qscintilla qt6-qt3d-dev qt6-qtwebengine-dev missing
+# ppc64le and riscv64: qt6-qtwebengine-dev missing
+# s390x: grass-gis-dev netcdf-dev qt6-qtwebengine-dev missing
+arch="all !armhf !armv7 !ppc64le !riscv64 !s390x !x86"
 license="GPL-2.0-or-later"
-depends="font-opensans font-cantarell qt5-qtbase-sqlite postgresql-client"
+depends="font-opensans font-cantarell qt6-qtbase-sqlite postgresql-client"
 makedepends="
 	bison
 	cmake
@@ -37,19 +39,20 @@ makedepends="
 	py3-ply
 	py3-pyqt-builder
 	py3-qscintilla
-	py3-qt5
+	py3-qt6
 	py3-sip
 	python3-dev
-	qca-dev
+	qca-qt6-dev
 	qscintilla-dev
-	qt5-qt3d-dev
-	qt5-qtbase-dev
-	qt5-qtlocation-dev
-	qt5-qtmultimedia-dev
-	qt5-qtserialport-dev
-	qt5-qtsvg-dev
-	qt5-qttools-dev
-	qt5-qtwebengine-dev
+	qt6-qt3d-dev
+	qt6-qt5compat-dev
+	qt6-qtbase-dev
+	qt6-qtlocation-dev
+	qt6-qtmultimedia-dev
+	qt6-qtserialport-dev
+	qt6-qtsvg-dev
+	qt6-qttools-dev
+	qt6-qtwebengine-dev
 	qtkeychain-dev
 	qwt-dev
 	samurai
@@ -68,8 +71,12 @@ subpackages="
 	"
 options="!check" # test failures on builders
 source="https://qgis.org/downloads/qgis-$pkgver.tar.bz2
-	10-node-ipc.patch
+	10-libspatialindex_2_1.patch
 	20-qgstyle-infinite-loop.patch
+	30-yarn.patch
+	40-qt6.10.patch
+	50-qstring.patch
+	60-gdal-3.13.0.patch
 	"
 langdir="/usr/share/qgis/i18n"
 
@@ -83,6 +90,7 @@ build() {
 		-DQGIS_CGIBIN_SUBDIR=libexec/qgis \
 		-DBINDINGS_GLOBAL_INSTALL=TRUE \
 		-DENABLE_TESTS="$(want_check && echo TRUE || echo FALSE)" \
+		-DBUILD_WITH_QT6=TRUE \
 		-DWITH_3D=TRUE \
 		-DWITH_ANALYSIS=TRUE \
 		-DWITH_AUTH=TRUE \
@@ -220,7 +228,7 @@ package() {
 dev() {
 	default_dev
 	amove usr/share/qgis/FindQGIS.cmake
-	amove usr/lib/qt5/plugins/designer/libqgis_customwidgets.so*
+	amove usr/lib/qt6/plugins/designer/libqgis_customwidgets.so*
 }
 
 server() {
@@ -251,11 +259,15 @@ py3() {
 	amove usr/lib/libqgispython.so*
 	amove usr/share/qgis/python/
 	amove usr/lib/python3*/site-packages/qgis/
-	amove usr/lib/python3*/site-packages/PyQt5/uic/widget-plugins/
+	amove usr/lib/python3*/site-packages/PyQt6/uic/widget-plugins/
 }
 
 sha512sums="
-34c55ba637392d6da916d66276c1b0057823de3ddc827c814410931c986f96170047f8eb467bcaffe3cf69c7c490a46cc31fc1dc1f5b38fa4fcb578f31b84740  qgis-3.40.9.tar.bz2
-a973294fe9292edf2ae02062151e3594b60a1a6431e33cdda4d48f8c21bc9196c8c8455866d0ad53efb2232fdb308f2f0ba1181435e5d343f02557908bca1337  10-node-ipc.patch
+0cf3bd7c56c82afe3d7f3844669b7fd257c7af84631669f8cec70e5347cc6e1930a33b33072a0e5985c6201b13209a704d6ac2641b976627952b08f7e6aebf5d  qgis-3.44.10.tar.bz2
+94c116af7c944320ff4a4ce7e9c50494eba0d0f1d77a41d7ac214e3d1f060487695c8d2b7dee87cd51d06715c333dcbeecf3290c1f54664571085d4fa52b71a6  10-libspatialindex_2_1.patch
 82e6c1bef90a12872c31264299f2102a27ad13eba197632aa65e54645e800d79395c8c25cbfb90ff34ac1f32a33f3c718c1202493aef8a57a89d2dad57925d6a  20-qgstyle-infinite-loop.patch
+23d1fdcca8b3115499472c92230a471ab54b1b27139b38a90edb93dccf3eda121f4e6f6160d52ac3a210d275848c6730ce52498f6000ad808f1235c0576f96e1  30-yarn.patch
+ddfeefc83aaa3e778db948af29823f8376096554006f796269bef2a29cc3739549a7fa2019f732779334b438b6c9f86386e3c952c8633f65ab9d488f01f693d7  40-qt6.10.patch
+b1a318568f054f1e6526e5a3fcc5dcd2ca38fab12072cadde26387d8696cf5a2735fbdf9b50e9e95260435309c7b9c1520ed23a8bd89dc351f9c3739da625809  50-qstring.patch
+4112db7fa0e348b3667999312a95736d882e3500e6611cb0d7ae074d02b99878249a3309a2dffc4590904acb0707d7d0aa727c641c6878b58cc0fab5afdd8a90  60-gdal-3.13.0.patch
 "

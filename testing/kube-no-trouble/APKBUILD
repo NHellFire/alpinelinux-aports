@@ -3,7 +3,7 @@
 pkgname=kube-no-trouble
 _pkgname=github.com/doitintl/kube-no-trouble
 pkgver=0.7.3
-pkgrel=8
+pkgrel=16
 pkgdesc="Easily check your clusters for use of deprecated APIs"
 url="https://github.com/doitintl/kube-no-trouble"
 arch="all"
@@ -11,10 +11,6 @@ license="MIT"
 makedepends="go"
 source="$pkgname-$pkgver.tar.gz::https://github.com/doitintl/kube-no-trouble/archive/refs/tags/$pkgver.tar.gz"
 options="net"
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 build() {
 	local ldflags="

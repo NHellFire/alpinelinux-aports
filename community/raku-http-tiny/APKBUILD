@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer:
 pkgname=raku-http-tiny
 pkgver=0.2.6
-pkgrel=1
+pkgrel=4
 pkgdesc="Small, simple, correct HTTP/1.1 client"
 url="https://gitlab.com/jjatria/http-tiny"
 arch="all"

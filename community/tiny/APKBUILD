@@ -1,8 +1,8 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=tiny
 pkgver=0.13.0
-pkgrel=0
+pkgrel=1
 pkgdesc="Terminal IRC client written in Rust"
 url="https://github.com/osa1/tiny"
 # s390x: fails to build due to nix crate

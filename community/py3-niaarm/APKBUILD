@@ -2,7 +2,7 @@
 # Maintainer: Iztok Fister, Jr. <iztok@iztok-jr-fister.eu>
 pkgname=py3-niaarm
 _pkgorig=niaarm
-pkgver=0.4.3
+pkgver=0.4.7
 pkgrel=0
 pkgdesc="A minimalistic framework for numerical association rule mining"
 url="https://github.com/firefly-cpp/NiaARM"
@@ -10,7 +10,7 @@ arch="noarch"
 license="MIT AND Apache-2.0"
 depends="python3 py3-numpy py3-pandas py3-niapy py3-nltk py3-scikit-learn"
 checkdepends="py3-pytest-xdist"
-makedepends="py3-gpep517 py3-poetry-core"
+makedepends="py3-gpep517 py3-uv-build"
 subpackages="$pkgname-doc $pkgname-pyc"
 source="https://github.com/firefly-cpp/NiaARM/archive/$pkgver/$_pkgorig-$pkgver.tar.gz"
 builddir="$srcdir/NiaARM-$pkgver"
@@ -37,11 +37,14 @@ package() {
 
 	install -Dm644 paper/10.21105.joss.04448.pdf -t "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 CITATION.cff -t "$pkgdir"/usr/share/doc/$pkgname
-	install -Dm644 interest_measures.md -t "$pkgdir"/usr/share/doc/$pkgname
+	install -Dm644 interestingness_measures.md -t "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 NOTICE.md -t "$pkgdir"/usr/share/doc/$pkgname
 	install -Dm644 niaarm.1 -t "$pkgdir"/usr/share/man/man1/
+
+
+	install -Dm644 LICENSE -t "$pkgdir"/usr/share/licenses/$pkgname/
 }
 
 sha512sums="
-5562637788225185743c516a50cd3fff5a61744b61ef7cc5dc34bdba592939bd17f9d564a4e895e5d9761d984951d865604b643cbb3737608d4a7103c4df3e9a  niaarm-0.4.3.tar.gz
+2eb6bd520e7aea6a2e6528ae4c7f2095e7f1d0b0d694d02cc53792e3a65d0f34f96e5a3ef7c8b16ae7a0e379ce8ae6093be97732ad0aee4043ef6b75e051ce62  niaarm-0.4.7.tar.gz
 "

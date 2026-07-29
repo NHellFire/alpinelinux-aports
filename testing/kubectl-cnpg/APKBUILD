@@ -1,0 +1,35 @@
+maintainer="Lauri Tirkkonen <lauri@hacktheplanet.fi>"
+pkgname=kubectl-cnpg
+pkgver=1.30.0
+pkgrel=1
+pkgdesc="kubectl plugin for cloudnative-pg"
+url="https://github.com/cloudnative-pg/cloudnative-pg"
+arch="all"
+license="Apache-2.0"
+depends="kubectl"
+makedepends="go"
+source="https://github.com/cloudnative-pg/cloudnative-pg/archive/refs/tags/v$pkgver/cloudnative-pg-$pkgver.tar.gz"
+builddir="$srcdir/cloudnative-pg-$pkgver"
+options="net"
+
+build() {
+	go build -v ./cmd/kubectl-cnpg
+}
+
+check() {
+	# TestPlugin requires a working kube apiserver to test against, either
+	# one that exists or one that is bootstrapped via the test code using
+	# kubebuilder. we don't have a kubebuilder package, so skip TestPlugin
+	# for now.
+	KUBECONFIG=/dev/null go test -v \
+		-skip TestPlugin \
+		./cmd/kubectl-cnpg/... ./internal/cmd/plugin/...
+}
+
+package() {
+	install -Dm755 kubectl-cnpg "$pkgdir"/usr/bin/kubectl-cnpg
+}
+
+sha512sums="
+b907078572c2adf4276478fed6f9336d1a296a61272f9567f07d6c4da991635ee0a995fbabe738964361f59622b702e2e94b535deca124d479eeeed9a9facba3  cloudnative-pg-1.30.0.tar.gz
+"

@@ -1,8 +1,8 @@
 # Contributor: Adam Jensen <adam@acj.sh>
 # Maintainer: Adam Jensen <adam@acj.sh>
 pkgname=bcc
-pkgver=0.35.0
-pkgrel=1
+pkgver=0.37.0
+pkgrel=0
 pkgdesc="A toolkit for creating efficient kernel tracing and manipulation programs"
 url="https://github.com/iovisor/bcc/"
 arch="all"
@@ -109,5 +109,5 @@ _lua() {
 }
 
 sha512sums="
-23cc1413fef785165fe9fd29a242fb13e4e56da7d63699dbed3d6d12902a1de392b412cb0e5754eff5aeecf0a023568d593c9f4cb5bca7a88013aadfaef4fa3d  bcc-0.35.0.tar.gz
+7817c62f7e7509f22767cbd43e4e946bcc2987799cc549cd3c8b778f8a9b4ebe76447e026abeb994f83f7633249a27d93dca12125ab3696255950424a577d17a  bcc-0.37.0.tar.gz
 "

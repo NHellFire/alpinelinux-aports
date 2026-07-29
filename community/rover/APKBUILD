@@ -1,9 +1,10 @@
 # Contributor: ScrumpyJack <scrumpyjack@st.ilet.to>
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Contributor: Celeste <cielesti@protonmail.com>
+# Maintainer: John Vogel <jvogel@stygian.me>
+maintainer="John Vogel <jvogel@stygian.me>"
 pkgname=rover
 pkgver=1.0.1
-pkgrel=2
+pkgrel=4
 pkgdesc="Simple file browser for the terminal"
 url="https://lecram.github.io/p/rover/"
 arch="all"

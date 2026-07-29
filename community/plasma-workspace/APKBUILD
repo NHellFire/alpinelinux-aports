@@ -2,7 +2,7 @@
 # group=kde-plasma
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=plasma-workspace
-pkgver=6.4.5
+pkgver=6.7.3
 pkgrel=0
 pkgdesc="KDE Plasma Workspace"
 # armhf blocked by qt6-qtdeclarative
@@ -110,6 +110,7 @@ subpackages="
 	$pkgname-libs
 	$pkgname-doc
 	$pkgname-lang
+	$pkgname-systemd
 	$pkgname-zsh-completion
 	"
 
@@ -125,7 +126,9 @@ case "$pkgver" in
 esac
 
 _repo_url="https://invent.kde.org/plasma/plasma-workspace.git"
-source="https://download.kde.org/$_rel/plasma/$_pkgver/plasma-workspace-$pkgver.tar.xz"
+source="https://download.kde.org/$_rel/plasma/$_pkgver/plasma-workspace-$pkgver.tar.xz
+	org.kde.timezone.rules
+	"
 
 replaces="xdg-desktop-portal-kde<=6.1.5-r0 plasma-desktop<=6.3.5-r0"
 
@@ -140,7 +143,6 @@ build() {
 		-DCMAKE_BUILD_TYPE=RelWithDebInfo \
 		-DCMAKE_INSTALL_PREFIX=/usr \
 		-DCMAKE_INSTALL_LIBDIR=lib \
-		-DPLASMA_X11_DEFAULT_SESSION=OFF \
 		-DINSTALL_SDDM_WAYLAND_SESSION=ON
 
 	# workaround for:
@@ -162,6 +164,7 @@ check() {
 		keystatetest
 		klipper-testHistoryCycler
 		klipper-testHistoryModel
+		klipper_v3migrationtest
 		klippertest
 		locationsrunnertest
 		lockedtest
@@ -189,6 +192,11 @@ check() {
 		loongarch64) tests="$tests servicerunnertest" ;;
 		s390x) tests="$tests klipper_v3migrationtest" ;;
 	esac
+
+	# bitaptest is broken by our downstream patch
+	# 0001-plasma-workspace-krunner-crash-workaround.patch
+	tests="$tests bitaptest"
+
 	for test in $tests; do
 		skipped_tests="$skipped_tests|$test"
 	done
@@ -199,9 +207,6 @@ check() {
 package() {
 	DESTDIR="$pkgdir" cmake --install build
 
-	# We don't ship systemd
-	rm -r "$pkgdir"/usr/lib/systemd
-
 	if [ -d "$pkgdir"/home ]; then
 		rm -r "${pkgdir:?}"/home
 	fi
@@ -210,6 +215,8 @@ package() {
 	rm \
 		"$pkgdir"/usr/bin/startplasma-x11 \
 		"$pkgdir"/usr/share/xsessions/plasmax11.desktop
+
+	install -Dm644 "$srcdir"/org.kde.timezone.rules "$pkgdir"/usr/share/polkit-1/rules.d/org.kde.timezone.rules
 }
 
 lang() {
@@ -219,5 +226,6 @@ lang() {
 }
 
 sha512sums="
-5d267605783b28e7ab46c02f78c7584a516c311ad16203db56bd77fb752d767462d8a78d65955082086af8ae0dcbd35a5678c0cd94d55e2d67a08d57ac187534  plasma-workspace-6.4.5.tar.xz
+bb43420d66ef36c17af16be853e37b7ecf66e70327f4a6cb96d9502939991062c975cb883eb05be982c74296688f4b5493669add44ff5c7663998299dd2db998  plasma-workspace-6.7.3.tar.xz
+1bada9221c309583111c7bcdbc841b771e682957023eefd8b921a9848e19aee27071316aac9cbb712a26ec657c0b024e459e09001efe654d9e72a6d99fe9ee76  org.kde.timezone.rules
 "

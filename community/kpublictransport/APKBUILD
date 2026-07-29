@@ -2,7 +2,7 @@
 # group=kde-applications
 maintainer="team/kde <bribbers@disroot.org>"
 pkgname=kpublictransport
-pkgver=25.08.0
+pkgver=26.04.3
 pkgrel=0
 # armhf blocked by qt6-qtdeclarative
 arch="all !armhf"
@@ -12,6 +12,7 @@ license="BSD-3-Clause AND LGPL-2.0-or-later AND MIT"
 depends="
 	kirigami
 	kitemmodels
+	qt6-qtlocation
 	tzdata
 	"
 depends_dev="
@@ -23,6 +24,7 @@ depends_dev="
 	qt6-qtbase-dev
 	qt6-qtdeclarative-dev
 	qt6-qtdeclarative-private-dev
+	qt6-qtlocation-dev
 	zlib-dev
 	"
 makedepends="$depends_dev
@@ -51,5 +53,5 @@ package() {
 }
 
 sha512sums="
-6e50b243668b466a8da32b997638bba2f3933c6cfbddd81ed7856ac413208057c258a762dabe78043e10d4fd88f7e26d02bcd4cf024d54a50535cc4a036eba25  kpublictransport-25.08.0.tar.xz
+59dcb14bb7c3deffc20c4e79f4a6b28c6782a5ab0143b6dd8a344228deef974af2501e1ae4a3fb553050f7b699be76ce0352eb4aec5da0c0262bef783b06b85e  kpublictransport-26.04.3.tar.xz
 "

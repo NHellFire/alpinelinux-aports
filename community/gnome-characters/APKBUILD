@@ -1,7 +1,7 @@
 # Contributor: Rasmus Thomsen <oss@cogitri.dev>
-# Maintainer: team/gnome <pabloyoyoista@postmarketos.org>
+maintainer="team/gnome <achill@achill.org>"
 pkgname=gnome-characters
-pkgver=49.0
+pkgver=50.0
 pkgrel=0
 pkgdesc="A simple utility application to find and insert unusual characters"
 url="https://apps.gnome.org/Characters"
@@ -18,6 +18,7 @@ makedepends="
 	desktop-file-utils
 	gjs-dev
 	glib-dev
+	gobject-introspection-dev
 	gtk4.0-dev
 	libadwaita-dev
 	meson
@@ -37,5 +38,5 @@ package() {
 }
 
 sha512sums="
-2a74d630a97421b1e9b0f9851cba6eb64db1541a1e3745d88cd0f9323414c221830cb610809149d4ee440ccb6099566f135d19cf12ebc63d3c973acd98539cfc  gnome-characters-49.0.tar.xz
+3fdd9d04ab6a8e356a9ca02f2aba4db85be0205b077632230fd7fa74a2de899265deb2360b6f87f873b1da5191a5bdafb47dee712619e027e84de8461076cc16  gnome-characters-50.0.tar.xz
 "

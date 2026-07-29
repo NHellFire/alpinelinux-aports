@@ -3,12 +3,12 @@
 
 # when changing _ver we *must* bump _rel
 _name=zfs
-_ver=2.3.4
-_rel=5
+_ver=2.4.3
+_rel=1
 # when changing _kver/_krel make sure _rel=0
 _flavor=${FLAVOR:-rpi}
 _kpkg=linux-$_flavor
-_kver=6.12.44
+_kver=6.18.35
 _krel=0
 
 _kpkgver="$_kver-r$_krel"
@@ -68,9 +68,9 @@ prepare() {
 build() {
 	local flavor= kabi=
 	for flavor in $_flavor $_extra_flavors; do
-		kabi="$_kver-$_krel-$flavor"
+		kabi="${_kver/_rc/-rc}-$_krel-$flavor"
 		cp -a -l "$builddir" "$srcdir"/$kabi
-		( cd "$srcdir"/$kabi
+		cd "$srcdir"/$kabi
 		./configure --prefix=/usr \
 			--with-tirpc \
 			--sysconfdir=/etc \
@@ -81,15 +81,14 @@ build() {
 			--with-linux=/usr/src/linux-headers-$kabi
 
 		make
-		)
 	done
 }
 
 package() {
 	local flavor= kabi=
 	for flavor in $_flavor $_extra_flavors; do
-		kabi="$_kver-$_krel-$flavor"
-		(cd "$srcdir"/$kabi && make DESTDIR="$pkgdir" install)
+		kabi="${_kver/_rc/-rc}-$_krel-$flavor"
+		make -C "$srcdir"/$kabi DESTDIR="$pkgdir" install
 	done
 }
 
@@ -99,7 +98,7 @@ _extra() {
 	install_if="zfs linux-$flavor=$_kpkgver"
 	pkgdesc="ZFS Linux kernel modules for $flavor"
 
-	kabi="$_kver-$_krel-$flavor"
+	kabi="${_kver/_rc/-rc}-$_krel-$flavor"
 	mkdir -p "$subpkgdir"/lib/modules
 	mv "$pkgdir"/lib/modules/$kabi "$subpkgdir"/lib/modules
 }
@@ -111,5 +110,5 @@ dev() {
 }
 
 sha512sums="
-56b90960de6aa94b76f8efc3c84993454a8d544bd47e1270e02caa8d96569e866102e17ef1f16056722bf5f6624fad0bbe7f9ef0e94bc0c3fc16e61b681db815  zfs-2.3.4.tar.gz
+343fbb19c0ca5f91254d216b6113fb8a7b028bdafc976ba9cb1ff6b7d3442a6a0fbf2cc4bde4f2fcc7cb7293cc17a1914664a943e5c798d261d00b22a0e56989  zfs-2.4.3.tar.gz
 "

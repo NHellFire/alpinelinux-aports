@@ -1,7 +1,7 @@
 # Maintainer: Leonardo Arena <rnalrd@alpinelinux.org>
 pkgname=heplify-server
 pkgver=1.60.0
-pkgrel=2
+pkgrel=10
 pkgdesc="HEP Capture Server & Switch in Go"
 url="http://sipcapture.io"
 arch="all !armhf !armv7 !x86" # FTBFS: unaligned 64-bit atomic operation
@@ -28,10 +28,6 @@ case $CARCH in
 		makedepends="$makedepends luajit-dev"
 		;;
 esac
-
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
 
 export GOFLAGS="$GOFLAGS -modcacherw"
 

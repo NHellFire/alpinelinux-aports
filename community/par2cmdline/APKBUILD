@@ -1,10 +1,10 @@
 # Maintainer: Simon Rupf <simon@rupf.net>
 pkgname=par2cmdline
-pkgver=1.0.0
+pkgver=1.2.0
 pkgrel=0
 pkgdesc="PAR 2.0 compatible file verification and repair tool"
 url="https://github.com/Parchive/par2cmdline#par2cmdline"
-arch="all !s390x" # tests/unit_tests fails on big endian
+arch="all"
 license="GPL-2.0-or-later"
 subpackages="$pkgname-doc"
 source="https://github.com/Parchive/par2cmdline/releases/download/v$pkgver/par2cmdline-$pkgver.tar.bz2"
@@ -23,5 +23,5 @@ package() {
 }
 
 sha512sums="
-4e8bf05de958cd21dc9be485c87caad4ff67a64f83ce7dd6501854d5523d3b11a864791ccbbb2bd029798acc4e1f26bacaa96bbf21f3451d23378c91137e2fa1  par2cmdline-1.0.0.tar.bz2
+1d4934eab58fe1484e46dbc9ad8f274fa9f794ebc4efb152cf39cf93284dfaeb2975bf61912fb4e858c4a986a3fad4f1fa86c6c16824a1823f6c1a5b9ca20805  par2cmdline-1.2.0.tar.bz2
 "

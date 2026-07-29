@@ -2,7 +2,7 @@
 # group=qt6
 maintainer="Bart Ribbers <bribbers@disroot.org>"
 pkgname=qt6-qtcharts
-pkgver=6.9.2
+pkgver=6.11.1
 pkgrel=0
 pkgdesc="Provides a set of easy to use chart components"
 url="https://qt.io/"
@@ -48,5 +48,5 @@ dev() {
 }
 
 sha512sums="
-d2c7f068e60c47e337c8814a90bc63094227fe263562c33bfd802e8239da6cd184d49e0bfbff44fd92799988673c8d218d7add4e624bfba88d3c96cef641421b  qtcharts-everywhere-src-6.9.2.tar.xz
+e5fcd9a2362077e1ce3f960f33f2bc55ebca6efb1901b3e9495b2d8a3e09ee67f74c179738446b942c39b020ff454ddb1a556c27f19bc1aa2e6134ec3d0276be  qtcharts-everywhere-src-6.11.1.tar.xz
 "

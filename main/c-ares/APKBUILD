@@ -1,7 +1,7 @@
 # Contributor: Carlo Landmeter <clandmeter@alpinelinux.org>
 # Maintainer: Carlo Landmeter <clandmeter@alpinelinux.org>
 pkgname=c-ares
-pkgver=1.34.5
+pkgver=1.34.8
 pkgrel=0
 pkgdesc="Asynchronous DNS/names resolver library"
 url="https://c-ares.org/"
@@ -17,6 +17,10 @@ subpackages="
 source="https://github.com/c-ares/c-ares/releases/download/v$pkgver/c-ares-$pkgver.tar.gz"
 
 # secfixes:
+#   1.34.8-r0:
+#     - CVE-2026-33630
+#   1.34.6-r0:
+#     - CVE-2025-62408
 #   1.34.5-r0:
 #     - CVE-2025-31498
 #   1.27.0-r0:
@@ -51,5 +55,5 @@ utils() {
 }
 
 sha512sums="
-386709e9f405034cb16ba514f9792e89992be52b24a237e6c51f1032e4ca99a8c57b1c3038d6f0a205202a3bfb1246bb95ff0d5e6fc0ee2bba1cb17f6677f97f  c-ares-1.34.5.tar.gz
+d5997a57fda9b3a3385b1685e6b2f9292c3a1d39bd27579acaabf3d2d33aa5e91bfec5d41c5e51ca6b50dbc1f4346d75e9bfbccf44a494fbd4bc7613b167143c  c-ares-1.34.8.tar.gz
 "

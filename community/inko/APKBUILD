@@ -1,10 +1,9 @@
-# Maintainer: Celeste <cielesti@protonmail.com>
-maintainer="Celeste <cielesti@protonmail.com>"
+# Maintainer: Jingyun Hua <huajingyun@loongson.cn>
+maintainer="Jingyun Hua <huajingyun@loongson.cn>"
 pkgname=inko
-pkgver=0.18.1_git20250915
-_gitrev=c6802ea629e8490b095796a434413ff695be2f24
+pkgver=0.21.1
 pkgrel=0
-_llvmver=20
+_llvmver=21
 pkgdesc="Language for building concurrent software"
 url="https://inko-lang.org/"
 arch="aarch64 x86_64"
@@ -20,10 +19,9 @@ makedepends="
 	llvm$_llvmver-dev
 	"
 subpackages="$pkgname-doc"
-source="https://github.com/inko-lang/inko/archive/$_gitrev/inko-$_gitrev.tar.gz
-	cargo-auditable.patch
-	"
-builddir="$srcdir/$pkgname-$_gitrev"
+
+source="https://github.com/inko-lang/inko/archive/refs/tags/v$pkgver/inko-$pkgver.tar.gz
+	cargo-auditable.patch"
 
 # use system llvm
 export LLVM_SYS_181_PREFIX=/usr/lib/llvm$_llvmver
@@ -47,6 +45,6 @@ package() {
 }
 
 sha512sums="
-81c1c3b9ab9e1498aa9e467b0f0fc5dd337364f410d8d16c5a27d5fca4d561c679efc6794ca174b5097ddef001e4e78cc63875dc94dcce266907ed687e114756  inko-c6802ea629e8490b095796a434413ff695be2f24.tar.gz
-15a95d2f7ba385202efd3a6a861cf91cddec3c6b9ed9ef53ac5d1e9f893e31035d26a05872528e005688864b5296daeb0752b960311928335f323d80d6559250  cargo-auditable.patch
+dddf147ac83a9e2f33942329f0edf6e3002ff355bb53bbf76eb86a2f4b36a569ac2d0d0f605dfcca281c4fc4ceb169d1bdba5fc272586d67d898f1bff2f1ec59  inko-0.21.1.tar.gz
+33ae969646ce4f634776813373ac3744b09887c8d79ae6ea8aac4ae7d98f849793a8a19a4f2b3527733b589438a54a6ef90bdf9f75a4c5773aa60b14b95c13ef  cargo-auditable.patch
 "

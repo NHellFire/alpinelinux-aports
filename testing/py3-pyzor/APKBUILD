@@ -3,7 +3,7 @@
 pkgname=py3-pyzor
 _pkgname=pyzor
 pkgver=1.1.2
-pkgrel=0
+pkgrel=1
 pkgdesc="Python implementation of a spam-blocking networked system that use spam signatures to identify them."
 url="https://pypi.org/project/pyzor/"
 arch="noarch"
@@ -16,9 +16,9 @@ source="$_pkgname-$pkgver.tar.gz::https://github.com/SpamExperts/pyzor/archive/r
 builddir="$srcdir"/$_pkgname-release-${pkgver//./-}
 
 build() {
-        gpep517 build-wheel \
-                --wheel-dir .dist \
-                --output-fd 3 3>&1 >&2
+	gpep517 build-wheel \
+		--wheel-dir .dist \
+		--output-fd 3 3>&1 >&2
 }
 
 check() {
@@ -26,8 +26,8 @@ check() {
 }
 
 package() {
-        gpep517 install-wheel --destdir "$pkgdir" \
-                .dist/*.whl
+	gpep517 install-wheel --destdir "$pkgdir" \
+		.dist/*.whl
 }
 
 sha512sums="

@@ -1,7 +1,7 @@
 # Contributor: Zachary Lee Andrews <zcrayfish@gmail.com>
 maintainer="Antoni Aloy <aaloytorrens@gmail.com>"
 pkgname=qterminal
-pkgver=2.2.1
+pkgver=2.4.0
 pkgrel=0
 pkgdesc="Lightweight Qt-based terminal emulator"
 url="https://github.com/lxqt/qterminal"
@@ -39,5 +39,5 @@ lang() {
 }
 
 sha512sums="
-6c52ec3cc7e7d25193f6af970a41d124cbe7e5a65f9b3e7f919aa74ce76fe4d1cc7c2253305034d907f215bcc02341bc9c7dbce7cffa543f125ff6a8b6e13919  qterminal-2.2.1.tar.xz
+75c6a622976afd7fb3578f7535dad6b86458fa549fc31ef5fcba88fb71c597ed5768544c83a0fb91c27605cb4c3b3262ca82ef7776e9b42c042ce8f395c13822  qterminal-2.4.0.tar.xz
 "

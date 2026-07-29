@@ -1,8 +1,8 @@
 # Contributor: Leo <thinkabit.ukim@gmail.com>
-# Maintainer:
+# Maintainer: Liliana <me@iodomi.eu>
 pkgname=duf
 pkgver=0.9.1
-pkgrel=0
+pkgrel=9
 pkgdesc="Disk Usage/Free Utility"
 options="net !check" # No testsuite
 url="https://github.com/muesli/duf"
@@ -12,13 +12,8 @@ makedepends="go"
 subpackages="$pkgname-doc"
 source="https://github.com/muesli/duf/archive/v$pkgver/duf-$pkgver.tar.gz"
 
-export GOCACHE="${GOCACHE:-"$srcdir/go-cache"}"
-export GOTMPDIR="${GOTMPDIR:-"$srcdir"}"
-export GOMODCACHE="${GOMODCACHE:-"$srcdir/go"}"
-
 build() {
 	go build \
-		-trimpath \
 		-ldflags "-X main.Version=$pkgver -extldflags \"$LDFLAGS\"" \
 		-o duf
 }
