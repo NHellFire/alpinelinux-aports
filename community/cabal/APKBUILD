@@ -7,7 +7,7 @@ pkgver=3.16.1.0
 pkgrel=0
 pkgdesc="The Haskell Cabal"
 url="https://haskell.org/cabal"
-arch="aarch64 x86_64" # Limited by GHC
+arch="aarch64 riscv64 x86_64" # Limited by GHC
 license="BSD-3-Clause"
 depends="ghc gmp zlib curl"
 makedepends="ghc>=9.10.3 gmp-dev libffi-dev zlib-dev cabal-bootstrap~$pkgver"
