@@ -79,6 +79,7 @@ source="$source
 
 	parallel-hadrian-bootstrap.patch
 	RISC-V-NCG-Fix-three-issues-on-floating-point-numbers.patch
+	ghci-fix-bootstrapping-with-9.12.3-rc1-and-above.patch
 	"
 
 _llvmdir="/usr/lib/llvm$_llvmver/bin"
@@ -226,4 +227,5 @@ cf69a1b9b0213fc82d573e314db024a85ce01a2ba86ec4442d3476cb81691d1330a9e9492cec7d49
 64a385d62da8d360f91bceaad4aacbb4dbcc7289e7b1173a5a42dc3f7e691744f5c628845b91d293e09323055e38781537ca956640e4d6966f2d15276e672dfc  ghc-9.14.1-testsuite.tar.xz
 0e59d1c39e1e51ed697edc3aa87f219212a0e19312f5cdfd30b8d219b1bf8e64b36495acf7bc75920dadab8eee04ca66e022e61842152668b0daf4d597010b58  parallel-hadrian-bootstrap.patch
 48143cd27732298bc5cc504798a2d6a7ab1eafdb956006f7e34064aa214dd0f8712aace696aa0aa44bba85d2512c6a4203abb0d8927da1827c82a6b09a5978b6  RISC-V-NCG-Fix-three-issues-on-floating-point-numbers.patch
+bdbfab126ce353a2aa802de529e6aa0943af0219097d22eb3046efdab9c68931550bdf6b744d7bc04da7c28a79c5bd800a600ef78da44294b0d86dd73783c723  ghci-fix-bootstrapping-with-9.12.3-rc1-and-above.patch
 "
