@@ -20,7 +20,7 @@ _llvmver=15
 _clangver=16
 pkgdesc="The Glasgow Haskell Compiler"
 url="https://haskell.org/ghc"
-arch="aarch64 x86_64"
+arch="aarch64 riscv64 x86_64"
 # Note ghc's license is basically BSD-3. If you'd like to know more visit:
 # * https://www.haskell.org/ghc/license
 # * https://ghc.haskell.org/trac/ghc/wiki/Licensing
@@ -56,6 +56,7 @@ source="https://downloads.haskell.org/~ghc/$_urlprefix/$_pkgprefix-src.tar.xz
 
 	fix-T21035.patch
 	fix-T7060.patch
+	RISC-V-NCG-Fix-three-issues-on-floating-point-numbers.patch
 	"
 
 _llvmdir="/usr/lib/llvm$_llvmver/bin"
@@ -196,4 +197,5 @@ sha512sums="
 bdb95ca11fe713ab17c2b7c130416dc9bbbeadc6671fb53cc995b2b75312d391bcd56e816ccd1a0ff9649d994cc5fba5c0b52e9dcfb0b766d31d73fd6501c37c  0005-users-guide-fix-runtime-error-sphinx-9.1.0.patch
 be5a8639b151b7828ad50b0f63775d34411d971aae73b0fe5c0226e4c70d1ee8353545b1d04c8de7825730b6d73a2e75f855757348b5ffa2d620d20d7e57f8c6  fix-T21035.patch
 28433f5e86b571ef591ee61153c804eb4a540fda120b7a7aa14f39af46eda6917361d0cd41127356e20f24cf5b9d493ae404023eae31b863c2485fb8cffa0c6a  fix-T7060.patch
+48143cd27732298bc5cc504798a2d6a7ab1eafdb956006f7e34064aa214dd0f8712aace696aa0aa44bba85d2512c6a4203abb0d8927da1827c82a6b09a5978b6  RISC-V-NCG-Fix-three-issues-on-floating-point-numbers.patch
 "
