@@ -1,0 +1,325 @@
+Source: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/16164
+This should be merged in 9.14.2
+
+From af07959f99b31c0c78bd6fbfa6dc61fe2c5f75c3 Mon Sep 17 00:00:00 2001
+From: ARATA Mizuki <minorinoki@gmail.com>
+Date: Wed, 10 Jun 2026 17:34:36 +0900
+Subject: [PATCH 1/3] RISC-V NCG: Zero-extend the result of castFloatToWord32
+
+According to the ISA manual, FMV.X.W sign-extends the result.
+We need to truncate the result to avoid creating an exotic Word32 value.
+
+Fixes #27300
+---
+ compiler/GHC/CmmToAsm/RV64/CodeGen.hs            | 11 ++++++++++-
+ testsuite/tests/codeGen/should_run/T16617.hs     |  9 +++++++++
+ testsuite/tests/codeGen/should_run/T16617.stdout |  4 ++++
+ 3 files changed, 23 insertions(+), 1 deletion(-)
+
+diff --git a/compiler/GHC/CmmToAsm/RV64/CodeGen.hs b/compiler/GHC/CmmToAsm/RV64/CodeGen.hs
+index 1b16608df48..2c0db2c3b66 100644
+--- a/compiler/GHC/CmmToAsm/RV64/CodeGen.hs
++++ b/compiler/GHC/CmmToAsm/RV64/CodeGen.hs
+@@ -771,7 +771,16 @@ getRegister' config plat expr =
+         MO_SS_Conv from to -> ss_conv from to reg code
+         MO_FF_Conv from to -> return $ Any (floatFormat to) (\dst -> code `snocOL` annExpr e (FCVT FloatToFloat (OpReg to dst) (OpReg from reg)))
+         MO_WF_Bitcast w    -> return $ Any (floatFormat w)  (\dst -> code `snocOL` MOV (OpReg w dst) (OpReg w reg))
+-        MO_FW_Bitcast w    -> return $ Any (intFormat w)    (\dst -> code `snocOL` MOV (OpReg w dst) (OpReg w reg))
++        MO_FW_Bitcast w ->
++          return
++            $ Any
++              (intFormat w)
++              ( \dst ->
++                  code
++                    `snocOL` MOV (OpReg w dst) (OpReg w reg)
++                    -- FMV.X.W sign-extends the value, so truncate the result
++                    `appOL` truncateReg W64 w dst
++              )
+ 
+         -- Conversions
+         -- TODO: Duplication with MO_UU_Conv
+diff --git a/testsuite/tests/codeGen/should_run/T16617.hs b/testsuite/tests/codeGen/should_run/T16617.hs
+index 49e5e74a207..6953520bfe1 100644
+--- a/testsuite/tests/codeGen/should_run/T16617.hs
++++ b/testsuite/tests/codeGen/should_run/T16617.hs
+@@ -1,10 +1,19 @@
+ import GHC.Float
+ 
++{-# OPAQUE noinline #-}
++noinline :: a -> a
++noinline x = x
++
+ main :: IO ()
+ main = do
+   -- As per #16617, Word32s should be non-negative
+   print $ castFloatToWord32 (-1)
+   print $ toInteger (castFloatToWord32 (-1)) > 0
++  -- Disable constant folding; see #27300
++  print $ castFloatToWord32 (noinline $ -1)
++  print $ toInteger (castFloatToWord32 (noinline $ -1)) > 0
+   -- For completeness, so should Word64s
+   print $ castDoubleToWord64 (-1)
+   print $ toInteger (castDoubleToWord64 (-1)) > 0
++  print $ castDoubleToWord64 (noinline $ -1)
++  print $ toInteger (castDoubleToWord64 (noinline $ -1)) > 0
+diff --git a/testsuite/tests/codeGen/should_run/T16617.stdout b/testsuite/tests/codeGen/should_run/T16617.stdout
+index 3a0c8ecbc9c..280173244c8 100644
+--- a/testsuite/tests/codeGen/should_run/T16617.stdout
++++ b/testsuite/tests/codeGen/should_run/T16617.stdout
+@@ -1,4 +1,8 @@
+ 3212836864
+ True
++3212836864
++True
++13830554455654793216
++True
+ 13830554455654793216
+ True
+-- 
+GitLab
+
+
+From dd90b1bb5de0f5a25d7f6daced13f29d39628a69 Mon Sep 17 00:00:00 2001
+From: ARATA Mizuki <minorinoki@gmail.com>
+Date: Wed, 10 Jun 2026 17:38:06 +0900
+Subject: [PATCH 2/3] RISC-V NCG: Treat d28-d31 (ft8-ft11) as caller-saved
+
+According to the calling convention, the registers d28-d31 (ft8-ft11) are caller-saved.
+
+Fixes #27306
+---
+ compiler/GHC/CmmToAsm/RV64/Instr.hs | 1 +
+ compiler/GHC/CmmToAsm/RV64/Regs.hs  | 7 ++++++-
+ 2 files changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/compiler/GHC/CmmToAsm/RV64/Instr.hs b/compiler/GHC/CmmToAsm/RV64/Instr.hs
+index 8b815485020..9e8c5cb20c9 100644
+--- a/compiler/GHC/CmmToAsm/RV64/Instr.hs
++++ b/compiler/GHC/CmmToAsm/RV64/Instr.hs
+@@ -165,6 +165,7 @@ callerSavedRegisters =
+     ++ map regSingle [t3RegNo .. t6RegNo]
+     ++ map regSingle [ft0RegNo .. ft7RegNo]
+     ++ map regSingle [fa0RegNo .. fa7RegNo]
++    ++ map regSingle [ft8RegNo .. ft11RegNo]
+ 
+ -- | Apply a given mapping to all the register references in this instruction.
+ patchRegsOfInstr :: Instr -> (Reg -> Reg) -> Instr
+diff --git a/compiler/GHC/CmmToAsm/RV64/Regs.hs b/compiler/GHC/CmmToAsm/RV64/Regs.hs
+index 0f8b8dde5de..78eea77a3b6 100644
+--- a/compiler/GHC/CmmToAsm/RV64/Regs.hs
++++ b/compiler/GHC/CmmToAsm/RV64/Regs.hs
+@@ -53,9 +53,14 @@ d7RegNo, ft7RegNo :: RegNo
+ d7RegNo = 39
+ ft7RegNo = d7RegNo
+ 
++d28RegNo, ft8RegNo :: RegNo
++d28RegNo = 60
++ft8RegNo = d28RegNo
++
+ -- | Last floating point register.
+-d31RegNo :: RegNo
++d31RegNo, ft11RegNo :: RegNo
+ d31RegNo = 63
++ft11RegNo = d31RegNo
+ 
+ a0RegNo, x10RegNo :: RegNo
+ x10RegNo = 10
+-- 
+GitLab
+
+
+From cfca19aed906d6318f0caee5cedc368cd9d3b24f Mon Sep 17 00:00:00 2001
+From: ARATA Mizuki <minorinoki@gmail.com>
+Date: Wed, 10 Jun 2026 17:41:30 +0900
+Subject: [PATCH 3/3] RISC-V NCG: Set rounding mode when emitting `truncate`
+
+If we omit the rounding mode for `fcvt`, `dyn` will be used.
+We do not want that for `truncate`, so we set `rtz`.
+In other places, we set `rne` because we do not use the dynamic rounding mode.
+
+Fixes #27303
+---
+ compiler/GHC/CmmToAsm/RV64/CodeGen.hs | 10 +++---
+ compiler/GHC/CmmToAsm/RV64/Instr.hs   | 21 ++++++++++--
+ compiler/GHC/CmmToAsm/RV64/Ppr.hs     | 46 +++++++++++++++++----------
+ 3 files changed, 53 insertions(+), 24 deletions(-)
+
+diff --git a/compiler/GHC/CmmToAsm/RV64/CodeGen.hs b/compiler/GHC/CmmToAsm/RV64/CodeGen.hs
+index 2c0db2c3b66..f9ea9cb664e 100644
+--- a/compiler/GHC/CmmToAsm/RV64/CodeGen.hs
++++ b/compiler/GHC/CmmToAsm/RV64/CodeGen.hs
+@@ -718,7 +718,7 @@ getRegister' config plat expr =
+               ( \dst ->
+                   code
+                     `appOL` code_x
+-                    `snocOL` annExpr expr (FCVT IntToFloat (OpReg to dst) (OpReg from reg_x)) -- (Signed ConVerT Float)
++                    `snocOL` annExpr expr (FCVT IntToFloat (OpReg to dst) (OpReg from reg_x) Rne) -- (Signed ConVerT Float)
+               )
+         MO_SF_Round from to ->
+           pure
+@@ -726,7 +726,7 @@ getRegister' config plat expr =
+               (floatFormat to)
+               ( \dst ->
+                   code
+-                    `snocOL` annExpr expr (FCVT IntToFloat (OpReg to dst) (OpReg from reg)) -- (Signed ConVerT Float)
++                    `snocOL` annExpr expr (FCVT IntToFloat (OpReg to dst) (OpReg from reg) Rne) -- (Signed ConVerT Float)
+               )
+         -- TODO: Can this case happen?
+         MO_FS_Truncate from to
+@@ -738,7 +738,7 @@ getRegister' config plat expr =
+                       code
+                         `snocOL`
+                         -- W32 is the smallest width to convert to. Decrease width afterwards.
+-                        annExpr expr (FCVT FloatToInt (OpReg W32 dst) (OpReg from reg))
++                        annExpr expr (FCVT FloatToInt (OpReg W32 dst) (OpReg from reg) Rtz)
+                         `appOL` signExtendAdjustPrecission W32 to dst dst -- (float convert (-> zero) signed)
+                   )
+         MO_FS_Truncate from to ->
+@@ -747,7 +747,7 @@ getRegister' config plat expr =
+               (intFormat to)
+               ( \dst ->
+                   code
+-                    `snocOL` annExpr expr (FCVT FloatToInt (OpReg to dst) (OpReg from reg))
++                    `snocOL` annExpr expr (FCVT FloatToInt (OpReg to dst) (OpReg from reg) Rtz)
+                     `appOL` truncateReg from to dst -- (float convert (-> zero) signed)
+               )
+         MO_UU_Conv from to
+@@ -769,7 +769,7 @@ getRegister' config plat expr =
+                     `appOL` truncateReg from to dst
+               )
+         MO_SS_Conv from to -> ss_conv from to reg code
+-        MO_FF_Conv from to -> return $ Any (floatFormat to) (\dst -> code `snocOL` annExpr e (FCVT FloatToFloat (OpReg to dst) (OpReg from reg)))
++        MO_FF_Conv from to -> return $ Any (floatFormat to) (\dst -> code `snocOL` annExpr e (FCVT FloatToFloat (OpReg to dst) (OpReg from reg) Rne))
+         MO_WF_Bitcast w    -> return $ Any (floatFormat w)  (\dst -> code `snocOL` MOV (OpReg w dst) (OpReg w reg))
+         MO_FW_Bitcast w ->
+           return
+diff --git a/compiler/GHC/CmmToAsm/RV64/Instr.hs b/compiler/GHC/CmmToAsm/RV64/Instr.hs
+index 9e8c5cb20c9..1a0eb3d406d 100644
+--- a/compiler/GHC/CmmToAsm/RV64/Instr.hs
++++ b/compiler/GHC/CmmToAsm/RV64/Instr.hs
+@@ -106,7 +106,7 @@ regUsageOfInstr platform instr = case instr of
+   LDR _ dst src -> usage (regOp src, regOp dst)
+   LDRU _ dst src -> usage (regOp src, regOp dst)
+   FENCE _ _ -> usage ([], [])
+-  FCVT _variant dst src -> usage (regOp src, regOp dst)
++  FCVT _variant dst src _rm -> usage (regOp src, regOp dst)
+   FABS dst src -> usage (regOp src, regOp dst)
+   FMIN dst src1 src2 -> usage (regOp src1 ++ regOp src2, regOp dst)
+   FMAX dst src1 src2 -> usage (regOp src1 ++ regOp src2, regOp dst)
+@@ -206,7 +206,7 @@ patchRegsOfInstr instr env = case instr of
+   LDR f o1 o2 -> LDR f (patchOp o1) (patchOp o2)
+   LDRU f o1 o2 -> LDRU f (patchOp o1) (patchOp o2)
+   FENCE o1 o2 -> FENCE o1 o2
+-  FCVT variant o1 o2 -> FCVT variant (patchOp o1) (patchOp o2)
++  FCVT variant o1 o2 rm -> FCVT variant (patchOp o1) (patchOp o2) rm
+   FABS o1 o2 -> FABS (patchOp o1) (patchOp o2)
+   FMIN o1 o2 o3 -> FMIN (patchOp o1) (patchOp o2) (patchOp o3)
+   FMAX o1 o2 o3 -> FMAX (patchOp o1) (patchOp o2) (patchOp o3)
+@@ -613,7 +613,7 @@ data Instr
+     -- Memory barrier.
+     FENCE FenceType FenceType
+   | -- | Floating point conversion
+-    FCVT FcvtVariant Operand Operand
++    FCVT FcvtVariant Operand Operand RoundingMode
+   | -- | Floating point ABSolute value
+     FABS Operand Operand
+ 
+@@ -637,6 +637,21 @@ data FenceType = FenceRead | FenceWrite | FenceReadWrite
+ -- | Variant of a floating point conversion instruction
+ data FcvtVariant = FloatToFloat | IntToFloat | FloatToInt
+ 
++-- | The rounding mode associated with an instruction
++data RoundingMode
++  = -- | Round to nearest, ties to even
++    Rne
++  | -- | Round toward zero
++    Rtz
++  | -- | Round downward (toward negative infinity)
++    Rdn
++  | -- | Round upward (toward positive infinity)
++    Rup
++  | -- | Round to nearest, ties to max magnitude
++    Rmm
++  | -- | Dynamic rounding mode
++    Dyn
++
+ instrCon :: Instr -> String
+ instrCon i =
+   case i of
+diff --git a/compiler/GHC/CmmToAsm/RV64/Ppr.hs b/compiler/GHC/CmmToAsm/RV64/Ppr.hs
+index f57de339b3e..5879cee6df9 100644
+--- a/compiler/GHC/CmmToAsm/RV64/Ppr.hs
++++ b/compiler/GHC/CmmToAsm/RV64/Ppr.hs
+@@ -406,6 +406,17 @@ pprReg w r = case r of
+       -- no support for widths > W64.
+       | otherwise = pprPanic "Unsupported width in register (max is 64)" (ppr w <+> int i)
+ 
++-- | Pretty print a rounding mode
++--
++-- If the rounding mode is omitted, 'dyn' will be used.
++pprRm :: IsLine doc => RoundingMode -> doc
++pprRm Rne = text "rne"
++pprRm Rtz = text "rtz"
++pprRm Rdn = text "rdn"
++pprRm Rup = text "rup"
++pprRm Rmm = text "rmm"
++pprRm Dyn = text "dyn"
++
+ -- | Single precission `Operand` (floating-point)
+ isSingleOp :: Operand -> Bool
+ isSingleOp (OpReg W32 _) = True
+@@ -643,25 +654,26 @@ pprInstr platform instr = case instr of
+   LDRU FF64 o1 o2@(OpAddr (AddrRegImm _ _)) -> op2 (text "\tfld") o1 o2
+   LDRU f o1 o2 -> pprPanic "Unsupported unsigned load" ((text . show) f <+> pprOp platform o1 <+> pprOp platform o2)
+   FENCE r w -> line $ text "\tfence" <+> pprFenceType r <> char ',' <+> pprFenceType w
+-  FCVT FloatToFloat o1@(OpReg W32 _) o2@(OpReg W64 _) -> op2 (text "\tfcvt.s.d") o1 o2
+-  FCVT FloatToFloat o1@(OpReg W64 _) o2@(OpReg W32 _) -> op2 (text "\tfcvt.d.s") o1 o2
+-  FCVT FloatToFloat o1 o2 ->
++  FCVT FloatToFloat o1@(OpReg W32 _) o2@(OpReg W64 _) rm -> op2rm (text "\tfcvt.s.d") o1 o2 rm
++  -- The assembler seems to be unhappy with explicit rounding mode on fcvt.d.s
++  FCVT FloatToFloat o1@(OpReg W64 _) o2@(OpReg W32 _) _rm -> op2 (text "\tfcvt.d.s") o1 o2
++  FCVT FloatToFloat o1 o2 rm ->
+     pprPanic "RV64.pprInstr - impossible float to float conversion"
+-      $ line (pprOp platform o1 <> text "->" <> pprOp platform o2)
+-  FCVT IntToFloat o1@(OpReg W32 _) o2@(OpReg W32 _) -> op2 (text "\tfcvt.s.w") o1 o2
+-  FCVT IntToFloat o1@(OpReg W32 _) o2@(OpReg W64 _) -> op2 (text "\tfcvt.s.l") o1 o2
+-  FCVT IntToFloat o1@(OpReg W64 _) o2@(OpReg W32 _) -> op2 (text "\tfcvt.d.w") o1 o2
+-  FCVT IntToFloat o1@(OpReg W64 _) o2@(OpReg W64 _) -> op2 (text "\tfcvt.d.l") o1 o2
+-  FCVT IntToFloat o1 o2 ->
++      $ line (pprOp platform o1 <> text "->" <> pprOp platform o2 <> text "," <> pprRm rm)
++  FCVT IntToFloat o1@(OpReg W32 _) o2@(OpReg W32 _) rm -> op2rm (text "\tfcvt.s.w") o1 o2 rm
++  FCVT IntToFloat o1@(OpReg W32 _) o2@(OpReg W64 _) rm -> op2rm (text "\tfcvt.s.l") o1 o2 rm
++  FCVT IntToFloat o1@(OpReg W64 _) o2@(OpReg W32 _) rm -> op2rm (text "\tfcvt.d.w") o1 o2 rm
++  FCVT IntToFloat o1@(OpReg W64 _) o2@(OpReg W64 _) rm -> op2rm (text "\tfcvt.d.l") o1 o2 rm
++  FCVT IntToFloat o1 o2 rm ->
+     pprPanic "RV64.pprInstr - impossible integer to float conversion"
+-      $ line (pprOp platform o1 <> text "->" <> pprOp platform o2)
+-  FCVT FloatToInt o1@(OpReg W32 _) o2@(OpReg W32 _) -> op2 (text "\tfcvt.w.s") o1 o2
+-  FCVT FloatToInt o1@(OpReg W32 _) o2@(OpReg W64 _) -> op2 (text "\tfcvt.w.d") o1 o2
+-  FCVT FloatToInt o1@(OpReg W64 _) o2@(OpReg W32 _) -> op2 (text "\tfcvt.l.s") o1 o2
+-  FCVT FloatToInt o1@(OpReg W64 _) o2@(OpReg W64 _) -> op2 (text "\tfcvt.l.d") o1 o2
+-  FCVT FloatToInt o1 o2 ->
++      $ line (pprOp platform o1 <> text "->" <> pprOp platform o2 <> text "," <> pprRm rm)
++  FCVT FloatToInt o1@(OpReg W32 _) o2@(OpReg W32 _) rm -> op2rm (text "\tfcvt.w.s") o1 o2 rm
++  FCVT FloatToInt o1@(OpReg W32 _) o2@(OpReg W64 _) rm -> op2rm (text "\tfcvt.w.d") o1 o2 rm
++  FCVT FloatToInt o1@(OpReg W64 _) o2@(OpReg W32 _) rm -> op2rm (text "\tfcvt.l.s") o1 o2 rm
++  FCVT FloatToInt o1@(OpReg W64 _) o2@(OpReg W64 _) rm -> op2rm (text "\tfcvt.l.d") o1 o2 rm
++  FCVT FloatToInt o1 o2 rm ->
+     pprPanic "RV64.pprInstr - impossible float to integer conversion"
+-      $ line (pprOp platform o1 <> text "->" <> pprOp platform o2)
++      $ line (pprOp platform o1 <> text "->" <> pprOp platform o2 <> text "," <> pprRm rm)
+   FABS o1 o2 | isSingleOp o2 -> op2 (text "\tfabs.s") o1 o2
+   FABS o1 o2 | isDoubleOp o2 -> op2 (text "\tfabs.d") o1 o2
+   FMIN o1 o2 o3 | isSingleOp o1 -> op3 (text "\tfmin.s") o1 o2 o3
+@@ -678,6 +690,8 @@ pprInstr platform instr = case instr of
+   instr -> panic $ "RV64.pprInstr - Unknown instruction: " ++ instrCon instr
+   where
+     op2 op o1 o2 = line $ op <+> pprOp platform o1 <> comma <+> pprOp platform o2
++    op2rm op o1 o2 Dyn = line $ op <+> pprOp platform o1 <> comma <+> pprOp platform o2
++    op2rm op o1 o2 rm = line $ op <+> pprOp platform o1 <> comma <+> pprOp platform o2 <> comma <+> pprRm rm
+     op3 op o1 o2 o3 = line $ op <+> pprOp platform o1 <> comma <+> pprOp platform o2 <> comma <+> pprOp platform o3
+     op4 op o1 o2 o3 o4 = line $ op <+> pprOp platform o1 <> comma <+> pprOp platform o2 <> comma <+> pprOp platform o3 <> comma <+> pprOp platform o4
+     pprFenceType FenceRead = text "r"
+-- 
+GitLab
+
