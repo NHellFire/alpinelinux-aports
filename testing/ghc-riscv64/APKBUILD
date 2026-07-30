@@ -36,7 +36,7 @@ license="BSD-3-Clause"
 depends="gmp-dev libffi-dev perl gcc>=6.2.1 llvm$_llvmver clang$_clangver"
 # ghc is self-hosted, so we need ghc to build ghc. ghc-bootstrap is provided by
 # this aport (see below).
-makedepends_build="autoconf automake binutils libffi-dev ncurses-dev xz coreutils grep git"
+makedepends_build="autoconf automake binutils libffi-dev ncurses-dev xz coreutils grep git python3"
 makedepends_host="linux-headers musl-dev zlib-dev gmp-dev binutils-dev
 	libffi-dev ncurses-dev"
 makedepends="$makedepends_build $makedepends_host"
